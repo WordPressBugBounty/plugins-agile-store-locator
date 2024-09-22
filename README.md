@@ -1,0 +1,1 @@
+# plugins-agile-store-locator
