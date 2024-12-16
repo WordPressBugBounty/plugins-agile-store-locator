@@ -59,9 +59,10 @@ class Helper {
     $adv_mkrs = [
       ['label'    => esc_attr__('Circle'),      'value' => 'circle',    'disable' => false],
       ['label'    => esc_attr__('Tag'),         'value' => 'tag',       'disable' => false],
-      ['label'    => esc_attr__('Rectangle (Pro)'),   'value' => 'rect',      'disable' => true],
-      ['label'    => esc_attr__('Marker 1 (Pro)'),    'value' => 'marker',    'disable' => true],
-      ['label'    => esc_attr__('Marker 2 (Pro)'),    'value' => 'marker1',   'disable' => true]
+      ['label'    => esc_attr__('Rectangle'),   'value' => 'rect',      'disable' => false],
+      ['label'    => esc_attr__('Marker 1'),    'value' => 'marker',    'disable' => false],
+      ['label'    => esc_attr__('Marker 2'),    'value' => 'marker1',   'disable' => false],
+      ['label'    => esc_attr__('Marker 3'),    'value' => 'marker3',   'disable' => false]
     ];
 
     return $adv_mkrs;
@@ -102,6 +103,8 @@ class Helper {
       'template-1'      => ['label' => esc_attr__('Template 1 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
       'template-2'      => ['label' => esc_attr__('Template 2 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
       'template-3'      => ['label' => esc_attr__('Template 3 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
+      'template-3'      => ['label' => esc_attr__('Template 4 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
+      'template-3'      => ['label' => esc_attr__('Template 5 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
       'store-grid'      => ['label' => esc_attr__('Template Grid (Pro)'), 'options'   => $tmpl_options, 'disable' => true],
       'template-list'   => ['label' => esc_attr__('Template List (Pro)'), 'options'   => $list_tmp_opts, 'disable' => true]
     ];
@@ -1153,7 +1156,7 @@ class Helper {
     $am_str = asl_esc_lbl( 'am' );
     $pm_str = asl_esc_lbl( 'pm' );
 
-    $days_str    = array('sun'=> esc_attr__( 'Sun','asl_locator'), 'mon'=> esc_attr__('Mon','asl_locator'), 'tue'=>  esc_attr__( 'Tues','asl_locator'), 'wed'=>  esc_attr__( 'Wed','asl_locator' ), 'thu'=> esc_attr__( 'Thur','asl_locator'), 'fri'=> esc_attr__( 'Fri','asl_locator' ), 'sat'=> esc_attr__( 'Sat','asl_locator'));
+    $days_str    = array('sun'=> asl_esc_lbl('sun'), 'mon'=> asl_esc_lbl('mon'), 'tue'=> asl_esc_lbl('tue'), 'wed'=> asl_esc_lbl('wed'),'thu'=> asl_esc_lbl('thu'), 'fri'=> asl_esc_lbl('fri'), 'sat'=> asl_esc_lbl('sat'));
 
     $grouped     = ($format && $format == '2')? true: false;
 

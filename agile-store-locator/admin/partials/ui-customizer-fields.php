@@ -83,7 +83,7 @@ $button_font  = isset($fields->$attr_key) ? $fields->$attr_key : $default_fonts[
     url: '<?php echo ASL_UPLOAD_URL ?>',
     plugin_url: '<?php echo ASL_URL_PATH ?>'
    },
-   asl_configs =  <?php echo json_encode($all_configs); ?>;
+   asl_configs =  <?php echo wp_json_encode($all_configs); ?>;
    window.addEventListener("load", function() {
    asl_engine.pages.user_setting(asl_configs);
    });

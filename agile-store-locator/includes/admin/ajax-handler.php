@@ -58,7 +58,10 @@ class AjaxHandler {
     $this->register_route('get_categories', 'Category', 'get_categories');  
     
 
+    
     //  Settings
+    $this->register_route('export_configs', 'Setting', 'export_configs');
+    $this->register_route('import_configs', 'Setting', 'import_configs');
     $this->register_route('save_setting', 'Setting', 'save_setting');
     $this->register_route('load_custom_template', 'Setting', 'load_custom_template');
     $this->register_route('save_custom_template', 'Setting', 'save_custom_template');

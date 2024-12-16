@@ -184,7 +184,7 @@ class Slug {
       
       if (isset($store_details->description) && $store_details->description) {
         
-        \AgileStoreLocator\Helper::add_content_to_head( '<meta name="description" content="' . $store_details->description . '">' . PHP_EOL );
+        \AgileStoreLocator\Helper::add_content_to_head( '<meta name="description" content="' . strip_tags($store_details->description) . '">' . PHP_EOL );
       }
     }
   }

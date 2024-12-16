@@ -2191,15 +2191,30 @@ var asl_engine = window['asl_engine'] || {};
       
       wp.codeEditor.initialize($('#sl-custom-template-textarea'), null);
 
+      var $section_tmpl_select = $('#asl-customize-section'),
+          $template_select     = $('#asl-customize-template');
+
       //  Template List doesn't have Infobox
-      $('#asl-customize-template').bind('change', function(e) {
+      $template_select.bind('change', function(e) {
 
-        if(e.target.value == 'template-list') {
-          $('#asl-customize-section option').eq(1).attr('disabled','');
+        var customizer_options = ASL_Instance.tmpls[e.target.value];
+          
+        //  Clear old values
+        $section_tmpl_select.empty();
+
+        if(customizer_options) {
+
+          $.each(customizer_options.options, function(index, option) {
+            
+            const $optionElement = $("<option>").val(option.value).text(option.label);
+
+            if (option.disable) {
+              $optionElement.prop("disabled", true);
+            }
+
+            $section_tmpl_select.append($optionElement);
+          });
         }
-        else
-          $('#asl-customize-section option').eq(1).removeAttr('disabled');
-
       });
 
       //  Load Template button Event
@@ -2319,6 +2334,24 @@ var asl_engine = window['asl_engine'] || {};
         set_tmpl_image();
 
       });
+
+      // Hide the Map Styling Section when Google Advanced Marker dropdown is empty
+      var $legacy_map_section = $('#asl-map-legacy-section');
+
+      // Hide the map styling section if the advanced marker is set
+      function hide_legacy_map_section() {
+
+        if ($('#asl-advanced_marker').val() != '') {
+          $legacy_map_section.addClass('asl-adv-mkr-enabled');
+        }
+        else {
+          $legacy_map_section.removeClass('asl-adv-mkr-enabled');
+        }
+      }
+
+      $('#asl-advanced_marker').bind('change', hide_legacy_map_section);
+
+      hide_legacy_map_section();
 
       ////////////////////////////////////////
       // Code for the Additional attributes //
@@ -2484,6 +2517,108 @@ var asl_engine = window['asl_engine'] || {};
         }
 
         video.load();
+      });
+
+       ////////////////////////////
+      // Export/Import Settings //
+      ////////////////////////////
+
+      // Export Config Event
+      $('#asl-btn-export-config').bind('click', function(e){
+
+        var $btn = $(this);
+
+        $btn.bootButton('loading');
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=export_configs', {}, function(_response) {
+
+          $btn.bootButton('reset');
+
+          var config_text = JSON.stringify(_response.configs);
+
+          aswal({
+            title: ASL_REMOTE.LANG.export_config || 'Exported Configuration',
+            html: '<span class="asl-red">' + _response.export_text_content + '</span>'+ '<textarea id="asl-export-config-textarea" rows="10" style="width:100%" readonly="true">' + config_text + '</textarea>',
+            showCancelButton: true,
+            confirmButtonText: ASL_REMOTE.LANG.copy || 'Copy',
+            cancelButtonText: ASL_REMOTE.LANG.close || 'Close',
+            showLoaderOnConfirm: true,
+            preConfirm: function(_value) {
+  
+              return new Promise(function(resolve, reject) {
+
+                // Copy JSON text to clipboard
+                var jsonTextarea = document.getElementById('asl-export-config-textarea');
+                jsonTextarea.select();
+                var result = document.execCommand('copy');
+
+                if(result) {
+                  toastIt({success: true, message: _response.copy_message});
+                }
+
+                resolve();
+
+              })
+            }
+          })
+          .catch(aswal.noop);
+
+        }, 'json');
+      });
+
+      // Import Config Event
+      $('#asl-btn-import-config').bind('click', function(e){
+
+        aswal({
+          type: 'warning',
+          input: "textarea",
+          html: '<span class="asl-red">' + ASL_REMOTE.LANG.import_config_warn + '</span>',
+          title: ASL_REMOTE.LANG.import_config || 'Import Configuration',
+          inputPlaceholder: ASL_REMOTE.LANG.paste_config_ph,
+          inputAttributes: {
+            "aria-label": ASL_REMOTE.LANG.paste_config_ph
+          },
+          confirmButtonText: ASL_REMOTE.LANG.import || 'Import',
+          showCancelButton: true,
+          confirmButtonColor: "#dc3545",        
+          showLoaderOnConfirm: true,
+          preConfirm: function(_value) {
+  
+            return new Promise(function(resolve, reject) {
+
+              if(!_value) {
+
+                  aswal.showValidationError(ASL_REMOTE.LANG.error_try_again);
+                  reject();
+                  return false;
+              }
+
+              //  Save the configuration
+              ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=import_configs', {configs: _value}, function(_response) {
+
+                if (!_response.success) {
+
+                  aswal.showValidationError(_response.message);
+                  reject();
+                  return false;
+                }
+                else {
+
+                  toastIt(_response);
+
+                  //  Refresh to reload
+                  window.location.replace(ASL_REMOTE.URL.replace('-ajax', '') + "?page=asl-settings");
+
+                  reject();
+                  return true;
+                }
+              });
+
+            })
+          }
+        })
+        .catch(aswal.noop);
+      
       });
     },
     /**

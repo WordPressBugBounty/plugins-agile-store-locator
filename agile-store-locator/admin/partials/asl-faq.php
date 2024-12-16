@@ -161,7 +161,7 @@ $faq_links = array(
                       <div class="alert alert-light" role="alert">
                          <p class="text-muted">If you have any problem with the plugin or suggestion, please email us at <a  href="mailto:support@agilelogix.com">support@agilelogix.com</a> We will respond as soon as possible to resolve your problem, please include ("Store Locator" in the Subject) to avoid the spam list.</p>
                          <div class="d-flex align-items-center">
-                            <a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/reviews/16973546">If you like our Plugin, please rate us 5 stars.</a>
+                            <a target="_blank" href="https://wordpress.org/support/plugin/agile-store-locator/reviews/#new-post">If you like our Plugin, please rate us 5 stars.</a>
                             <ul class="reviews-stars d-flex p-0 ml-2 mb-0">
                                <li class="mb-0"><span class="dashicons dashicons-star-filled"></span></li>
                                <li class="mb-0"><span class="dashicons dashicons-star-filled"></span></li>

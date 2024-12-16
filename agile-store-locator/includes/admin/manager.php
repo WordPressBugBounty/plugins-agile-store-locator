@@ -207,7 +207,14 @@ class Manager extends Base {
       'pur_title'             => esc_attr__('PLEASE VALIDATE PURCHASE CODE!','asl_locator'),
       'pur_text'              => __('Thank you for purchasing <b>Store Locator for WordPress</b> Plugin, kindly enter your purchase code to unlock the page. <a target="_blank" href="https://agilestorelocator.com/wiki/store-locator-purchase-code/">How to Get Your Purchase Code</a>.','asl_locator'),
       'api_key_missing'       => __('Error! Search and Map will not work due to missing API Key','asl_locator'),
-      'warn_save_setting'     => __('Save Settings to apply the changes','asl_locator')
+      'warn_save_setting'     => __('Save Settings to apply the changes','asl_locator'),
+      'close'                 => __('Close','asl_locator'),
+      'copy'                  => __('Copy','asl_locator'),
+      'import'                => __('Import','asl_locator'),
+      'import_config'         => __('Import Configuration & Settings','asl_locator'),
+      'paste_config_ph'       => __('Paste Configuration JSON','asl_locator'),
+      'import_config_warn'    => __('Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!','asl_locator'),
+      'export_config'         => __('Export Configuration','asl_locator')
     );
 
     wp_enqueue_script( 'asl-bootstrap');

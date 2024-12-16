@@ -181,7 +181,7 @@
 <!-- SCRIPTS -->
 <script type="text/javascript">
   // All config data
-  var asl_configs = <?php echo json_encode($all_configs); ?>;
+  var asl_configs = <?php echo wp_json_encode($all_configs); ?>;
 
   var ASL_Instance = {
     manage_stores_url: '<?php echo admin_url() . 'admin.php?page=edit-agile-store&store_id=' ?>',

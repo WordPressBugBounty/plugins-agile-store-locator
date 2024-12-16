@@ -71,6 +71,12 @@ body .asl-p-cont .smodal .input-group-text,body .asl-p-cont .asl-all-day-times .
   height: 250px;
   padding: 12px;
 }
+
+#asl-map-legacy-section .map_layout {display: inherit;}
+#asl-map-legacy-section .adv-mkr-section {display: none;}
+#asl-map-legacy-section.asl-adv-mkr-enabled .map_layout {display: none;}
+#asl-map-legacy-section.asl-adv-mkr-enabled .adv-mkr-section {display: block;}
+
 .asl-p-cont .no-shade-focus:focus {box-shadow: none !important;}
 .pac-container {z-index: 9999;}
 .asl-p-cont .placeholder h4 {color: #FFF;text-align: center;}

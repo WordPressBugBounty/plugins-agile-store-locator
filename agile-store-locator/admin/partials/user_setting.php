@@ -3,11 +3,11 @@
 
 $level_mode = \AgileStoreLocator\Helper::expertise_level();
 //	simple level
-if($level_mode == '1'): ?>
+if($level_mode == '1'){ ?>
 <style type="text/css">
 	.sl-complx {display: none;}
 </style>
-<?php endif; ?>
+<?php } ?>
 <div class="asl-p-cont asl-new-bg">
 	<div class="hide">
 		<svg xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +35,16 @@ if($level_mode == '1'): ?>
 		<div class="row asl-setting-cont">
 			<div class="col-md-12">
 			  <div class="asl-tabs p-0 mb-4 mt-4">
-			     <h3 class="asl-tabs-title"><?php echo esc_attr__('ASL Settings (Version - ','asl_locator').ASL_CVERSION ?>)</h3>
+				<h3 class="asl-tabs-title">
+					<div class="row">
+						<div class="col-md-8">
+							<span class="mb-2 mt-2 d-block"><?php echo esc_attr__('ASL Settings (Lite Version - ','asl_locator').ASL_CVERSION ?>)</span>
+						</div>
+						<div class="col-md-4 text-right">
+							<a id="asl-btn-export-config" data-loading-text="Exporting..." class="btn btn-warning btn-sm mr-md-2"><?php echo esc_attr__('Export Settings','asl_locator') ?></a><a id="asl-btn-import-config" class="btn btn-danger btn-sm"><?php echo esc_attr__('Import Settings','asl_locator') ?></a>
+						</div>
+					</div>   
+				</h3>
 			     <div class="asl-tabs-body">
 			     	<div class="col-12">
 							<?php 
@@ -62,7 +71,7 @@ if($level_mode == '1'): ?>
 			        	<div class="tab-content">
 		              <div id="sl-gen-tab" class="tab-pane in active">
 		              	<div class="row mt-2">
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 				                <div class="form-group d-lg-flex d-md-block">
 				                  <label class="custom-control-label" for="asl-api_key"><?php echo esc_attr__('Google API KEY','asl_locator') ?></label>
 				                  <div class="form-group-inner">
@@ -71,7 +80,7 @@ if($level_mode == '1'): ?>
 				                  </div>
 				                </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-server_key"><?php echo esc_attr__('Google Server API Key','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -80,7 +89,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-default_lat"><?php echo esc_attr__('Default Coordinates','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -93,7 +102,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="search_type"><?php echo esc_attr__('Search Type','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -107,7 +116,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-direction_redirect"><?php echo esc_attr__('Store Direction','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -120,7 +129,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="prompt_location"><?php echo esc_attr__('Geolocation','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -135,7 +144,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="sort_by"><?php echo esc_attr__('Sort List','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -151,7 +160,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="stores_limit"><?php echo esc_attr__('Stores Limit','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -160,7 +169,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-distance_control"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
 			                    <div>
@@ -174,7 +183,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-distance_unit"><?php echo esc_attr__('Distance Unit','asl_locator') ?></label>
 			                    <div>
@@ -188,7 +197,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="geo_button"><?php echo esc_attr__('Search Button Type','asl_locator') ?></label>
 			                    <div>
@@ -202,7 +211,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="load_all"><?php echo esc_attr__('Marker Load','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -216,7 +225,7 @@ if($level_mode == '1'): ?>
 			                  </div>
 			                </div>
 			                
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-country_restrict"><?php echo esc_attr__('Restrict Search','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -226,7 +235,7 @@ if($level_mode == '1'): ?>
 			                  </div>
 			                </div>
 
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-first_load"><?php echo esc_attr__('List Load','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -241,7 +250,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-sort_by_bound"><?php echo esc_attr__('Sort By Bound','asl_locator') ?></label>
 	                        	<div class="form-group-inner">
@@ -250,7 +259,7 @@ if($level_mode == '1'): ?>
 	                        	</div>
 	                      </div>
                       </div>
-                       <div class="col-md-6 col-sm-6 col-12 mb-5">
+                       <div class="col-md-12 col-lg-6 col-12 mb-5">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-target_blank"><?php echo esc_attr__('Open Link New Tab','asl_locator') ?></label>
 	                        	<div class="form-group-inner">
@@ -258,7 +267,7 @@ if($level_mode == '1'): ?>
 	                        	</div>
 	                      </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-geo_marker"><?php echo esc_attr__('Geo-Location Marker','asl_locator') ?></label>
 	                        	<div class="form-group-inner">
@@ -267,7 +276,7 @@ if($level_mode == '1'): ?>
 	                        	</div>
 	                      </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-sort_random"><?php echo esc_attr__('Sort Random','asl_locator') ?></label>
 		                        <div class="form-group-inner">
@@ -276,7 +285,7 @@ if($level_mode == '1'): ?>
 		                        </div>
 	                      </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 											  <div class="form-group d-lg-flex d-md-block">
 											    <label class="custom-control-label" for="asl-gdpr"><?php echo esc_attr__('GDPR','asl_locator') ?></label>
 											    <div>
@@ -299,7 +308,7 @@ if($level_mode == '1'): ?>
                       	<hr>
                       	<p class="text-center"><a class="pro-opt-switch"><?php echo esc_attr__('View Options','asl_locator') ?></a><a class="pro-opt-switch"><?php echo esc_attr__('Hide Options','asl_locator') ?></a></p>
 	                      <div class="row sl-pro-opts">
-					                <div class="col-md-6 col-sm-6 col-12 mb-5">
+					                <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="search_destin"><?php echo esc_attr__('Search Result','asl_locator') ?></label>
 					                    <div class="form-group-inner">
@@ -311,7 +320,7 @@ if($level_mode == '1'): ?>
 					                    </div>
 					                  </div>
 					                </div>
-					                <div class="col-md-6 col-sm-6 col-12 mb-5">
+					                <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" class="custom-control-label" for="asl-google_search_type"><?php echo esc_attr__('Search Field','asl_locator') ?></label>
 					                    <div class="form-group-inner">
@@ -326,7 +335,7 @@ if($level_mode == '1'): ?>
 					                    </div>
 					                  </div>
 					                </div>
-					                <div class="col-md-6 col-sm-6 col-12 mb-5">
+					                <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="asl-dropdown_range"><?php echo esc_attr__('Distance Options','asl_locator') ?></label>
 					                    <div class="form-group-inner">
@@ -335,7 +344,7 @@ if($level_mode == '1'): ?>
 					                    </div>
 					                  </div>
 					                </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="single_cat_select"><?php echo esc_attr__('Category Select','asl_locator') ?></label>
 					                    <div>
@@ -349,7 +358,7 @@ if($level_mode == '1'): ?>
 		                          </div>
 					                  </div>
 					                </div>
-					                <div class="col-md-6 col-sm-6 col-12 mb-5">
+					                <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="asl-distance_controler-1"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
 					                    <div>
@@ -363,7 +372,7 @@ if($level_mode == '1'): ?>
 		                          </div>
 					                  </div>
 					                </div>
-					                <div class="col-md-6 col-sm-6 col-12 mb-5">
+					                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-advance_filter"><?php echo esc_attr__('Advance Filter','asl_locator') ?></label>
 			                        	<div class="form-group-inner">
@@ -372,7 +381,7 @@ if($level_mode == '1'): ?>
 			                        	</div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-time_switch"><?php echo esc_attr__('Time Switch','asl_locator') ?></label>
 			                        	<div class="form-group-inner">
@@ -381,7 +390,7 @@ if($level_mode == '1'): ?>
 			                        	</div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="asl-cat_in_grid"><?php echo esc_attr__('Reduce Query (Admin)','asl_locator') ?></label>
 					                    <div class="form-group-inner">
@@ -390,7 +399,7 @@ if($level_mode == '1'): ?>
 			                          </div>
 					                  </div>
 					                </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-distance_slider"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -398,7 +407,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-analytics"><?php echo esc_attr__('Analytics','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -406,7 +415,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-radius_circle"><?php echo esc_attr__('Radius Circle','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -415,7 +424,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                        <label class="custom-control-label" for="asl-user_center"><?php echo esc_attr__('Default Location Center','asl_locator') ?></label>
 			                        <div class="form-group-inner">
@@ -424,7 +433,7 @@ if($level_mode == '1'): ?>
 			                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-remove_maps_script"><?php echo esc_attr__('Remove Other Maps Scripts','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -433,7 +442,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-and_filter"><?php echo esc_attr__('AND Filter','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -442,7 +451,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-category_marker"><?php echo esc_attr__('Category Marker','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -451,7 +460,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-category_bound"><?php echo esc_attr__('Category Bound','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -460,7 +469,7 @@ if($level_mode == '1'): ?>
 				                        </div>
 			                      </div>
 		                      </div>
-		                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+		                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                      <div class="form-group d-lg-flex d-md-block">
 			                          <label class="custom-control-label" for="asl-locale"><?php echo esc_attr__('Data WPML','asl_locator') ?></label>
 				                        <div class="form-group-inner">
@@ -476,7 +485,7 @@ if($level_mode == '1'): ?>
 		              </div>
 		              <div id="maps-tab" class="tab-pane">
 		              	<div class="row">
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-map_type"><?php echo esc_attr__('Default Map','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -489,7 +498,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-zoom"><?php echo esc_attr__('Default Zoom','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -502,7 +511,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-zoom_li"><?php echo esc_attr__('Clicked Zoom','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -515,7 +524,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-search_zoom"><?php echo esc_attr__('Search Zoom','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -529,7 +538,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label"  for="asl-map_region"><?php echo esc_attr__('Map Region','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -542,7 +551,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-map_language"><?php echo esc_attr__('Map Language','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -551,7 +560,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                	<div class="form-group d-lg-flex d-md-block">
 												  <label class="custom-control-label" for="asl-cluster"><?php echo esc_attr__('Cluster','asl_locator') ?></label>
 												  <div class="form-group-inner">
@@ -564,7 +573,7 @@ if($level_mode == '1'): ?>
 												  </div>
 												</div>
 			                </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5">
                          <div class="form-group d-lg-flex d-md-block">
                             <label class="custom-control-label" for="asl-advanced_marker"><?php echo esc_attr__('Advanced Markers','asl_locator') ?></label>
                             <div class="form-group-inner">
@@ -593,7 +602,7 @@ if($level_mode == '1'): ?>
                             </div>
                          </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-scroll_wheel"><?php echo esc_attr__('Mouse Scroll','asl_locator') ?></label>
 	                        	<div class="form-group-inner">
@@ -602,8 +611,8 @@ if($level_mode == '1'): ?>
 	                      </div>
                       </div>
                     </div>
-                    <div class="row">
-			          			<div class="col-md-12 form-group mb-3 map_layout">
+                    <div class="row" id="asl-map-legacy-section">
+			          		<div class="col-md-12 form-group mb-3 map_layout">
 										    <label class="custom-control-label" for="asl-map_layout"><?php echo esc_attr__('Map Layouts','asl_locator') ?></label>
 										    <div class="row">
 										    	<div class="col-md-6 a-radio-select">
@@ -618,7 +627,7 @@ if($level_mode == '1'): ?>
 											      <input type="radio" id="asl-map_layout-8" value="8" name="data[map_layout]"><label for="asl-map_layout-8"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/unsaturated browns/70-unsaturated-browns.png" /></label>
 											      <input type="radio" id="asl-map_layout-9" value="9" name="data[map_layout]"><label for="asl-map_layout-9"><span class="actv"></span><span class="ml-custom"><b><?php echo esc_attr__('Custom','asl_locator') ?></b></span></label>
 											    </div>
-											    <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+											    <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="asl-map_layout_custom"><?php echo esc_attr__('Map Custom','asl_locator') ?></label>
 					                    <div class="form-group-inner">
@@ -627,13 +636,22 @@ if($level_mode == '1'): ?>
 					                    </div>
 					                  </div>
 					                </div>
-										    </div>
-										  </div>
-			          		</div>
+								</div>
+							</div>
+							
+							<div class="adv-mkr-section col-12 mb-5">
+								  <div class="alert alert-info w-100p" role="alert">
+									<?php echo esc_attr__('Google Advanced Marker is enabled, so the legacy styling will not work. Google Maps can be styled through Google Cloud Console, follow the guide link about','asl_locator'); ?>
+									<a href="https://agilestorelocator.com/wiki/google-map-styles/" target="_blank"><?php echo esc_attr__('how to style the Google Maps with Advanced Markers?','asl_locator'); ?></a>
+								  </div>
+							</div>
+
+
+			          	</div>
 		              </div>
 		              <div id="sl-ui-tab" class="tab-pane">
 		              	<div class="row mt-2">
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-map_top"><?php echo esc_attr__('Map & List Order','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -644,7 +662,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-additional_info"><?php echo esc_attr__('Description','asl_locator') ?></label>
 			                    <div>
@@ -661,7 +679,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-full_height"><?php echo esc_attr__('Full Height','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -673,7 +691,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-full_width"><?php echo esc_attr__('Full Width','asl_locator') ?></label>
 		                        <div class="form-group-inner">
@@ -682,7 +700,7 @@ if($level_mode == '1'): ?>
 		                        </div>
 	                      </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="week_hours"><?php echo esc_attr__('Hours Format','asl_locator') ?></label>
 			                    <div>
@@ -699,7 +717,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-time_format"><?php echo esc_attr__('Time Format','asl_locator') ?></label>
 			                    <div>
@@ -713,7 +731,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-show_categories"><?php echo esc_attr__('Show Categories','asl_locator') ?></label>
 	                          <div class="form-group-inner">
@@ -721,7 +739,7 @@ if($level_mode == '1'): ?>
 	                          </div>
 	                      </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-direction_btn"><?php echo esc_attr__('Direction Button','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -730,7 +748,7 @@ if($level_mode == '1'): ?>
 	                          </div>
 			                  </div>
 			                </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-hide_hours"><?php echo esc_attr__('Hide Hours','asl_locator') ?></label>
 	                          <div class="form-group-inner">
@@ -738,7 +756,7 @@ if($level_mode == '1'): ?>
 	                          </div>
 	                      </div>
                       </div>
-                      <div class="col-md-6 col-sm-6 col-12 mb-5">
+                      <div class="col-md-12 col-lg-6 col-12 mb-5">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-slug_link"><?php echo esc_attr__('Website Link','asl_locator') ?></label>
 	                          <div class="form-group-inner">
@@ -746,7 +764,7 @@ if($level_mode == '1'): ?>
 	                          </div>
 	                      </div>
                       </div>
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-display_list"><?php echo esc_attr__('Display List','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -754,7 +772,7 @@ if($level_mode == '1'): ?>
 	                        </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-print_btn"><?php echo esc_attr__('Print Button','asl_locator') ?></label>
 		                        <div class="form-group-inner">
@@ -772,7 +790,7 @@ if($level_mode == '1'): ?>
 	                      <div class="row sl-pro-opts">
 	                      	<div class="col-12">
 	                      		<div class="row mb-4">
-	                      			<div class="col-md-6 col-sm-6 col-12 mb-5">
+	                      			<div class="col-md-12 col-lg-6 col-12 mb-5">
 															  <div class="form-group d-lg-flex d-md-block">
 															    <label class="custom-control-label" for="asl-tabs_layout"><?php echo esc_attr__('Tabs Layout','asl_locator') ?></label>
 															    <div>
@@ -785,7 +803,7 @@ if($level_mode == '1'): ?>
 															    </div>
 															  </div>
 															</div>
-						              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+						              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 					                      <div class="form-group d-lg-flex d-md-block">
 					                          <label class="custom-control-label" for="asl-hide_logo"><?php echo esc_attr__('Hide Logo','asl_locator') ?></label>
 					                          <div class="form-group-inner">
@@ -898,7 +916,7 @@ if($level_mode == '1'): ?>
 		              </div>
 		              <div id="sl-detail" class="tab-pane">
 		              	<div class="row mt-2">
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-link_type"><?php echo esc_attr__('Website Link Type','asl_locator') ?></label>
 			                    <div>
@@ -912,7 +930,7 @@ if($level_mode == '1'): ?>
                           </div>
 			                  </div>
 			                </div>
-			                <div class="col-md-6 col-sm-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-store_schema"><?php echo esc_attr__('Store JSON-LD','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -921,7 +939,7 @@ if($level_mode == '1'): ?>
 	                        </div>
 			                  </div>
 			                </div>
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-rewrite_slug"><?php echo esc_attr__('Store Page Slug','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -941,7 +959,7 @@ if($level_mode == '1'): ?>
 		              </div>
 		              <div id="sl-register" class="tab-pane">
 		              	<div class="row mt-2">
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-notify_email"><?php echo esc_attr__('Notification Email','asl_locator') ?></label>
 			                    <div class="form-group-inner">
@@ -950,7 +968,7 @@ if($level_mode == '1'): ?>
 			                    </div>
 			                  </div>
 			                </div>
-		              		<div class="col-md-6 col-sm-6 col-12 mb-5">
+		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
 	                      <div class="form-group d-lg-flex d-md-block">
 	                          <label class="custom-control-label" for="asl-admin_notify"><?php echo esc_attr__('Notification Status','asl_locator') ?></label>
 		                        <div class="form-group-inner">
@@ -1020,7 +1038,7 @@ if($level_mode == '1'): ?>
 		              		<p class="alert alert-success">You can upgrade to the pro version any time for these extra features, that are available in the pro version, upgrading to the pro version is very simple, and can be done in a few minutes, without re-uploading any data or re-setting the existing configuration.</p>
 											<div class="row">
 												<div class="col-md-12 mb-2 text-center">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success">Upgrade Now (Lifetime License - $39)</a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success">Upgrade Now (Lifetime License - $49)</a>
 												</div>
 											</div>
 		              		<div class="row no-gutters">
@@ -1064,7 +1082,7 @@ if($level_mode == '1'): ?>
 											</div>
 											<div class="row mt-3">
 												<div class="col-md-12 text-center">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success">Upgrade Now (Lifetime License - $39)</a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success">Upgrade Now (Lifetime License - $49)</a>
 												</div>
 											</div>
 		              	</div>
@@ -1113,7 +1131,7 @@ if($level_mode == '1'): ?>
 												  	foreach($fields as $field): 
 
 												  		$field_name  = strip_tags($field['name']);
-                      				$field_label = strip_tags($field['label']);
+                      									$field_label = strip_tags($field['label']);
 												  		?>
 															<tr>
 		                            <td colspan="1"><div class="form-group"><input value="<?php echo esc_attr($field_label); ?>" type="text" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div></td>
@@ -1180,13 +1198,12 @@ if($level_mode == '1'): ?>
 
 <script type="text/javascript">
 
-
    var ASL_Instance = {
    	url: '<?php echo ASL_UPLOAD_URL ?>',
    	plugin_url: '<?php echo ASL_URL_PATH ?>',
       tmpls: <?php echo wp_json_encode($cust_tmpls) ?>
    },
-   asl_configs =  <?php echo json_encode($all_configs); ?>;
+   asl_configs =  <?php echo wp_json_encode($all_configs); ?>;
    
    window.addEventListener("load", function() {
    asl_engine.pages.user_setting(asl_configs);

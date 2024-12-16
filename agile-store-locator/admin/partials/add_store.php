@@ -565,12 +565,12 @@
 <!-- SCRIPTS -->
 <script type="text/javascript">
 
-	var asl_configs =  <?php echo json_encode($all_configs); ?>;
+	var asl_configs =  <?php echo wp_json_encode($all_configs); ?>;
 	var ASL_Instance = {
 		url: '<?php echo ASL_UPLOAD_URL ?>',
     plugin_url: '<?php echo ASL_URL_PATH; ?>'
 	};
-  var asl_logos   = <?php echo json_encode($logos); ?>;
+  var asl_logos   = <?php echo wp_json_encode($logos); ?>;
 
   window.addEventListener("load", function() {
 	asl_engine.pages.add_store();

@@ -36,7 +36,7 @@
       <?php if($all_configs['prompt_location'] == '2'): ?>
       <div class="sl-form-group d-flex justify-content-between">
         <h4><?php echo asl_esc_lbl('modal_geo_pos') ?></h4>
-        <button type="button" class="close-directions sl-close" data-dismiss="agile-modal" aria-label="Close" aria-hidden="true">&times;</button>
+        <button type="button" class="close-directions sl-close" data-dismiss="agile-modal" aria-label="Close">&times;</button>
       </div>
       <div class="sl-form-group">
         <div class="sl-row">
@@ -51,7 +51,7 @@
       <?php else: ?>
       <div class="sl-form-group d-flex justify-content-between">
         <h5><?php echo asl_esc_lbl('modal_use_my_loc') ?></h5>
-        <button type="button" class="close-directions sl-close" data-dismiss="agile-modal" aria-label="Close" aria-hidden="true">&times;</button>
+        <button type="button" class="close-directions sl-close" data-dismiss="agile-modal" aria-label="Close">&times;</button>
       </div>
       <div class="sl-form-group text-center mb-0">
         <button type="button" id="asl-btn-geolocation" class="btn btn-block btn-default"><?php echo asl_esc_lbl('modal_use_loc') ?></button>
