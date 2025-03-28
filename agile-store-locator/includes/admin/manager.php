@@ -214,7 +214,10 @@ class Manager extends Base {
       'import_config'         => __('Import Configuration & Settings','asl_locator'),
       'paste_config_ph'       => __('Paste Configuration JSON','asl_locator'),
       'import_config_warn'    => __('Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!','asl_locator'),
-      'export_config'         => __('Export Configuration','asl_locator')
+      'export_config'         => esc_attr__('Export Configuration','asl_locator'),
+      'required_field'        => esc_attr__('Please correct the error in field','asl_locator'),
+      'select_media'          => esc_attr__('Select or Upload Media', 'asl_locator'),
+      'use_media'             => esc_attr__('Use this media', 'asl_locator')
     );
 
     wp_enqueue_script( 'asl-bootstrap');
@@ -323,6 +326,9 @@ class Manager extends Base {
 
     $this->_enqueue_scripts();
 
+    // For Logo
+    wp_enqueue_media();
+
     global $wpdb;
     
     $store_id = isset($_REQUEST['store_id'])? intval($_REQUEST['store_id']): 0;
@@ -349,35 +355,18 @@ class Manager extends Base {
     //  Current store lang
     $lang      = $store->lang;
 
-    $countries = $wpdb->get_results("SELECT id,country FROM ".ASL_PREFIX."countries");
+    $countries  = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."countries ORDER BY `country`");
     $logos     = $wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name");
     $markers   = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
     $category  = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang'");
     $brands    = [];
     $specials  = [];
 
-
     //  Custom Fields
     $fields       = $this->_get_custom_fields();
     $custom_data  = (isset($store->custom) && $store->custom)? json_decode($store->custom, true): []; 
 
-
-
-    $store_brand       = explode(',', $store->brand);
-    $store_special     = explode(',', $store->special);
-
-    //$storelogo = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."storelogos WHERE id = ".$store->logo_id);
-  
-    //api key
-    $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key' || `key` = 'time_format'";
-    $all_configs_result = $wpdb->get_results($sql);
-
-
-    $all_configs = array();
-
-    foreach($all_configs_result as $c) {
-      $all_configs[$c->key] = $c->value;
-    }
+    $all_configs = \AgileStoreLocator\Helper::get_configs(['api_key', 'time_format', 'branches']);
 
     include ASL_PLUGIN_PATH.'admin/partials/edit_store.php';    
   }
@@ -392,6 +381,9 @@ class Manager extends Base {
     global $wpdb;
 
     $this->_enqueue_scripts();
+
+    // For Logo
+    wp_enqueue_media();
 
     //api key
     $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key' || `key` = 'time_format' || `key` = 'default_lat' || `key` = 'default_lng'";
@@ -663,30 +655,63 @@ class Manager extends Base {
     
     $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs";
     $all_configs_result = $wpdb->get_results($sql);
+
+    $query = "SELECT `type`,`content` FROM ".ASL_PREFIX."settings";
+    $all_setting_result = $wpdb->get_results($query);
     
     $all_configs = array();
+    $all_settings = array();
+
+    foreach ($all_setting_result as $key => $value) {
+      $all_settings[$value->type] = $value->content;
+    }
+    
+
     foreach($all_configs_result as $config)
     {
       $all_configs[$config->key] = $config->value;  
     }
 
+    $all_configs = array_merge($all_configs,$all_settings);
+
     ///get Countries
     $countries        = $wpdb->get_results("SELECT country,iso_code_2  as code FROM ".ASL_PREFIX."countries");
     
-    $custom_map_style = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."settings WHERE `name` = 'map_style'");
+    $custom_map_style = \AgileStoreLocator\Helper::get_setting('map_style', 'map_style');
 
-    //  Do we have custom map?
-    if($custom_map_style && $custom_map_style[0]) {
 
-      $custom_map_style = $custom_map_style[0]->content;
-    }
+    //  Possible values for the slug
+    $slug_attr = array('title' => esc_attr__('Title','asl_locator') , 'city' => esc_attr__('City','asl_locator'), 'postal_code' => esc_attr__('Post Code','asl_locator'), 'state' => esc_attr__('State','asl_locator'), 'description' => esc_attr__('Description', 'asl_locator'), 'lang' => esc_attr__('Lang', 'asl_locator'));
 
     // Remove Google Script tags
     $all_configs['remove_maps_script'] = get_option('asl-remove_maps_script');
 
-
     //  Get the Custom Fields
     $fields = $this->_get_custom_fields();
+
+    //  Add the fields in the slug
+    if($fields && is_array($fields)) {
+
+      foreach($fields as $field) {
+
+        $slug_attr[$field['name']] = $field['label'];
+      }
+
+    }
+
+    //  Slug for the Store Details
+    if(isset($all_configs['slug_attr_ddl']) && $all_configs['slug_attr_ddl']) {
+
+      $ordered_slugs = explode(',', $all_configs['slug_attr_ddl']);
+      
+      foreach ($ordered_slugs as $value) {
+        if (!isset($slug_attr[$value])) continue;
+
+        $existing_value = $slug_attr[$value];
+        unset($slug_attr[$value]);
+        $slug_attr = array_merge($slug_attr, [$value => $existing_value]);
+      }
+    }
 
     include ASL_PLUGIN_PATH.'admin/partials/user_setting.php';
   }

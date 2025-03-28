@@ -162,6 +162,11 @@ class Setting extends Base
         //  Custom Map Style
         \AgileStoreLocator\Helper::set_setting(stripslashes($custom_map_style), 'map_style', 'map_style');
 
+        $custom_slug_fields = $_POST['slug_attr_ddl'];
+
+        //  Slug Attributes
+        \AgileStoreLocator\Helper::set_setting(stripslashes($custom_slug_fields), 'slug_attr_ddl');
+
         update_option('asl-remove_maps_script', $remove_script_tag);
 
         $response->msg     = esc_attr__('Setting has been updated successfully.', 'asl_locator');
@@ -200,7 +205,7 @@ class Setting extends Base
 
         if (!$cache_lang) {
             $response->error = esc_attr__('Error! Lang is not defined.', 'asl_locator');
-            ;
+            
         }
 
         //  en_US is default
@@ -271,8 +276,11 @@ class Setting extends Base
                     $html = $results[0]['content'];
                 }
             } else {
+                
                 // include simple products HTML
-                $view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($data_['template'] == 'advanced_marker') ? 'markers/' : '') . $data_['template'] . '-' . $data_['section'] . '.html';
+                //$view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($data_['template'] == 'advanced_marker') ? 'markers/' : '') . $data_['template'] . '-' . $data_['section'] . '.html';
+
+                $view_file_path = \AgileStoreLocator\Helper::get_customizer_file_path($data_['template'], $data_['section']);
 
                 $html = file_get_contents($view_file_path);
             }
@@ -355,8 +363,11 @@ class Setting extends Base
         $data_ = stripslashes_deep($_POST);
 
         if ($data_['template'] != 'cards-templates') {
-            $view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($data_['template'] == 'advanced_marker') ? 'markers/' : '') . $data_['template'] . '-' . $data_['section'] . '.html';
-        } elseif ($data_['template'] == 'cards-templates') {
+            
+            //$view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($data_['template'] == 'advanced_marker') ? 'markers/' : '') . $data_['template'] . '-' . $data_['section'] . '.html';
+            $view_file_path = \AgileStoreLocator\Helper::get_customizer_file_path($data_['template'], $data_['section']);
+        }
+        elseif ($data_['template'] == 'cards-templates') {
             $view_file_path = ASL_PLUGIN_PATH . 'public/partials/' . $data_['section'] . '.php';
         }
 

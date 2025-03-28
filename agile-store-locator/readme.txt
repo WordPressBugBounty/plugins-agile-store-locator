@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 6.7
 Donate link: https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546
-Stable tag: 1.5
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -338,6 +338,12 @@ Installation of this plugin is pretty easy.
 
 == Changelog ==
 
+= 1.5.1 =
+- Camera Control Disable
+- Ability to change store detail slug
+- Compatible enhancement with Multi-Store Addon for WooCommerce
+- Types of custom field including Gallery
+
 
 = 1.5 =
 - Enabled All Google Advanced Markers
@@ -460,7 +466,7 @@ Color Customizer
 Font Customizer
 KML files are supported
 Google Maps customization
-Supports Agile Stores Addons for WooCommerce - https://agilestorelocator.com/multi-stores-inventory-for-woocommerce/
+Supports Agile Stores Addons for WooCommerce - https://agilestorelocator.com/multistore-woocommerce-addons/
 Lead Form to send email to closest store
 
 

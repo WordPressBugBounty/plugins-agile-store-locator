@@ -176,7 +176,7 @@ $faq_links = array(
                 <?php if(!defined('ASL_WC_PLUGIN')): ?>
                 <div class="row">
                   <div class="col-md-12 justify-content-md-center text-center">
-                    <a href="https://agilestorelocator.com/multi-stores-inventory-for-woocommerce/" target="_blank" class="figure">
+                    <a href="https://agilestorelocator.com/multistore-woocommerce-addons/" target="_blank" class="figure">
                       <img src="<?php echo ASL_URL_PATH ?>admin/images/asl-wc-addon.png" alt="Agile Stores Addons for WooCommerce" class="figure-img img-fluid rounded">
                       <figcaption class="figure-caption text-center"><?php echo esc_attr__('Extension for WooCommerce','asl_locator') ?></figcaption>
                     </a>

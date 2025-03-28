@@ -178,16 +178,20 @@
                                   <input type="number" id="txt-ordering" name="data[ordr]" value="<?php echo esc_attr($store->ordr) ?>" placeholder="0" class="form-control validate[integer]">
                                   <small class="form-text text-muted"><?php echo esc_attr__('Descending Order for the list, higher number on top.','asl_locator') ?></small>
                                 </div>
-                                <?php foreach($fields as $field):
+                                <?php
 
-                                  $field_name  = ($field['name']);
-                                  $field_label = ($field['label']);
-                                 ?>
-                                  <div class="col-md-6 form-group mb-3">
-                                    <label for="custom-f-<?php echo esc_attr($field_name) ?>"><?php echo esc_attr($field_label); ?></label>
-                                    <input type="text" value="<?php echo isset($custom_data[$field_name])? esc_attr($custom_data[$field_name]): '' ?>" id="custom-f-<?php echo esc_attr($field_name) ?>" name="asl-custom[<?php echo esc_attr($field_name) ?>]"  class="form-control">
-                                  </div>
-                                <?php endforeach; ?>
+                                  // Organize fields into sections based on their types
+                                  foreach ($fields as $fieldName => $fieldData) {
+                                    
+                                    $field_value = isset($custom_data[$fieldName])? esc_attr($custom_data[$fieldName]): '';
+
+                                    $field = new \AgileStoreLocator\Form\CustomField($fieldData, $field_value);
+
+                                    echo '<div class="col-md-6 form-group mb-3">';
+                                    echo $field->render('asl-custom');
+                                    echo '</div>'; 
+                                  }
+                                ?>
                                 <div class="col-md-6 form-group mb-3 align-items-center">
                                   <label for="sl-disabled"><?php echo esc_attr__('Disabled','asl_locator') ?></label>
                                   <div class="a-swith a-swith-alone">

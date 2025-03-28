@@ -26,6 +26,18 @@ var asl_engine = window['asl_engine'] || {};
     }
   };
 
+  // Debounce function
+  function ASLDebounce(func, delay) {
+    let timeoutId;
+    return function (...args) {
+        const context = this; // Preserve the `this` context
+        clearTimeout(timeoutId); // Clear the previous timer
+        timeoutId = setTimeout(() => {
+            func.apply(context, args); // Execute the function after the delay
+        }, delay);
+    };
+  }
+
   /**
    * [codeAddress description]
    * @param  {[type]} _address  [description]
@@ -43,6 +55,17 @@ var asl_engine = window['asl_engine'] || {};
         atoastr.error(ASL_REMOTE.LANG.geocode_fail + status);
       }
     });
+  };
+
+  /**
+   * [generateUniqueId Unique ID]
+   * @return {[type]} [description]
+   */
+  function generateUniqueId() {
+    const timestamp = new Date().getTime();
+    const random = Math.floor(Math.random() * 1000000); // Adjust the range as needed
+    const uniqueId = `${timestamp}-${random}`;
+    return uniqueId;
   };
 
   /**
@@ -1890,10 +1913,27 @@ var asl_engine = window['asl_engine'] || {};
         no_results_text: ASL_REMOTE.LANG.no_category
       });
 
+      // Debounced error display function
+      const debouncedError = ASLDebounce(function (field) {
+
+        // Get the label for the invalid field
+        const fieldId   = field.attr('id');        
+        const $label    = $form.find(`label[for="${fieldId}"]`);
+        const labelText = $label.text() || 'a required field';
+
+        // Show the error message using atoastr
+        atoastr.error(`${ASL_REMOTE.LANG.required_field}: ${labelText}`);
+      }, 300); // Adjust delay as needed
+
+
       //  Form Submit
       $form.validationEngine({
-        binded: true,
-        scroll: false
+        binded: false,
+        scroll: false,
+        showArrow: false,
+        showOneMessage: false,
+        validateNonVisibleFields: true,
+        onFieldFailure: debouncedError
       });
 
       //  To get Lat/lng
@@ -1991,6 +2031,23 @@ var asl_engine = window['asl_engine'] || {};
 
         return JSON.stringify(open_hours);
       }
+
+      // Gallery button
+      $(".asl-gallery-field-button").on("click", function(e) {
+        e.preventDefault();
+        var button = $(this);
+        var input = button.siblings(".asl-gallery-field");
+        var mediaUploader = wp.media({
+            title: ASL_REMOTE.LANG.select_media,
+            button: {
+                text: ASL_REMOTE.LANG.use_media
+            },
+            multiple: false
+        }).on("select", function() {
+            var attachment = mediaUploader.state().get("selection").first().toJSON();
+            input.val(attachment.url);
+        }).open();
+    });
 
       
       //  Add store button
@@ -2112,6 +2169,48 @@ var asl_engine = window['asl_engine'] || {};
           $('.asl-p-cont .layout-box img').eq(this.selectedIndex).addClass('active');
         });
       }
+
+      // Chosen for the fitler_ddl
+      $('#asl-filter_ddl').chosen({
+        width: "100%",
+        placeholder_text_multiple: 'Select Filters',
+        no_results_text: 'No Filter'
+      });
+
+      // ---------------------------------------------------------------
+      //  slug_attr_ddl
+      
+      var $ddl_slug       = $('#asl-slug_attr_ddl'),
+          ddl_slug_values = [];
+
+      if(_configs.slug_attr_ddl) {
+
+        ddl_slug_values = _configs.slug_attr_ddl.split(',');
+
+        $ddl_slug.val(ddl_slug_values);
+      }
+
+      // Chosen for the fitler_ddl_store
+      $ddl_slug.chosen({
+        width: "100%",
+        placeholder_text_multiple: 'Select Slugs',
+        no_results_text: 'No Filter'
+      });
+
+      $ddl_slug.on('change', function(evt, params) {
+
+        //  add the value
+        if(params.selected) {
+          ddl_slug_values.push(params.selected);
+        }
+        //  remove the value
+        else if(params.deselected) {
+
+          ddl_slug_values = ddl_slug_values.filter(function(element) {return element !== params.deselected;});
+        }        
+      });
+
+      // ---------------------------------------------------------------
       
       /////*Validation Engine*/////
       $form.validationEngine({
@@ -2175,6 +2274,8 @@ var asl_engine = window['asl_engine'] || {};
         //  Save the custom Map
         all_data['map_style'] = document.getElementById('asl-map_layout_custom').value;
 
+        //  slug_attr_ddl
+        all_data['slug_attr_ddl'] = (ddl_slug_values && ddl_slug_values.length)? ddl_slug_values.join(','): '';
 
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=save_setting', all_data, function(_response) {
 
@@ -2357,10 +2458,17 @@ var asl_engine = window['asl_engine'] || {};
       // Code for the Additional attributes //
       ////////////////////////////////////////
       $('#btn-asl-add-field').on('click', function(e) {
-        
+          
+        const field_uniq_id = generateUniqueId();
+
+
         var $new_slot = $('<tr>\
                             <td colspan="1"><div class="form-group"><input type="text" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div></td>\
                             <td colspan="1"><div class="form-group"><input type="text" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"></div></td>\
+                            <td colspan="1"><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option></select></div></td>\
+                            <td colspan="1"><div class="form-group"><input readonly="true" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div></td>\
+                            <td colspan="1"><div class="form-group-inner mt-2"><label class="switch" for="asl-cf-req-'+field_uniq_id+'"><input type="checkbox" value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-'+field_uniq_id+'"><span class="slider round"></span></label></div></td>\
+                            <td colspan="1"><div class="form-group"><input maxlength="50" type="text" class="asl-attr-class form-control"></div></td>\
                             <td colspan="1">\
                               <span class="add-k-delete glyp-trash">\
                                 <svg width="16" height="16"><use xlink:href="#i-trash"></use></svg>\
@@ -2371,11 +2479,32 @@ var asl_engine = window['asl_engine'] || {};
         var $cur_slot = $('.asl-attr-manage tbody').append($new_slot);
       });
 
+
       //  Delete current field
       $('.asl-attr-manage tbody').on('click', '.add-k-delete', function(e) {
 
         var $this_tr = $(this).parent().parent().remove();
       });
+
+      //  Text will have it locked
+      $('.asl-attr-manage tbody').on('change', '.asl-attr-type', function(e) {
+
+
+        var $this_tr      = $(this).parent().parent().parent(),
+            $option_field = $this_tr.find('.asl-attr-options');
+
+
+        if(this.value == 'textarea' || this.value == 'text' || this.value == 'checkbox' || this.value == 'gallery') {
+
+          $option_field.attr('readonly','true');
+          $option_field.val('');
+        }
+        else {
+          $option_field.removeAttr('readonly','true');
+        }
+
+      });
+
 
       var custom_fields = {};
 
@@ -2385,7 +2514,6 @@ var asl_engine = window['asl_engine'] || {};
         binded: true,
         scroll: false
       });
-
 
 
       //  Save Event for the Fields
@@ -2401,9 +2529,13 @@ var asl_engine = window['asl_engine'] || {};
 
             var $tr           = $(this),
                 field_label   = $tr.find('.asl-attr-label').val(), 
-                field_name    = $tr.find('.asl-attr-name').val(); 
+                field_name    = $tr.find('.asl-attr-name').val(),
+                field_type    = $tr.find('.asl-attr-type').val(),
+                field_options = $tr.find('.asl-attr-options').val(),
+                css_class     = $tr.find('.asl-attr-class').val(),
+                field_require = ($tr.find('.asl-attr-require')[0].checked)? 1: 0;
 
-            custom_fields[field_name] = {name: field_name, label: field_label, type: 'text'};
+            custom_fields[field_name] = {name: field_name, label: field_label, type: field_type, options: field_options, require: field_require, css_class: css_class };
         });
 
         //  Send an AJAX Request
@@ -2414,18 +2546,7 @@ var asl_engine = window['asl_engine'] || {};
 
           $btn.bootButton('reset');
 
-          if (_response.success) {
-            atoastr.success(_response.msg);
-            return;
-          }
-          else if (_response.error) {
-            atoastr.error(_response.msg || _response.error);
-            return;
-          }
-          else {
-            atoastr.success('Error! request failed.');
-            return;
-          }
+          toastIt(_response);
 
         }, 'json');
       });
@@ -2434,11 +2555,20 @@ var asl_engine = window['asl_engine'] || {};
       window['ASLValidateLabel'] = function(field, rules, i, options) {
       };
 
+      window['ASLValidateOptions'] = function(field, rules, i, options) {
+      };
+
+      
+
       // Validate Name
-      var reg = new RegExp(/^[a-z\_]+$/);
+      var reg   = new RegExp(/^[a-z0-9\-\_]+$/);
       window['ASLValidateName'] = function(field, rules, i, options) {
 
         var _value = field.val();
+
+        if(['id','title','phone','email','street','city','state','country','postal_code','marker_id','logo_id','description','description_2','open_hours','pending','distance','target'].indexOf(_value) != -1) {
+          return '* Keyword';
+        }
 
         if(!reg.test(_value)) {
           return '* Invalid';

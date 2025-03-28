@@ -70,7 +70,7 @@
             <div class="alert alert-primary mt-3 mb-3" role="alert">
               <i><svg width="14" height="14">
                   <use xlink:href="#i-info"></use>
-                </svg></i><?php echo esc_attr__('Store Locator Listing columns can easily be updated by simply add/remove from the template, Please visit the link for more', 'asl_locator') ?> <a href="https://agilestorelocator.com/blog/customize-google-marker-infowindow-sidebar-store-locator/" target="_blank">"Customize Store Locator"</a>.
+                </svg></i><?php echo esc_attr__('Store Locator Listing columns can easily be updated by simply add/remove from the template, Please visit the link for more', 'asl_locator') ?> <a href="https://agilestorelocator.com/wiki/customization-of-store-locator/" target="_blank">"Customize Store Locator"</a>.
             </div>
             <?php if ($pending_stores > 0) : ?>
               <div id="alert-pending-stores" class="alert alert-warning mt-3 mb-3" role="alert"><?php echo esc_attr__('You have pending stores to approve them.', 'asl_locator') ?> <a id="btn-pending-stores" class="btn ml-md-2 btn-warning btn-sm" data-pending="<?php echo esc_attr__('Hide Pending Stores', 'asl_locator') ?>" data-all="<?php echo esc_attr__('Show Pending Stores', 'asl_locator') ?>" data-loading-text="<?php echo esc_attr__('Loading Stores', 'asl_locator') ?>"><span><?php echo esc_attr__('Show Pending Stores', 'asl_locator') ?></span> <i class="badge badge-light"><?php echo $pending_stores ?></i></a></div>

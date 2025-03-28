@@ -109,6 +109,17 @@ class Helper {
       'template-list'   => ['label' => esc_attr__('Template List (Pro)'), 'options'   => $list_tmp_opts, 'disable' => true]
     ];
 
+    if(defined('ASL_WC_PLUGIN')) { 
+
+      $templates = [
+        'template-0'      => ['label' => esc_attr__('Template 0'), 'options' => $tmpl_options],
+        'advanced_marker' => ['label' => esc_attr__('Advanced Markers'), 'options' => self::advanced_marker_tmpls()]
+      ];
+    }
+
+    // Add a filter here for the $templates customizer
+    $templates = apply_filters('asl_customizer_templates', $templates);
+
     return $templates;
   }
 
@@ -1865,6 +1876,23 @@ class Helper {
     return $marker_html;
   }
 
+  /**
+   * [get_customizer_file_path Get the Customizer File Path]
+   */
+  public static function get_customizer_file_path($template_id, $type)
+  {
+    // Replace 'template-' with ''
+    $template_id  = str_replace('template-', '', $template_id);
+
+    //  Template ID
+    $template_name = ($template_id === 'advanced_marker') ? $template_id : 'template-'.$template_id;
+
+    // Construct the file path
+    $view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($template_id == 'advanced_marker') ? 'markers/' : '') . sanitize_file_name($template_name) . '-' . sanitize_file_name($type) . '.html';
+
+    // Apply a filter to allow modification of the file path
+    return apply_filters('asl_filter_view_file_path', $view_file_path, $template_id, $type);
+  }
 
   /**
    * [get_template_views Will return both infobox and list in array]
@@ -1896,7 +1924,7 @@ class Helper {
     }
 
     //  default labels for the translation
-    $listing_labels = ['view_desc' => 'View Description', 'directions' => 'Directions', 'website' => 'Website'];
+    $listing_labels = ['view_desc' => 'View Description', 'directions' => 'Directions', 'website' => 'Website', 'view_branches' => 'View All Branches'];
 
 
     $tmpls_sections  = ['list', 'infobox'];
@@ -1915,7 +1943,7 @@ class Helper {
     foreach ($tmpls_sections as $tmpl_type) {
 
       //  No infobox for List layout
-      if($template_id == 'list' && $tmpl_type == 'infobox')
+      if (in_array($template_id, ['list', 'list-2']) && $tmpl_type == 'infobox')
         continue;
       
       $content = $contents[$tmpl_type];
@@ -1923,8 +1951,11 @@ class Helper {
       //  When HTML is missing from the data, include from files
       if(empty($contents[$tmpl_type])) {
 
+        
+        $file_path = self::get_customizer_file_path($template_id, $tmpl_type);
+
         // include simple products HTML
-        $content = file_get_contents(ASL_PLUGIN_PATH.'public/views/template-'.$template_id.'-'.$tmpl_type.'.html');
+        $content = file_get_contents($file_path);
       }
 
       //  Add the Social Icons

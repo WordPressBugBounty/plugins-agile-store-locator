@@ -1318,7 +1318,7 @@ class App
             'ajax_url'      => admin_url('admin-ajax.php'),
             'nonce'         => $title_nonce,
             'default_lang' 	=> get_locale(),
-            'lang'					     => $lang
+            'lang'			=> $lang
         ]);
 
         $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'asl_configuration', $all_configs);

@@ -170,11 +170,11 @@ class Slug {
 
 
   /**
-   * [add_meta_description_by_store_slug for adding meta description as store description]
-   * @since  4.9.8 [<description>]
+   * [get_meta_description_by_store_slug for getting meta description as store description]
+   * @since  4.11.8 [<description>]
    * @param  $title [description]
    */
-  public static function add_meta_description_by_store_slug() {
+  public static function get_meta_description_by_store_slug() {
 		
     $store_uri = get_query_var('sl-store', false);
 
@@ -184,8 +184,28 @@ class Slug {
       
       if (isset($store_details->description) && $store_details->description) {
         
-        \AgileStoreLocator\Helper::add_content_to_head( '<meta name="description" content="' . strip_tags($store_details->description) . '">' . PHP_EOL );
+        $description = htmlspecialchars($store_details->description);
+        $description = str_replace(["\r\n", "\n"], '', $description);
+        
+        return strip_tags($description);
       }
+    }
+
+    return '';
+  }
+
+  /**
+   * [add_meta_description_by_store_slug for adding meta description as store description]
+   * @since  4.9.8 [<description>]
+   * @param  $title [description]
+   */
+  public static function add_meta_description_by_store_slug() {
+		
+    $description = self::get_meta_description_by_store_slug();
+
+    if ($description) {
+      
+      \AgileStoreLocator\Helper::add_content_to_head( '<meta name="description" content="' . $description . '">' . PHP_EOL );
     }
   }
 

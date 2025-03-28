@@ -51,18 +51,6 @@ $direction_url = "https://www.google.com/maps/dir/?api=1&destination=".$address;
                                     </div>
                                 </li>
                                 <?php endif; ?>
-                                <?php if($store_brand): ?>
-                                <li class="sl-store-info">
-                                    <i class="icon-tag"></i>
-                                    <p><?php echo $store_brand ?></p>
-                                </li>
-                                <?php endif; ?>
-                                <?php if($store_special): ?>
-                                <li class="sl-store-info">
-                                    <i class="icon-tag"></i>
-                                    <p><?php echo $store_special ?></p>
-                                </li>
-                                <?php endif; ?>
                             </ul>
                             <?php if($store_categories): ?>
                             <div class="asl-cat-tags">

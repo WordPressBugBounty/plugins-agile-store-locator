@@ -50,8 +50,10 @@ class Label {
         'load'              => esc_attr__( 'Load Store Locator','asl_locator'), 
         'label_gdpr'        => esc_attr__( 'Due to the GDPR, we need your consent to load data from Google, more information in our privacy policy.', 'asl_locator'),
         'search_loc'        => esc_attr__( 'Search Location', 'asl_locator'), 
-        'enter_loc'         => esc_attr__( 'Enter a Location ', 'asl_locator'), 
+        'search_loc_desc'   => esc_attr__( 'Search for nearby location in your area.', 'asl_locator'), 
+        'enter_loc'         => esc_attr__( 'Enter a Location', 'asl_locator'), 
         'search_name'       => esc_attr__( 'Search Name', 'asl_locator'), 
+        'search_name_ph'    => esc_attr__( 'Type to Search', 'asl_locator'), 
         'radius'            => esc_attr__( 'Radius','asl_locator'), 
         'loading'           => esc_attr__('Loading...', 'asl_locator'), 
         'clear_label'       => esc_attr__('Clear', 'asl_locator'), 
@@ -93,6 +95,7 @@ class Label {
         'all_additional'    => esc_attr__('All Additional','asl_locator'),
         'all_additional_2'  => esc_attr__('All Additional 2','asl_locator'),
         'reset_map'         => esc_attr__('Reset Map','asl_locator'),
+        'reset'             => esc_attr__('Reset','asl_locator'),
         'reload_map'        => esc_attr__('Scan Area','asl_locator'),
         'your_cur_loc'      => esc_attr__('Your Current Location','asl_locator'),
         /*Template words*/
@@ -116,6 +119,7 @@ class Label {
         'distance_tab'      => esc_attr__('Distance Range','asl_locator'),
         'geo_location_error'=> esc_attr__('User denied geo-location, check preferences.','asl_locator'),
         'no_found_head'     => esc_attr__('Search!','asl_locator'),
+        'filters'           => esc_attr__('Filters','asl_locator'),
         'brand'             => esc_attr__('Brand','asl_locator'),
         'special'           => esc_attr__('Speciality','asl_locator'),
         'attribute'         => esc_attr__('Attribute','asl_locator'),
@@ -227,7 +231,9 @@ class Label {
         'category_title'    => esc_attr__('Category','asl_locator'),
         'no_item_text'      => esc_attr__('No Item Found','asl_locator'),
         'no_search_item'    => esc_attr__('No Search Found','asl_locator'),
-        'view_branches'     => esc_attr__('View All Branches','asl_locator')
+        'no_search_item_desc'=> esc_attr__('Enter a valid location and try again.','asl_locator'),
+        'view_branches'     => esc_attr__('View All Branches','asl_locator'),
+        'hours'             => esc_attr__('Hours','asl_locator'),
         );
         
 

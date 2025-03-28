@@ -26,7 +26,6 @@ class Config {
 
     global $wpdb;
 
-    $columns      = $_columns;
     $prefix       = ASL_PREFIX;
 
     //  Fetch the configs
@@ -56,7 +55,6 @@ class Config {
 
     global $wpdb;
 
-    $columns      = $_columns;
     $prefix       = ASL_PREFIX;
 
 
