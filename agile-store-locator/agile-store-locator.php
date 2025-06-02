@@ -8,10 +8,10 @@
  * Plugin Name:       Agile Store Locator
  * Plugin URI:        https://agilestorelocator.com
  * Description:       Agile Store Locator is a Premium Store Finder Plugin designed to offer you immediate access to all the best stores in your local area. It enables you to find the very best stores and their location thanks to the power of Google Maps.
- * Version:           1.5.1
+ * Version:           1.5.2
  * Author:            AGILELOGIX
  * Author URI:        https://agilestorelocator.com/
- * License:           Copyrights 2024
+ * License:           Copyrights 2025
  * Text Domain:       asl_locator
  * Domain Path:       /languages/
  */
@@ -56,7 +56,7 @@ if ( !class_exists( 'ASL_Store_locator' ) ) {
       define( 'ASL_PLUGIN_PATH', plugin_dir_path(__FILE__) );
       define( 'ASL_BASE_PATH', dirname( plugin_basename( __FILE__ ) ) );
       define( 'ASL_PREFIX', $wpdb->prefix."asl_" );
-      define( 'ASL_CVERSION', "1.5.1" );
+      define( 'ASL_CVERSION', "1.5.2" );
       define( 'ASL_UPLOAD_DIR', $upload_dir['basedir'].'/'.ASL_PLUGIN.'/' );
       define( 'ASL_UPLOAD_URL', $upload_dir['baseurl'].'/'.ASL_PLUGIN.'/' );
       //define( 'ASL_DEBUG', true );

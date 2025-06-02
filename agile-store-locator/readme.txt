@@ -338,6 +338,10 @@ Installation of this plugin is pretty easy.
 
 == Changelog ==
 
+
+= 1.5.2 =
+- Security updates
+
 = 1.5.1 =
 - Camera Control Disable
 - Ability to change store detail slug
