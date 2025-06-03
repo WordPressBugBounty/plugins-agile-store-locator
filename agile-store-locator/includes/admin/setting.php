@@ -320,6 +320,7 @@ class Setting extends Base
         // $ext = substr($data_['template'], strrpos($data_['template'], '.') + 1);
 
         if (!empty($data_['html'])) {
+
             if ($data_['template'] != 'cards-templates') {
                 //  get previous quantity
                 $count = $wpdb->get_results($wpdb->prepare("SELECT COUNT('name') as 'count' FROM " . ASL_PREFIX . 'settings WHERE `name` = %s AND `type` = %s', $data_['template'], $data_['section']));
@@ -335,13 +336,6 @@ class Setting extends Base
                 }
 
                 $response->msg     = esc_attr__('Template Updated', 'asl_locator');
-                $response->success = true;
-            } elseif ($data_['template'] == 'cards-templates') {
-                $file_path = STYLESHEETPATH . '/' . $data_['section'] . '.php';
-
-                file_put_contents($file_path, $data_['html']);
-
-                $response->msg     = esc_attr__('Cards Template Updated', 'asl_locator');
                 $response->success = true;
             }
         }
