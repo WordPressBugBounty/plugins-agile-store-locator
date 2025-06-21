@@ -22,7 +22,7 @@
 </div>
   <div class="container">
     <div class="row asl-inner-cont">
-      <div class="col-md-12">
+      <div class="col-md-12 asl-lock-box">
         <div class="card p-0 mb-4">
           <h3 class="card-title"><?php echo esc_attr__('Manage Markers','asl_locator') ?></h3>
           <div class="card-body">
@@ -62,7 +62,14 @@
             </div>
           	<div class="dump-message asl-dumper"></div>
           </div>
+          
         </div>
+          <div class="asl-lock-inner">
+                <svg width="70" height="100" viewBox="0 0 90 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M82.5 52.5H75V30C75 13.5 61.5 0 45 0C28.5 0 15 13.5 15 30V52.5H7.5C3.75 52.5 0 56.25 0 60V112.5C0 116.25 3.75 120 7.5 120H82.5C86.25 120 90 116.25 90 112.5V60C90 56.25 86.25 52.5 82.5 52.5ZM52.5 105H37.5L40.5 88.5C36.75 87 33.75 82.5 33.75 78.75C33.75 72.75 39 67.5 45 67.5C51 67.5 56.25 72.75 56.25 78.75C56.25 83.25 54 87 49.5 88.5L52.5 105ZM60 52.5H30V30C30 21.75 36.75 15 45 15C53.25 15 60 21.75 60 30V52.5Z" fill="white"/></svg>
+                <h6><?php echo esc_attr__('Upgrade Plugin To Get Markers Manager','asl_locator') ?></h6>
+                <a href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><?php echo esc_attr__('Lifetime License - $59','asl_locator') ?></a>
+              </div>
       </div>
     </div>
   </div>

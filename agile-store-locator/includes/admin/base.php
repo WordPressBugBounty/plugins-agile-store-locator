@@ -127,16 +127,25 @@ class Base {
 
     // Define the allowed HTML tags and attributes
     $allowed_tags = array(
-        'a'       => array(
-          'href'  => array(),
-          'title' => array(),
-          '__target' => array('value' => '_blank')
-        ),
-        'strong'  => array(),
-        'em'      => array(),
-        'p'       => array(),
-        'br'      => array(),
-        'b'       => array()
+      'a'       => array(
+        'href'  => array(),
+        'title' => array(),
+        '__target' => array('value' => '_blank')
+      ),
+      'strong'  => array(),
+      'em'      => array(),
+      'p'       => array(),
+      'br'      => array(),
+      'b'       => array(),
+      'h1'       => array(),
+      'h2'       => array(),
+      'ul'       => array(),
+      'ol'       => array(),
+      'li'       => array(),
+      'u'       => array(),
+      'span'    => array(
+        'style' => array()
+      ),
     );
 
     // Use wp_kses() to sanitize any HTML in the value and allow only the specified tags and attributes

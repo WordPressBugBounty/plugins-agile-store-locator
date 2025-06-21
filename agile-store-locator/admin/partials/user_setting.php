@@ -1054,51 +1054,52 @@ if($level_mode == '1'){ ?>
 		              		<p class="alert alert-success">You can upgrade to the pro version any time for these extra features, that are available in the pro version, upgrading to the pro version is very simple, and can be done in a few minutes, without re-uploading any data or re-setting the existing configuration.</p>
 											<div class="row">
 												<div class="col-md-12 mb-2 text-center">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success">Upgrade Now (Lifetime License - $49)</a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success btn-asl-upgrade">Lifetime License (Pro Version) - $59</a>
 												</div>
 											</div>
-		              		<div class="row no-gutters">
-												<div class="col-md-6">
-													<a target="_blank" href="https://agilestorelocator.com/wp-content/plugins/agile-store-locator/public/import/demo-import.csv"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-0.png"></a>
+		              		<div class="row">
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-12.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-2.png">
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-18.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<a target="_blank" href="https://agilestorelocator.com/demos/"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-1.png"></a>
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-19.jpg"></a>
 												</div>
-												
-												<div class="col-md-6">
-													<a target="_blank" href="https://agilestorelocator.com/search-widget/"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-3.png"></a>
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-13.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-4.png">
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-20.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-6.jpg">
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-14.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-5.png">
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-15.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<a target="_blank" href="https://agilestorelocator.com/demos/store-locator-demo-3/"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-7.png"></a>
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-16.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<a target="_blank" href="https://agilestorelocator.com/demos/locator-list-template/"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-8.png"></a>
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-17.jpg"></a>
 												</div>
-												<div class="col-md-6">
-													<a target="_blank" href="https://agilestorelocator.com/store-register-form/"><img class="mt-3" src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-9.jpg"></a>
-												</div>
-												<div class="col-md-6">
-													<a><img class="mt-3" src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-10.jpg"></a>
-												</div>
-												<div class="col-md-6">
-													<a><img class="mt-3" src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-11.jpg"></a>
+												<div class="col-md-6 mt-4">
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-21.jpg"></a>
 												</div>
 											</div>
-											<div class="row mt-3">
+											<div class="row mt-4">
 												<div class="col-md-12 text-center">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success">Upgrade Now (Lifetime License - $49)</a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success btn-asl-upgrade">Lifetime License (Pro Version) - $59</a>
+												</div>
+											</div>
+											<div class="pt-4 container mt-4 text-center asl-sec-pro-features">
+												<h3 class="title mt-4 font-weight-bold">Integrate Salesforce & More with <span class="text-primary">Agile Sync Addon</span></h3>
+												<p>Upgrade with the Agile Sync Addon to seamlessly connect platforms like Salesforce, Google Sheets, Smartsheet, or REST APIs with your store locator. Automate data import, map custom fields, and keep your store listings always up-to-date.</p>
+												<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" title="Agile Sync Addon"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-22.jpg"></a>
+												<div class="col-md-12 mt-3 text-center">
+													<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" class="btn btn-xl btn-success btn-asl-upgrade">Agile Sync Addon - $99</a>
 												</div>
 											</div>
 		              	</div>
@@ -1152,6 +1153,7 @@ if($level_mode == '1'){ ?>
                                        $field_types = [
                                           'text'      => esc_attr__('Text', 'asl_locator'),
                                           'textarea'  => esc_attr__('Textarea', 'asl_locator'),
+                                          'richtext'   => esc_attr__('Rich Textarea', 'asl_locator'),
                                           'dropdown'  => esc_attr__('Dropdown', 'asl_locator'),
                                           'radio'     => esc_attr__('Radio List', 'asl_locator'),
                                           'checkbox'  => esc_attr__('Checkbox', 'asl_locator'),
@@ -1191,7 +1193,7 @@ if($level_mode == '1'){ ?>
                                           </div>
                                        </td>
                                        <td colspan="1">
-                                          <div class="form-group"><input <?php if($field_type == 'text' || $field_type == 'textarea' ||  $field_type == 'checkbox' ||  $field_type == 'gallery') echo 'readonly="true"'; ?> value="<?php echo esc_attr__($field_option); ?>" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div>
+                                          <div class="form-group"><input <?php if(in_array($field_type, ['text', 'textarea', 'richtext', 'checkbox', 'gallery'])) echo 'readonly="true"'; ?> value="<?php echo esc_attr__($field_option); ?>" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div>
                                        </td>
                                        <td colspan="1">
                                           <div class="form-group-inner mt-2">

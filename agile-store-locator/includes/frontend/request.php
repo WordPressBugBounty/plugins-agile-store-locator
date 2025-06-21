@@ -23,8 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Request {
 
 
-
-
 	/**
 	 * [load_stores Load the Stores using AJAX Request]
 	 * @return [type] [description]
@@ -278,6 +276,18 @@ class Request {
 			}
 		}
 
+		// Get the custom fields
+		$custom_fields = \AgileStoreLocator\Helper::get_custom_fields();
+
+		// Make them text textarea
+		if (!empty($custom_fields) && is_array($custom_fields)) {
+
+			foreach ($custom_fields as $key => $field) {
+				$custom_fields[$key]['is_textarea'] = isset($field['type']) && in_array($field['type'], ['textarea', 'richtext']);
+			}
+		}
+		
+
 
 		//	Loop over the rows
 		foreach($all_results as $aRow) {
@@ -303,17 +313,21 @@ class Request {
 
 
 			//	Decode the Custom Fields
-			if($aRow->custom) {
+			if($custom_fields && $aRow->custom) {
 
-				$custom_fields = json_decode($aRow->custom, true);
+				$custom_fields_data = json_decode($aRow->custom, true);
 
-				if($custom_fields && is_array($custom_fields) && count($custom_fields) > 0) {
+				// Loop over the custom fields
+				foreach($custom_fields as $custom_key => $_field) {
 
-					foreach ($custom_fields as $custom_key => $custom_value) {
-						
-						if($custom_value) {
-							$aRow->$custom_key = str_replace("\n", "<br>", esc_attr($custom_value));
-						}
+					//	When we have custom field data
+					if(isset($custom_fields_data[$custom_key])) {
+
+						//	Replace the new line with <br>
+						//$aRow->$custom_key = str_replace("\n", "<br>", wp_kses_post($custom_fields_data[$custom_key]));
+
+						// Escape the custom field data
+						$aRow->$custom_key = ($_field['is_textarea'])? wp_kses_post($custom_fields_data[$custom_key]): esc_attr($custom_fields_data[$custom_key]);
 					}
 				}
 			}

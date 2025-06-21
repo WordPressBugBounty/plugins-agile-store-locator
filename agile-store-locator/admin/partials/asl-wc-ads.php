@@ -11,7 +11,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 mb-3 text-center">
-            <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="btn btn-xl btn-success">WooCommerce Extension</a>
+            <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="btn btn-xl btn-success btn-asl-upgrade">WooCommerce Extension</a>
           </div>
         </div>
         <div class="row">
@@ -120,7 +120,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 mb-3 text-center">
-            <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="btn btn-xl btn-success">WooCommerce Extension</a>
+            <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="btn btn-xl btn-success btn-asl-upgrade">WooCommerce Extension</a>
           </div>
         </div>
       </div>

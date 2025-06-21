@@ -44,6 +44,8 @@ class Field {
             case 'text':
                 return $this->renderTextField();
 
+            case 'richtext':
+                return $this->renderTextareaField(true);
 
             case 'textarea':
                 return $this->renderTextareaField();
@@ -136,22 +138,25 @@ class Field {
      * [renderTextareaField description]
      * @return [type] [description]
      */
-    protected function renderTextareaField() {
+    protected function renderTextareaField($richtext = false) {
 
 
         $require_field = ($this->require)? 'validate[required]': '';
 
+        // Add a class for rich text editor
+        $richtext_class = ($richtext)? ' asl-rich-text-editor': '';
+
         return sprintf(
             '<div class="sl-form-group sl-group">
                 <label class="control-label" for="sl-%s">%s</label>
-                <textarea type="%s" id="sl-%s" name="%s" class="form-control %s">%s</textarea>
+                <textarea type="text" id="sl-%s" name="%s" class="form-control %s">%s</textarea>
             </div>',
             $this->name,
             $this->label,
-            $this->type,
+            //$this->type,
             $this->name,
             $this->field_name,
-            $require_field,
+            $require_field.$richtext_class,
             $this->value
         );
     }

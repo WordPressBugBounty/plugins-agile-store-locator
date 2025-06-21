@@ -1973,6 +1973,26 @@ var asl_engine = window['asl_engine'] || {};
         }
       });
 
+      $form.find('.asl-rich-text-editor').each(function () {
+        const id = $(this).attr('id');
+        if (id) {
+            tinymce.init({
+                selector: '#' + id,
+                height: 200,
+                menubar: false,
+                plugins: 'paste link lists',
+                media_buttons: true,
+                paste_as_text: true, // Paste as plain text
+                branding: false,
+                toolbar: 'bold italic underline | bullist numlist | link',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save(); // Sync content to textarea
+                    });
+                }
+            });
+        }
+      });
 
       //  Coordinates Fixes
       var _coords = {
@@ -2408,13 +2428,15 @@ var asl_engine = window['asl_engine'] || {};
 
       //  Save the save settings for the customizer
       $('.asl-tabs a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-        
-        if(e.target.getAttribute('href') == '#sl-customizer') {
 
-          $('#btn-asl-user_setting').addClass('hide');
+        console.log(e.relatedTarget.getAttribute('href'), `File: jscript.js, Line: 2432`, e.target.getAttribute('href'));
+        
+        if(e.target.getAttribute('href') == '#sl-customizer' || e.target.getAttribute('href') == '#sl-pro') {
+
+          $('.btn-asl-user_setting').addClass('hide');
         }
-        else if(e.relatedTarget.getAttribute('href') == '#sl-customizer') {
-          $('#btn-asl-user_setting').removeClass('hide');
+        else if(e.relatedTarget.getAttribute('href') == '#sl-customizer' || e.relatedTarget.getAttribute('href') == '#sl-pro') {
+          $('.btn-asl-user_setting').removeClass('hide');
         }
       });
 
@@ -2465,7 +2487,7 @@ var asl_engine = window['asl_engine'] || {};
         var $new_slot = $('<tr>\
                             <td colspan="1"><div class="form-group"><input type="text" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div></td>\
                             <td colspan="1"><div class="form-group"><input type="text" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"></div></td>\
-                            <td colspan="1"><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option></select></div></td>\
+                            <td colspan="1"><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="richtext">Rich Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option></select></div></td>\
                             <td colspan="1"><div class="form-group"><input readonly="true" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div></td>\
                             <td colspan="1"><div class="form-group-inner mt-2"><label class="switch" for="asl-cf-req-'+field_uniq_id+'"><input type="checkbox" value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-'+field_uniq_id+'"><span class="slider round"></span></label></div></td>\
                             <td colspan="1"><div class="form-group"><input maxlength="50" type="text" class="asl-attr-class form-control"></div></td>\
@@ -2494,7 +2516,7 @@ var asl_engine = window['asl_engine'] || {};
             $option_field = $this_tr.find('.asl-attr-options');
 
 
-        if(this.value == 'textarea' || this.value == 'text' || this.value == 'checkbox' || this.value == 'gallery') {
+        if (['richtext', 'textarea', 'text', 'checkbox', 'gallery'].includes(this.value)) {
 
           $option_field.attr('readonly','true');
           $option_field.val('');

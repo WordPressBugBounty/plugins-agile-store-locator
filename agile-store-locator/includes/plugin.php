@@ -323,8 +323,8 @@ class Plugin {
 			if(!defined('ASL_WC_PLUGIN')) {
 				
 				if(!$level_mode) {
-					add_submenu_page( 'asl-plugin', esc_attr__('Manage Specialities','asl_locator'), esc_attr__('Specialities (Pro)','asl_locator'), ASL_PERMISSION, 'manage-asl-specials', array($this->plugin_admin, 'page_manage_specials'));
-					add_submenu_page( 'asl-plugin', esc_attr__('Manage Brands','asl_locator'), esc_attr__('Brands (Pro)','asl_locator'), ASL_PERMISSION, 'manage-asl-filter', array($this->plugin_admin,'page_manage_attribute'));
+					//add_submenu_page( 'asl-plugin', esc_attr__('Manage Specialities','asl_locator'), esc_attr__('Specialities (Pro)','asl_locator'), ASL_PERMISSION, 'manage-asl-specials', array($this->plugin_admin, 'page_manage_specials'));
+					//add_submenu_page( 'asl-plugin', esc_attr__('Manage Brands','asl_locator'), esc_attr__('Brands (Pro)','asl_locator'), ASL_PERMISSION, 'manage-asl-filter', array($this->plugin_admin,'page_manage_attribute'));
 				}
 
 				add_submenu_page( 'asl-plugin', esc_attr__('Manage Markers','asl_locator'), esc_attr__('Markers (Pro)','asl_locator'), ASL_PERMISSION, 'manage-store-markers', array($this->plugin_admin,'page_store_markers'));

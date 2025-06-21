@@ -329,6 +329,10 @@ class Manager extends Base {
     // For Logo
     wp_enqueue_media();
 
+    // For textarea
+    wp_enqueue_editor(); // Required for TinyMCE
+
+
     global $wpdb;
     
     $store_id = isset($_REQUEST['store_id'])? intval($_REQUEST['store_id']): 0;
@@ -384,6 +388,9 @@ class Manager extends Base {
 
     // For Logo
     wp_enqueue_media();
+
+    // For textarea
+    wp_enqueue_editor(); // Required for TinyMCE
 
     //api key
     $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key' || `key` = 'time_format' || `key` = 'default_lat' || `key` = 'default_lng'";
