@@ -1,9 +1,19 @@
+{{if path}}
+<div class="image_map_popup" style="display:none"><img src="{{:URL}}Logo/{{:path}}" /></div>
+{{/if}}
 <h3>{{:title}}</h3>
 <div class="infowindowContent">
 <div class="sl-row sl-addr-sec">
-   <div class="pol-md-12">
+   <div class="{{if path}}pol-sm-8 pol-8{{else}}pol-md-12{{/if}}">
       <span class="sl-tag">{{:address}}</span>
    </div>
+   {{if path}}
+   <div class="pl-0 pol-md-4 pol-4">
+     <div class="img_box" style="display:none">
+       <img src="{{:URL}}Logo/{{:path}}" alt="logo">
+     </div>
+   </div>
+   {{/if}}
 </div>
 <div class="info-addr">
    <div class="sl-row">
@@ -50,7 +60,7 @@
    </div>
 </div>
 {{if description}}
-<p class="short-desc">{{:description}}</p>
+<div class="short-desc">{{:description}}</div>
 {{/if}}
 <div class="asl-buttons asl-btn-full">
 </div>

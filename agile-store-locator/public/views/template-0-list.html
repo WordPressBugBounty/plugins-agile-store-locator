@@ -1,8 +1,8 @@
-<li class="sl-item" data-id="{{:id}}">
+<li class="sl-item" data-id="{{:id}}" tabindex="0" accesskey="{{:id}}">
 <div class="sl-addr-sec">
     <div class="sl-row addr-loc">
-        <div class="pol-12">
-            <h3>{{:title}}</h3>
+        <div class="{{if path}}pol-sm-8 pol-8 pr-0{{else}}pol-12{{/if}}">
+            <p class="sl-addr-list-title">{{:title}}</p>
             <ul>
                 <li class="sl-addr">
                     <i class="icon-location-1"></i>  
@@ -46,6 +46,15 @@
                 {{/if}}
             </ul>
         </div>
+        {{if path}}
+        <div class="pol-sm-4 pol-4">
+            <div class="sl-logo-cont">
+                <div class="sl-logo-box">
+                    <img alt="store-logo" alt="store-logo" src="{{:URL}}Logo/{{:path}}">
+                </div>
+            </div>
+        </div>
+        {{/if}}
     </div>
     {{if description}}
     <div class="sl-row sl-desc">

@@ -20,36 +20,26 @@ $button_font  = isset($fields->$attr_key) ? $fields->$attr_key : $default_fonts[
 <div class="tab-content">
    <div id="sl-font-size" class="tab-pane">
       <div class="row mt-2">
+        <?php 
+        foreach($default_fonts as $font_key => $font_value): 
+
+          $font_lbl = $font_labels[$font_key];
+
+          $attr_key     = $font_key;
+          $font_size    = isset($fields->$attr_key) ? $fields->$attr_key : $default_fonts[$attr_key];
+
+        ?>
         <div class="col-md-6 col-12 mb-5">
           <div class="form-group d-lg-flex d-md-block">
-            <label class="custom-control-label" for="asl-font-size"><?php echo esc_attr__('Font Size','asl_locator') ?></label>
+            <label class="custom-control-label" for="asl-font-size"><?php echo esc_attr($font_lbl) ?></label>
             <div class="form-group-inner">
               <div class="input-group">
-                <input  type="number" class="form-control" name="font-size" id="asl-font-size" placeholder="<?php echo esc_attr__('13','asl_locator') ?>" value="<?php echo esc_attr($content_font); ?>">
+                <input  type="number" class="form-control" name="<?php echo esc_attr($font_key) ?>" id="asl-<?php echo esc_attr($font_key) ?>" placeholder="<?php echo esc_attr__('13','asl_locator') ?>" value="<?php echo esc_attr($font_size); ?>">
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-12 mb-5">
-          <div class="form-group d-lg-flex d-md-block">
-            <label class="custom-control-label" for="asl-title-size"><?php echo esc_attr__('Title Font','asl_locator') ?></label>
-            <div class="form-group-inner">
-              <div class="input-group">
-                <input  type="number" class="form-control" name="title-size" id="asl-title-size" placeholder="<?php echo esc_attr__('16','asl_locator') ?>" value="<?php echo esc_attr($title_font); ?>">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-12 mb-5">
-          <div class="form-group d-lg-flex d-md-block">
-            <label class="custom-control-label" for="asl-btn-size"><?php echo esc_attr__('Button Font','asl_locator') ?></label>
-            <div class="form-group-inner">
-              <div class="input-group">
-                <input  type="number" class="form-control" name="btn-size" id="asl-btn-size" placeholder="<?php echo esc_attr__('14','asl_locator') ?>" value="<?php echo esc_attr($button_font); ?>">
-              </div>
-            </div>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </div>
    </div>
    <div id="asl-color" class="tab-pane in active">
@@ -83,7 +73,7 @@ $button_font  = isset($fields->$attr_key) ? $fields->$attr_key : $default_fonts[
     url: '<?php echo ASL_UPLOAD_URL ?>',
     plugin_url: '<?php echo ASL_URL_PATH ?>'
    },
-   asl_configs =  <?php echo wp_json_encode($all_configs); ?>;
+   asl_configs =  <?php echo json_encode($all_configs); ?>;
    window.addEventListener("load", function() {
    asl_engine.pages.user_setting(asl_configs);
    });

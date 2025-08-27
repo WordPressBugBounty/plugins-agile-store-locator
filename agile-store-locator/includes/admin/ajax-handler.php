@@ -57,7 +57,18 @@ class AjaxHandler {
     $this->register_route('get_category_byid', 'Category', 'get_category_by_id');
     $this->register_route('get_categories', 'Category', 'get_categories');  
     
+    /*Logo*/
+    $this->register_route('get_logos', 'Logo', 'get_logos');  
+    $this->register_route('get_logo_byid', 'Logo', 'get_logo_by_id');
+    $this->register_route('update_logo', 'Logo', 'update_logo');
+    $this->register_route('delete_logo', 'Logo', 'delete_logo');
+    $this->register_route('upload_logo', 'Logo', 'upload_logo');
 
+
+    /*Markers*/
+    $this->register_route('delete_marker', 'Marker', 'delete_marker');
+    $this->register_route('get_marker_byid', 'Marker', 'get_marker_by_id');
+    $this->register_route('get_markers', 'Marker', 'get_markers');  
     
     //  Settings
     $this->register_route('export_configs', 'Setting', 'export_configs');
@@ -71,6 +82,11 @@ class AjaxHandler {
     $this->register_route('save_custom_fields', 'Setting', 'save_custom_fields'); 
     $this->register_route('load_ui_settings', 'Setting', 'load_ui_settings');
     $this->register_route('sl_theme_ui_save', 'Setting', 'sl_theme_ui_save');
+
+    /*Import and settings*/
+    $this->register_route('fill_missing_coords', 'ImportExport', 'fill_missing_coords');
+    $this->register_route('validate_api_key', 'ImportExport', 'validate_api_key');   
+    
 
     
     $this->register_route('change_options', 'Setting', 'change_options');

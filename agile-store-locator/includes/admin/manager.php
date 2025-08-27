@@ -217,7 +217,9 @@ class Manager extends Base {
       'export_config'         => esc_attr__('Export Configuration','asl_locator'),
       'required_field'        => esc_attr__('Please correct the error in field','asl_locator'),
       'select_media'          => esc_attr__('Select or Upload Media', 'asl_locator'),
-      'use_media'             => esc_attr__('Use this media', 'asl_locator')
+      'use_media'             => esc_attr__('Use this media', 'asl_locator'),
+      'enabled'               => esc_attr__('Enabled', 'asl_locator'),
+      'disabled'              => esc_attr__('Disabled', 'asl_locator')
     );
 
     wp_enqueue_script( 'asl-bootstrap');
@@ -484,11 +486,14 @@ class Manager extends Base {
    */
   public function page_store_logos() {
 
-    $this->_enqueue_scripts();
+    wp_enqueue_script( $this->AgileStoreLocator.'-datatable');
+    $this->_enqueue_scripts(false);
+    wp_enqueue_media();
 
     include ASL_PLUGIN_PATH.'admin/partials/logos.php';
   }
   
+    
   /**
    * [admin_manage_store Manage Stores]
    * @return [type] [description]
@@ -500,29 +505,31 @@ class Manager extends Base {
 
     $this->_enqueue_scripts();
 
-
     $pending_stores = Store::pending_store_count();
 
     // Field Columns
-    $field_columns = array(
+     $field_columns = array(
       '1' => 'Action',
-      '2' => 'ID',
-      '3' => 'Title',
-      '4' => 'Lat',
-      '5' => 'Lng',
-      '6' => 'Street',
-      '7' => 'State',
-      '8' => 'City',
-      '9' => 'Phone',
-      '10' => 'Email',
-      '11' => 'URL',
-      '12' => 'Zip',
-      '13' => 'Disabled',
-      '14' => 'Categories',
-      '15' => 'Marker',
-      '16' => 'Logo',
-      '17' => 'Created'
+      '2' => 'Scheduled',
+      '3' => 'ID',
+      '4' => 'Title',
+      '5' => 'Lat',
+      '6' => 'Lng',
+      '7' => 'Street',
+      '8' => 'State',
+      '9' => 'City',
+      '10' => 'Country',
+      '11' => 'Phone',
+      '12' => 'Email',
+      '13' => 'URL',
+      '14' => 'Zip',
+      '15' => 'Disabled',
+      '16' => 'Categories',
+      '17' => 'Marker',
+      '18' => 'Logo',
+      '19' => 'Created'
     );
+
 
     $hidden_fields = $wpdb->get_results("SELECT `content` FROM {$prefix}settings WHERE `type` = 'hidden'");
 
@@ -534,10 +541,10 @@ class Manager extends Base {
     else
         $hidden_fields = [];
 
+
     // Get all config
     $all_configs = \AgileStoreLocator\Helper::get_configs(); 
-
-
+    
     include ASL_PLUGIN_PATH.'admin/partials/manage_store.php';
   }
 
@@ -564,7 +571,8 @@ class Manager extends Base {
     else 
       $api_key = esc_attr__('Google API Key is Missing','asl_locator');
 
-
+    // Count the total number of stores
+    $all_stats = \AgileStoreLocator\Model\Store::get_coordinate_stats();
 
     include ASL_PLUGIN_PATH.'admin/partials/import_store.php';
   }
@@ -795,6 +803,43 @@ class Manager extends Base {
       }
     }
 
+  }
+
+
+  /**
+   * [asl_logo_uploader] Show the Loader for the Logos
+   * Get Gallery HTML
+   *
+   * @since    0.0.1
+   */
+  public function asl_logo_uploader( $name, $value = '' ) {
+
+    $html = '<div><ul class="asl_logo_mtb">';
+    
+    /* array with image IDs for hidden field */
+    $hidden = array();
+
+    if( $images = get_posts( array(
+      'post_type' => 'attachment',
+      'orderby'   => 'post__in', /* we have to save the order */
+      'order'     => 'ASC',
+      'post__in'  => explode(',',$value), /* $value is the image IDs comma separated */
+      'numberposts'    => -1,
+      'post_mime_type' => 'image'
+    ) ) ) {
+
+      foreach( $images as $image ) {
+        $hidden[] = $image->ID;
+        $image_src = wp_get_attachment_image_src( $image->ID, 'medium' );
+        $html .= '<li data-id="' . $image->ID .  '"><img src="'. $image_src[0] . ')"></li>';
+      }
+
+    }
+
+    $html .= '</ul><div style="clear:both"></div></div>';
+    $html .= '<input type="hidden" id="'.$name.'" name="data['.$name.']" value="' . join(',',$hidden) . '" /><a class="button btn btn-primary asl_upload_logo_btn">'.esc_attr__('Select Image','asl_locator').'</a>';
+
+    return $html;
   }
 
   /*

@@ -11,7 +11,7 @@ if($level_mode == '1'){ ?>
 <div class="asl-p-cont asl-new-bg">
 	<div class="hide">
 		<svg xmlns="http://www.w3.org/2000/svg">
-		  <symbol id="i-trash" viewBox="0 0 32 32" width="13" height="13" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+		  <symbol id="i-trash" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
 		  		<title><?php echo esc_attr__('Trash','asl_locator') ?></title>
 			    <path d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
 			</symbol>
@@ -31,11 +31,28 @@ if($level_mode == '1'){ ?>
       </symbol>
 		</svg>
 	</div>
-	<div class="container">
+	<div class="container sl-user-setting-page">
 		<div class="row asl-setting-cont">
 			<div class="col-md-12">
 			  <div class="asl-tabs p-0 mb-4 mt-4">
-				<h3 class="asl-tabs-title">
+				<div class="asl-tabs-title">
+                        <div>
+                            <h3>
+                                <?php echo esc_attr__('ASL Settings (Lite Version - ','asl_locator').ASL_CVERSION ?>)
+                            </h3>
+                            <p class="card-text">
+                                <?php echo esc_attr__('Set general options and preferences.','asl_locator') ?>
+                            </p>
+                        </div>
+                        <div class="mt-3 mt-md-0">
+                            <a id="asl-btn-export-config" data-loading-text="Exporting..."
+                                class="btn btn-warning text-white me-md-2"><?php echo esc_attr__('Export Settings','asl_locator') ?></a><a
+                                id="asl-btn-import-config"
+                                class="btn btn-danger text-white"><?php echo esc_attr__('Import Settings','asl_locator') ?></a>
+                        </div>
+                        
+                    </div>
+				<!-- <h3 class="asl-tabs-title">
 					<div class="row">
 						<div class="col-md-8">
 							<span class="mb-2 mt-2 d-block"><?php echo esc_attr__('ASL Settings (Lite Version - ','asl_locator').ASL_CVERSION ?>)</span>
@@ -44,7 +61,7 @@ if($level_mode == '1'){ ?>
 							<a id="asl-btn-export-config" data-loading-text="Exporting..." class="btn btn-warning btn-sm mr-md-2"><?php echo esc_attr__('Export Settings','asl_locator') ?></a><a id="asl-btn-import-config" class="btn btn-danger btn-sm"><?php echo esc_attr__('Import Settings','asl_locator') ?></a>
 						</div>
 					</div>   
-				</h3>
+				</h3> -->
 			     <div class="asl-tabs-body">
 			     	<div class="col-12">
 							<?php 
@@ -96,7 +113,7 @@ if($level_mode == '1'){ ?>
 			                      <div class="input-group">
 			                      	<input  type="number" class="form-control validate[required]" name="data[default_lat]" id="asl-default_lat" placeholder="<?php echo esc_attr__('Latitude','asl_locator') ?>">
 			                      	<input  type="number" class="form-control validate[required]" name="data[default_lng]"  id="asl-default_lng" placeholder="<?php echo esc_attr__('Longitude','asl_locator') ?>">
-			                      	<button data-toggle="smodal" data-target="#asl-map-modal" id="asl-setting-search-button" class="btn btn-dark no-shade-focus rounded-0" type="button"><?php echo esc_attr__('Change','asl_locator') ?></button>
+			                      	<button data-toggle="smodal" data-target="#asl-map-modal" id="asl-setting-search-button" class="btn btn-dark no-shade-focus" type="button"><?php echo esc_attr__('Change','asl_locator') ?></button>
 			                      </div>
 			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://www.google.com/maps"><?php echo esc_attr__('Get your coordinates by right click on the map','asl_locator') ?></a></p>
 			                    </div>
@@ -306,7 +323,7 @@ if($level_mode == '1'){ ?>
                       <div class="col-12 sl-pro-ctrls">
                       	<p class="pro-label"><?php echo esc_attr__('Pro Version Features','asl_locator') ?></p>
                       	<hr>
-                      	<p class="text-center"><a class="pro-opt-switch"><?php echo esc_attr__('View Options','asl_locator') ?></a><a class="pro-opt-switch"><?php echo esc_attr__('Hide Options','asl_locator') ?></a></p>
+                      	<p class="text-center"><a class="pro-opt-switch btn-light btn-block btn"><?php echo esc_attr__('View Options','asl_locator') ?></a><a class="pro-opt-switch btn-light btn"><?php echo esc_attr__('Hide Options','asl_locator') ?></a></p>
 	                      <div class="row sl-pro-opts">
 					                <div class="col-md-12 col-lg-6 col-12 mb-5">
 					                  <div class="form-group d-lg-flex d-md-block">
@@ -815,10 +832,10 @@ if($level_mode == '1'){ ?>
 							          					<div class="form-group">
 							          							<label class="custom-control-label" for="asl-template"><?php echo esc_attr__('UI Templates','asl_locator') ?></label>
 							                        <div class="input-group mb-3">
-							                            <div class="input-group-prepend">
-							                                <label class="input-group-text" for="asl-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
-							                            </div>
-							                            <select id="asl-template" class="custom-select col-md-12">
+														<label class="input-group-text" for="asl-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
+							                            <!-- <div class="input-group-prexxxxxxxpend">
+							                            </div> -->
+							                            <select id="asl-template" class="form-select col-md-12">
 							                                <option value="0"><?php echo esc_attr__('Template','asl_locator') ?> 0</option>
 							                                <option value="1" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 1</option>
 							                                <option value="2" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 2</option>
@@ -829,10 +846,10 @@ if($level_mode == '1'){ ?>
 							                    </div>
 							                    <div class="form-group layout-section">
 							                      <div class="input-group mb-3">
-							                          <div class="input-group-prepend">
-							                            <label for="asl-layout" class="input-group-text"><?php echo esc_attr__('Layout','asl_locator') ?></label>
-							                          </div>
-							                          <select id="asl-layout" class="custom-select">
+													  <label for="asl-layout" class="input-group-text"><?php echo esc_attr__('Layout','asl_locator') ?></label>
+							                          <!-- <div class="input-group-prepend">
+							                          </div> -->
+							                          <select id="asl-layout" class="form-select">
 							                              <option value="0"><?php echo esc_attr__('List Format','asl_locator') ?></option>
 							                              <option value="1" disabled="disabled"><?php echo esc_attr__('Accordion (States, Cities, Countries)','asl_locator') ?></option>
 							                              <option value="2" disabled="disabled"><?php echo esc_attr__('Accordion (Categories)','asl_locator') ?></option>
@@ -1004,14 +1021,14 @@ if($level_mode == '1'){ ?>
 		              		<div class="col-md-5">
 		              			<div class="form-group">
 		              				<div class="input-group mb-3">
-		              					<div class="input-group-prepend">
-		              						<label class="input-group-text" for="asl-customize-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
-		              					</div>
+										  <label class="input-group-text" for="asl-customize-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
+		              					<!-- <div class="input-group-prepend">
+		              					</div> -->
 		              					<?php 
                                 // Get all the templates support customization
                                 $cust_tmpls = \AgileStoreLocator\Helper::customizer_tmpls();
                              ?>
-                             <select id="asl-customize-template" class="custom-select col-md-12">
+                             <select id="asl-customize-template" class="form-select col-md-12">
                                 <?php
                                 foreach($cust_tmpls as $cust_key => $cust_tmpl): ?>
                                 <option <?php echo isset($cust_tmpl['disable'])? 'disabled="disabled"': ''; ?> value="<?php echo $cust_key ?>"><?php echo $cust_tmpl['label'] ?></option>
@@ -1022,10 +1039,10 @@ if($level_mode == '1'){ ?>
 		              		</div>
 		              		<div class="col-md-5">
 		              			<div class="input-group mb-3">
-	              					<div class="input-group-prepend">
-	              						<label for="asl-customize-section" class="input-group-text"><?php echo esc_attr__('Section','asl_locator') ?></label>
-	              					</div>
-	              					<select id="asl-customize-section" class="custom-select">
+									  <label for="asl-customize-section" class="input-group-text"><?php echo esc_attr__('Section','asl_locator') ?></label>
+	              					<!-- <div class="input-group-prepend">
+	              					</div> -->
+	              					<select id="asl-customize-section" class="form-select">
 	              						<option value="list"><?php echo esc_attr__('list','asl_locator') ?></option>
 	              						<option value="infobox"><?php echo esc_attr__('infobox','asl_locator') ?></option>
 	              					</select>
@@ -1033,10 +1050,10 @@ if($level_mode == '1'){ ?>
 		              		</div>
 		              		<div class="col-md-12 mb-4">
 		              			<div class="form-group">
-		              				<button type="button" class="btn btn-primary mb-2 mr-3" data-loading-text="<?php echo esc_attr__('Loading...','asl_locator') ?>" data-completed-text="Loaded" id="btn-asl-load_ctemp"><?php echo esc_attr__('Load Template','asl_locator') ?></button>
+		              				<button type="button" class="btn btn-primary mb-2 me-2" data-loading-text="<?php echo esc_attr__('Loading...','asl_locator') ?>" data-completed-text="Loaded" id="btn-asl-load_ctemp"><?php echo esc_attr__('Load Template','asl_locator') ?></button>
 		              				<button type="button" class="btn btn-success mb-2" data-loading-text="<?php echo esc_attr__('Saving...','asl_locator') ?>" data-completed-text="Template Updated" id="btn-asl-save_ctemp"><?php echo esc_attr__('Save Template','asl_locator') ?></button>
-		              				<button type="button" class="btn btn-danger float-right" data-loading-text="<?php echo esc_attr__('Reseting...','asl_locator') ?>" data-completed-text="Reset Done" id="btn-asl-reset_ctemp"><?php echo esc_attr__('Reset Template','asl_locator') ?></button>
-		              				<a href="<?php echo admin_url().'admin.php?page=sl-ui-customizer' ?>" class="btn btn-info float-right mr-3"><?php echo esc_attr__('Color & Fonts','asl_locator') ?></a>
+		              				<button type="button" class="btn btn-danger float-end" data-loading-text="<?php echo esc_attr__('Reseting...','asl_locator') ?>" data-completed-text="Reset Done" id="btn-asl-reset_ctemp"><?php echo esc_attr__('Reset Template','asl_locator') ?></button>
+		              				<a href="<?php echo admin_url().'admin.php?page=sl-ui-customizer' ?>" class="btn btn-warning float-end me-0 me-md-2"><?php echo esc_attr__('Color & Fonts','asl_locator') ?></a>
 		              			</div>
                       </div>
                       <div class="col-md-12 col-sm-12 col-12 mb-0">
@@ -1132,7 +1149,7 @@ if($level_mode == '1'){ ?>
                   <div class="row">
                      <div class="col-md-12">
                         <p><?php echo esc_attr__('Additional fields for the store can be created through this section, new fields will appear in the store form and via CSV import.','asl_locator') ?> <?php echo esc_attr__('To show the additional fields on the template, please add the fields in the template as in this ','asl_locator') ?><a target="_blank" href="https://www.youtube.com/watch?v=WpPUMxlNX4M"><?php echo esc_attr__('Video Guide','asl_locator') ?></a></p>
-                        <p class="alert alert-info" role="alert"><?php echo __(' <b>Control Name</b> must be small-case and without spacing, please use underscore sign (_) as the space separator, example: <b>facebook_url</b></p>','asl_locator') ?> </p>
+                        <p class="alert alert-primary" role="alert"><?php echo __(' <b>Control Name</b> must be small-case and without spacing, please use underscore sign (_) as the space separator, example: <b>facebook_url</b></p>','asl_locator') ?> </p>
                         <form id="frm-asl-custom-fields">
                            <div class="table-responsive">
                               <table class="table table-bordered table-stripped asl-attr-manage">

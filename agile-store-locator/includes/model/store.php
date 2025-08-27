@@ -347,7 +347,7 @@ class Store
 			}
             
 
-            unset($aRow->custom);
+            //unset($aRow->custom);
 
             // Sanitize the store
             $store = \AgileStoreLocator\Helper::sanitize_store($aRow);
@@ -518,6 +518,95 @@ class Store
             $wpdb->query("UPDATE {$prefix}stores_meta SET is_exec = 1 WHERE option_name = 'e_date' AND store_id IN ($disable_ids) ");
 
         }
+    }
 
+    /**
+     * Get store coordinate stats (total, missing, invalid, with_coords).
+     *
+     * Usage:
+     *   $stats = \ASL\Models\StoreModel::get_coordinate_stats();
+     *   // or with an extra WHERE clause:
+     *   $stats = \ASL\Models\StoreModel::get_coordinate_stats([
+     *       'where'  => 'AND status = %s',
+     *       'params' => ['published'],
+     *   ]);
+     *
+     * @param  array $args {
+     *   @type string $where  Optional extra WHERE fragment starting with AND/OR.
+     *   @type array  $params Optional params for wpdb->prepare to bind into $where.
+     * }
+     * @return array {
+     *   @type int $stores
+     *   @type int $stores_missing_coords
+     *   @type int $stores_invalid_coords
+     *   @type int $stores_with_coords
+     * }
+     */
+    public static function get_coordinate_stats(array $args = [])
+    {
+        global $wpdb;
+
+        $table = ASL_PREFIX . 'stores';
+
+        // Optional WHERE (safe-guarded via prepare if params are supplied)
+        $where_sql = '';
+        if (!empty($args['where'])) {
+            if (!empty($args['params']) && is_array($args['params'])) {
+                $where_sql = $wpdb->prepare(' ' . $args['where'] . ' ', $args['params']);
+            } else {
+                // If no params, trust the caller to pass a safe fragment (starts with AND/OR).
+                $where_sql = ' ' . $args['where'] . ' ';
+            }
+        }
+
+        // Single-pass conditional aggregation
+        $sql = "
+            SELECT
+              COUNT(*) AS total,
+
+              /* Missing coords: null/empty/'0'/'0.0' */
+              SUM(
+                CASE
+                  WHEN (lat IS NULL OR lng IS NULL OR lat = '' OR lng = '' OR lat IN ('0','0.0') OR lng IN ('0','0.0'))
+                  THEN 1 ELSE 0
+                END
+              ) AS missing_coords,
+
+              /* Invalid coords: present but non-numeric or out of range */
+              SUM(
+                CASE
+                  WHEN (
+                    lat IS NOT NULL AND lng IS NOT NULL AND lat <> '' AND lng <> '' AND lat NOT IN ('0','0.0') AND lng NOT IN ('0','0.0')
+                    AND (
+                      lat NOT REGEXP '^[+-]?(?:[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:e[+-]?[0-9]+)?$'
+                      OR  lng NOT REGEXP '^[+-]?(?:[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:e[+-]?[0-9]+)?$'
+                      OR  lat < -90 OR lat > 90 OR lng < -180 OR lng > 180
+                    )
+                  )
+                  THEN 1 ELSE 0
+                END
+              ) AS invalid_coords
+            FROM {$table}
+            WHERE 1=1
+            {$where_sql}
+        ";
+
+        $row = $wpdb->get_row($sql); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+
+        // Fallbacks if query fails or returns null
+        $total          = isset($row->total) ? (int) $row->total : 0;
+        $missing        = isset($row->missing_coords) ? (int) $row->missing_coords : 0;
+        $invalid        = isset($row->invalid_coords) ? (int) $row->invalid_coords : 0;
+        $with_coords    = max(0, $total - $missing - $invalid);
+
+        $stats = [
+            'stores'                  => $total,
+            'stores_missing_coords'   => $missing,
+            'stores_invalid_coords'   => $invalid,
+            'stores_with_coords'      => $with_coords,
+        ];
+
+      
+        return $stats;
     }
 }

@@ -318,6 +318,7 @@ class Plugin {
 			add_submenu_page( 'asl-plugin', esc_attr__('Create New Store','asl_locator'), esc_attr__('Add New Store','asl_locator'), ASL_PERMISSION, 'create-agile-store', array($this->plugin_admin,'page_add_new_store'));
 			add_submenu_page( 'asl-plugin', esc_attr__('Manage Stores','asl_locator'), esc_attr__('Manage Stores','asl_locator'), ASL_PERMISSION, 'manage-agile-store', array($this->plugin_admin,'page_manage_store'));
 			add_submenu_page( 'asl-plugin', esc_attr__('Manage Categories','asl_locator'), esc_attr__('Categories','asl_locator'), ASL_PERMISSION, 'manage-asl-categories', array($this->plugin_admin,'page_manage_categories'));
+			add_submenu_page( 'asl-plugin', esc_attr__('Manage Logos','asl_locator'), esc_attr__('Logos','asl_locator'), ASL_PERMISSION, 'manage-store-logos', array($this->plugin_admin,'page_store_logos'));
 
 			//	ASL WC is not active?
 			if(!defined('ASL_WC_PLUGIN')) {
@@ -328,7 +329,6 @@ class Plugin {
 				}
 
 				add_submenu_page( 'asl-plugin', esc_attr__('Manage Markers','asl_locator'), esc_attr__('Markers (Pro)','asl_locator'), ASL_PERMISSION, 'manage-store-markers', array($this->plugin_admin,'page_store_markers'));
-				add_submenu_page( 'asl-plugin', esc_attr__('Manage Logos','asl_locator'), esc_attr__('Logos (Pro)','asl_locator'), ASL_PERMISSION, 'manage-store-logos', array($this->plugin_admin,'page_store_logos'));
 				add_submenu_page( 'asl-plugin', esc_attr__('Import/Export Stores','asl_locator'), esc_attr__('Import/Export (Pro)','asl_locator'), ASL_PERMISSION, 'import-store-list', array($this->plugin_admin,'page_import_stores'));
 			}
 

@@ -1,3 +1,4 @@
+
 <div class="asl-p-cont asl-new-bg">
    <div class="container">
       <div class="row asl-setting-cont">
@@ -5,24 +6,32 @@
             <div class="asl-tabs asl-ui-customizer-cont p-0 mb-4 mt-4">
                <div class="asl-tabs-title">
                  <h3><?php echo esc_attr__('Agile Store Locator UI Customizer','asl_locator') ?></h3>
-                 <a href="<?php echo admin_url().'admin.php?page=user-settings'; ?>" class="asl-back-btn"><?php echo esc_attr__('Back to Settings','asl_locator') ?><i class="dashicons dashicons-undo mt-1 ml-2"></i></a>
+                 <a href="<?php echo admin_url().'admin.php?page=asl-settings'; ?>" class="asl-back-btn"><?php echo esc_attr__('Back to Settings','asl_locator') ?><i class="dashicons dashicons-undo mt-1 ml-2"></i></a>
                </div>
                <div class="asl-tabs-body">
-                 <div class="form-inline">
+                 <div class="form-inline d-md-flex">
                     <div class="form-group">
                        <div class="input-group">
-                          <div class="input-group-prepend">
-                             <label class="input-group-text" for="asl-ui-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
-                          </div>
-                          <select id="asl-ui-template" class="custom-select col-md-12" name="ui-template">
+                          <label class="input-group-text" for="asl-ui-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
+                          <!-- <div class="input-group-prepend">
+                          </div> -->
+                          <select id="asl-ui-template" class="form-select col-md-12" name="ui-template">
                              <option value="template-0"><?php echo esc_attr__('Template','asl_locator') ?> 0</option>
+                             <option disabled value="template-1"><?php echo esc_attr__('Template','asl_locator') ?> 1</option>
+                             <option disabled value="template-2"><?php echo esc_attr__('Template','asl_locator') ?> 2</option>
+                             <option disabled value="template-3"><?php echo esc_attr__('Template','asl_locator') ?> 3</option>
+                             <option disabled value="template-4"><?php echo esc_attr__('Template','asl_locator') ?> 4</option>
+                             <option disabled value="template-5"><?php echo esc_attr__('Template','asl_locator') ?> 5</option>
+                             <option disabled value="template-6"><?php echo esc_attr__('Template','asl_locator') ?> 6</option>
+                             <option disabled value="template-list"><?php echo esc_attr__('Template List','asl_locator') ?></option>
+                             <option disabled value="template-list-2"><?php echo esc_attr__('Template List 2','asl_locator') ?></option>
                              <?php if(defined ( 'ASL_WC_VERSION' )):?>
                               <option value="template-wc"><?php echo esc_attr__('WC Addon','asl_locator') ?></option>
                              <?php endif; ?>
                           </select>
                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-2 mt-md-0 ms-0 ms-md-2">
                        <button type="button" class="btn btn-primary" data-loading-text="<?php echo esc_attr__('Loading...','asl_locator') ?>" data-completed-text="Loaded" id="btn-asl-load_uitemp"><?php echo esc_attr__('Load Template','asl_locator') ?></button>
                     </div>
                     <div class="form-group asl-save-btn">

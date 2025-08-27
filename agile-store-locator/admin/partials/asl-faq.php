@@ -81,7 +81,7 @@ $faq_links = array(
 
 ?>
 
-<div class="row asl-setting-cont">
+<div class="row asl-setting-cont mx-auto px-0">
         <div class="col-md-12">
           <div class="asl-seting-faq p-0 mb-4 mt-0">
              <h3 class="card-title"><?php echo esc_attr__('FAQ & Help','asl_locator') ?></h3>
@@ -177,7 +177,7 @@ $faq_links = array(
                 <div class="row">
                   <div class="col-md-12 justify-content-md-center text-center">
                     <a href="https://agilestorelocator.com/multistore-woocommerce-addons/" target="_blank" class="figure">
-                      <img src="<?php echo ASL_URL_PATH ?>admin/images/asl-wc-addon.png" alt="Agile Stores Addons for WooCommerce" class="figure-img img-fluid rounded">
+                      <img src="<?php echo ASL_URL_PATH ?>admin/images/asl-wc-addon.png" alt="Multi-Store Addons for WooCommerce" class="figure-img img-fluid rounded">
                       <figcaption class="figure-caption text-center"><?php echo esc_attr__('Extension for WooCommerce','asl_locator') ?></figcaption>
                     </a>
                   </div>

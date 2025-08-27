@@ -263,7 +263,9 @@ class Store extends Base {
 
       $edit_url = 'admin.php?page=edit-agile-store&store_id='.$row->id;
 
-      $row->action = '<div class="edit-options"><a class="row-cpy" title="Duplicate" data-id="'.$row->id.'"><svg width="14" height="14"><use xlink:href="#i-clipboard"></use></svg></a><a href="'.$edit_url.'"><svg width="14" height="14"><use xlink:href="#i-edit"></use></svg></a><a title="Delete" data-id="'.$row->id.'" class="glyphicon-trash"><svg width="14" height="14"><use xlink:href="#i-trash"></use></svg></a></div>';
+      $row->action = '<div class="edit-options"><a class="row-cpy" title="Duplicate" data-id="'.$row->id.'"><svg width="30" height="30"><use xlink:href="#i-clipboard"></use></svg></a>
+      <a href="'.$edit_url.'"><svg width="24" height="24"><use xlink:href="#i-edit"></use></svg></a>
+      <a title="Delete" data-id="'.$row->id.'" class="glyphicon-trash"><svg width="30" height="30"><use xlink:href="#i-trash"></use></svg></a></div>';
 
       //  Show a approve button
       if(isset($row->pending) && $row->pending == '1') {

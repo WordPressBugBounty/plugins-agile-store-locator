@@ -19,7 +19,7 @@
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
                 <h3 class="pro-item__title">
-                  <span class="text-primary mr-1">Dropdown</span><span class="text-black">Store Control</span>
+                  <span class="text-primary me-1">Dropdown</span><span class="text-black">Store Control</span>
                 </h3>
                   <div class="pro-item__preview-text">It will allow users to select the store from the product page, the store selection will proceed with cart and checkout, the pricing for the product can be added for each store separately.</div>
               </div>
@@ -36,7 +36,7 @@
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
                 <h3 class="pro-item__title">
-                  <span class="text-primary mr-1">Radio List</span> of Stores
+                  <span class="text-primary me-1">Radio List</span> of Stores
                 </h3>
                   <div class="pro-item__preview-text">Radio list is just another type of control that can appear on the product page that shows the available stores for that product, and user can select the store of his choice.</div>
               </div>
@@ -53,7 +53,7 @@
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
                 <h3 class="pro-item__title">
-                  <span class="text-primary mr-1">Search Widget</span><span class="text-black"> for Stores</span>
+                  <span class="text-primary me-1">Search Widget</span><span class="text-black"> for Stores</span>
                 </h3>
                   <div class="pro-item__preview-text">Search Widget uses the Google Place API using which the nearest store can be searched that has the association with the product, once the address is searched the closest once will appear.</div>
               </div>
@@ -70,7 +70,7 @@
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
                 <h3 class="pro-item__title">
-                  <span class="text-primary mr-1">Local Pickup</span> using Store Locator
+                  <span class="text-primary me-1">Local Pickup</span> using Store Locator
                 </h3>
                   <div class="pro-item__preview-text">On the WooCommmerce checkout page your local pickup will have an option to select the store using a store locator out of which user will be able to select from which store he would like to pickup.</div>
               </div>
@@ -87,7 +87,7 @@
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
                 <h3 class="pro-item__title">
-                  <span class="text-primary mr-1">Distance Rate Shipping</span> using Store Locator
+                  <span class="text-primary me-1">Distance Rate Shipping</span> using Store Locator
                 </h3>
                   <div class="pro-item__preview-text">Distance rate shipping is a new shipping method that calculates the shipping cost based on the defined shipping rules by the admin on attributes like shipping distance, product weight.</div>
               </div>
@@ -104,7 +104,7 @@
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
                 <h3 class="pro-item__title">
-                  <span class="text-primary mr-1">Location Picker</span> on checkout
+                  <span class="text-primary me-1">Location Picker</span> on checkout
                 </h3>
                   <div class="pro-item__preview-text">User don't needs to fillup his checkout address details, he can just select his location over the map and the widget will fill out the form, geolocation can also be used to pinpoint.</div>
               </div>
