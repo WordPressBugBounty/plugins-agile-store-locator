@@ -386,16 +386,20 @@ class Setting extends Base
         $response          = new \stdclass();
         $response->success = false;
 
-        $template = $_POST['template'];
+        $template = isset($_POST['template']) ? sanitize_text_field($_POST['template']) : '';
+
 
         $colors   = [
             'template-0'  => [
                 'primary'           => 'clr-primary',
-                'header'            => '',
+                'header'            => 'light-90',
                 'header-color'      => '',
                 'infobox-color'     => '',
                 'infobox-bg'        => '',
                 'infobox-a'         => 'clr-copy',
+                'search-text'         => 'clr-copy',
+                'search-btn-color'  => '',
+                'search-btn-bg'     => 'clr-copy',
                 'action-btn-color'  => '',
                 'action-btn-bg'     => 'clr-copy',
                 'color'             => '',
@@ -405,7 +409,15 @@ class Setting extends Base
                 'highlighted'       => ''
             ],
             'template-wc'  => [
-                'primary'   => 'clr-primary'
+                'primary'                => 'clr-primary',
+                'button-color'           => '',
+                'button-background'      => 'clr-copy',
+                'label-color'            => '',
+                'control-color'          => '',
+                'control-background'     => '',
+                'control-border-color'   => '',
+                'input-color'            => '',
+                'input-background'       => ''
             ],
         ];
 
@@ -452,6 +464,9 @@ class Setting extends Base
                 'infobox-color'          => $tmpl_0_list_color,
                 'infobox-bg'             => $white,
                 'infobox-a'              => $tmpl_0_primary,
+                'search-text'            => $tmpl_0_primary,
+                'search-btn-color'       => $white,
+                'search-btn-bg'          => $tmpl_0_primary,
                 'action-btn-color'       => $white,
                 'action-btn-bg'          => $tmpl_0_primary,
                 'color'                  => $tmpl_0_list_color,
@@ -462,21 +477,52 @@ class Setting extends Base
                 'highlighted-list-color' => $tmpl_0_primary
             ],
             'template-wc'  => [
-                'primary'   => $tmpl_0_primary
+                'primary'                => $tmpl_0_primary,
+                'button-color'           => $white,
+                'button-background'      => $tmpl_0_primary,
+                'label-color'            => '#010a10',
+                'control-color'          => '#010a10',
+                'control-background'     => $white,
+                'control-border-color'   => '#dee2e6',
+                'input-color'            => $black,
+                'input-background'       => $white
             ]
         ];
 
         $default_fonts  = [
             'template-0'  => [
-                'font-size'   => 13,
-                'title-size'  => 15,
-                'btn-size'    => 13
+                'title-size'    => 16,
+                'font-size'     => 13,
+                'btn-size'      => 14,
+                'label-size'    => 16,
+                'input-size'    => 16
             ],
             'template-wc'  => [
-                'font-size'   => 13,
-                'title-size'  => 16,
-                'btn-size'    => 13
+                'font-size'         => 13,
+                'font-small-size'   => 10,
+                'title-size'        => 16,
+                'btn-size'          => 13
             ]
+        ];
+
+        $font_labels = [
+            'heading-size'      => 'Heading Font',
+            'heading-sub-size'  => 'Heading Para Font',
+            'label-size'        => 'Label Font',
+            'input-size'        => 'Input Font',
+            'tag-size'          => 'Category Tags Font',
+            'small-size'        => 'Description Font',
+            'font-size'         => 'Content Font',
+            'title-size'        => 'Title Font',
+            'sub-title-size'    => 'Sub-title Font',
+            'list-title-size'   => 'List Title Font',
+            'btn-size'                => 'Button Font',
+            'state-btn-size'          => 'State Btn Font',
+            'state-label-size'        => 'State Label Font',
+            'list-order-btn-size'     => 'List Order Btn Font',
+            'list-font-size'          => 'List Text Font',
+            'action-btn-size'         => 'Action Btn Font'
+
         ];
 
         $html     = '';
@@ -578,6 +624,49 @@ class Setting extends Base
             'valid'            => $valid,
             'country_restrict' => implode(',', $countries_to_restrict)
         ];
+    }
+
+    /**
+     * [reset_ui_template Remove saved UI template settings]
+     *
+     * Deletes the stored "ui-template" record for the selected template so
+     * defaults are applied next time it is loaded.
+     */
+    public function reset_ui_template()
+    {
+        global $wpdb;
+
+        $response          = new \stdclass();
+        $response->success = false;
+
+        $template = isset($_POST['template']) ? sanitize_text_field($_POST['template']) : '';
+
+        if (empty($template)) {
+            $response->error = esc_html__('Missing template identifier.', 'asl_locator');
+
+            return $this->send_response($response);
+        }
+
+        $deleted = $wpdb->delete(
+            ASL_PREFIX . 'settings',
+            [
+                'type' => 'ui-template',
+                'name' => $template,
+            ],
+            ['%s', '%s']
+        );
+
+        if ($deleted === false) {
+            $response->error = esc_html__('Unable to reset the template. Please try again.', 'asl_locator');
+
+            return $this->send_response($response);
+        }
+
+        $response->success  = true;
+        $response->template = $template;
+        $response->msg      = esc_attr__('Template settings have been reset.', 'asl_locator');
+
+        return $this->send_response($response);
     }
 
     /**

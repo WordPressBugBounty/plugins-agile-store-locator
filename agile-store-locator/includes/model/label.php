@@ -212,6 +212,7 @@ class Label {
         'modal_geo_pos'      => esc_attr__('LOCATE YOUR GEOPOSITION','asl_locator'),
         'modal_your_add'     => esc_attr__('Your Address','asl_locator'),
         'modal_locate'       => esc_attr__('LOCATE','asl_locator'),
+        'modal_use_my_loc_title'   => esc_attr__('Find Nearby Service Providers','asl_locator'),
         'modal_use_my_loc'   => esc_attr__('Use my location to find the closest Service Provider near me','asl_locator'),
         'modal_use_loc'      => esc_attr__('USE LOCATION','asl_locator'),
         // _agile_contact_modal
@@ -234,6 +235,17 @@ class Label {
         'no_search_item_desc'=> esc_attr__('Enter a valid location and try again.','asl_locator'),
         'view_branches'     => esc_attr__('View All Branches','asl_locator'),
         'hours'             => esc_attr__('Hours','asl_locator'),
+        'scroll_left'       => esc_attr__('Scroll left','asl_locator'),
+        'scroll_right'      => esc_attr__('Scroll right','asl_locator'),
+
+        'open_24'           => esc_attr__('Open 24 Hours','asl_locator'),
+        'store_schedule'    => esc_attr__('Store Schedule','asl_locator'),
+        'same_everyday'     => esc_attr__('Same Everyday','asl_locator'),
+        'starting_time'     => esc_attr__('Starting Time','asl_locator'),
+        'ending_time'       => esc_attr__('Ending Time','asl_locator'),
+        'start_time'        => esc_attr__('Start Time','asl_locator'),
+        'end_time'          => esc_attr__('End Time','asl_locator'),
+        'badge'             => esc_attr__('Badge','asl_locator')
         );
         
 

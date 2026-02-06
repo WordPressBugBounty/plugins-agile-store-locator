@@ -21,7 +21,7 @@ class Countries {
     * [Get the all countries]
     * @since  4.8.21
     * @return [type]          [description]
-    */
+  */
   public  static function get_all_countries() {
    
     global $wpdb;
@@ -30,6 +30,34 @@ class Countries {
     
     //  Get the results
     $results = $wpdb->get_results("SELECT * FROM {$ASL_PREFIX}countries ORDER BY country");
+
+    return $results;
+  }
+
+  /**
+   * Return the countries that currently have at least one active store
+   * @since 4.8.21
+   * @return array
+   */
+  public static function get_active_countries() {
+
+    global $wpdb;
+
+    $prefix = ASL_PREFIX;
+
+    $query = "SELECT DISTINCT c.id, c.country, c.iso_code_2 as code FROM {$prefix}countries c
+              INNER JOIN {$prefix}stores s ON s.country = c.id
+              WHERE s.country IS NOT NULL AND s.country != ''
+              AND (s.is_disabled IS NULL OR s.is_disabled = 0)
+              ORDER BY c.country";
+
+    $results = $wpdb->get_results($query);
+
+    if($results) {
+      foreach($results as $row) {
+        $row->country = esc_attr__($row->country, 'asl_locator');
+      }
+    }
 
     return $results;
   }

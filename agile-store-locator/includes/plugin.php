@@ -357,6 +357,7 @@ class Plugin {
 	private function define_public_hooks() {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'register_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'maybe_enqueue_public_styles', 20 );
 
     add_shortcode( 'ASL_STORELOCATOR', array($this->plugin_public, 'frontendStoreLocator'));	
     add_shortcode( 'ASL_STORE', array($this->plugin_public, 'storePage'));

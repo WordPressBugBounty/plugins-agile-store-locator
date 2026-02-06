@@ -5916,7 +5916,17 @@ body .asl-p-cont .asl-wc-setting .select6-container .select6-selection .select6-
 .asl-p-cont .form-group .chosen-container .chosen-choices .search-field {
   margin-top: -5px;
 }
-
+.asl-p-cont .form-group #ddl_fs_cntrl_chosen .chosen-choices .search-field{
+  margin-top: 3px;
+}
+.asl-p-cont .form-group #ddl_fs_cntrl_chosen .chosen-choices .search-choice{
+  margin: 8px 5px 0px 0;
+}
+.asl-p-cont .form-group #ddl_fs_cntrl_chosen .chosen-choices {
+  padding: 0px 12px !important;
+  height: auto !important;
+  min-height: 40px !important;
+}
 .asl-p-cont .input-group.bootstrap-asltimepicker .form-control {
   border-right-width: 0 !important;
   padding-right: 0;

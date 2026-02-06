@@ -128,17 +128,21 @@ class Slug {
 
 		$store_uri = get_query_var('sl-store', false);
 
-		if ($store_uri) {
-
-	 	  $store_details_slug = \AgileStoreLocator\Helper::get_configs('rewrite_slug');
-			
-      if (!empty($store_details_slug) && !is_null($store_details_slug)) {
-				$url = site_url("$store_details_slug/$store_uri/");
-			} 
-      else {
-				$url .= $store_uri . '/';
-			}
+		if (!$store_uri) {
+			return $url;
 		}
+
+    $store_uri = trim($store_uri, '/');
+
+    if($store_uri === '') {
+      return $url;
+    }
+
+    $store_url = self::build_store_detail_url($store_uri);
+
+    if($store_url) {
+      return $store_url;
+    }
 
 		return $url;
 
@@ -195,10 +199,195 @@ class Slug {
   }
 
   /**
-   * [add_meta_description_by_store_slug for adding meta description as store description]
-   * @since  4.9.8 [<description>]
-   * @param  $title [description]
+   * Register rewrite rules for store detail pages, including Polylang prefixes.
+   *
+   * @param string $slug
+   * @param int    $page_id
    */
+  public static function register_rewrite_rules($slug, $page_id) {
+
+    if(!$slug || !$page_id) {
+      return;
+    }
+
+    add_rewrite_rule('^'.$slug.'/?([^/]*)/?','index.php?page_id='.$page_id.'&sl-store=$matches[1]','top');
+
+    // Handle Polylang language prefixes such as fr/slug.
+    if(function_exists('pll_languages_list')) {
+
+      $language_slugs = pll_languages_list(array('fields' => 'slug'));
+
+      if(!empty($language_slugs) && is_array($language_slugs)) {
+
+        foreach($language_slugs as $language_slug) {
+
+          if(!$language_slug) {
+            continue;
+          }
+
+          $lang_page_id = $page_id;
+
+          if(function_exists('pll_get_post')) {
+
+            // Map to the translated page if available, otherwise fall back.
+            $translated_page_id = pll_get_post($page_id, $language_slug);
+
+            if($translated_page_id) {
+              $lang_page_id = $translated_page_id;
+            }
+          }
+
+          add_rewrite_rule('^'.$language_slug.'/'.$slug.'/?([^/]*)/?','index.php?page_id='.$lang_page_id.'&sl-store=$matches[1]&lang='.$language_slug,'top');
+        }
+      }
+    }
+	  }
+
+  /**
+   * Build the full store detail URL, taking language into account when available.
+   *
+   * @param string $store_uri
+   * @param string $language_slug
+   * @return string
+   */
+  public static function build_store_detail_url($store_uri, $language_slug = '') {
+
+    $base_url = self::get_store_base_url($language_slug);
+
+    if(!$base_url) {
+      return '';
+    }
+
+    $store_uri = trim((string) $store_uri, '/');
+
+    if($store_uri === '') {
+      return trailingslashit($base_url);
+    }
+
+    return trailingslashit($base_url . '/' . $store_uri);
+  }
+
+  /**
+   * Get the base URL for store detail pages, respecting current language.
+   *
+   * @param string $language_slug
+   * @return string
+   */
+  public static function get_store_base_url($language_slug = '') {
+
+    $store_page_id = \AgileStoreLocator\Helper::get_configs('rewrite_id');
+    $store_slug    = \AgileStoreLocator\Helper::get_configs('rewrite_slug');
+
+    $language_slug = $language_slug !== '' ? $language_slug : self::get_current_language_slug();
+
+    $base_url = '';
+
+    if($store_page_id) {
+
+      $target_page_id = $store_page_id;
+
+      if($language_slug && function_exists('pll_get_post')) {
+
+        $translated_page_id = pll_get_post($store_page_id, $language_slug);
+
+        if($translated_page_id) {
+          $target_page_id = $translated_page_id;
+        }
+      }
+
+      $base_url = get_permalink($target_page_id);
+    }
+
+    if(!$base_url) {
+
+      $home_url = home_url();
+
+      if(function_exists('pll_home_url')) {
+        $home_url = $language_slug ? pll_home_url($language_slug) : pll_home_url();
+        $home_url = untrailingslashit($home_url);
+      }
+      elseif(has_filter('wpml_home_url')) {
+        $home_url = apply_filters('wpml_home_url', trailingslashit($home_url));
+        $home_url = untrailingslashit($home_url);
+      }
+      else {
+        $home_url = untrailingslashit($home_url);
+      }
+
+      if($store_slug) {
+        $base_url = $home_url . '/' . trim($store_slug, '/');
+      }
+      else {
+        $base_url = $home_url;
+      }
+    }
+
+    if(!$base_url) {
+      return '';
+    }
+
+    return untrailingslashit($base_url);
+  }
+
+  /**
+   * Ensure Polylang language switcher and hreflang tags include the store slug.
+   *
+   * @param string $url
+   * @param string $language_slug
+   * @return string
+   */
+  public static function filter_polylang_translation_url($url, $language_slug) {
+
+    $store_uri = get_query_var('sl-store', false);
+
+    if(!$store_uri) {
+      return $url;
+    }
+
+    $store_uri = trim($store_uri, '/');
+
+    if($store_uri === '') {
+      return $url;
+    }
+
+    $translated_url = self::build_store_detail_url($store_uri, $language_slug);
+
+    if($translated_url) {
+      return $translated_url;
+    }
+
+    return $url;
+  }
+
+  /**
+   * Get the current language slug when Polylang is active.
+   *
+   * @return string
+   */
+  private static function get_current_language_slug() {
+
+    $language_slug = '';
+
+    if(function_exists('pll_current_language')) {
+      $language_slug = pll_current_language('slug');
+    }
+
+    if(!$language_slug) {
+      $query_lang = get_query_var('lang');
+
+      if(is_string($query_lang) && $query_lang) {
+        $language_slug = $query_lang;
+      }
+    }
+
+    return $language_slug ?: '';
+  }
+
+	  /**
+	   * [add_meta_description_by_store_slug for adding meta description as store description]
+	   * @since  4.9.8 [<description>]
+	   * @param  $title [description]
+	   */
   public static function add_meta_description_by_store_slug() {
 		
     $description = self::get_meta_description_by_store_slug();

@@ -741,14 +741,13 @@ class Manager extends Base {
    */
   public function rewrite_slug(){
 
-  global $wpdb;
-
    $slug      = isset($this->load_config['rewrite_slug'])? $this->load_config['rewrite_slug']: null;
    $page_id   = isset($this->load_config['rewrite_id'])? $this->load_config['rewrite_id']: null;
-
+    
    // Make sure values exist
-   if($slug && $page_id)
-    add_rewrite_rule('^'.$slug.'/?([^/]*)/?','index.php?page_id='.$page_id.'&sl-store=$matches[1]','top');
+   if($slug && $page_id) {
+     \AgileStoreLocator\Schema\Slug::register_rewrite_rules($slug, $page_id);
+   }
   }
 
 
@@ -758,7 +757,7 @@ class Manager extends Base {
    * 
    * Whitelist the Variable 
    */
-  function rewrite_query_vars($query_vars){
+  public function rewrite_query_vars($query_vars){
       
       $query_vars[] = 'sl-store';
 

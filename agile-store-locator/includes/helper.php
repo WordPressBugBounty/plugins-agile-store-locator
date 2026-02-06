@@ -58,11 +58,12 @@ class Helper {
 
     $adv_mkrs = [
       ['label'    => esc_attr__('Circle'),      'value' => 'circle',    'disable' => false],
-      ['label'    => esc_attr__('Tag'),         'value' => 'tag',       'disable' => false],
       ['label'    => esc_attr__('Rectangle'),   'value' => 'rect',      'disable' => false],
+      ['label'    => esc_attr__('Tag'),         'value' => 'tag',       'disable' => false],
       ['label'    => esc_attr__('Marker 1'),    'value' => 'marker',    'disable' => false],
       ['label'    => esc_attr__('Marker 2'),    'value' => 'marker1',   'disable' => false],
-      ['label'    => esc_attr__('Marker 3'),    'value' => 'marker3',   'disable' => false]
+      ['label'    => esc_attr__('Marker 3'),    'value' => 'marker3',   'disable' => false],
+      ['label'    => esc_attr__('Image'),       'value' => 'img',       'disable' => false]
     ];
 
     return $adv_mkrs;

@@ -124,7 +124,12 @@ if($level_mode == '1'){ ?>
 			                    <label class="custom-control-label" for="search_type"><?php echo esc_attr__('Search Type','asl_locator') ?></label>
 			                    <div class="form-group-inner">
 			                      <select  name="data[search_type]" id="asl-search_type" class="custom-select">
-			                        <option value="0"><?php echo esc_attr__('Search By Address (Google)','asl_locator') ?></option>
+			                        <option value="0">
+																	<?php echo esc_attr__('Search By Address (Google) - Legacy','asl_locator') ?>
+															</option>
+															<option value="4">
+																	<?php echo esc_attr__('Search By New Place API (Google)','asl_locator') ?>
+															</option>
 			                        <option value="1" disabled="disabled"><?php echo esc_attr__('Search By Store Name (Database)','asl_locator') ?></option>
 			                        <option value="2" disabled="disabled"><?php echo esc_attr__('Search By Stores Cities, States (Database)','asl_locator') ?></option>
 			                        <option value="3"><?php echo esc_attr__('Geocoding on Enter key (Google Geocoding API)','asl_locator') ?></option>
@@ -138,9 +143,18 @@ if($level_mode == '1'){ ?>
 			                    <label class="custom-control-label" for="asl-direction_redirect"><?php echo esc_attr__('Store Direction','asl_locator') ?></label>
 			                    <div class="form-group-inner">
 		                        <select  name="data[direction_redirect]" id="asl-direction_redirect" class="custom-select">
-		                          <option value="0"><?php echo esc_attr__('Show Direction in the Panel via Google Direction API','asl_locator') ?></option>
-		                          <option value="1"><?php echo esc_attr__('Open in Google Maps (Mobile)','asl_locator') ?></option>
-		                          <option value="2"><?php echo esc_attr__('Open in Google Maps (All Devices)','asl_locator') ?></option>
+		                          <option value="2">
+																	<?php echo esc_attr__('Open in Google Maps (All Devices)','asl_locator') ?>
+															</option>
+															<option value="0">
+																	<?php echo esc_attr__('Google Direction Legacy','asl_locator') ?>
+															</option>
+															<option value="3">
+																	<?php echo esc_attr__('Draw Direction with Route API','asl_locator') ?>
+															</option>
+															<option value="1">
+																	<?php echo esc_attr__('Open in Google Maps (Mobile)','asl_locator') ?>
+															</option>
 		                        </select>
 			                      <p class="help-p"><?php echo esc_attr__('Select how you want the direction to work.','asl_locator') ?></p>
 			                    </div>
@@ -668,6 +682,9 @@ if($level_mode == '1'){ ?>
 		              </div>
 		              <div id="sl-ui-tab" class="tab-pane">
 		              	<div class="row mt-2">
+			                <div class="col-12 mb-4 text-end">
+			                	<a href="<?php echo admin_url().'admin.php?page=sl-ui-customizer' ?>" class="btn btn-warning"><?php echo esc_attr__('UI Customizer','asl_locator') ?></a>
+			                </div>
 			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-map_top"><?php echo esc_attr__('Map & List Order','asl_locator') ?></label>
@@ -832,23 +849,22 @@ if($level_mode == '1'){ ?>
 							          					<div class="form-group">
 							          							<label class="custom-control-label" for="asl-template"><?php echo esc_attr__('UI Templates','asl_locator') ?></label>
 							                        <div class="input-group mb-3">
-														<label class="input-group-text" for="asl-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
-							                            <!-- <div class="input-group-prexxxxxxxpend">
-							                            </div> -->
+																				<label class="input-group-text" for="asl-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
 							                            <select id="asl-template" class="form-select col-md-12">
 							                                <option value="0"><?php echo esc_attr__('Template','asl_locator') ?> 0</option>
 							                                <option value="1" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 1</option>
 							                                <option value="2" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 2</option>
 							                                <option value="3" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 3</option>
+							                                <option value="3" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 4</option>
+							                                <option value="3" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 5</option>
+							                                <option value="3" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> 6</option>
 							                                <option value="list" disabled="disabled"><?php echo esc_attr__('Template','asl_locator') ?> List (BETA version)</option>
 							                            </select>
 							                        </div>
 							                    </div>
 							                    <div class="form-group layout-section">
 							                      <div class="input-group mb-3">
-													  <label for="asl-layout" class="input-group-text"><?php echo esc_attr__('Layout','asl_locator') ?></label>
-							                          <!-- <div class="input-group-prepend">
-							                          </div> -->
+													  						<label for="asl-layout" class="input-group-text"><?php echo esc_attr__('Layout','asl_locator') ?></label>
 							                          <select id="asl-layout" class="form-select">
 							                              <option value="0"><?php echo esc_attr__('List Format','asl_locator') ?></option>
 							                              <option value="1" disabled="disabled"><?php echo esc_attr__('Accordion (States, Cities, Countries)','asl_locator') ?></option>

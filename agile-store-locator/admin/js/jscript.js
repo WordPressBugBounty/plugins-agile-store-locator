@@ -1835,8 +1835,6 @@ var asl_engine = window['asl_engine'] || {};
 
       var asInitVals = {};
 
-      console.log(`File: jscript.js, Line: 1838`, );
-
       table = $('#tbl_stores').dataTable({
         "sPaginationType": "bootstrap",
         "bProcessing": true,
@@ -3498,35 +3496,49 @@ var asl_engine = window['asl_engine'] || {};
      */
     ui_template: function(_configs) {
 
-      var $form     = $('#frm-asl-ui-customizer');
-      var formData  = $form.ASLSerializeObject();
+      var $form      = $('#frm-asl-ui-customizer');
+      var $loadBtn   = $('#btn-asl-load_uitemp');
+      var $saveBtn   = $('#btn-asl-save_uitemp');
+      var $resetBtn  = $('#btn-asl-reset_uitemp');
+
+      var disableTemplateActions = function() {
+
+        $saveBtn.bootButton('reset');
+        $resetBtn.bootButton('reset');
+
+        $saveBtn.addClass('disabled').prop('disabled', true).removeAttr('data-template-name');
+        $resetBtn.addClass('disabled').prop('disabled', true).removeAttr('data-template-name');
+      };
+
+      disableTemplateActions();
 
       ////////////////////////////////////
       //  Load UI Template button Event //
       ////////////////////////////////////
-      $('#btn-asl-load_uitemp').bind('click', function(e) {
+      $loadBtn.bind('click', function(e) {
 
         var $btn = $(this);
 
         $btn.bootButton('loading');
 
-        var template = $('#asl-ui-template').val();
+        disableTemplateActions();
 
-        $('#btn-asl-save_uitemp').attr({'data-template-name':template});
+        var template = $('#asl-ui-template').val();
 
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=load_ui_settings', {template: template}, function(_response) {
 
           $btn.bootButton('reset');
-
-          $('#btn-asl-save_uitemp').bootButton('reset');
 
           toastIt(_response);
 
           if (_response.success) {
             $($form).find('#asl-fields-section').html('');
             $($form).find('#asl-fields-section').append(_response.html);
- 
+
             $('#asl-fields-section').show();
+
+            $saveBtn.attr({'data-template-name': template}).removeClass('disabled').prop('disabled', false);
+            $resetBtn.attr({'data-template-name': template}).removeClass('disabled').prop('disabled', false);
 
             return;
           }
@@ -3539,7 +3551,7 @@ var asl_engine = window['asl_engine'] || {};
       //////////////////////
       // Save UI template //
       //////////////////////
-      $('#btn-asl-save_uitemp').bind('click', function(e) {
+      $saveBtn.bind('click', function(e) {
 
         var $btn      = $(this);
         var formData  = $form.ASLSerializeObject();
@@ -3555,13 +3567,98 @@ var asl_engine = window['asl_engine'] || {};
 
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=sl_theme_ui_save', {sl_template: template,sl_formData: formData}, function(_response) {
 
-
           $btn.bootButton('reset');
 
           toastIt(_response);
 
         }, 'json');
       });
+
+
+      ////////////////////////
+      // Reset UI template  //
+      ////////////////////////
+      $resetBtn.bind('click', function(e) {
+
+        var template = $(this).attr('data-template-name');
+
+        if(template == '' || template == null){
+            atoastr.error('Load Template first');
+            return;
+        }
+
+        aswal({
+          title: (ASL_REMOTE.LANG.reset_template_title || 'Reset Template?'),
+          text: (ASL_REMOTE.LANG.reset_template_text || 'This will delete the saved settings for the selected template.'),
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#dc3545',
+          confirmButtonText: (ASL_REMOTE.LANG.reset_template_confirm || 'Yes, reset it!')
+        }).then(function(result) {
+
+          if(result) {
+
+            $resetBtn.bootButton('loading');
+
+            ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=reset_ui_template', {template: template}, function(_response) {
+
+              $resetBtn.bootButton('reset');
+
+              toastIt(_response);
+
+              if (_response.success) {
+
+                disableTemplateActions();
+                $('#asl-fields-section').html('').hide();
+
+                $loadBtn.trigger('click');
+              }
+
+            }, 'json');
+          }
+        });
+      });
+
+      // Helper: Lighten a hex color
+      function lightenColor(hex, percent) {
+          hex = hex.replace('#', '');
+          if (hex.length === 3) {
+              hex = hex.split('').map(c => c + c).join('');
+          }
+
+          let r = parseInt(hex.substring(0, 2), 16);
+          let g = parseInt(hex.substring(2, 4), 16);
+          let b = parseInt(hex.substring(4, 6), 16);
+
+          r = Math.min(255, Math.floor(r + (255 - r) * (percent / 100)));
+          g = Math.min(255, Math.floor(g + (255 - g) * (percent / 100)));
+          b = Math.min(255, Math.floor(b + (255 - b) * (percent / 100)));
+
+          return "#" + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+      }
+
+      // Change Copy Colors
+      $('#frm-asl-ui-customizer').on('change','.clr-primary',function(){
+        
+        let primary = $(this).val();
+
+        // Apply to all "clr-copy"
+        $('.clr-copy').val(primary).change();
+
+        console.log(`File: jscript.js, Line: 4392`, primary);
+        // Apply to all "light-XX"
+        $('[class*="light-"]').each(function () {
+          
+            let classes = $(this).attr('class').split(/\s+/);
+            let lightClass = classes.find(c => c.startsWith('light-'));
+            if (lightClass) {
+                let percent = parseInt(lightClass.split('-')[1], 10);
+                let newColor = lightenColor(primary, percent);
+                console.log(`File: jscript.js, Line: newColor: `, newColor);
+                $(this).val(newColor).change();
+            }
+        });
+      }); 
 
       // Change Copy Colors
       $('#frm-asl-ui-customizer').on('change','.clr-primary',function(){
@@ -3582,7 +3679,7 @@ var asl_engine = window['asl_engine'] || {};
       });
     },
 
-        /**
+    /**
      * [import_store description]
      * @return {[type]} [description]
      */

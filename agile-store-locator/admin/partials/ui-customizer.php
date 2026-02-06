@@ -9,13 +9,11 @@
                  <a href="<?php echo admin_url().'admin.php?page=asl-settings'; ?>" class="asl-back-btn"><?php echo esc_attr__('Back to Settings','asl_locator') ?><i class="dashicons dashicons-undo mt-1 ml-2"></i></a>
                </div>
                <div class="asl-tabs-body">
-                 <div class="form-inline d-md-flex">
-                    <div class="form-group">
+                 <div class="row g-2 g-md-3 align-items-end">
+                    <div class="col-12 col-md-5 col-xl-4">
                        <div class="input-group">
-                          <label class="input-group-text" for="asl-ui-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
-                          <!-- <div class="input-group-prepend">
-                          </div> -->
-                          <select id="asl-ui-template" class="form-select col-md-12" name="ui-template">
+                           <label class="input-group-text" for="asl-ui-template"><?php echo esc_attr__('Template','asl_locator') ?></label>
+                          <select id="asl-ui-template" class="form-select" name="ui-template">
                              <option value="template-0"><?php echo esc_attr__('Template','asl_locator') ?> 0</option>
                              <option disabled value="template-1"><?php echo esc_attr__('Template','asl_locator') ?> 1</option>
                              <option disabled value="template-2"><?php echo esc_attr__('Template','asl_locator') ?> 2</option>
@@ -31,13 +29,13 @@
                           </select>
                        </div>
                     </div>
-                    <div class="form-group mt-2 mt-md-0 ms-0 ms-md-2">
+                    <div class="col-12 col-md-auto d-grid">
                        <button type="button" class="btn btn-primary" data-loading-text="<?php echo esc_attr__('Loading...','asl_locator') ?>" data-completed-text="Loaded" id="btn-asl-load_uitemp"><?php echo esc_attr__('Load Template','asl_locator') ?></button>
                     </div>
-                    <div class="form-group asl-save-btn">
+                    <div class="col-12 col-md-auto d-grid asl-save-btn">
                        <button type="button" class="btn btn-success disabled" disabled data-loading-text="<?php echo esc_attr__('Saving...','asl_locator') ?>" data-completed-text="Template Updated" id="btn-asl-save_uitemp"><?php echo esc_attr__('Save Settings','asl_locator') ?></button>
                     </div>
-                    <div class="form-group asl-reset-btn hide">
+                    <div class="col-12 col-md-auto d-grid asl-reset-btn ms-md-auto">
                        <button type="button" class="btn btn-danger disabled" disabled data-loading-text="<?php echo esc_attr__('Reseting...','asl_locator') ?>" data-completed-text="Template Updated" id="btn-asl-reset_uitemp"><?php echo esc_attr__('Reset Template','asl_locator') ?></button>
                     </div>
                  </div>

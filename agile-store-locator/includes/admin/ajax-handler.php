@@ -82,6 +82,7 @@ class AjaxHandler {
     $this->register_route('save_custom_fields', 'Setting', 'save_custom_fields'); 
     $this->register_route('load_ui_settings', 'Setting', 'load_ui_settings');
     $this->register_route('sl_theme_ui_save', 'Setting', 'sl_theme_ui_save');
+    $this->register_route('reset_ui_template', 'Setting', 'reset_ui_template');
 
     /*Import and settings*/
     $this->register_route('fill_missing_coords', 'ImportExport', 'fill_missing_coords');

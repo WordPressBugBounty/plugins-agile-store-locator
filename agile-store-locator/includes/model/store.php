@@ -123,9 +123,14 @@ class Store
             $countries = $where_clause['countries'];
 
             $countries = str_replace(', ', ',', $countries);
-            $countries = explode(',', $countries);
-            array_walk($countries, function (&$x) {$x = "'$x'";});
-            $where_query .= " AND {$ASL_PREFIX}countries.`country` IN (".implode(',', $countries).')';
+            $countries = array_filter(array_map('trim', explode(',', $countries)));
+            $countries = array_map('sanitize_text_field', $countries);
+
+            if (!empty($countries)) {
+                $country_placeholders = implode(', ', array_fill(0, count($countries), '%s'));
+                $where_query .= $wpdb->prepare(" AND {$ASL_PREFIX}countries.`country` IN ($country_placeholders)", $countries);
+            }
+
             unset($where_clause['countries']);
         }
 
@@ -135,9 +140,14 @@ class Store
             $city   = $where_clause['city'];
 
             $city   = str_replace(', ', ',', $city);
-            $city   = explode(',', $city);
-            array_walk($city, function (&$x) {$x = "'$x'";});
-            $where_query .= ' AND `city` IN ('.implode(',', $city).')';
+            $city   = array_filter(array_map('trim', explode(',', $city)));
+            $city   = array_map('sanitize_text_field', $city);
+
+            if (!empty($city)) {
+                $city_placeholders = implode(', ', array_fill(0, count($city), '%s'));
+                $where_query .= $wpdb->prepare(" AND `city` IN ($city_placeholders)", $city);
+            }
+
             unset($where_clause['city']);
         }
 

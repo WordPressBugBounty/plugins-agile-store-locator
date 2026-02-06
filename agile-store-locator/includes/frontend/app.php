@@ -55,6 +55,14 @@ class App
     private $scripts_data = [];
 
     /**
+     * Allowed frontend templates.
+     *
+     * @var array
+     */
+    private $allowed_templates = ['0'];
+
+
+    /**
      * Initialize the class and set its properties.
      *
      * @since    1.0.0
@@ -70,12 +78,113 @@ class App
     }
 
     /**
+     * Validate and normalize template value.
+     */
+    private function sanitize_template($template)
+    {
+        $template = trim((string) $template);
+
+        return in_array($template, $this->allowed_templates, true) ? $template : '0';
+    }
+
+
+    /**
      * [register_styles Load the very basic style]
      * @return [type] [description]
      */
     public function register_styles()
     {
-        wp_enqueue_style($this->AgileStoreLocator . '-init', ASL_URL_PATH . 'public/css/init.css', [], $this->version, 'all');
+
+        $media    = 'all';
+        $version  = $this->version;
+        $base_url = ASL_URL_PATH . 'public/css/';
+
+        $styles = [
+            $this->AgileStoreLocator . '-init'        => $base_url . 'init.css',
+            $this->AgileStoreLocator . '-sl-icons'    => $base_url . 'icons/fontello.css',
+            $this->AgileStoreLocator . '-sl-bootstrap'=> $base_url . 'sl-bootstrap.css',
+            $this->AgileStoreLocator . '-tmpl-0'      => $base_url . 'tmpl-0/tmpl-0.css',
+            $this->AgileStoreLocator . '-page'        => $base_url . 'store-page.css',
+            $this->AgileStoreLocator . '-sl-cards'    => $base_url . 'cards/cards.css'            
+        ];
+
+        foreach ($styles as $handle => $path) {
+            wp_register_style($handle, $path, [], $version, $media);
+        }
+    }
+
+    /**
+     * Enqueue styles early when a supported shortcode exists in the current post.
+     * This keeps the CSS limited to shortcode pages but ensures it is printed in the head.
+     */
+    public function maybe_enqueue_public_styles()
+    {
+        if (is_admin()) {
+            return;
+        }
+
+        $post = get_post();
+        if (! $post || ! $post->post_content) {
+            return;
+        }
+
+        $content = $post->post_content;
+
+        // Main locator
+        if (has_shortcode($content, 'ASL_STORELOCATOR')) {
+            $template = $this->extract_template_from_content($content);
+            $this->enqueue_styles($template);
+        }
+
+        // Other shortcodes
+        $shortcode_styles = [
+            'ASL_CARDS'     => 'cards',
+            'ASL_SEARCH'    => 'search',
+            'ASL_STORE'     => 'page',
+            'ASL_FORM'      => 'form',
+            'ASL_LEADFORM'  => 'lead',
+        ];
+
+        foreach ($shortcode_styles as $tag => $template) {
+            if (has_shortcode($content, $tag)) {
+                $this->enqueue_styles($template);
+            }
+        }
+    }
+
+    /**
+     * Extract the template attribute from the locator shortcode, defaulting to 0.
+     */
+    private function extract_template_from_content($content)
+    {
+        $template = $this->get_default_template();
+
+        $regex = get_shortcode_regex(['ASL_STORELOCATOR']);
+        if (preg_match_all('/' . $regex . '/s', $content, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $shortcode) {
+                if ($shortcode[2] !== 'ASL_STORELOCATOR') {
+                    continue;
+                }
+
+                $atts = shortcode_parse_atts($shortcode[3]);
+                if (isset($atts['template'])) {
+                    $template = $this->sanitize_template($atts['template']);
+                    break;
+                }
+            }
+        }
+
+        return $template;
+    }
+
+    /**
+     * Get the default template from plugin settings.
+     */
+    private function get_default_template()
+    {
+        $template = \AgileStoreLocator\Helper::get_configs('template');
+
+        return $this->sanitize_template($template);
     }
 
     /**
@@ -169,7 +278,7 @@ class App
         //$map_url .= '&loading=async';
 
         // Add the callback function
-        $map_cb_func = isset($atts['lib_callback']) ? $atts['lib_callback'] : 'asl_init_map'; //asl_init_map,asl_init_locator,asl_init_callback
+        $map_cb_func = isset($atts['lib_callback']) ? $atts['lib_callback'] : 'asl_init_callback'; //asl_init_map,asl_init_locator,asl_init_callback
         $map_url .= '&callback=' . $map_cb_func;
 
         // Set the map language
@@ -247,46 +356,46 @@ class App
      */
     public function enqueue_styles($template = '')
     {
-        $media = 'all'; //screen, all
+
+        $media = 'all'; // screen, all
+
+        $version = $this->version;
+
+        $base_url = ASL_URL_PATH . 'public/css/';
+
+        // Ensure styles are registered on the standard enqueue hook
+        $this->register_styles();
+
+        $common_styles = [
+            $this->AgileStoreLocator . '-init',
+            $this->AgileStoreLocator . '-sl-icons',
+            $this->AgileStoreLocator . '-sl-bootstrap',
+        ];
+
+        // Enqueue common styles
+        foreach ($common_styles as $handle) {
+            wp_enqueue_style($handle);
+        }
 
         switch ($template) {
             case 'page':
 
-                //	Icons
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-icons', ASL_URL_PATH . 'public/css/icons/fontello.css', [], $this->version, $media);
-
-                //	Bootstrap
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-bootstrap', ASL_URL_PATH . 'public/css/sl-bootstrap.css', [], $this->version, $media);
-
-                //	Add the CSS for the Template 3
-                wp_enqueue_style($this->AgileStoreLocator . '-page', ASL_URL_PATH . 'public/css/store-page.css', [], $this->version, $media);
+                //  Add the CSS for the Template 3
+                wp_enqueue_style($this->AgileStoreLocator.'-page');
 
                 break;
 
             case 'cards':
 
-                //	Icons
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-icons', ASL_URL_PATH . 'public/css/icons/fontello.css', [], $this->version, $media);
-
-                //	Bootstrap
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-bootstrap', ASL_URL_PATH . 'public/css/sl-bootstrap.css', [], $this->version, $media);
-
-                //	Bootstrap
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-cards', ASL_URL_PATH . 'public/css/cards/cards.css', [], $this->version, $media);
+                //  Bootstrap
+                wp_enqueue_style($this->AgileStoreLocator.'-sl-cards');
 
                 break;
 
+            case '0':
             default:
-
-                //	Icons
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-icons', ASL_URL_PATH . 'public/css/icons/fontello.css', [], $this->version, $media);
-
-                //	Bootstrap
-                wp_enqueue_style($this->AgileStoreLocator . '-sl-bootstrap', ASL_URL_PATH . 'public/css/sl-bootstrap.css', [], $this->version, $media);
-
-                //	Add the CSS for the Template 0
-                wp_enqueue_style($this->AgileStoreLocator . '-tmpl-0', ASL_URL_PATH . 'public/css/tmpl-0/tmpl-0.css', [], $this->version, $media);
-                //wp_enqueue_style( $this->AgileStoreLocator.'-list',  'http://192.168.100.6:8080/main.scss/custom.css', array(), $this->version, $media );
+                //  Default locator template
+                wp_enqueue_style($this->AgileStoreLocator.'-tmpl-0');
                 break;
         }
     }
@@ -625,10 +734,11 @@ class App
         $all_configs 	= \AgileStoreLocator\Helper::get_configs(['rewrite_slug', 'week_hours']);
 
         if (isset($all_configs['rewrite_slug']) && $all_configs['rewrite_slug']) {
-            $all_configs['rewrite_slug'] = apply_filters('wpml_home_url', home_url('/')) . '/' . $all_configs['rewrite_slug'];
+            $store_base_url = \AgileStoreLocator\Schema\Slug::get_store_base_url();
 
-            // replace the double slash
-            $all_configs['rewrite_slug'] = preg_replace('#(?<!:)/+#im', '/', $all_configs['rewrite_slug']);
+            if ($store_base_url) {
+                $all_configs['rewrite_slug'] = $store_base_url;
+            }
         }
 
         $all_configs['URL']         = ASL_UPLOAD_URL;
@@ -915,10 +1025,12 @@ class App
         }
 
         if (isset($all_configs['rewrite_slug']) && $all_configs['rewrite_slug']) {
-            $all_configs['rewrite_slug'] = apply_filters('wpml_home_url', home_url('/')) . '/' . $all_configs['rewrite_slug'];
-
-            // replace the double slash
-            $all_configs['rewrite_slug'] = preg_replace('#(?<!:)/+#im', '/', $all_configs['rewrite_slug']);
+            
+            $store_base_url = \AgileStoreLocator\Schema\Slug::get_store_base_url();
+            
+            if ($store_base_url) {
+                $all_configs['rewrite_slug'] = $store_base_url;
+            }
         }
 
         //ADD The missing parameters

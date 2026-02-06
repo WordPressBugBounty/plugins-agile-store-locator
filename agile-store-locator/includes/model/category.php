@@ -195,7 +195,12 @@ class Category {
 
         // Add other conditions from $filter_clause if not empty
         if (!empty($filter_clause)) {
-            $conditions[] = $filter_clause; // Make sure $filter_clause is safe to include or use $wpdb->prepare if possible
+            // Support legacy clauses that prefixed their condition with 'AND'
+            $clean_filter_clause = preg_replace('/^\s*AND\s+/i', '', trim($filter_clause));
+
+            if ($clean_filter_clause !== '') {
+                $conditions[] = $clean_filter_clause; // Make sure $filter_clause is safe to include or use $wpdb->prepare if possible
+            }
         }
 
         // Combine conditions into a WHERE clause if not empty
