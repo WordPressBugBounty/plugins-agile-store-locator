@@ -245,7 +245,10 @@ class Label {
         'ending_time'       => esc_attr__('Ending Time','asl_locator'),
         'start_time'        => esc_attr__('Start Time','asl_locator'),
         'end_time'          => esc_attr__('End Time','asl_locator'),
-        'badge'             => esc_attr__('Badge','asl_locator')
+        'badge'             => esc_attr__('Badge','asl_locator'),
+        'reg_map'           => esc_attr__('Map','asl_locator'),
+        'reg_lng'           => esc_attr__('Longitude','asl_locator'),
+        'photo_gallery'     => esc_attr__('Photo Gallery','asl_locator')
         );
         
 

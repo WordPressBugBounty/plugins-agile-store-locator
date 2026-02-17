@@ -538,6 +538,24 @@ class Setting extends Base
             $fields = json_decode($fields_settings);
         }
 
+        $ui_settings = apply_filters(
+            'asl_ui_settings',
+            [
+                'colors'         => isset($colors[$template]) ? $colors[$template] : [],
+                'default_colors' => $default_colors,
+                'default_fonts'  => $default_fonts,
+                'font_labels'    => $font_labels,
+                'fields'         => $fields,
+            ],
+            $template
+        );
+
+        $colors[$template] = isset($ui_settings['colors']) && is_array($ui_settings['colors']) ? $ui_settings['colors'] : [];
+        $default_colors    = isset($ui_settings['default_colors']) && is_array($ui_settings['default_colors']) ? $ui_settings['default_colors'] : [];
+        $default_fonts     = isset($ui_settings['default_fonts']) && is_array($ui_settings['default_fonts']) ? $ui_settings['default_fonts'] : [];
+        $font_labels       = isset($ui_settings['font_labels']) && is_array($ui_settings['font_labels']) ? $ui_settings['font_labels'] : [];
+        $fields            = isset($ui_settings['fields']) ? $ui_settings['fields'] : $fields;
+
         //  Start Stream
         ob_start();
 

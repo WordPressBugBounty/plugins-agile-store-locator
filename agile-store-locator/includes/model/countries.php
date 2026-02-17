@@ -80,6 +80,40 @@ class Countries {
 
 
   /**
+   * Get a country by id.
+   *
+   * @since 4.8.21
+   * @param int  $id
+   * @param bool $return_object When true, return the full row object.
+   * @return string|object|null
+   */
+  public static function get_country($id, $return_object = false) {
+
+    $id = (int) $id;
+    if ($id <= 0) {
+      return null;
+    }
+
+    static $country_cache = [];
+
+    if (!array_key_exists($id, $country_cache)) {
+      global $wpdb;
+      $prefix = ASL_PREFIX;
+      $country_cache[$id] = $wpdb->get_row(
+        $wpdb->prepare("SELECT * FROM {$prefix}countries WHERE id = %d LIMIT 1", $id)
+      );
+    }
+
+    $row = $country_cache[$id];
+    if (!$row) {
+      return null;
+    }
+
+    return $return_object ? $row : $row->country;
+  }
+
+
+  /**
    * [get_coordinates_via_nominatim A function to get coordinates from Nominatim API]
    * @param string $city The city name
    * @param string $state The state abbreviation

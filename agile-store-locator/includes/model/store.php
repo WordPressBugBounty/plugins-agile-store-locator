@@ -106,13 +106,14 @@ class Store
         global $wpdb;
 
         $ASL_PREFIX         = ASL_PREFIX;
+        $has_is_disabled    = array_key_exists('is_disabled', $where_clause);
         $category_clause    = '';
         $join_clause        = '';
         $where_query        = '';
 
         //  Validate the allowed clauses
         foreach ($where_clause as $cl_key => $cl_value) {
-            if (!in_array($cl_key, ['category', 'countries', 'state', 'city', 'country','pending', 'lang', 'meta', 'id', 'title', 'description'])) {
+            if (!in_array($cl_key, ['category', 'countries', 'state', 'city', 'country','pending', 'lang', 'meta', 'id', 'title', 'description', 'is_disabled'])) {
                 unset($where_clause[$cl_key]);
             }
         }
@@ -234,7 +235,7 @@ class Store
         }
 
         //  Show the disabled Stores
-        if ($show_disabled) {
+        if ($show_disabled && !$has_is_disabled) {
             $query  .= ' AND (is_disabled is NULL || is_disabled = 0) ';
         }
 
