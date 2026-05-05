@@ -38,7 +38,7 @@ if($level_mode == '1'){ ?>
 				<div class="asl-tabs-title">
                         <div>
                             <h3>
-                                <?php echo esc_attr__('ASL Settings (Lite Version - ','asl_locator').ASL_CVERSION ?>)
+                                <?php echo esc_html__('ASL Settings (Lite Version - ', 'asl_locator') . esc_html(ASL_CVERSION); ?>)
                             </h3>
                             <p class="card-text">
                                 <?php echo esc_attr__('Set general options and preferences.','asl_locator') ?>
@@ -55,7 +55,7 @@ if($level_mode == '1'){ ?>
 				<!-- <h3 class="asl-tabs-title">
 					<div class="row">
 						<div class="col-md-8">
-							<span class="mb-2 mt-2 d-block"><?php echo esc_attr__('ASL Settings (Lite Version - ','asl_locator').ASL_CVERSION ?>)</span>
+							<span class="mb-2 mt-2 d-block"><?php echo esc_html__('ASL Settings (Lite Version - ', 'asl_locator') . esc_html(ASL_CVERSION); ?>)</span>
 						</div>
 						<div class="col-md-4 text-right">
 							<a id="asl-btn-export-config" data-loading-text="Exporting..." class="btn btn-warning btn-sm mr-md-2"><?php echo esc_attr__('Export Settings','asl_locator') ?></a><a id="asl-btn-import-config" class="btn btn-danger btn-sm"><?php echo esc_attr__('Import Settings','asl_locator') ?></a>
@@ -535,7 +535,7 @@ if($level_mode == '1'){ ?>
 			                    <div class="form-group-inner">
 			                      <select  id="asl-zoom" name="data[zoom]" class="custom-select">
 			                        <?php for($index = 2;$index <= 20;$index++):?>
-			                        <option value="<?php echo $index ?>"><?php echo $index ?></option>
+			                        <option value="<?php echo esc_attr($index); ?>"><?php echo esc_html($index); ?></option>
 			                        <?php endfor; ?>
 			                      </select>
 			                      <p class="help-p"><?php echo esc_attr__('Default zoom will not work when Default Location Center is enabled','asl_locator') ?></p>
@@ -548,7 +548,7 @@ if($level_mode == '1'){ ?>
 			                    <div class="form-group-inner">
 			                      <select  id="asl-zoom_li" name="data[zoom_li]" class="custom-select">
 			                        <?php for($index = 2;$index <= 20;$index++):?>
-			                        <option value="<?php echo $index ?>"><?php echo $index ?></option>
+			                        <option value="<?php echo esc_attr($index); ?>"><?php echo esc_html($index); ?></option>
 			                        <?php endfor; ?>
 			                      </select>
 			                      <p class="help-p"><?php echo esc_attr__('Zoom value when store list item is clicked','asl_locator') ?></p>
@@ -562,7 +562,7 @@ if($level_mode == '1'){ ?>
 			                      <select  id="asl-search_zoom" name="data[search_zoom]" class="custom-select">
 			                      	<option value="0"><?php echo esc_attr__('Fit Bound Location','asl_locator') ?></option>
 			                        <?php for($index = 2;$index <= 20;$index++):?>
-			                        <option value="<?php echo $index ?>"><?php echo $index ?></option>
+			                        <option value="<?php echo esc_attr($index); ?>"><?php echo esc_html($index); ?></option>
 			                        <?php endfor; ?>
 			                      </select>
 			                      <p class="help-p"><?php echo esc_attr__('Zoom value when a search is performed','asl_locator') ?></p>
@@ -629,7 +629,7 @@ if($level_mode == '1'){ ?>
                                   }
                                   ?>
                                </select>
-                               <p class="help-p"><?php echo __('Google newly launched advanced marker option, read the documentation guide about <a href="https://agilestorelocator.com/wiki/google-advanced-markers/" target="_blank">Google Advanced Markers</a>','asl_locator') ?> | <span class="red">Beta version</span></p>
+                               <p class="help-p"><?php echo wp_kses_post(__('Google newly launched advanced marker option, read the documentation guide about <a href="https://agilestorelocator.com/wiki/google-advanced-markers/" target="_blank">Google Advanced Markers</a>', 'asl_locator')); ?> | <span class="red">Beta version</span></p>
                             </div>
                          </div>
                       </div>
@@ -647,22 +647,22 @@ if($level_mode == '1'){ ?>
 										    <label class="custom-control-label" for="asl-map_layout"><?php echo esc_attr__('Map Layouts','asl_locator') ?></label>
 										    <div class="row">
 										    	<div class="col-md-6 a-radio-select">
-											      <input type="radio" id="asl-map_layout-0" value="0" name="data[map_layout]"><label for="asl-map_layout-0"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/25-blue-water/25-blue-water.png" /></label>
-											      <input type="radio" id="asl-map_layout-1" value="1" name="data[map_layout]"><label for="asl-map_layout-1"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/Flat Map/53-flat-map.png" /></label>
-											      <input type="radio" id="asl-map_layout-2" value="2" name="data[map_layout]"><label for="asl-map_layout-2"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/Icy Blue/7-icy-blue.png" /></label>
-											      <input type="radio" id="asl-map_layout-3" value="3" name="data[map_layout]"><label for="asl-map_layout-3"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/Pale Dawn/1-pale-dawn.png" /></label>
-											      <input type="radio" id="asl-map_layout-4" value="4" name="data[map_layout]"><label for="asl-map_layout-4"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/cladme/6618-cladme.png" /></label>
-											      <input type="radio" id="asl-map_layout-5" value="5" name="data[map_layout]"><label for="asl-map_layout-5"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/light monochrome/29-light-monochrome.png" /></label>
-											      <input type="radio" id="asl-map_layout-6" value="6" name="data[map_layout]"><label for="asl-map_layout-6"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/mostly grayscale/4183-mostly-grayscale.png" /></label>
-											      <input type="radio" id="asl-map_layout-7" value="7" name="data[map_layout]"><label for="asl-map_layout-7"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/turquoise water/8-turquoise-water.png" /></label>
-											      <input type="radio" id="asl-map_layout-8" value="8" name="data[map_layout]"><label for="asl-map_layout-8"><span class="actv"></span><img src="<?php echo ASL_URL_PATH ?>admin/images/map/unsaturated browns/70-unsaturated-browns.png" /></label>
+											      <input type="radio" id="asl-map_layout-0" value="0" name="data[map_layout]"><label for="asl-map_layout-0"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/25-blue-water/25-blue-water.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-1" value="1" name="data[map_layout]"><label for="asl-map_layout-1"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/Flat Map/53-flat-map.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-2" value="2" name="data[map_layout]"><label for="asl-map_layout-2"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/Icy Blue/7-icy-blue.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-3" value="3" name="data[map_layout]"><label for="asl-map_layout-3"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/Pale Dawn/1-pale-dawn.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-4" value="4" name="data[map_layout]"><label for="asl-map_layout-4"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/cladme/6618-cladme.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-5" value="5" name="data[map_layout]"><label for="asl-map_layout-5"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/light monochrome/29-light-monochrome.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-6" value="6" name="data[map_layout]"><label for="asl-map_layout-6"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/mostly grayscale/4183-mostly-grayscale.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-7" value="7" name="data[map_layout]"><label for="asl-map_layout-7"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/turquoise water/8-turquoise-water.png'); ?>" /></label>
+											      <input type="radio" id="asl-map_layout-8" value="8" name="data[map_layout]"><label for="asl-map_layout-8"><span class="actv"></span><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map/unsaturated browns/70-unsaturated-browns.png'); ?>" /></label>
 											      <input type="radio" id="asl-map_layout-9" value="9" name="data[map_layout]"><label for="asl-map_layout-9"><span class="actv"></span><span class="ml-custom"><b><?php echo esc_attr__('Custom','asl_locator') ?></b></span></label>
 											    </div>
 											    <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 					                  <div class="form-group d-lg-flex d-md-block">
 					                    <label class="custom-control-label" for="asl-map_layout_custom"><?php echo esc_attr__('Map Custom','asl_locator') ?></label>
 					                    <div class="form-group-inner">
-					                      <textarea id="asl-map_layout_custom"  rows="6"  placeholder="<?php echo esc_attr__('Google Style','asl_locator') ?>"  class="input-medium form-control"><?php echo $custom_map_style ?></textarea>
+					                      <textarea id="asl-map_layout_custom"  rows="6"  placeholder="<?php echo esc_attr__('Google Style','asl_locator') ?>"  class="input-medium form-control"><?php echo esc_textarea($custom_map_style) ?></textarea>
 					                      <p class="help-p"><a target="_blank" href="https://agilestorelocator.com/wiki/google-map-styles/"><?php echo esc_attr__('How to create custom maps?','asl_locator') ?></a></p>
 					                    </div>
 					                  </div>
@@ -683,7 +683,7 @@ if($level_mode == '1'){ ?>
 		              <div id="sl-ui-tab" class="tab-pane">
 		              	<div class="row mt-2">
 			                <div class="col-12 mb-4 text-end">
-			                	<a href="<?php echo admin_url().'admin.php?page=sl-ui-customizer' ?>" class="btn btn-warning"><?php echo esc_attr__('UI Customizer','asl_locator') ?></a>
+                            <a href="<?php echo esc_url(admin_url('admin.php?page=sl-ui-customizer')); ?>" class="btn btn-warning"><?php echo esc_attr__('UI Customizer','asl_locator') ?></a>
 			                </div>
 			                <div class="col-md-12 col-lg-6 col-12 mb-5 sl-complx">
 			                  <div class="form-group d-lg-flex d-md-block">
@@ -879,8 +879,8 @@ if($level_mode == '1'){ ?>
 																	      <div class="a-radio-select">
 																	        <?php for($_ind = 0; $_ind <= 9; $_ind++): ?>
 																	        <span>
-																	          <input disabled="disabled" type="radio" id="asl-color_scheme-<?php echo $_ind ?>" value="<?php echo $_ind ?>" name="data[color_scheme]">
-																	          <label class="color-box color-<?php echo $_ind ?>" for="asl-color_scheme-<?php echo $_ind ?>"></label>
+																	          <input disabled="disabled" type="radio" id="asl-color_scheme-<?php echo esc_attr($_ind); ?>" value="<?php echo esc_attr($_ind); ?>" name="data[color_scheme]">
+																	          <label class="color-box color-<?php echo esc_attr($_ind); ?>" for="asl-color_scheme-<?php echo esc_attr($_ind); ?>"></label>
 																	        </span>
 																	        <?php endfor; ?>
 																	      </div>
@@ -906,8 +906,8 @@ if($level_mode == '1'){ ?>
 																	        foreach($tmpl_2_colors as $_ct => $ctv):
 																	        ?>
 																	        <span>
-																	          <input disabled="disabled" type="radio" id="asl-color_scheme_2-<?php echo $_ct ?>" value="<?php echo $_ct ?>" name="data[color_scheme_2]">
-																	          <label class="color-box color-<?php echo $_ct ?>" for="asl-color_scheme_2-<?php echo $_ct ?>" style="background-color:<?php echo $ctv[0] ?>">
+																	          <input disabled="disabled" type="radio" id="asl-color_scheme_2-<?php echo esc_attr($_ct); ?>" value="<?php echo esc_attr($_ct); ?>" name="data[color_scheme_2]">
+																	          <label class="color-box color-<?php echo esc_attr($_ct); ?>" for="asl-color_scheme_2-<?php echo esc_attr($_ct); ?>" style="background-color:<?php echo esc_attr($ctv[0]); ?>">
 																	          	<i class="actv"></i>
 																	            <span class="co_1"></span>
 																	          </label>
@@ -922,12 +922,12 @@ if($level_mode == '1'){ ?>
 							                  <div class="row">
 							                  	<div class="col-12">
 							                  		<figure class="figure">
-							                    		<img  id="asl-tmpl-img" src="<?php echo ASL_URL_PATH ?>admin/images/asl-tmpl-0-0.png" alt="Thumbnail" class="figure-img img-fluid rounded">
+                                    <img  id="asl-tmpl-img" src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/asl-tmpl-0-0.png'); ?>" alt="Thumbnail" class="figure-img img-fluid rounded">
 							                    		<figcaption class="figure-caption text-center"><?php echo esc_attr__('Selected Store Locator','asl_locator') ?></figcaption>
 							                  		</figure>
 							                  	</div>
 							                  	<div class="col-12">
-							                  		<a href="<?php echo admin_url().'admin.php?page=sl-ui-customizer' ?>" class="btn btn-primary"><?php echo esc_attr__('UI Customizer','asl_locator') ?></a>
+                                    <a href="<?php echo esc_url(admin_url('admin.php?page=sl-ui-customizer')); ?>" class="btn btn-primary"><?php echo esc_attr__('UI Customizer','asl_locator') ?></a>
 							                  	</div>
 							                  </div>	
 							                </div>
@@ -936,9 +936,9 @@ if($level_mode == '1'){ ?>
 							          			<div class="col-md-12 form-group mb-3 infobox_layout">
 							          				<label class="custom-control-label" for="asl-infobox_layout"><?php echo esc_attr__('Infobox Layout','asl_locator') ?></label>
 														    <div class="a-radio-select">
-														      <input disabled="disabled" type="radio" id="asl-infobox_layout-0" value="0" name="data[infobox_layout]"><label for="asl-infobox_layout-0"><img src="<?php echo ASL_URL_PATH ?>/admin/images/infobox_1.png" /></label>
-														      <input disabled="disabled" type="radio" id="asl-infobox_layout-2" value="2" name="data[infobox_layout]"><label for="asl-infobox_layout-2"><img src="<?php echo ASL_URL_PATH ?>/admin/images/infobox_2.png" /></label>
-														      <input disabled="disabled" type="radio" id="asl-infobox_layout-1" value="1" name="data[infobox_layout]"><label for="asl-infobox_layout-1"><img src="<?php echo ASL_URL_PATH ?>/admin/images/infobox_3.png" /></label>
+														      <input disabled="disabled" type="radio" id="asl-infobox_layout-0" value="0" name="data[infobox_layout]"><label for="asl-infobox_layout-0"><img src="<?php echo esc_url(ASL_URL_PATH . '/admin/images/infobox_1.png'); ?>" /></label>
+														      <input disabled="disabled" type="radio" id="asl-infobox_layout-2" value="2" name="data[infobox_layout]"><label for="asl-infobox_layout-2"><img src="<?php echo esc_url(ASL_URL_PATH . '/admin/images/infobox_2.png'); ?>" /></label>
+														      <input disabled="disabled" type="radio" id="asl-infobox_layout-1" value="1" name="data[infobox_layout]"><label for="asl-infobox_layout-1"><img src="<?php echo esc_url(ASL_URL_PATH . '/admin/images/infobox_3.png'); ?>" /></label>
 														    </div>
 														  </div>
 							          		</div>
@@ -995,7 +995,7 @@ if($level_mode == '1'){ ?>
                                     <div class="form-group-inner">
                                        <select  multiple id="asl-slug_attr_ddl" class="custom-select asl-chosen">
                                           <?php foreach ($slug_attr as $key => $value) { ?>
-                                          <option value="<?php echo $key ?>"><?php echo esc_attr__($value, 'asl_locator') ?></option>
+                                          <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($value); ?></option>
                                           <?php } ?>
                                        </select>
                                        <p class="help-p"><?php echo esc_attr__('Title and City are default fields to create slug','asl_locator') ?> | <a target="_blank" href="https://agilestorelocator.com/wiki/slug-with-pretty-url/"><?php echo esc_attr__('Guide link','asl_locator') ?></a></p>
@@ -1047,7 +1047,7 @@ if($level_mode == '1'){ ?>
                              <select id="asl-customize-template" class="form-select col-md-12">
                                 <?php
                                 foreach($cust_tmpls as $cust_key => $cust_tmpl): ?>
-                                <option <?php echo isset($cust_tmpl['disable'])? 'disabled="disabled"': ''; ?> value="<?php echo $cust_key ?>"><?php echo $cust_tmpl['label'] ?></option>
+                                <option <?php echo isset($cust_tmpl['disable']) ? 'disabled="disabled"' : ''; ?> value="<?php echo esc_attr($cust_key); ?>"><?php echo esc_html($cust_tmpl['label']); ?></option>
                                 <?php endforeach; ?>
                              </select>
 		              				</div>
@@ -1069,7 +1069,7 @@ if($level_mode == '1'){ ?>
 		              				<button type="button" class="btn btn-primary mb-2 me-2" data-loading-text="<?php echo esc_attr__('Loading...','asl_locator') ?>" data-completed-text="Loaded" id="btn-asl-load_ctemp"><?php echo esc_attr__('Load Template','asl_locator') ?></button>
 		              				<button type="button" class="btn btn-success mb-2" data-loading-text="<?php echo esc_attr__('Saving...','asl_locator') ?>" data-completed-text="Template Updated" id="btn-asl-save_ctemp"><?php echo esc_attr__('Save Template','asl_locator') ?></button>
 		              				<button type="button" class="btn btn-danger float-end" data-loading-text="<?php echo esc_attr__('Reseting...','asl_locator') ?>" data-completed-text="Reset Done" id="btn-asl-reset_ctemp"><?php echo esc_attr__('Reset Template','asl_locator') ?></button>
-		              				<a href="<?php echo admin_url().'admin.php?page=sl-ui-customizer' ?>" class="btn btn-warning float-end me-0 me-md-2"><?php echo esc_attr__('Color & Fonts','asl_locator') ?></a>
+                              <a href="<?php echo esc_url(admin_url('admin.php?page=sl-ui-customizer')); ?>" class="btn btn-warning float-end me-0 me-md-2"><?php echo esc_attr__('Color & Fonts','asl_locator') ?></a>
 		              			</div>
                       </div>
                       <div class="col-md-12 col-sm-12 col-12 mb-0">
@@ -1092,34 +1092,34 @@ if($level_mode == '1'){ ?>
 											</div>
 		              		<div class="row">
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-12.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-12.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-18.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-18.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-19.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-19.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-13.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-13.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-20.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-20.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-14.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-14.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-15.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-15.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-16.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-16.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-17.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-17.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-21.jpg"></a>
+													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-21.jpg'); ?>"></a>
 												</div>
 											</div>
 											<div class="row mt-4">
@@ -1130,7 +1130,7 @@ if($level_mode == '1'){ ?>
 											<div class="pt-4 container mt-4 text-center asl-sec-pro-features">
 												<h3 class="title mt-4 font-weight-bold">Integrate Salesforce & More with <span class="text-primary">Agile Sync Addon</span></h3>
 												<p>Upgrade with the Agile Sync Addon to seamlessly connect platforms like Salesforce, Google Sheets, Smartsheet, or REST APIs with your store locator. Automate data import, map custom fields, and keep your store listings always up-to-date.</p>
-												<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" title="Agile Sync Addon"><img src="<?php echo ASL_URL_PATH ?>admin/images/pro/pro-22.jpg"></a>
+												<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" title="Agile Sync Addon"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-22.jpg'); ?>"></a>
 												<div class="col-md-12 mt-3 text-center">
 													<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" class="btn btn-xl btn-success btn-asl-upgrade">Agile Sync Addon - $99</a>
 												</div>
@@ -1165,7 +1165,7 @@ if($level_mode == '1'){ ?>
                   <div class="row">
                      <div class="col-md-12">
                         <p><?php echo esc_attr__('Additional fields for the store can be created through this section, new fields will appear in the store form and via CSV import.','asl_locator') ?> <?php echo esc_attr__('To show the additional fields on the template, please add the fields in the template as in this ','asl_locator') ?><a target="_blank" href="https://www.youtube.com/watch?v=WpPUMxlNX4M"><?php echo esc_attr__('Video Guide','asl_locator') ?></a></p>
-                        <p class="alert alert-primary" role="alert"><?php echo __(' <b>Control Name</b> must be small-case and without spacing, please use underscore sign (_) as the space separator, example: <b>facebook_url</b></p>','asl_locator') ?> </p>
+                        <p class="alert alert-primary" role="alert"><?php echo wp_kses_post(__(' <b>Control Name</b> must be small-case and without spacing, please use underscore sign (_) as the space separator, example: <b>facebook_url</b></p>', 'asl_locator')); ?> </p>
                         <form id="frm-asl-custom-fields">
                            <div class="table-responsive">
                               <table class="table table-bordered table-stripped asl-attr-manage">
@@ -1219,23 +1219,23 @@ if($level_mode == '1'){ ?>
                                                 <?php
                                                    foreach ($field_types as $value => $label) {
                                                       $selected = ($field_type === $value) ? 'selected' : '';
-                                                      echo "<option value='".esc_attr__($value)."' $selected>".esc_attr__($label)."</option>";
+                                                      echo '<option value="' . esc_attr($value) . '" ' . esc_attr($selected) . '>' . esc_html($label) . '</option>';
                                                    }
                                                 ?>
                                              </select>
                                           </div>
                                        </td>
                                        <td colspan="1">
-                                          <div class="form-group"><input <?php if(in_array($field_type, ['text', 'textarea', 'richtext', 'checkbox', 'gallery'])) echo 'readonly="true"'; ?> value="<?php echo esc_attr__($field_option); ?>" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div>
+                                          <div class="form-group"><input <?php if(in_array($field_type, ['text', 'textarea', 'richtext', 'checkbox', 'gallery'])) echo 'readonly="true"'; ?> value="<?php echo esc_attr($field_option); ?>" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div>
                                        </td>
                                        <td colspan="1">
                                           <div class="form-group-inner mt-2">
-                                             <label class="switch" for="asl-cf-req-<?php echo $field_index ?>"><input type="checkbox" <?php if($field_require) echo 'checked' ?> value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-<?php echo $field_index ?>"><span class="slider round"></span></label>
+                                             <label class="switch" for="asl-cf-req-<?php echo esc_attr($field_index); ?>"><input type="checkbox" <?php if($field_require) echo 'checked' ?> value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-<?php echo esc_attr($field_index); ?>"><span class="slider round"></span></label>
                                           </div>
                                        </td>
                                        <td colspan="1">
                                           <div class="form-group">
-                                             <input maxlength="50" value="<?php echo esc_attr__($css_class); ?>" type="text" class="asl-attr-class form-control">
+                                             <input maxlength="50" value="<?php echo esc_attr($css_class); ?>" type="text" class="asl-attr-class form-control">
                                           </div>
                                        </td>
                                        <td colspan="1">
@@ -1308,8 +1308,8 @@ if($level_mode == '1'){ ?>
 <script type="text/javascript">
 
    var ASL_Instance = {
-   	url: '<?php echo ASL_UPLOAD_URL ?>',
-   	plugin_url: '<?php echo ASL_URL_PATH ?>',
+      url: '<?php echo esc_url(ASL_UPLOAD_URL); ?>',
+      plugin_url: '<?php echo esc_url(ASL_URL_PATH); ?>',
       tmpls: <?php echo wp_json_encode($cust_tmpls) ?>
    },
    asl_configs =  <?php echo wp_json_encode($all_configs); ?>;

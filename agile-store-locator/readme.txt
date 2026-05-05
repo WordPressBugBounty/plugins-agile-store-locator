@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 6.9
 Donate link: https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -337,6 +337,9 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.6.6 =
+- Fixes in security
 
 = 1.6.5 =
 - CSS Fix

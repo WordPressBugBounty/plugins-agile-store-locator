@@ -117,7 +117,18 @@ class Setting extends Base
         $response  = new \stdclass();
 
         //  Settings data
-        $data_     = stripslashes_deep($_POST['data']);
+        $data_     = isset($_POST['data']) ? stripslashes_deep($_POST['data']) : [];
+
+        //  Custom Map Style
+        $custom_map_style = isset($_POST['map_style']) ? wp_unslash($_POST['map_style']) : '';
+        $custom_map_style = $this->sanitize_custom_map_style($custom_map_style);
+
+        if ($custom_map_style === false) {
+            $response->msg     = esc_attr__('Invalid custom map style. Please provide a valid JSON array.', 'asl_locator');
+            $response->success = false;
+
+            return $this->send_response($response);
+        }
 
         //  Remove Script tag will be saved in wp_options
         $remove_script_tag = $data_['remove_maps_script'];
@@ -160,7 +171,7 @@ class Setting extends Base
         $custom_map_style = $_POST['map_style'];
 
         //  Custom Map Style
-        \AgileStoreLocator\Helper::set_setting(stripslashes($custom_map_style), 'map_style', 'map_style');
+        \AgileStoreLocator\Helper::set_setting($custom_map_style, 'map_style', 'map_style');
 
         $custom_slug_fields = $_POST['slug_attr_ddl'];
 
@@ -596,6 +607,42 @@ class Setting extends Base
         $response->success = true;
 
         return $this->send_response($response);
+    }
+
+    /**
+     * [sanitize_custom_map_style Validate and normalize custom Google Map style JSON]
+     * @param string $map_style [description]
+     * @return string|false     [description]
+     */
+    private function sanitize_custom_map_style($map_style)
+    {
+        $map_style = trim((string) $map_style);
+
+        if ($map_style === '') {
+            return '';
+        }
+
+        $decoded_map_style = json_decode($map_style, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded_map_style) || !$this->is_list_array($decoded_map_style)) {
+            return false;
+        }
+
+        return wp_json_encode($decoded_map_style);
+    }
+
+    /**
+     * [is_list_array Check if an array has sequential numeric keys]
+     * @param array $value [description]
+     * @return bool        [description]
+     */
+    private function is_list_array($value)
+    {
+        if ($value === []) {
+            return true;
+        }
+
+        return array_keys($value) === range(0, count($value) - 1);
     }
 
     /**
