@@ -167,6 +167,11 @@ body.aswal2-in {
   display: block !important;
 }
 
+.asl-p-cont #asl-map_layout_custom.form-control {
+  height: 220px !important;
+  min-height: 220px !important;
+}
+
 .aswal2-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -520,6 +525,7 @@ body.aswal2-in {
   line-height: 80px;
   text-align: center
 }
+
 
 @supports (-ms-accelerator:true) {
   .aswal2-range input {

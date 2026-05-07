@@ -679,6 +679,7 @@ class App
 
         // Get the JSON for the Map layout and other configurations
         $all_configs['map_layout'] = $this->_map_layout($all_configs['map_layout']);
+        
         $all_configs['icon'] 			= \AgileStoreLocator\Helper::getMarkerPath($store_data->marker_id);
 
         $all_configs['URL'] 			= ASL_UPLOAD_URL;
@@ -1170,7 +1171,7 @@ class App
 
         //	Get the JSON for the Map layout
         $all_configs['map_layout'] = $this->_map_layout($all_configs['map_layout']);
-
+        
         //Load the map customization
         $map_customize  = $wpdb->get_results('SELECT content FROM ' . ASL_PREFIX . "settings WHERE type = 'map' AND id = 1");
         $map_customize  = ($map_customize && $map_customize[0]->content) ? $map_customize[0]->content : '[]';

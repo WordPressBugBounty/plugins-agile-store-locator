@@ -165,11 +165,6 @@ class Setting extends Base
             \AgileStoreLocator\Cron\LeadCron::schedule_cron($data_['lead_follow_up'], $data_);
         }
 
-        ///////////////////////////
-        //  Save Custom Settings //
-        ///////////////////////////
-        $custom_map_style = $_POST['map_style'];
-
         //  Custom Map Style
         \AgileStoreLocator\Helper::set_setting($custom_map_style, 'map_style', 'map_style');
 
