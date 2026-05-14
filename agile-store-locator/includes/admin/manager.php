@@ -692,9 +692,8 @@ class Manager extends Base {
     ///get Countries
     $countries        = $wpdb->get_results("SELECT country,iso_code_2  as code FROM ".ASL_PREFIX."countries");
     
-    $custom_map_style = \AgileStoreLocator\Helper::get_setting('map_style', 'map_style');
-
-
+    $custom_map_style = \AgileStoreLocator\Helper::sanitize_custom_map_style(\AgileStoreLocator\Helper::get_setting('map_style', 'map_style'));
+    
     //  Possible values for the slug
     $slug_attr = array('title' => esc_attr__('Title','asl_locator') , 'city' => esc_attr__('City','asl_locator'), 'postal_code' => esc_attr__('Post Code','asl_locator'), 'state' => esc_attr__('State','asl_locator'), 'description' => esc_attr__('Description', 'asl_locator'), 'lang' => esc_attr__('Lang', 'asl_locator'));
 

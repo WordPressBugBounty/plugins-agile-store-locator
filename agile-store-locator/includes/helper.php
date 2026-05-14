@@ -49,6 +49,43 @@ class Helper {
     return $store;
   }
 
+   /**
+   * [sanitize_custom_map_style Validate and normalize custom Google Map style JSON]
+   * @param  string $map_style     [description]
+   * @param  mixed  $invalid_value [description]
+   * @return mixed                 [description]
+   */
+  public static function sanitize_custom_map_style($map_style, $invalid_value = '') {
+
+    $map_style = trim((string)$map_style);
+
+    if($map_style === '') {
+      return '';
+    }
+
+    $decoded_map_style = json_decode($map_style, true);
+
+    if(json_last_error() !== JSON_ERROR_NONE || !is_array($decoded_map_style) || !self::is_list_array($decoded_map_style)) {
+      return $invalid_value;
+    }
+
+    return wp_json_encode($decoded_map_style);
+  }
+
+  /**
+   * [is_list_array Check if an array has sequential numeric keys]
+   * @param  array $value [description]
+   * @return bool         [description]
+   */
+  private static function is_list_array($value) {
+
+    if($value === []) {
+      return true;
+    }
+
+    return array_keys($value) === range(0, count($value) - 1);
+  }
+
   
   /**
    * [advanced_marker_tmpls All the supported Advanced Markers]

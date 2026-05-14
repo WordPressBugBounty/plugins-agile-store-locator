@@ -1518,7 +1518,7 @@ class App
                 $custom_map_style = \AgileStoreLocator\Helper::get_setting('map_style', 'map_style');
 
                 if ($custom_map_style) {
-                    return $this->sanitize_custom_map_style($custom_map_style);
+                    return \AgileStoreLocator\Helper::sanitize_custom_map_style($custom_map_style, '[]');
                 }
 
                 break;
@@ -1530,36 +1530,6 @@ class App
         }
 
         return '[]';
-    }
-
-    /**
-     * [sanitize_custom_map_style Validate and normalize custom Google Map style JSON]
-     * @param string $map_style [description]
-     * @return string           [description]
-     */
-    private function sanitize_custom_map_style($map_style)
-    {
-        $decoded_map_style = json_decode((string) $map_style, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded_map_style) || !$this->is_list_array($decoded_map_style)) {
-            return '[]';
-        }
-
-        return wp_json_encode($decoded_map_style);
-    }
-
-    /**
-     * [is_list_array Check if an array has sequential numeric keys]
-     * @param array $value [description]
-     * @return bool        [description]
-     */
-    private function is_list_array($value)
-    {
-        if ($value === []) {
-            return true;
-        }
-
-        return array_keys($value) === range(0, count($value) - 1);
     }
 
 
