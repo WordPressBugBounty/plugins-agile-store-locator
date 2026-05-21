@@ -33,7 +33,10 @@ class Logo {
 
     foreach ($results as $key => $result) {
       
-      $result->url = ASL_UPLOAD_URL. 'Logo/' . $result->path;
+      $result->id   = isset($result->id) ? intval($result->id) : 0;
+      $result->name = isset($result->name) ? esc_html($result->name) : '';
+      $result->path = isset($result->path) ? sanitize_file_name($result->path) : '';
+      $result->url  = ASL_UPLOAD_URL. 'Logo/' . $result->path;
 
     }
 
@@ -55,7 +58,7 @@ class Logo {
 
     if(isset($logo[0])){
 
-      $logo_url = ASL_UPLOAD_URL. 'Logo/' . $logo[0]->imageSrc;
+      $logo_url = ASL_UPLOAD_URL. 'Logo/' . sanitize_file_name($logo[0]->imageSrc);
 
     } 
 

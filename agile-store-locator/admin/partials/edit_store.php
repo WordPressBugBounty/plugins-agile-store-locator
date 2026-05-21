@@ -15,8 +15,7 @@ if($level_mode == '1'): ?>
 <div class="asl-p-cont asl-new-bg">
     <div class="hide">
         <svg xmlns="http://www.w3.org/2000/svg">
-            <symbol id="i-store" viewBox="0 0 64 64" stroke-width="3"
-                stroke="currentColor" fill="none">
+            <symbol id="i-store" viewBox="0 0 64 64" stroke-width="3" stroke="currentColor" fill="none">
                 <path d="M52,27.18V52.76a2.92,2.92,0,0,1-3,2.84H15a2.92,2.92,0,0,1-3-2.84V27.17" />
                 <polyline points="26.26 55.52 26.26 38.45 37.84 38.45 37.84 55.52" />
                 <path
@@ -32,7 +31,7 @@ if($level_mode == '1'): ?>
                 <path
                     d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
             </symbol>
-            <symbol id="i-clock" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor"
+            <symbol id="i-clock" viewBox="-1 -1 34 34" width="20" height="20" fill="none" stroke="currentcolor"
                 stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
                 <circle cx="16" cy="16" r="14" />
                 <path d="M16 8 L16 16 20 20" />
@@ -78,8 +77,6 @@ if($level_mode == '1'): ?>
                 <path
                     d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                 <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                <!-- <path
-                    d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" /> -->
             </symbol>
             <symbol id="i-email" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path
@@ -582,8 +579,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -598,8 +595,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -628,6 +625,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="mon" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->mon_label)) ? esc_attr($open_hours->mon_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span
@@ -660,8 +658,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -676,8 +674,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -706,6 +704,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="tue" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->tue_label)) ? esc_attr($open_hours->tue_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span
@@ -737,8 +736,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -753,8 +752,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -783,6 +782,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="wed" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->wed_label)) ? esc_attr($open_hours->wed_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span
@@ -814,8 +814,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -830,8 +830,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -860,6 +860,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="thu" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->thu_label)) ? esc_attr($open_hours->thu_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span
@@ -892,8 +893,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -908,8 +909,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -938,6 +939,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="fri" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->fri_label)) ? esc_attr($open_hours->fri_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span
@@ -969,8 +971,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -985,8 +987,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -1015,6 +1017,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="sat" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->sat_label)) ? esc_attr($open_hours->sat_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span
@@ -1047,8 +1050,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -1063,8 +1066,8 @@ if($level_mode == '1'): ?>
                                                                                             <span
                                                                                                 class="input-group-append add-on"><span
                                                                                                     class="input-group-text"><svg
-                                                                                                        width="16"
-                                                                                                        height="16">
+                                                                                                        width="20"
+                                                                                                        height="20">
                                                                                                         <use
                                                                                                             xlink:href="#i-clock">
                                                                                                         </use>
@@ -1093,6 +1096,7 @@ if($level_mode == '1'): ?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            <input type="text" class="form-control form-control-sm asl-day-label" data-day-label="sun" placeholder="<?php echo esc_attr__('Day Label (optional)','asl_locator') ?>" value="<?php echo (isset($open_hours->sun_label)) ? esc_attr($open_hours->sun_label) : ''; ?>">
                                                                             </td>
                                                                             <td>
                                                                                 <span

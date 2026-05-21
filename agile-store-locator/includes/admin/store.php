@@ -734,6 +734,204 @@ class Store extends Base
         return $this->send_response($response);
     }
 
+        /**
+     * [bulk_update_store_attributes Bulk update store attributes]
+     * @return [type] [description]
+     */
+    public function bulk_update_store_attributes()
+    {
+        global $wpdb;
+
+        $response          = new \stdclass();
+        $response->success = false;
+
+        $item_ids = isset($_POST['item_ids']) ? array_map('intval', (array) $_POST['item_ids']) : [];
+        $item_ids = array_filter($item_ids);
+
+        if (!$item_ids) {
+            $response->error = esc_attr__('No stores selected.', 'asl_locator');
+            return $this->send_response($response);
+        }
+
+        $apply_description = isset($_POST['apply_description']) && $_POST['apply_description'] == '1';
+        $apply_open_hours  = isset($_POST['apply_open_hours']) && $_POST['apply_open_hours'] == '1';
+        $apply_marker_id   = isset($_POST['apply_marker_id']) && $_POST['apply_marker_id'] == '1';
+        $apply_logo_id     = isset($_POST['apply_logo_id']) && $_POST['apply_logo_id'] == '1';
+        $apply_categories  = isset($_POST['apply_categories']) && $_POST['apply_categories'] == '1';
+        $custom_fields     = isset($_POST['custom_fields']) ? (array) $_POST['custom_fields'] : [];
+        $apply_custom      = !empty($custom_fields);
+
+        if (!$apply_description && !$apply_open_hours && !$apply_marker_id && !$apply_logo_id && !$apply_categories && !$apply_custom) {
+            $response->error = esc_attr__('No fields selected to update.', 'asl_locator');
+            return $this->send_response($response);
+        }
+
+        $allowed_days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        $allowed_day_labels = array_map(
+            function ($day_key) {
+                return $day_key . '_label';
+            },
+            $allowed_days
+        );
+        $open_hours_patch = [];
+
+        if ($apply_open_hours) {
+            $raw_open_hours = isset($_POST['open_hours']) ? wp_unslash($_POST['open_hours']) : '';
+            $decoded_open_hours = json_decode($raw_open_hours, true);
+
+            if (!is_array($decoded_open_hours) || empty($decoded_open_hours)) {
+                $response->error = esc_attr__('No day selected for open hours update.', 'asl_locator');
+                return $this->send_response($response);
+            }
+
+            foreach ($decoded_open_hours as $day => $day_value) {
+                if (in_array($day, $allowed_days, true)) {
+                    if (is_array($day_value)) {
+                        $normalized_slots = [];
+                        foreach ($day_value as $slot) {
+                            $slot_value = $this->clean_input_html($slot);
+                            if ($slot_value !== '') {
+                                $normalized_slots[] = $slot_value;
+                            }
+                        }
+                        $open_hours_patch[$day] = $normalized_slots;
+                    } else {
+                        $open_hours_patch[$day] = ($day_value === '1') ? '1' : '0';
+                    }
+                    continue;
+                }
+
+                if (in_array($day, $allowed_day_labels, true)) {
+                    $open_hours_patch[$day] = $this->clean_input_html((string) $day_value);
+                }
+            }
+
+            if (empty($open_hours_patch)) {
+                $response->error = esc_attr__('No valid day selected for open hours update.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+
+        $raw_data = [
+            'updated_on' => date('Y-m-d H:i:s')
+        ];
+
+        if ($apply_marker_id) {
+            $raw_data['marker_id'] = isset($_POST['marker_id']) ? intval($_POST['marker_id']) : 0;
+        }
+
+        if ($apply_logo_id) {
+            $raw_data['logo_id'] = isset($_POST['logo_id']) ? intval($_POST['logo_id']) : 0;
+        }
+
+        $store_data = $this->clean_input_array($raw_data);
+
+        if ($apply_description) {
+            $description = isset($_POST['description']) ? wp_unslash($_POST['description']) : '';
+            $store_data['description'] = $this->clean_input_html($description);
+        }
+
+        if ($apply_custom) {
+            $custom_fields = stripslashes_deep($custom_fields);
+            foreach ($custom_fields as $key => $value) {
+                if (is_array($value)) {
+                    $custom_fields[$key] = array_map([$this, 'clean_input_html'], $value);
+                } else {
+                    $custom_fields[$key] = $this->clean_input_html($value);
+                }
+            }
+        }
+
+        $updated = 0;
+        $failed  = 0;
+
+        foreach ($item_ids as $store_id) {
+            $store_update_data = $store_data;
+
+            if ($apply_open_hours) {
+                $existing_open_hours = $wpdb->get_var(
+                    $wpdb->prepare('SELECT open_hours FROM ' . ASL_PREFIX . 'stores WHERE id = %d', $store_id)
+                );
+
+                $existing_open_hours = $existing_open_hours ? json_decode($existing_open_hours, true) : [];
+                if (!is_array($existing_open_hours)) {
+                    $existing_open_hours = [];
+                }
+
+                foreach ($allowed_days as $day_key) {
+                    if (!array_key_exists($day_key, $existing_open_hours)) {
+                        $existing_open_hours[$day_key] = '0';
+                    }
+                }
+
+                foreach ($open_hours_patch as $day_key => $day_value) {
+                    $existing_open_hours[$day_key] = $day_value;
+                }
+
+                $store_update_data['open_hours'] = wp_json_encode($existing_open_hours);
+            }
+
+            $result = $wpdb->update(ASL_PREFIX . 'stores', $store_update_data, ['id' => $store_id]);
+
+            if ($result === false) {
+                $failed++;
+            } else {
+                $updated++;
+            }
+
+            if ($apply_categories) {
+                $categories = isset($_POST['categories']) ? array_map('intval', (array) $_POST['categories']) : [];
+
+                $wpdb->query('DELETE FROM ' . ASL_PREFIX . 'stores_categories WHERE store_id = ' . intval($store_id));
+
+                if (!empty($categories)) {
+                    foreach ($categories as $category) {
+                        $wpdb->insert(
+                            ASL_PREFIX . 'stores_categories',
+                            [
+                                'store_id'    => $store_id,
+                                'category_id' => $category
+                            ],
+                            ['%s', '%s']
+                        );
+                    }
+                }
+            }
+
+            if ($apply_custom) {
+                $existing_custom = $wpdb->get_var(
+                    $wpdb->prepare('SELECT custom FROM ' . ASL_PREFIX . 'stores WHERE id = %d', $store_id)
+                );
+                $existing_custom = $existing_custom ? json_decode($existing_custom, true) : [];
+                if (!is_array($existing_custom)) {
+                    $existing_custom = [];
+                }
+
+                foreach ($custom_fields as $key => $value) {
+                    $existing_custom[$key] = $value;
+                }
+
+                $wpdb->update(
+                    ASL_PREFIX . 'stores',
+                    ['custom' => wp_json_encode($existing_custom)],
+                    ['id' => $store_id]
+                );
+            }
+        }
+
+        if ($failed > 0) {
+            $response->error = esc_attr__('Error occurred while updating selected stores.', 'asl_locator');
+            $response->msg   = esc_attr__('Some stores could not be updated.', 'asl_locator');
+        } else {
+            $response->success = true;
+            $response->msg     = esc_attr__('Selected stores updated successfully.', 'asl_locator');
+        }
+
+        $response->updated = $updated;
+
+        return $this->send_response($response);
+    }
+
     /**
      * [delete_store To delete the store/stores]
      * @return [type] [description]

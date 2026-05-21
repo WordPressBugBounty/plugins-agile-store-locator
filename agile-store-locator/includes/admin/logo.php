@@ -51,7 +51,7 @@ class Logo extends Base
         }
 
         //  Logo Name
-        $logo_name   = isset($_POST['data']['logo_name']) ? sanitize_text_field($_POST['data']['logo_name']) : ('Logo ' . time());
+        $logo_name   = isset($_POST['data']['logo_name']) ? sanitize_text_field(wp_unslash($_POST['data']['logo_name'])) : ('Logo ' . time());
 
         //   Parameters to Save
         $data_params = ['name' => $logo_name];
@@ -72,7 +72,7 @@ class Logo extends Base
         //  Insert the Logo
         $wpdb->insert(ASL_PREFIX . 'storelogos', $data_params);
 
-        $response->list = $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'storelogos ORDER BY id DESC');
+        $response->list = array_map([$this, 'prepare_logo_response_row'], $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'storelogos ORDER BY id DESC'));
         $response->msg  = __('Logo is uploaded successfully.', 'asl_locator');
 
         // Get the Logo ID
@@ -149,8 +149,15 @@ class Logo extends Base
 
         $data = $_REQUEST['data'];
 
+        $logo_name = isset($data['logo_name']) ? sanitize_text_field(wp_unslash($data['logo_name'])) : '';
+
+        if (empty($logo_name)) {
+            $response->msg = __('Error! logo name is required.', 'asl_locator');
+            return $this->send_response($response);
+        }
+
         //  Logo Update Parameter
-        $data_params = ['name' => trim($data['logo_name'])];
+        $data_params = ['name' => $logo_name];
 
         // with icon
         if ($data['action'] == 'notsame') {
@@ -184,7 +191,7 @@ class Logo extends Base
         }
 
         //  Execute Update Query
-        $wpdb->update(ASL_PREFIX . 'storelogos', $data_params, ['id' => $data['logo_id']]);
+        $wpdb->update(ASL_PREFIX . 'storelogos', $data_params, ['id' => intval($data['logo_id'])]);
 
         $response->msg      = __('Logo updated successfully.', 'asl_locator');
         $response->success  = true;
@@ -205,7 +212,7 @@ class Logo extends Base
 
         $store_id = isset($_REQUEST['logo_id']) ? intval($_REQUEST['logo_id']) : 0;
 
-        $response->list = $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'storelogos WHERE id = ' . $store_id);
+        $response->list = array_map([$this, 'prepare_logo_response_row'], $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'storelogos WHERE id = ' . $store_id));
 
         if (count($response->list) != 0) {
             $response->success = true;
@@ -297,7 +304,8 @@ class Logo extends Base
 
         // Format each row for DataTable
         foreach ($data_output as $row) {
-            $row->path  = '<img src="' . ASL_UPLOAD_URL . 'Logo/' . esc_attr($row->path) . '" style="max-width:100px"/>';
+            $row = $this->prepare_logo_response_row($row);
+            $row->path  = '<img src="' . esc_url(ASL_UPLOAD_URL . 'Logo/' . $row->path) . '" style="max-width:100px"/>';
             $row->check = '<div class="custom-control custom-checkbox">
             <input type="checkbox" data-id="' . esc_attr($row->id) . '" class="custom-control-input" id="asl-chk-' . esc_attr($row->id) . '">
             <label class="custom-control-label" for="asl-chk-' . esc_attr($row->id) . '"></label>
@@ -311,5 +319,20 @@ class Logo extends Base
         }
 
         return $this->send_response($output);
+    }
+
+    /**
+     * Escape logo fields before returning them to admin JSON consumers.
+     *
+     * @param object $row Logo database row.
+     * @return object
+     */
+    private function prepare_logo_response_row($row)
+    {
+        $row->id   = isset($row->id) ? intval($row->id) : 0;
+        $row->name = isset($row->name) ? esc_html($row->name) : '';
+        $row->path = isset($row->path) ? sanitize_file_name($row->path) : '';
+
+        return $row;
     }
 }

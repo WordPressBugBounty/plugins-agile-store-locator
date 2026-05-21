@@ -1302,12 +1302,26 @@ var asl_engine = window['asl_engine'] || {};
         var button            = $(this),
             hiddenfield       = button.prev(),
             hiddenfieldvalue  = hiddenfield.val().split(","), /* the array of added image IDs */
+            open_smodal       = button.closest('.smodal.show')[0],
+            open_smodal_modal = open_smodal && window.bootstrap && bootstrap.Modal
+              ? bootstrap.Modal.getInstance(open_smodal)
+              : null,
             custom_uploader   = wp.media({
                                   title: ASL_REMOTE.LANG.select_logo || 'Insert images', /* popup title */
                                   library : {type : 'image'},
                                   button: {text: ASL_REMOTE.LANG.use_image || 'Use Image'}, /* "Insert" button text */
                                   multiple: multiple
                                 })
+            .on('open', function() {
+              if (open_smodal_modal && open_smodal_modal._focustrap) {
+                open_smodal_modal._focustrap.deactivate();
+              }
+            })
+            .on('close', function() {
+              if (open_smodal_modal && open_smodal_modal._focustrap) {
+                open_smodal_modal._focustrap.activate();
+              }
+            })
             .on('select', function() {
 
               var attachments = custom_uploader.state().get('selection').map(function(a) {
@@ -1652,6 +1666,21 @@ var asl_engine = window['asl_engine'] || {};
 
       var urlSearchParams = new URLSearchParams(window.location.search);
       var params          = Object.fromEntries(urlSearchParams.entries());
+      var getSelectedStoreIds = function() {
+        var item_ids = [];
+        $('.asl-p-cont .table input:checked').each(function(i) {
+          var _id = $(this).attr('data-id');
+          if (_id) {
+            item_ids.push(_id);
+          }
+        });
+        return item_ids;
+      };
+      var $bulk_offcanvas = $('#sl-bulk-edit');
+      var bulk_time_init  = false;
+      var open_time_tmpl  = '9:30 AM';
+      var close_time_tmpl = '6:30 PM';
+      var bulk_fields_init = false;
 
 
       /*DUPLICATE STORES*/
@@ -1953,6 +1982,351 @@ var asl_engine = window['asl_engine'] || {};
       $('.table .select-all').bind('click', function(e) {
 
         $('.asl-p-cont .table input').attr('checked', 'checked');
+      });
+
+      // Bulk edit store fields
+      var toggleBulkEditFields = function() {
+        var has_description = $('#asl-bulk-edit-apply-description').is(':checked');
+        var has_open_hours  = $('#asl-bulk-edit-apply-open-hours').is(':checked');
+        var has_marker      = $('#asl-bulk-edit-apply-marker').is(':checked');
+        var has_logo        = $('#asl-bulk-edit-apply-logo').is(':checked');
+        var has_categories  = $('#asl-bulk-edit-apply-categories').is(':checked');
+
+        $('#asl-bulk-edit-description').prop('disabled', !has_description);
+        $bulk_offcanvas.find('.asl-time-details input').prop('disabled', !has_open_hours);
+        $bulk_offcanvas.find('.asl-time-details .asl-bulk-open-day').prop('disabled', !has_open_hours);
+        $bulk_offcanvas.find('.asl-bulk-field-description').toggleClass('is-disabled', !has_description);
+        $bulk_offcanvas.find('.asl-bulk-field-open-hours').toggleClass('is-disabled', !has_open_hours);
+        $bulk_offcanvas.find('.asl-bulk-field-marker').toggleClass('is-disabled', !has_marker);
+        $bulk_offcanvas.find('.asl-bulk-field-logo').toggleClass('is-disabled', !has_logo);
+        $bulk_offcanvas.find('.asl-bulk-field-categories').toggleClass('is-disabled', !has_categories);
+
+        if ($('#ddl-asl-bulk-markers').length) {
+          $('#ddl-asl-bulk-markers').prop('disabled', !has_marker);
+        }
+
+        if ($('#ddl-asl-bulk-categories').length) {
+          $('#ddl-asl-bulk-categories').prop('disabled', !has_categories).trigger('chosen:updated');
+        }
+
+        $bulk_offcanvas.find('.asl-bulk-custom-toggle').each(function() {
+          var $toggle = $(this);
+          var field = $toggle.data('field');
+          var enabled = $toggle.is(':checked');
+          var $wrap = $bulk_offcanvas.find('.asl-bulk-field-custom[data-field="' + field + '"]');
+          $wrap.toggleClass('is-disabled', !enabled);
+          $wrap.find('input, select, textarea').prop('disabled', !enabled);
+        });
+      };
+
+      $('#asl-bulk-edit-apply-description, #asl-bulk-edit-apply-open-hours, #asl-bulk-edit-apply-marker, #asl-bulk-edit-apply-logo, #asl-bulk-edit-apply-categories, .asl-bulk-custom-toggle').on('change', toggleBulkEditFields);
+      toggleBulkEditFields();
+
+      function bulkTimeChangeEvent(e) {
+        if($(e.currentTarget).hasClass('asl-start-time')) {
+          open_time_tmpl =  e.time.value;
+        }
+        else
+          close_time_tmpl   =  e.time.value; 
+      };
+
+      function initBulkOpenHours() {
+        if (bulk_time_init) return;
+        bulk_time_init = true;
+
+        $bulk_offcanvas.on('click', '.add-k-add', function(e) {
+          if (!$('#asl-bulk-edit-apply-open-hours').is(':checked')) {
+            return;
+          }
+
+          var $new_slot = $('<div class="form-group">\
+                      <div class="input-group bootstrap-asltimepicker">\
+                            <input type="text" class="form-control asltimepicker asl-start-time validate[required,funcCall[ASLmatchTime]]" placeholder="' + ASL_REMOTE.LANG.start_time + '"  value="'+open_time_tmpl+'">\
+                            <span class="input-group-append add-on"><span class="input-group-text"><svg width="20" height="20"><use xlink:href="#i-clock"></use></svg></span></span>\
+                          </div>\
+                          <div class="input-append input-group bootstrap-asltimepicker">\
+                            <input type="text" class="form-control asltimepicker asl-end-time validate[required]" placeholder="' + ASL_REMOTE.LANG.end_time + '" value="'+close_time_tmpl+'">\
+                            <span class="input-group-append add-on"><span class="input-group-text"><svg width="20" height="20"><use xlink:href="#i-clock"></use></svg></span></span>\
+                          </div>\
+                          <span class="add-k-delete glyp-trash text-danger">\
+                            <svg width="16" height="16"><use xlink:href="#i-trash"></use></svg>\
+                          </span>\
+                      </div>');
+
+          var $cur_slot = $(this).parent().prev().find('.asl-all-day-times .asl-closed-lbl');
+          $cur_slot.before($new_slot);
+
+          $new_slot.find('input.asltimepicker').removeAttr('id').attr('class', 'form-control asltimepicker validate[required]').asltimepicker({
+            showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
+            appendWidgetTo: '.asl-p-cont'
+          })
+          .on('changeTime.asltimepicker', bulkTimeChangeEvent);
+        });
+
+        $bulk_offcanvas.on('click', '.add-k-delete', function(e) {
+          $(this).parent().remove();
+        });
+
+        $bulk_offcanvas.find('.asl-time-details .asltimepicker').asltimepicker({
+          showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
+          appendWidgetTo: '.asl-p-cont',
+        })
+        .on('changeTime.asltimepicker', bulkTimeChangeEvent);
+
+        $('#asl-bulk-time-cp').bind('click', function(e) {
+          if (!$('#asl-bulk-edit-apply-open-hours').is(':checked')) {
+            return;
+          }
+
+          var $monday    = $bulk_offcanvas.find('.asl-time-details .asl-all-day-times').eq(0),
+              $rest_days = $bulk_offcanvas.find('.asl-time-details .asl-all-day-times:not(:first)');
+
+          $rest_days.each(function(e) {
+            var day_index = parseInt(e) + 1;
+            $(this).html($monday.children().clone());
+            $(this).find('.a-swith').find('label').attr('for', 'bulk-cmn-toggle-' + day_index);
+            $(this).find('.a-swith').find('input').attr('id', 'bulk-cmn-toggle-' + day_index);
+          });
+          $bulk_offcanvas.find('.asl-time-details .asl-bulk-open-day').prop('checked', true);
+        
+          $bulk_offcanvas.find('.asl-time-details .asltimepicker').asltimepicker({
+            showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
+            appendWidgetTo: '.asl-p-cont',
+          })
+          .on('changeTime.asltimepicker', bulkTimeChangeEvent);
+        });
+      }
+
+      function getBulkOpenHours() {
+        var open_hours = {};
+
+        $bulk_offcanvas.find('.asl-time-details .asl-all-day-times').each(function(e) {
+          var $day = $(this),
+            day_index = String($day.data('day'));
+          var $day_toggle = $bulk_offcanvas.find('.asl-time-details .asl-bulk-open-day[data-day="' + day_index + '"]');
+          if (!$day_toggle.length || !$day_toggle.is(':checked')) {
+            return;
+          }
+
+          var day_label = $.trim($day.closest('tr').find('.asl-day-label').val() || '');
+          open_hours[day_index + '_label'] = day_label;
+
+          open_hours[day_index] = null;
+
+          if ($day.find('.form-group').length > 0) {
+            open_hours[day_index] = [];
+          } else {
+            open_hours[day_index] = ($day.find('.asl-closed-lbl input')[0].checked) ? '1' : '0';
+          }
+
+          $day.find('.form-group').each(function() {
+            var $hours = $(this).find('input');
+            open_hours[day_index].push($hours.eq(0).val() + ' - ' + $hours.eq(1).val());
+          });
+        });
+
+        return JSON.stringify(open_hours);
+      }
+
+      function initBulkExtraFields() {
+        if (bulk_fields_init) return;
+        bulk_fields_init = true;
+
+        if ($('#ddl-asl-bulk-markers').length) {
+          $('#ddl-asl-bulk-markers').ddslick({
+            imagePosition: "right",
+            selectText: ASL_REMOTE.LANG.select_marker,
+            truncateDescription: true
+          });
+        }
+
+        if ($('#ddl-asl-bulk-logos').length && typeof asl_bulk_logos !== 'undefined') {
+          var bulk_logos = asl_bulk_logos.slice(0);
+          for (var i = 0; i < bulk_logos.length; i++) {
+            if (bulk_logos[i].imageSrc) {
+              bulk_logos[i].imageSrc = ASL_Instance.url + 'Logo/' + bulk_logos[i].imageSrc;
+            }
+          }
+          bulk_logos.unshift({
+            value: 0,
+            text: ASL_REMOTE.LANG.no_logo,
+            selected: true
+          });
+
+          $('#ddl-asl-bulk-logos').ddslick({
+            data: bulk_logos,
+            imagePosition: "right",
+            selectText: ASL_REMOTE.LANG.select_logo,
+            truncateDescription: true
+          });
+        }
+
+        if ($('#ddl-asl-bulk-categories').length) {
+          $('#ddl-asl-bulk-categories').chosen({
+            width: "100%",
+            placeholder_text_multiple: ASL_REMOTE.LANG.select_category,
+            no_results_text: ASL_REMOTE.LANG.no_category
+          });
+        }
+
+        function updateBulkGalleryPreview($input) {
+          var url = $.trim($input.val());
+          var $control = $input.closest(".asl-gallery-field-control");
+          var $preview = $control.find(".asl-gallery-preview");
+          var $img = $preview.find("img");
+
+          if (url) {
+            $img.attr("src", url);
+            $preview.removeClass("is-empty");
+          } else {
+            $img.attr("src", "");
+            $preview.addClass("is-empty");
+          }
+        }
+
+        $bulk_offcanvas.find(".asl-gallery-field").each(function() {
+          updateBulkGalleryPreview($(this));
+        });
+
+        $bulk_offcanvas.on("input change", ".asl-gallery-field", function() {
+          updateBulkGalleryPreview($(this));
+        });
+
+        $bulk_offcanvas.on("click", ".asl-gallery-clear", function(e) {
+          e.preventDefault();
+          var $control = $(this).closest(".asl-gallery-field-control");
+          var $input = $control.find(".asl-gallery-field");
+          $input.val("");
+          updateBulkGalleryPreview($input);
+        });
+
+        $bulk_offcanvas.on("click", ".asl-gallery-field-button", function(e) {
+          e.preventDefault();
+          var button = $(this);
+          var input = button.siblings(".asl-gallery-field");
+          var mediaUploader = wp.media({
+              title: ASL_REMOTE.LANG.select_media,
+              button: {
+                  text: ASL_REMOTE.LANG.use_media
+              },
+              multiple: false
+          }).on("select", function() {
+              var attachment = mediaUploader.state().get("selection").first().toJSON();
+              input.val(attachment.url);
+              updateBulkGalleryPreview(input);
+          }).open();
+        });
+      }
+
+      $('#btn-asl-bulk-edit').on('click', function(e) {
+        var item_ids = getSelectedStoreIds();
+
+        if (item_ids.length === 0) {
+          e.preventDefault();
+          e.stopPropagation();
+          atoastr.error('No Store selected');
+          return;
+        }
+
+        initBulkOpenHours();
+        initBulkExtraFields();
+        $bulk_offcanvas.find('.asl-time-details .asl-bulk-open-day').prop('checked', false);
+        $bulk_offcanvas.find('.asl-time-details .asl-day-label').val('');
+        $('#sl-bulk-edit-count').text(item_ids.length);
+        $('#asl-bulk-edit-store-ids').val(item_ids.join(','));
+        if (window.bootstrap && bootstrap.Offcanvas) {
+          bootstrap.Offcanvas.getOrCreateInstance(document.getElementById('sl-bulk-edit')).show();
+        }
+      });
+
+      $('#btn-asl-bulk-edit-apply').on('click', function(e) {
+        var item_ids = getSelectedStoreIds();
+        var apply_description = $('#asl-bulk-edit-apply-description').is(':checked');
+        var apply_open_hours  = $('#asl-bulk-edit-apply-open-hours').is(':checked');
+        var apply_marker_id   = $('#asl-bulk-edit-apply-marker').is(':checked');
+        var apply_logo_id     = $('#asl-bulk-edit-apply-logo').is(':checked');
+        var apply_categories  = $('#asl-bulk-edit-apply-categories').is(':checked');
+        var $btn = $(this);
+        var custom_fields = {};
+
+        if (item_ids.length === 0) {
+          atoastr.error('No Store selected');
+          return;
+        }
+
+        $bulk_offcanvas.find('.asl-bulk-custom-toggle:checked').each(function() {
+          var field = $(this).data('field');
+          var field_name = 'asl-bulk-custom[' + field + ']';
+          var $wrap = $bulk_offcanvas.find('.asl-bulk-field-custom[data-field="' + field + '"]');
+          var $inputs = $wrap.find('[name="' + field_name + '"]');
+
+          if (!$inputs.length) {
+            return;
+          }
+
+          var $first = $inputs.first();
+          var tag = $first.prop('tagName');
+          var type = ($first.attr('type') || '').toLowerCase();
+
+          if (type === 'radio') {
+            custom_fields[field] = $wrap.find('[name="' + field_name + '"]:checked').val() || '';
+          } else if (type === 'checkbox') {
+            custom_fields[field] = $first.is(':checked') ? $first.val() : '';
+          } else if (tag === 'SELECT') {
+            custom_fields[field] = $first.val();
+          } else {
+            custom_fields[field] = $first.val();
+          }
+        });
+
+        if (!apply_description && !apply_open_hours && !apply_marker_id && !apply_logo_id && !apply_categories && $.isEmptyObject(custom_fields)) {
+          atoastr.error('Select at least one field to update');
+          return;
+        }
+
+        var bulk_open_hours = apply_open_hours ? getBulkOpenHours() : '';
+        if (apply_open_hours && $.isEmptyObject(JSON.parse(bulk_open_hours))) {
+          atoastr.error('Select at least one day to update');
+          return;
+        }
+
+        $btn.bootButton('loading');
+
+        var selected_marker_id = null;
+        if ($('#ddl-asl-bulk-markers').length) {
+          selected_marker_id = ($('#ddl-asl-bulk-markers').data('ddslick').selectedData) ? $('#ddl-asl-bulk-markers').data('ddslick').selectedData.value : $('#ddl-asl-bulk-markers').val();
+        }
+
+        var selected_logo_id = null;
+        if ($('#ddl-asl-bulk-logos').length) {
+          selected_logo_id = ($('#ddl-asl-bulk-logos').data('ddslick').selectedData) ? $('#ddl-asl-bulk-logos').data('ddslick').selectedData.value : $('#ddl-asl-bulk-logos .dd-selected-value').val();
+        }
+
+        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=bulk_update_store_attributes", {
+          item_ids: item_ids,
+          apply_description: apply_description ? 1 : 0,
+          apply_open_hours: apply_open_hours ? 1 : 0,
+          apply_marker_id: apply_marker_id ? 1 : 0,
+          apply_logo_id: apply_logo_id ? 1 : 0,
+          apply_categories: apply_categories ? 1 : 0,
+          description: $('#asl-bulk-edit-description').val(),
+          open_hours: bulk_open_hours,
+          marker_id: selected_marker_id,
+          logo_id: selected_logo_id,
+          categories: $('#ddl-asl-bulk-categories').length ? $('#ddl-asl-bulk-categories').val() : [],
+          custom_fields: custom_fields
+        }, function(_response) {
+          $btn.bootButton('reset');
+          toastIt(_response);
+
+          if (_response.success) {
+            var offcanvas_el = document.getElementById('sl-bulk-edit');
+            if (offcanvas_el && window.bootstrap && bootstrap.Offcanvas) {
+              bootstrap.Offcanvas.getOrCreateInstance(offcanvas_el).hide();
+            }
+            table.fnDraw();
+          }
+        }, 'json');
       });
 
       //Delete Selected Stores:: bulk
@@ -2698,6 +3072,11 @@ var asl_engine = window['asl_engine'] || {};
           var $day = $(this),
             day_index = String($day.data('day'));
           open_hours[day_index] = null;
+
+          var day_label = $.trim($day.closest('tr').find('.asl-day-label').val() || '');
+          if (day_label) {
+            open_hours[day_index + '_label'] = day_label;
+          }
 
           if ($day.find('.form-group').length > 0) {
 

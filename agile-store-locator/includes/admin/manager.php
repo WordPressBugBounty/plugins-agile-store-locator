@@ -504,8 +504,15 @@ class Manager extends Base {
     $prefix = ASL_PREFIX;
 
     $this->_enqueue_scripts();
+    wp_enqueue_media();
+
 
     $pending_stores = Store::pending_store_count();
+    $lang = $this->lang;
+
+    $logos    = $this->prepare_logo_dropdown_rows($wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name"));
+    $markers  = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
+    $category = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang'");
 
     // Field Columns
      $field_columns = array(
@@ -544,7 +551,13 @@ class Manager extends Base {
 
     // Get all config
     $all_configs = \AgileStoreLocator\Helper::get_configs(); 
-    
+
+    $bulk_edit_fields_setting = \AgileStoreLocator\Helper::get_setting('bulk_edit_fields');
+    $bulk_edit_fields = $bulk_edit_fields_setting ? json_decode($bulk_edit_fields_setting, true) : ['description', 'open_hours'];
+    if (!is_array($bulk_edit_fields) || empty($bulk_edit_fields)) {
+      $bulk_edit_fields = ['description', 'open_hours'];
+    }
+
     include ASL_PLUGIN_PATH.'admin/partials/manage_store.php';
   }
 
@@ -898,6 +911,23 @@ class Manager extends Base {
 
     //  Since version 1.4.2
     wp_localize_script( $script_name, $variable, $data );
+  }
+
+  /**
+   * Escape logo dropdown data before embedding it into admin JavaScript.
+   *
+   * @param array $logos Logo rows.
+   * @return array
+   */
+  private function prepare_logo_dropdown_rows($logos) {
+
+    foreach ($logos as $logo) {
+      $logo->value    = isset($logo->value) ? intval($logo->value) : 0;
+      $logo->text     = isset($logo->text) ? esc_html($logo->text) : '';
+      $logo->imageSrc = isset($logo->imageSrc) ? sanitize_file_name($logo->imageSrc) : '';
+    }
+
+    return $logos;
   }
 
 

@@ -49,6 +49,7 @@ class AjaxHandler {
     $this->register_route('validate_coords', 'Store', 'validate_coordinates'); 
     $this->register_route('store_status', 'Store', 'store_status');  
     $this->register_route('approve_stores', 'Store', 'approve_stores');
+    $this->register_route('bulk_update_store_attributes', 'Store', 'bulk_update_store_attributes');
 
     /*Categories*/
     $this->register_route('add_categories', 'Category', 'add_category');

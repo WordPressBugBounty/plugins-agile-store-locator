@@ -2042,6 +2042,12 @@ body.rtl .formError .formErrorArrow {
   width: auto !important;
 }
 
+
+.asl-p-cont #sl-stores-timings .asl-day-label {
+  margin-top: 1.5rem !important;
+  max-width: 311px;
+}
+
 .asl-p-cont .sl-import-store-page thead th {
   color: #8b97a7;
   background-color: #f1f5f94d !important;
@@ -2592,9 +2598,10 @@ body.rtl .formError .formErrorArrow {
 }
 
 .bootstrap-asltimepicker-widget table td input {
-  width: 42px
+    width: 42px;
+    font-size: 12px;
+    padding: 0px 2px;
 }
-
 
 
 .asl-p-cont #frm-addstore .panel .panel-body .btn.btn-success {
@@ -5542,6 +5549,29 @@ body .asl-p-cont .input-group.bootstrap-asltimepicker>.form-control {
   color: #0baaf9 !important;
 }
 
+.asl-p-cont #sl-bulk-edit .asl-day-label { 
+    margin-top: 1.5rem !important;
+    max-width: 312px;
+}
+
+.asl-p-cont #sl-bulk-edit #asl-bulk-time-cp {
+  background-color: #0baaf91a;
+  padding: 8px 16px;
+  border: 1px solid #0baaf933;
+  border-radius: 8px;
+  color: #0baaf9 !important;
+}
+
+.asl-p-cont #sl-bulk-edit .asl-time-details .form-group {
+  margin-bottom: 12px;
+}
+
+.asl-p-cont #sl-bulk-edit .asl-bulk-field.is-disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+
 .asl-p-cont .asl-tabs .asl-tabs-body form .tab-content .tab-pane .form-group {
   margin-bottom: 0;
 }
@@ -8003,3 +8033,43 @@ table#tbl_stores tbody tr.disabled_color.scheduled_color td {
 }
 
 /*Schedule End*/
+
+.asl-p-cont .asl-drag-handle {
+ cursor: move;
+}
+
+.asl-p-cont .asl-store-form-fields {
+  min-height: 40px;
+  padding: 6px;
+}
+
+.asl-p-cont #sl-store-form .list-group-item {
+   
+    margin-bottom: 0px !important;
+}
+
+.asl-p-cont #sl-bulk-edit {
+  --bs-offcanvas-width: 50vw;
+  width: 50vw;
+  max-width: 50vw;
+}
+
+.admin-bar .asl-p-cont #sl-bulk-edit {
+  top: 32px;
+  height: calc(100% - 32px);
+}
+
+@media (max-width: 991px) {
+  .asl-p-cont #sl-bulk-edit {
+    --bs-offcanvas-width: 100vw;
+    width: 100vw;
+    max-width: 100vw;
+  }
+}
+
+@media (max-width: 782px) {
+  .admin-bar .asl-p-cont #sl-bulk-edit {
+    top: 46px;
+    height: calc(100% - 46px);
+  }
+}

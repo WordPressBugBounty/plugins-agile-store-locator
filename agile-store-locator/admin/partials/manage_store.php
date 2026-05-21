@@ -2,6 +2,11 @@
   $added_custom_fields = \AgileStoreLocator\Helper::get_setting('fields');
   $added_custom_fields = $added_custom_fields ? $added_custom_fields : '{}';
   $added_custom_fields = json_decode($added_custom_fields);
+  if (is_object($added_custom_fields)) {
+    $added_custom_fields = array_values(get_object_vars($added_custom_fields));
+  } elseif (!is_array($added_custom_fields)) {
+    $added_custom_fields = [];
+  }
 ?>
 <!-- Container -->
 <div class="asl-p-cont asl-new-bg">
@@ -27,6 +32,14 @@
                 <title><?php echo esc_attr__('Trash','asl_locator') ?></title>
                 <path
                     d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
+            </symbol>
+            <symbol id="i-chevron-top" viewBox="0 0 32 32" width="13" height="13" fill="none" stroke="currentcolor"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M30 20 L16 8 2 20" />
+            </symbol>
+            <symbol id="i-chevron-bottom" viewBox="0 0 32 32" width="13" height="13" fill="none" stroke="currentcolor"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M30 12 L16 24 2 12" />
             </symbol>
             <symbol id="i-edit" fill="currentColor" viewBox="0 0 17 17">
                 <title><?php echo esc_attr__('Edit','asl_locator') ?></title>
@@ -90,6 +103,11 @@
                                             class="mr-1"><svg width="12" height="12">
                                                 <use xlink:href="#i-trash"></use>
                                             </svg></i><?php echo esc_attr__('Delete Selected', 'asl_locator') ?></button>
+                                    <button type="button" id="btn-asl-bulk-edit"
+                                        class="btn me-md-1 border btn-light" aria-controls="sl-bulk-edit"><i class="mr-1"><svg
+                                                width="12" height="12">
+                                                <use xlink:href="#i-edit"></use>
+                                            </svg></i><?php echo esc_attr__('Bulk Edit', 'asl_locator') ?></button>
                                     <a href="<?php echo admin_url() . 'admin.php?page=create-agile-store' ?>"
                                         class="btn btn-success me-md-1"><i><svg style="margin-top:-3px;" width="13"
                                                 height="13">
@@ -370,6 +388,7 @@
     </div>
     <!-- Store Schedule Modal -->
 
+  <?php include ASL_PLUGIN_PATH.'admin/partials/bulk-edit-offcanvas.php'; ?>
 
 </div>
 
@@ -386,6 +405,7 @@
 // All config data
 var asl_configs = <?php echo wp_json_encode($all_configs); ?>;
 var dt_custom_columns = <?php echo json_encode($dt_custom_columns); ?>;
+var asl_bulk_logos = <?php echo json_encode($logos); ?>;
 
 var ASL_Instance = {
     manage_stores_url: '<?php echo admin_url() . 'admin.php?page=edit-agile-store&store_id=' ?>',
