@@ -381,7 +381,7 @@ if($level_mode == '1'): ?>
                                                                     <h6><?php echo esc_attr__('Upgrade Plugin','asl_locator') ?>
                                                                     </h6>
                                                                     <a target="_blank"
-                                                                        href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><?php echo esc_attr__('Lifetime License - $59','asl_locator') ?></a>
+                                                                        href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><?php echo esc_attr__('License - $59','asl_locator') ?></a>
                                                                 </div>
                                                             </div>
                                                         </div>

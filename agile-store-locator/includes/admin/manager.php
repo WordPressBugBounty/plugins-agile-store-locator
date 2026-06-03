@@ -205,7 +205,7 @@ class Manager extends Base {
       'error_try_again'       => esc_attr__('Error Occured, Please try Again.','asl_locator'),
       'delete_all'            => esc_attr__('DELETE ALL','asl_locator'),
       'pur_title'             => esc_attr__('PLEASE VALIDATE PURCHASE CODE!','asl_locator'),
-      'pur_text'              => __('Thank you for purchasing <b>Store Locator for WordPress</b> Plugin, kindly enter your purchase code to unlock the page. <a target="_blank" href="https://agilestorelocator.com/wiki/store-locator-purchase-code/">How to Get Your Purchase Code</a>.','asl_locator'),
+      'pur_text'              => __('Thank you for purchasing <b>Store Locator for WordPress</b> Plugin, kindly enter your purchase code to unlock the page. <a target="_blank" href="https://agilestorelocator.com/wiki/store-locator-purchase-code/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">How to Get Your Purchase Code</a>.','asl_locator'),
       'api_key_missing'       => __('Error! Search and Map will not work due to missing API Key','asl_locator'),
       'warn_save_setting'     => __('Save Settings to apply the changes','asl_locator'),
       'close'                 => __('Close','asl_locator'),

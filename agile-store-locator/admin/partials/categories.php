@@ -44,7 +44,7 @@
                                 <?php echo esc_attr__('Make categories and group stores.', 'asl_locator') ?>
                             </p>
                         </div>
-                        <a target="_blank" class="btn btn-outline-light" href="https://agilestorelocator.com/wiki/manage-categories/"><?php echo esc_attr__('Guide', 'asl-wc') ?> 
+                        <a target="_blank" class="btn btn-outline-light" href="https://agilestorelocator.com/wiki/manage-categories/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Guide', 'asl-wc') ?> 
                             <i class="mr-2"><svg style="margin-bottom:2px;" width="14" height="14"><use xlink:href="#i-info"></use></svg></i>
                         </a>  
                     </div>

@@ -193,25 +193,25 @@ if($level_mode == '1'): ?>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/what-is-google-server-key/"><?php echo esc_attr__('What is Google Server Key?','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/what-is-google-server-key/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('What is Google Server Key?','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/"><?php echo esc_attr__('How to import a CSV file?','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How to import a CSV file?','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/google-server-api-key-troubleshooting/"><?php echo esc_attr__('Troubleshoot :: Google Server API key ','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/google-server-api-key-troubleshooting/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Troubleshoot :: Google Server API key ','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/error-0-rows-imported/"><?php echo esc_attr__('Troubleshoot :: Issues','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/error-0-rows-imported/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Troubleshoot :: Issues','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
@@ -330,7 +330,7 @@ if($level_mode == '1'): ?>
                                     <!-- <div class="card-text mb-3">
                                         <?php echo esc_attr__('Please upload your CSV file and then import it though the import button, please make sure to follow the given template and the columns should be in the right format as described in the documentation or simply use Template.csv format, please validate your API Key before import.', 'asl_locator') ?>
                                         <?php echo esc_attr__('Guide article: ', 'asl_locator') ?> <a target="_blank"
-                                            href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/"><b><?php echo esc_attr__('Import Stores Using Excel/CSV', 'asl_locator') ?></b></a>.
+                                            href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><b><?php echo esc_attr__('Import Stores Using Excel/CSV', 'asl_locator') ?></b></a>.
                                     </div> -->
                                     <p class="alert alert-primary mt-0 mb-4"><i class="mb-1"><svg width="16" height="16"
                                                 class="text-dark">
@@ -656,7 +656,7 @@ if($level_mode == '1'): ?>
                                         <h6><?php echo esc_attr__('Upgrade Plugin To Get Import/Export Feature', 'asl_locator') ?>
                                         </h6>
                                         <a target="_blank"
-                                            href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><?php echo esc_attr__('Lifetime License - $59', 'asl_locator') ?></a>
+                                            href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><?php echo esc_attr__('License - $59', 'asl_locator') ?></a>
                                     </div>
                                 </div>
                             </div>

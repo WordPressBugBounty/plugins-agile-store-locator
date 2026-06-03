@@ -1562,7 +1562,7 @@ msgid "GET DIRECTIONS"
 msgstr "Route planen"
 
 #: admin/partials/dashboard.php:372
-msgid "Get Lifetime License - $39"
+msgid "Get License - $39"
 msgstr ""
 
 #: admin/partials/user_setting.php:101
@@ -1921,7 +1921,7 @@ msgid "Level has been changed."
 msgstr "Ebene wurde geändert."
 
 #: admin/partials/dashboard.php:212
-msgid "Lifetime License - $39"
+msgid "License - $39"
 msgstr ""
 
 #: includes/model/label.php:89

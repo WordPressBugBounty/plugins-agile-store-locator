@@ -126,7 +126,7 @@
                                                 </div>
                                             </form>
                                             <p class="help-p mt-2"><a target="_blank" class="text-muted"
-                                                    href="https://agilestorelocator.com/wiki/intro-to-kml-files/"><?php echo esc_attr__('How to use KML files?','asl_locator') ?></a>
+                                                    href="https://agilestorelocator.com/wiki/intro-to-kml-files/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How to use KML files?','asl_locator') ?></a>
                                             </p>
                                         </div>
                                     </div>

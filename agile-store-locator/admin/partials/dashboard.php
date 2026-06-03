@@ -43,7 +43,7 @@ if($level_mode == '1'): ?>
       <div class="col-md-12">
         <div class="alert border-0 alert-primary bg-primary d-flex py-3 mb-4 text-white align-items-center" role="alert">
           <i class="mt-0 fs-large" style="font-size: 20px;">🎉</i>
-          <p class="m-0"><a style="text-decoration:underline;" href="https://agilestorelocator.com/wiki/google-advanced-markers/" class="text-white font-weight-bold" target="_blank">Agile Store Locator</a> now supports <a href="https://developers.google.com/maps/documentation/javascript/advanced-markers/html-markers" target="_blank" class="text-white font-weight-bold" style="text-decoration:underline;">Google Advanced Markers</a> with 5 unique interactive HTML based markers.</p>
+          <p class="m-0"><a style="text-decoration:underline;" href="https://agilestorelocator.com/wiki/google-advanced-markers/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" class="text-white font-weight-bold" target="_blank">Agile Store Locator</a> now supports <a href="https://developers.google.com/maps/documentation/javascript/advanced-markers/html-markers" target="_blank" class="text-white font-weight-bold" style="text-decoration:underline;">Google Advanced Markers</a> with 5 unique interactive HTML based markers.</p>
         </div>
       </div>
       <div class="col-md-8 col-sm-8">
@@ -75,7 +75,7 @@ if($level_mode == '1'): ?>
       <div class="row">
         <div class="col-12">
         <?php if(!$all_configs['api_key']): ?>
-            <h3  class="alert alert-danger" style="font-size: 14px"><?php echo esc_attr__('Alert! Google API KEY is missing, the Map search, geocoding and direction will not work without it, Please add Google API KEY first.','asl_locator') ?> <a href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/" target="_blank">How to Add API Key?</a></h3>
+            <h3  class="alert alert-danger" style="font-size: 14px"><?php echo esc_attr__('Alert! Google API KEY is missing, the Map search, geocoding and direction will not work without it, Please add Google API KEY first.','asl_locator') ?> <a href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank">How to Add API Key?</a></h3>
         <?php endif; ?>
         </div>
       </div>
@@ -98,7 +98,7 @@ if($level_mode == '1'): ?>
           <div class="asl-process-box">
             <h3 class="mb-4"><span>03.</span> <a href="<?php echo admin_url().'admin.php?page=create-agile-store' ?>"><?php echo esc_attr__('Add your Stores','asl_locator') ?></a></h3>
             <img src="<?php echo ASL_URL_PATH ?>admin/images/new/process_img1.png" class="img-fluid">
-            <p class="mt-3"><?php echo esc_attr__('Remove the dummy stores through Manage Stores and add your own store locations.','asl_locator') ?></p>
+            <p class="mt-3"><?php printf(esc_html__('Remove the dummy stores through %s and add your own store locations.','asl_locator'), '<a class="small" href="' . esc_url(admin_url().'admin.php?page=manage-agile-store') . '">' . esc_html__('Manage Stores','asl_locator') . '</a>') ?></p>
           </div>
         </div>
       </div>
@@ -209,7 +209,7 @@ if($level_mode == '1'): ?>
                 <svg width="70" height="100" viewBox="0 0 90 120" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M82.5 52.5H75V30C75 13.5 61.5 0 45 0C28.5 0 15 13.5 15 30V52.5H7.5C3.75 52.5 0 56.25 0 60V112.5C0 116.25 3.75 120 7.5 120H82.5C86.25 120 90 116.25 90 112.5V60C90 56.25 86.25 52.5 82.5 52.5ZM52.5 105H37.5L40.5 88.5C36.75 87 33.75 82.5 33.75 78.75C33.75 72.75 39 67.5 45 67.5C51 67.5 56.25 72.75 56.25 78.75C56.25 83.25 54 87 49.5 88.5L52.5 105ZM60 52.5H30V30C30 21.75 36.75 15 45 15C53.25 15 60 21.75 60 30V52.5Z" fill="white"/></svg>
                 <h6><?php echo esc_attr__('Upgrade Plugin To View Your Analytics','asl_locator') ?></h6>
-                <a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><?php echo esc_attr__('Lifetime License - $59','asl_locator') ?></a>
+                <a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><?php echo esc_attr__('License - $59','asl_locator') ?></a>
               </div>
             </div>
           </div>
@@ -369,7 +369,7 @@ if($level_mode == '1'): ?>
                 <li><?php echo esc_attr__('Store Locator without Google Maps Option','asl_locator') ?></li>
                 <li><?php echo esc_attr__('Analytics to see your stores performance','asl_locator') ?></li>
               </ul>
-              <a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><?php echo esc_attr__('Get Lifetime License - $59','asl_locator') ?></a>
+              <a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><?php echo esc_attr__('Get License - $59','asl_locator') ?></a>
             </div>
             <img src="<?php echo ASL_URL_PATH ?>admin/images/new/vector_img.png" class="asl-object-img">
           </div>

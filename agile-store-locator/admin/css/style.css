@@ -6852,6 +6852,11 @@ body .asl-p-cont .asl-wc-setting .select6-container .select6-selection .select6-
   font-weight: 600;
 }
 
+.asl-main-dashboard .asl-inner-dashboard .asl-process-sec .asl-process-box p a.small {
+  color: #0171B6 !important;
+  font-size: 100%;
+}
+
 .asl-main-dashboard .asl-inner-dashboard .asl-process-sec .asl-process-box p {
   color: #333;
   font-size: 16px;

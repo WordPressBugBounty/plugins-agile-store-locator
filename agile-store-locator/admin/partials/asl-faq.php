@@ -8,7 +8,7 @@ $faq_basic = array(
   ),
   array(
     'q'   => 'How to include the Search Widget that redirect to the Store Locator page?',
-    'ans' => 'To add the separate <b>Search Widget</b> over any page, please add the [ASL_SEARCH redirect="https://your-site.com/store-locator"] shortcode, please check the <a target="_blank" href="https://agilestorelocator.com/wiki/address-search-widget/">documentation</a> to see more options.'
+    'ans' => 'To add the separate <b>Search Widget</b> over any page, please add the [ASL_SEARCH redirect="https://your-site.com/store-locator"] shortcode, please check the <a target="_blank" href="https://agilestorelocator.com/wiki/address-search-widget/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">documentation</a> to see more options.'
   ),
   array(
     'q'   => 'How to change the default map location?',
@@ -20,62 +20,62 @@ $faq_basic = array(
   ),
   array(
     'q'   => 'Why I am not getting auto-updates?',
-    'ans' => 'Premium version is hosting on Envato market, so follow this <a target="_blank" href="https://agilestorelocator.com/wiki/automatic-updates/">article guide</a> to recieve updates.'
+    'ans' => 'Premium version is hosting on Envato market, so follow this <a target="_blank" href="https://agilestorelocator.com/wiki/automatic-updates/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">article guide</a> to recieve updates.'
   ),
   array(
     'q'   => 'Why th Google Map is showing "development" watermark?',
-    'ans' => 'The "Development" watermark appears over the Google Maps when the Google API isn\'t configured properly or the required libraries are not enabled, please follow this <a target="_blank" href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/">guide article</a>.'
+    'ans' => 'The "Development" watermark appears over the Google Maps when the Google API isn\'t configured properly or the required libraries are not enabled, please follow this <a target="_blank" href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">guide article</a>.'
   )
 );
 
 $faq_links = array(
   array(
     'title' => 'How to translate the static content of the plugin?',
-    'link'  => 'https://agilestorelocator.com/wiki/language-translation-store-locator/'
+    'link'  => 'https://agilestorelocator.com/wiki/language-translation-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How can we avoid the template to be overwrite by updates?',
-    'link'  => 'https://agilestorelocator.com/wiki/customize-template-without-modifying-core-plugin/'
+    'link'  => 'https://agilestorelocator.com/wiki/customize-template-without-modifying-core-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How can we pre-load filter values by the URL?',
-    'link'  => 'https://agilestorelocator.com/wiki/load-parameter-with-query-string/'
+    'link'  => 'https://agilestorelocator.com/wiki/load-parameter-with-query-string/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How to create multiple Store Locator on different pages?',
-    'link'  => 'https://agilestorelocator.com/wiki/create-multiple-store-locator-different-wordpress-pages/'
+    'link'  => 'https://agilestorelocator.com/wiki/create-multiple-store-locator-different-wordpress-pages/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How can we sort by the categories?',
-    'link'  => 'https://agilestorelocator.com/wiki/sort-store-attribute/'
+    'link'  => 'https://agilestorelocator.com/wiki/sort-store-attribute/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How can we change the address format?',
-    'link'  => 'https://agilestorelocator.com/wiki/change-address-format/'
+    'link'  => 'https://agilestorelocator.com/wiki/change-address-format/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How to change the user location marker?',
-    'link'  => 'https://agilestorelocator.com/wiki/change-user-location-marker-image/'
+    'link'  => 'https://agilestorelocator.com/wiki/change-user-location-marker-image/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How to add custom tag in the template?',
-    'link'  => 'https://agilestorelocator.com/wiki/custom-script-method-store-locator/'
+    'link'  => 'https://agilestorelocator.com/wiki/custom-script-method-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'Why Store Locator doesn’t appear at all?',
-    'link'  => 'https://agilestorelocator.com/wiki/store-locator-doesnot-appear/'
+    'link'  => 'https://agilestorelocator.com/wiki/store-locator-doesnot-appear/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How to change the cluster color or size?',
-    'link'  => 'https://agilestorelocator.com/wiki/store-locator-clusters/'
+    'link'  => 'https://agilestorelocator.com/wiki/store-locator-clusters/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How to change the font sizing?',
-    'link'  => 'https://agilestorelocator.com/wiki/how-to-adjust-the-font-size/'
+    'link'  => 'https://agilestorelocator.com/wiki/how-to-adjust-the-font-size/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   ),
   array(
     'title' => 'How to change the "Website" text?',
-    'link'  => 'https://agilestorelocator.com/wiki/language-translation-store-locator/'
+    'link'  => 'https://agilestorelocator.com/wiki/language-translation-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version'
   )
 );
 

@@ -143,9 +143,9 @@ class Updater {
 
 
     return '<ul>
-                <li><a target="__blank" href="https://agilestorelocator.com/wiki/automatic-updates/">How to enable auto-updates?</a></li>
-                <li><a target="__blank" href="https://agilestorelocator.com/wiki/upgrade-plugin-newer-version/">How to update manually?</a></li>
-                <li><a target="__blank" href="https://agilestorelocator.com/wiki/">Documentation</a></li>
+                <li><a target="__blank" href="https://agilestorelocator.com/wiki/automatic-updates/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">How to enable auto-updates?</a></li>
+                <li><a target="__blank" href="https://agilestorelocator.com/wiki/upgrade-plugin-newer-version/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">How to update manually?</a></li>
+                <li><a target="__blank" href="https://agilestorelocator.com/wiki/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">Documentation</a></li>
             </ul><h4>Change Logs</h4><pre style="border:0px !important;padding: 0px;">'.$changelog_content.'</pre>';
   }
 

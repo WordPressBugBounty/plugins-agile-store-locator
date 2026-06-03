@@ -10,7 +10,7 @@ $default_labels = \AgileStoreLocator\Model\Label::asl_default_labels();
         <label class="custom-control-label" for="asl-tran_lbl"><?php echo esc_attr__('Labels','asl_locator') ?></label>
          <div class="form-group-inner">
          <label class="switch" for="asl-tran_lbl"><input type="checkbox" value="1" class="custom-control-input" name="data[tran_lbl]" id="asl-tran_lbl"><span class="slider round"></span></label>
-         <p class="help-p"><?php echo __('To enable the label changing feature please enable the switch,<br> For multi-language translation, please disable it and follow the ','asl_locator') ?> <a target="_blank" href="https://agilestorelocator.com/wiki/language-translation-store-locator/"><?php echo esc_attr__('multi-language translation guide','asl_locator') ?></a></p>
+         <p class="help-p"><?php echo __('To enable the label changing feature please enable the switch,<br> For multi-language translation, please disable it and follow the ','asl_locator') ?> <a target="_blank" href="https://agilestorelocator.com/wiki/language-translation-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('multi-language translation guide','asl_locator') ?></a></p>
          </div>
       </div>
    </div>

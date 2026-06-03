@@ -1,6 +1,6 @@
 <?php 
   
-  $asl_wc_ad_url = 'https://agilelogix.com/product/multi-store-addons-for-woocommerce/?utm_source=WordPress&utm_medium=Banner&utm_campaign=WP.org&utm_term=ASL&utm_content=';
+  $asl_wc_ad_url = 'https://agilelogix.com/product/multi-store-addons-for-woocommerce/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=multi-store-addon';
 ?>
 <div id="sl-wc" class="tab-pane">
   <div class="col-12">

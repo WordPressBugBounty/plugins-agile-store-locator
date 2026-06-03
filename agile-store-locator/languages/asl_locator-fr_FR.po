@@ -1566,7 +1566,7 @@ msgid "GET DIRECTIONS"
 msgstr "OBTENIR DES DIRECTIONS"
 
 #: admin/partials/dashboard.php:372
-msgid "Get Lifetime License - $39"
+msgid "Get License - $39"
 msgstr ""
 
 #: admin/partials/user_setting.php:101
@@ -1924,7 +1924,7 @@ msgid "Level has been changed."
 msgstr "Le niveau a été changé."
 
 #: admin/partials/dashboard.php:212
-msgid "Lifetime License - $39"
+msgid "License - $39"
 msgstr ""
 
 #: includes/model/label.php:89

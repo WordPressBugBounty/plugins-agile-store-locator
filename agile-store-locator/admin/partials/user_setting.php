@@ -93,7 +93,7 @@ if($level_mode == '1'){ ?>
 				                  <label class="custom-control-label" for="asl-api_key"><?php echo esc_attr__('Google API KEY','asl_locator') ?></label>
 				                  <div class="form-group-inner">
 				                  <input  type="text" class="form-control" name="data[api_key]" id="asl-api_key" placeholder="<?php echo esc_attr__('API KEY','asl_locator') ?>">
-				                  <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/"><?php echo esc_attr__('How to generate Google API?','asl_locator') ?></a></p>
+				                  <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How to generate Google API?','asl_locator') ?></a></p>
 				                  </div>
 				                </div>
 			                </div>
@@ -102,7 +102,7 @@ if($level_mode == '1'){ ?>
 			                    <label class="custom-control-label" for="asl-server_key"><?php echo esc_attr__('Google Server API Key','asl_locator') ?></label>
 			                    <div class="form-group-inner">
 			                    <input  type="text" class="form-control" name="data[server_key]" id="asl-server_key" placeholder="<?php echo esc_attr__('Google API KEY (Geocoding)','asl_locator') ?>">
-			                    <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/what-is-google-server-key/"><?php echo esc_attr__('What is Google Server Key?','asl_locator') ?></a> | <a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/google-server-api-key-troubleshooting/"><?php echo esc_attr__('Troubleshoot','asl_locator') ?></a></p>
+			                    <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/what-is-google-server-key/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('What is Google Server Key?','asl_locator') ?></a> | <a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/google-server-api-key-troubleshooting/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Troubleshoot','asl_locator') ?></a></p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -171,7 +171,7 @@ if($level_mode == '1'){ ?>
 			                        <option value="3"><?php echo esc_attr__('Geolocation On Load','asl_locator') ?></option>
 			                        <option value="4"><?php echo esc_attr__('GeoJS IP Service (Free API)','asl_locator') ?></option>
 			                      </select>
-			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/prompt-geo-location-dialog/"><?php echo esc_attr__('How Geolocation works?','asl_locator') ?></a></p>
+			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/prompt-geo-location-dialog/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How Geolocation works?','asl_locator') ?></a></p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -187,7 +187,7 @@ if($level_mode == '1'){ ?>
 			                        <option value="state"><?php echo esc_attr__('State','asl_locator') ?></option>
 			                        <option value="cat"><?php echo esc_attr__('Categories','asl_locator') ?></option>
 			                      </select>
-			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/sort-store-attribute/"><?php echo esc_attr__('Sort your listing based on fields, default is Distance','asl_locator') ?></a></p>
+			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/sort-store-attribute/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Sort your listing based on fields, default is Distance','asl_locator') ?></a></p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -196,7 +196,7 @@ if($level_mode == '1'){ ?>
 			                    <label class="custom-control-label" for="stores_limit"><?php echo esc_attr__('Stores Limit','asl_locator') ?></label>
 			                    <div class="form-group-inner">
 			                      <input  type="number" class="form-control validate[integer]" name="data[stores_limit]" id="asl-stores_limit">
-			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/show-limited-stores-sort-by-distance/"><?php echo esc_attr__('To show a limited number of stores.','asl_locator') ?></a></p>
+			                      <p class="help-p"><a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/show-limited-stores-sort-by-distance/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('To show a limited number of stores.','asl_locator') ?></a></p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -210,7 +210,7 @@ if($level_mode == '1'){ ?>
                              	<div class="asl-wc-radio">
                                 <label for="asl-distance_control-2"><input type="radio" name="data[distance_control]" value="2" id="asl-distance_control-2"><?php echo esc_attr__('Boundary Box','asl_locator') ?></label>
                              	</div>
-                             	<p class="help-p"><a class="text-muted" target="_blank" href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a></p>
+                             	<p class="help-p"><a class="text-muted" target="_blank" href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a></p>
                           </div>
 			                  </div>
 			                </div>
@@ -329,7 +329,7 @@ if($level_mode == '1'){ ?>
 											        <div class="asl-wc-radio">
 											          <label for="asl-gdpr-2"><input type="radio" name="data[gdpr]" value="2" id="asl-gdpr-2"><?php echo esc_attr__('Borlab Cookies','asl_locator') ?></label>
 											        </div>
-											        <p class="help-p"><a class="text-muted" target="_blank" href="https://agilestorelocator.com/wiki/gdpr-consent-for-google-maps-library/"><?php echo esc_attr__('GDPR Consent for the Google Maps Library','asl_locator') ?></a></p>
+											        <p class="help-p"><a class="text-muted" target="_blank" href="https://agilestorelocator.com/wiki/gdpr-consent-for-google-maps-library/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('GDPR Consent for the Google Maps Library','asl_locator') ?></a></p>
 											    </div>
 											  </div>
 											</div>
@@ -399,7 +399,7 @@ if($level_mode == '1'){ ?>
 		                             	<div class="asl-wc-radio">
 		                                <label for="asl-distance_controler-1"><input type="radio"  value="1" id="asl-distance_controler-1"><?php echo esc_attr__('Dropdown','asl_locator') ?></label>
 		                             	</div>
-		                             	<p class="help-p"><a class="text-muted" target="_blank" href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a></p>
+		                             	<p class="help-p"><a class="text-muted" target="_blank" href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a></p>
 		                          </div>
 					                  </div>
 					                </div>
@@ -408,7 +408,7 @@ if($level_mode == '1'){ ?>
 			                          <label class="custom-control-label" for="asl-advance_filter"><?php echo esc_attr__('Advance Filter','asl_locator') ?></label>
 			                        	<div class="form-group-inner">
 			                          	<label class="switch" for="asl-advance_filter"><input disabled="disabled" type="checkbox" value="1" class="custom-control-input" name="data[advance_filter]" id="asl-advance_filter"><span class="slider round"></span></label>
-			                          	<p class="help-p"><a href="https://agilestorelocator.com/wiki/enable-disable-advance-features/" target="_blank"><?php echo esc_attr__('Disabling it will remove all the filters','asl_locator') ?></a></p>
+			                          	<p class="help-p"><a href="https://agilestorelocator.com/wiki/enable-disable-advance-features/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank"><?php echo esc_attr__('Disabling it will remove all the filters','asl_locator') ?></a></p>
 			                        	</div>
 			                      </div>
 		                      </div>
@@ -505,7 +505,7 @@ if($level_mode == '1'){ ?>
 			                          <label class="custom-control-label" for="asl-locale"><?php echo esc_attr__('Data WPML','asl_locator') ?></label>
 				                        <div class="form-group-inner">
 				                          <label class="switch" for="asl-locale"><input type="checkbox" value="1" class="custom-control-input" id="asl-locale"><span class="slider round"></span></label>
-			                        		<p class="help-p text-danger">(<?php echo esc_attr__('Enabling it will hide all your stores data if data is not assigned for the correct language','asl_locator') ?>) | <a href="https://agilestorelocator.com/wiki/language-translation-store-locator/" target="_blank" rel="nofollow"><?php echo esc_attr__('Documentation','asl_locator') ?></a></p>
+			                        		<p class="help-p text-danger">(<?php echo esc_attr__('Enabling it will hide all your stores data if data is not assigned for the correct language','asl_locator') ?>) | <a href="https://agilestorelocator.com/wiki/language-translation-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank" rel="nofollow"><?php echo esc_attr__('Documentation','asl_locator') ?></a></p>
 				                        </div>
 			                      </div>
 		                      </div>
@@ -587,7 +587,7 @@ if($level_mode == '1'){ ?>
 			                    <label class="custom-control-label" for="asl-map_language"><?php echo esc_attr__('Map Language','asl_locator') ?></label>
 			                    <div class="form-group-inner">
 			                      <input type="text" class="form-control validate[minSize[2]]" maxlength="2" name="data[map_language]" id="asl-map_language" placeholder="Example: US">
-			                      <p class="help-p"><?php echo esc_attr__('Enter the language code.','asl_locator') ?> <a href="https://agilestorelocator.com/wiki/display-maps-different-language/" target="_blank" rel="nofollow">Get Code</a></p>
+			                      <p class="help-p"><?php echo esc_attr__('Enter the language code.','asl_locator') ?> <a href="https://agilestorelocator.com/wiki/display-maps-different-language/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank" rel="nofollow">Get Code</a></p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -600,7 +600,7 @@ if($level_mode == '1'){ ?>
 												      <option value="1"><?php echo esc_attr__('Marker Clusterer Plus','asl_locator') ?></option>
 												      <option value="2"><?php echo esc_attr__('Marker Clusterer (New)','asl_locator') ?></option>
 												    </select>
-												  	<p class="help-p"><?php echo esc_attr__('Count of markers will appear as clusters','asl_locator') ?> | <a href="https://agilestorelocator.com/wiki/store-locator-clusters/" target="_blank" rel="nofollow"><?php echo esc_attr__('Change Colors','asl_locator') ?></a></p>
+												  	<p class="help-p"><?php echo esc_attr__('Count of markers will appear as clusters','asl_locator') ?> | <a href="https://agilestorelocator.com/wiki/store-locator-clusters/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank" rel="nofollow"><?php echo esc_attr__('Change Colors','asl_locator') ?></a></p>
 												  </div>
 												</div>
 			                </div>
@@ -629,7 +629,7 @@ if($level_mode == '1'){ ?>
                                   }
                                   ?>
                                </select>
-                               <p class="help-p"><?php echo wp_kses_post(__('Google newly launched advanced marker option, read the documentation guide about <a href="https://agilestorelocator.com/wiki/google-advanced-markers/" target="_blank">Google Advanced Markers</a>', 'asl_locator')); ?> | <span class="red">Beta version</span></p>
+                               <p class="help-p"><?php echo wp_kses_post(__('Google newly launched advanced marker option, read the documentation guide about <a href="https://agilestorelocator.com/wiki/google-advanced-markers/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank">Google Advanced Markers</a>', 'asl_locator')); ?> | <span class="red">Beta version</span></p>
                             </div>
                          </div>
                       </div>
@@ -663,7 +663,7 @@ if($level_mode == '1'){ ?>
 					                    <label class="custom-control-label" for="asl-map_layout_custom"><?php echo esc_attr__('Map Custom','asl_locator') ?></label>
 					                    <div class="form-group-inner">
 					                      <textarea id="asl-map_layout_custom"  rows="6"  placeholder="<?php echo esc_attr__('Google Style','asl_locator') ?>"  class="input-medium form-control"><?php echo esc_textarea($custom_map_style) ?></textarea>
-					                      <p class="help-p"><a target="_blank" href="https://agilestorelocator.com/wiki/google-map-styles/"><?php echo esc_attr__('How to create custom maps?','asl_locator') ?></a></p>
+					                      <p class="help-p"><a target="_blank" href="https://agilestorelocator.com/wiki/google-map-styles/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How to create custom maps?','asl_locator') ?></a></p>
 					                    </div>
 					                  </div>
 					                </div>
@@ -673,7 +673,7 @@ if($level_mode == '1'){ ?>
 							<div class="adv-mkr-section col-12 mb-5">
 								  <div class="alert alert-info w-100p" role="alert">
 									<?php echo esc_attr__('Google Advanced Marker is enabled, so the legacy styling will not work. Google Maps can be styled through Google Cloud Console, follow the guide link about','asl_locator'); ?>
-									<a href="https://agilestorelocator.com/wiki/google-map-styles/" target="_blank"><?php echo esc_attr__('how to style the Google Maps with Advanced Markers?','asl_locator'); ?></a>
+									<a href="https://agilestorelocator.com/wiki/google-map-styles/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version" target="_blank"><?php echo esc_attr__('how to style the Google Maps with Advanced Markers?','asl_locator'); ?></a>
 								  </div>
 							</div>
 
@@ -747,7 +747,7 @@ if($level_mode == '1'){ ?>
 														<div class="asl-wc-radio">
 															<label for="asl-week_hours-2"><input type="radio" name="data[week_hours]" value="2" id="asl-week_hours-1"><?php echo esc_attr__('7 Days (Grouped)','asl_locator') ?></label>
 														</div>
-														<p class="help-p"><?php echo esc_attr__('To show only the current day hours or full week','asl_locator') ?>| <a target="_blank" href="https://agilestorelocator.com/wiki/add-additional-time-slot-store-locator/"><?php echo esc_attr__('Guide link','asl_locator') ?></a></p>
+														<p class="help-p"><?php echo esc_attr__('To show only the current day hours or full week','asl_locator') ?>| <a target="_blank" href="https://agilestorelocator.com/wiki/add-additional-time-slot-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Guide link','asl_locator') ?></a></p>
                           </div>
 			                  </div>
 			                </div>
@@ -811,7 +811,7 @@ if($level_mode == '1'){ ?>
 	                          <label class="custom-control-label" for="asl-print_btn"><?php echo esc_attr__('Print Button','asl_locator') ?></label>
 		                        <div class="form-group-inner">
 		                          <label class="switch" for="asl-print_btn"><input type="checkbox" value="1" class="custom-control-input" name="data[print_btn]" id="asl-print_btn"><span class="slider round"></span></label>
-	                        		<p class="help-p"><?php echo esc_attr__('To show or hide the print button.','asl_locator') ?> | <a target="_blank" href="https://agilestorelocator.com/wiki/custom-print-header-for-store-list/"><?php echo esc_attr__('Add Print Header','asl_locator') ?></a></p>
+	                        		<p class="help-p"><?php echo esc_attr__('To show or hide the print button.','asl_locator') ?> | <a target="_blank" href="https://agilestorelocator.com/wiki/custom-print-header-for-store-list/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Add Print Header','asl_locator') ?></a></p>
 		                        </div>
 	                      </div>
                       </div>
@@ -998,7 +998,7 @@ if($level_mode == '1'){ ?>
                                           <option value="<?php echo esc_attr($key); ?>"><?php echo esc_html($value); ?></option>
                                           <?php } ?>
                                        </select>
-                                       <p class="help-p"><?php echo esc_attr__('Title and City are default fields to create slug','asl_locator') ?> | <a target="_blank" href="https://agilestorelocator.com/wiki/slug-with-pretty-url/"><?php echo esc_attr__('Guide link','asl_locator') ?></a></p>
+                                       <p class="help-p"><?php echo esc_attr__('Title and City are default fields to create slug','asl_locator') ?> | <a target="_blank" href="https://agilestorelocator.com/wiki/slug-with-pretty-url/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Guide link','asl_locator') ?></a></p>
                                     </div>
                                  </div>
                                  <!-- <button type="button" class="btn btn-primary float-right" data-loading-text="Saving..." data-completed-text="Settings Updated" id="btn-asl-slug_reset"> Reset Slug</button> -->
@@ -1013,7 +1013,7 @@ if($level_mode == '1'){ ?>
 			                    <label class="custom-control-label" for="asl-notify_email"><?php echo esc_attr__('Notification Email','asl_locator') ?></label>
 			                    <div class="form-group-inner">
 			                      <input  type="text" class="form-control" name="data[notify_email]" id="asl-notify_email" placeholder="<?php echo esc_attr__('Email address','asl_locator') ?>">
-			                      <p class="help-p"><?php echo esc_attr__('Email address to recieve the email notification for stores registered through frontend form.','asl_locator') ?> | <a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/how-to-add-a-lead-form/"><?php echo esc_attr__('How to add lead form?','asl_locator') ?></a></p>
+			                      <p class="help-p"><?php echo esc_attr__('Email address to recieve the email notification for stores registered through frontend form.','asl_locator') ?> | <a target="_blank" class="text-muted" href="https://agilestorelocator.com/wiki/how-to-add-a-lead-form/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How to add lead form?','asl_locator') ?></a></p>
 			                    </div>
 			                  </div>
 			                </div>
@@ -1087,52 +1087,52 @@ if($level_mode == '1'){ ?>
 		              		<p class="alert alert-success">You can upgrade to the pro version any time for these extra features, that are available in the pro version, upgrading to the pro version is very simple, and can be done in a few minutes, without re-uploading any data or re-setting the existing configuration.</p>
 											<div class="row">
 												<div class="col-md-12 mb-2 text-center">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success btn-asl-upgrade">Lifetime License (Pro Version) - $59</a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link" class="btn btn-xl btn-success btn-asl-upgrade">License (Pro Version) - $59</a>
 												</div>
 											</div>
 		              		<div class="row">
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-12.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-12.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-18.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-18.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-19.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-19.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-13.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-13.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-20.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-20.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-14.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-14.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-15.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-15.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-16.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-16.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-17.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-17.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-21.jpg'); ?>"></a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-21.jpg'); ?>"></a>
 												</div>
 											</div>
 											<div class="row mt-4">
 												<div class="col-md-12 text-center">
-													<a target="_blank" href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546" class="btn btn-xl btn-success btn-asl-upgrade">Lifetime License (Pro Version) - $59</a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link" class="btn btn-xl btn-success btn-asl-upgrade">License (Pro Version) - $59</a>
 												</div>
 											</div>
 											<div class="pt-4 container mt-4 text-center asl-sec-pro-features">
 												<h3 class="title mt-4 font-weight-bold">Integrate Salesforce & More with <span class="text-primary">Agile Sync Addon</span></h3>
 												<p>Upgrade with the Agile Sync Addon to seamlessly connect platforms like Salesforce, Google Sheets, Smartsheet, or REST APIs with your store locator. Automate data import, map custom fields, and keep your store listings always up-to-date.</p>
-												<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" title="Agile Sync Addon"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-22.jpg'); ?>"></a>
+												<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=agile-sync-addon" title="Agile Sync Addon"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-22.jpg'); ?>"></a>
 												<div class="col-md-12 mt-3 text-center">
-													<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/" class="btn btn-xl btn-success btn-asl-upgrade">Agile Sync Addon - $99</a>
+													<a target="_blank" href="https://agilelogix.com/product/agile-sync-addon/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=agile-sync-addon" class="btn btn-xl btn-success btn-asl-upgrade">Agile Sync Addon - $99</a>
 												</div>
 											</div>
 		              	</div>
