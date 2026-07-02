@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 7.0
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.6.10
+Stable tag: 1.6.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -337,6 +337,18 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+
+= 1.6.11 =
+- Fix locator issue with Multi-Store Checkout
+
+= 1.6.10 =
+- UTM links updated
+
+= 1.6.9 =
+- Bulk edit Open Hours
+- Support text in hours
+- Security improvements
 
 = 1.6.9 =
 - Bulk edit Open Hours
