@@ -338,6 +338,11 @@ Installation of this plugin is pretty easy.
 
 == Changelog ==
 
+= 1.6.12 =
+- tab transition
+- checkbox field issue
+- Google Place ID integration
+
 
 = 1.6.11 =
 - Fix locator issue with Multi-Store Checkout

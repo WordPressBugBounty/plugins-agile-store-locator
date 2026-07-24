@@ -656,7 +656,7 @@ if($level_mode == '1'): ?>
                                         <h6><?php echo esc_attr__('Upgrade Plugin To Get Import/Export Feature', 'asl_locator') ?>
                                         </h6>
                                         <a target="_blank"
-                                            href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><?php echo esc_attr__('License - $59', 'asl_locator') ?></a>
+                                            href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><?php echo esc_attr__('License - $59', 'asl_locator') ?></a>
                                     </div>
                                 </div>
                             </div>

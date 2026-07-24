@@ -1087,44 +1087,44 @@ if($level_mode == '1'){ ?>
 		              		<p class="alert alert-success">You can upgrade to the pro version any time for these extra features, that are available in the pro version, upgrading to the pro version is very simple, and can be done in a few minutes, without re-uploading any data or re-setting the existing configuration.</p>
 											<div class="row">
 												<div class="col-md-12 mb-2 text-center">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link" class="btn btn-xl btn-success btn-asl-upgrade">License (Pro Version) - $59</a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>" class="btn btn-xl btn-success btn-asl-upgrade">License (Pro Version) - $59</a>
 												</div>
 											</div>
 		              		<div class="row">
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-12.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-12.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-18.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-18.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-19.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-19.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-13.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-13.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-20.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-20.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-14.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-14.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-15.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-15.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-16.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-16.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-17.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-17.jpg'); ?>"></a>
 												</div>
 												<div class="col-md-6 mt-4">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-21.jpg'); ?>"></a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/pro-21.jpg'); ?>"></a>
 												</div>
 											</div>
 											<div class="row mt-4">
 												<div class="col-md-12 text-center">
-													<a target="_blank" href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link" class="btn btn-xl btn-success btn-asl-upgrade">License (Pro Version) - $59</a>
+													<a target="_blank" href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>" class="btn btn-xl btn-success btn-asl-upgrade">License (Pro Version) - $59</a>
 												</div>
 											</div>
 											<div class="pt-4 container mt-4 text-center asl-sec-pro-features">

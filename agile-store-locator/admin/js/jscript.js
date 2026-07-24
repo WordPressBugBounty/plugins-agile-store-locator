@@ -2846,7 +2846,7 @@ var asl_engine = window['asl_engine'] || {};
 
 
       //  Add the time Picker
-      $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
+          $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
         showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
         appendWidgetTo: '.asl-p-cont',
       })
@@ -2909,12 +2909,51 @@ var asl_engine = window['asl_engine'] || {};
           });
         
           //  Add the Picker
-          $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
+      $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
             showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
             appendWidgetTo: '.asl-p-cont',
           })
           .on('changeTime.asltimepicker', timeChangeEvent);
       });
+
+      // Initialize Google Places autocomplete for the add-store Place ID field.
+      function initializePlaceIdAutocomplete() {
+
+        var place_id_input = document.getElementById('txt_placed_id');
+
+        if (!place_id_input || !window.google || !google.maps ||
+            !google.maps.places || !google.maps.places.Autocomplete) {
+          return;
+        }
+
+        var autocomplete_options = {},
+            country_restrict     = place_id_input.getAttribute('data-country-restrict');
+
+        if (country_restrict) {
+          var country_codes = country_restrict.split(',').map(function(country_code) {
+            return country_code.trim().toLowerCase();
+          }).filter(function(country_code) {
+            return country_code.length === 2;
+          });
+
+          if (country_codes.length) {
+            autocomplete_options.componentRestrictions = {country: country_codes};
+          }
+        }
+
+        var place_id_autocomplete = new google.maps.places.Autocomplete(place_id_input, autocomplete_options);
+        place_id_autocomplete.setFields(['place_id']);
+        place_id_autocomplete.addListener('place_changed', function() {
+
+          var place = place_id_autocomplete.getPlace();
+
+          // Preserve manually entered or pasted Place IDs unless Google returns
+          // a valid Place ID from an autocomplete selection.
+          if (place && place.place_id) {
+            place_id_input.value = place.place_id;
+          }
+        });
+      }
 
       // Initialize the Google Maps
       window['asl_map_intialized'] = function() {
@@ -2922,6 +2961,8 @@ var asl_engine = window['asl_engine'] || {};
           map_object.render_a_map(_store.lat, _store.lng);
         else
           map_object.render_a_map(parseFloat(asl_configs.default_lat), parseFloat(asl_configs.default_lng));
+
+        initializePlaceIdAutocomplete();
       };
 
       if (!(window['google'] && google.maps)) {

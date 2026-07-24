@@ -1256,10 +1256,6 @@ body .asl-p-cont .asl-all-day-times .input-group-text {
   padding: 12px;
 }
 
-.asl-p-cont .form-check-input:checked {
-  background-color: unset !important;
-}
-
 .asl-p-cont .form-check-input:checked[type=radio] {
   background-color: #0099e6;
 }
@@ -5379,7 +5375,6 @@ body .asl-p-cont .input-group-text {
   display: block;
   color: #0099e6;
   font-size: 18px;
-  transition: all 0.5s;
   text-decoration: none;
 }
 

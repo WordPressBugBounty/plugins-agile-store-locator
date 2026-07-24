@@ -177,12 +177,6 @@ if($level_mode == '1'): ?>
                                                 </li>
                                                 <?php endif; ?>
 
-                                                <?php if(class_exists('ASL_GRR_Instance')): ?>
-                                                <li class=""><a data-toggle="pill"
-                                                        href="#sl-grr"><?php echo esc_attr__('Google Place ID','asl_locator') ?></a>
-                                                </li>
-                                                <?php endif ?>
-
                                             </ul>
                                             <div class="tab-content">
                                                 <div id="sl-store-address" class="tab-pane in active p-0 mb-5">
@@ -305,6 +299,21 @@ if($level_mode == '1'): ?>
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
+                                                                    <div class="row">
+                                                                        <?php if(class_exists('ASL_GRR_Instance')): ?>
+                                                                        <div class="col-12">
+                                                                            <div class="form-group mb-3">
+                                                                                <label
+                                                                                    for="txt_placed_id"><?php echo esc_attr__('Google Place ID','asl_locator') ?></label>
+                                                                                <input type="text" id="txt_placed_id"
+                                                                                    name="grr[placed_id]"
+                                                                                    data-country-restrict="<?php echo esc_attr(\AgileStoreLocator\Helper::get_configs('country_restrict')); ?>"
+                                                                                    placeholder="<?php echo esc_attr__('Type an address and select a suggestion','asl_locator') ?>"
+                                                                                    autocomplete="off" class="form-control">
+                                                                            </div>
+                                                                        </div>
+                                                                        <?php endif ?>
+                                                                    </div>
                                                                     <div id="map_canvas" class="map_canvas"></div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -381,7 +390,7 @@ if($level_mode == '1'): ?>
                                                                     <h6><?php echo esc_attr__('Upgrade Plugin','asl_locator') ?>
                                                                     </h6>
                                                                     <a target="_blank"
-                                                                        href="https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link"><?php echo esc_attr__('License - $59','asl_locator') ?></a>
+                                                                        href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><?php echo esc_attr__('License - $59','asl_locator') ?></a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1050,18 +1059,6 @@ if($level_mode == '1'): ?>
                                                     <?php ASLWC\Admin\StoreSetting::storeEditForm(null); ?>
                                                 </div>
                                                 <?php endif; ?>
-
-                                                <?php if(class_exists('ASL_GRR_Instance')): ?>
-                                                <div id="sl-grr" class="tab-pane p-0">
-                                                    <div class="col-md-6 form-group mb-4">
-                                                        <label
-                                                            for="txt_placed_id"><?php echo esc_attr__('Google Placed ID','asl_locator') ?></label>
-                                                        <input type="text" id="txt_placed_id" name="grr[placed_id]"
-                                                            class="form-control">
-                                                    </div>
-                                                </div>
-                                                <?php endif ?>
-
 
                                                 <div class="row border-top px-0 pb-0">
                                                     <div class="col-12 pe-0">
