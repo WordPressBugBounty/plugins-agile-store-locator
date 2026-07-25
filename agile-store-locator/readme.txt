@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 7.0
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.6.11
+Stable tag: 1.6.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -337,6 +337,9 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.6.13 =
+- Added an optional feedback survey when deactivating the plugin
 
 = 1.6.12 =
 - tab transition

@@ -298,6 +298,12 @@ class Plugin {
 		$this->loader->add_action( 'admin_enqueue_scripts', $this->plugin_admin, 'enqueue_scripts' );
 
 		add_filter( 'plugin_action_links_'.ASL_BASE_PATH.'/agile-store-locator.php', array( $this->plugin_admin, 'add_action_link' ), 10, 2 );  
+
+		// Ask for optional feedback before deactivation on the Plugins screen.
+		$deactivator = new \AgileStoreLocator\Deactivator();
+		add_action( 'admin_enqueue_scripts', array( $deactivator, 'enqueue_feedback_assets' ) );
+		add_action( 'admin_footer-plugins.php', array( $deactivator, 'feedback_box_html' ) );
+		add_action( 'wp_ajax_asl_submit_deactivation_feedback', array( $deactivator, 'submit_feedback' ) );
 	}
 
 
