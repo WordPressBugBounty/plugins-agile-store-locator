@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 7.0
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.6.13
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,306 +14,374 @@ Agile Store Locator is a premium store finder plugin designed to offer you immed
 
 == Description ==
 
-[Agile Store Locator](https://agilestorelocator.com/) is the most comprehensive and feature-rich Store Locator/Finder Plugin available for WordPress. Whether you're a small business or a large enterprise, Agile Store Locator offers everything you need to make your stores easily discoverable by your customers and increase your foot traffic. Leveraging the power of Google Maps V3, this plugin allows you to display all your store locations on an interactive map, ensuring that your customers always find what they're looking for.
+[Agile Store Locator](https://agilestorelocator.com/) is a free **WordPress Store Locator Plugin** that helps customers find your stores, dealers, branches, retailers, offices, and service centers using **Google Maps**. Add unlimited store locations, display interactive maps, and let visitors search by address, ZIP code, city, category, or their current location—all without writing code.
 
-
+Whether you manage a single storefront or hundreds of business locations, Agile Store Locator makes it easy to build a fast, mobile-friendly store finder that works with any WordPress theme. The free version includes powerful features like custom fields, SEO-friendly location pages, and flexible store management, while the Pro version adds CSV import, multiple templates, analytics, advanced customization, search widgets, store registration forms, and many more professional tools.
 ## 🌟 Key Features & Benefits
 
-### 🎥 Watch the Video Tutorial
+### 📍 Unlimited Store Locations
+Create a store locator with unlimited stores, dealers, branches, retailers, offices, or service centers. Add detailed information, images, business hours, contact details, and custom markers for every location.
 
-For a comprehensive guide on setting up and using Agile Store Locator, watch our [video tutorial](https://www.youtube.com/watch?v=otIrsInBrmM).
+### 🔍 Powerful Store Search
+Help visitors quickly find the nearest location by searching with an address, ZIP code, city, store name, category, or their current location. Results can also be sorted by distance or relevance.
 
-https://www.youtube.com/watch?v=otIrsInBrmM
+### 🗺️ Interactive Google Maps
+Display all your locations on responsive Google Maps with marker clustering, directions, Street View, multiple map types, and support for Google Advanced Markers.
 
-### 📱 Highly Responsive UI Design  
-Agile Store Locator is designed to provide a seamless experience across all devices. Whether your customers are using a smartphone, tablet, or desktop, the plugin's responsive design ensures that the store locator looks and functions perfectly.
+### ✍️ Flexible Custom Fields
+Store additional information such as business hours, phone numbers, emails, social links, galleries, services, promotions, or any custom data using flexible custom fields.
 
-### 📍 [Unlimited Store Management](https://agilestorelocator.com/wiki/manage-stores-locator-listing/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Add as many stores as you need, each with its unique markers, categories, and details. Whether you have just a few locations or hundreds, Agile Store Locator can handle it all.
+### 🌐 SEO-Friendly Location Pages
+Create dedicated location pages for every store with unique URLs, business information, images, and structured content that helps customers discover your locations through search engines.
 
-### 🏷️ [Category Management (Pro version)](https://agilestorelocator.com/wiki/manage-categories/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Easily categorize your stores for better organization and user experience. Each category can have its unique marker, making it easy for customers to identify different types of stores on the map.
+### 📱 Mobile-Friendly Design
+Deliver a fast and responsive store locator that works perfectly across desktop, tablet, and mobile devices without requiring additional customization.
 
-### ✍️ [Custom Fields](https://agilestorelocator.com/wiki/custom-field-manager/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Add custom fields to your store locations to include specific information relevant to your business. Whether it's additional contact details, store hours, or promotional offers, custom fields give you the flexibility to add any data you need.
+### 🎨 Easy Map & Layout Customization
+Customize map styles, marker icons, colors, zoom levels, languages, labels, and layouts to match your website and brand.
 
-### 🧭 [Geo-Location Button Feature](https://agilestorelocator.com/wiki/prompt-geo-location-dialog/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Allow your customers to find the nearest store with a single click. The Geo-location feature automatically detects their current location and displays the closest stores on the map.
+### 🌍 Multiple Languages & RTL Support
+Display your store locator in multiple languages with full RTL support, making it suitable for international businesses and multilingual WordPress websites.
 
-### 🔍 [Search & Sorting Features](https://agilestorelocator.com/wiki/types-of-searches-in-the-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Customers can search for stores by location, category, or specific criteria like distance, store name, or ID. The sorting options allow them to arrange the results by distance, title, or priority, ensuring they find exactly what they need.
+### 🔒 Privacy & GDPR Ready
+Support GDPR compliance with Google Maps consent options and compatibility with popular cookie consent solutions.
 
-### 🗺️ [Map Customization & Google API Support](https://agilestorelocator.com/wiki/google-map-styles/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Customize your maps with different themes, zoom levels, and marker designs. The plugin supports various Google Maps features, including API key insertion, language selection, and map type options like hybrid, satellite, and terrain views.
-
-### 🌍 [Multilingual Support](https://agilestorelocator.com/wiki/language-translation-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Agile Store Locator is ready to support your global business. The plugin is available in multiple languages, including German, French, Spanish, Italian, Arabic, Dutch, Portuguese, and Japanese.
-
-### 🔒 [GDPR & Privacy Compliance](https://agilestorelocator.com/wiki/gdpr-consent-for-google-maps-library/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Your customers' privacy is important, and Agile Store Locator is fully compliant with GDPR regulations. The plugin also supports Borlabs Cookies, ensuring that your website adheres to the highest privacy standards.
-
-
-### 📍 [Supports Google Advanced Markers](https://agilestorelocator.com/wiki/google-advanced-markers/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Take advantage of Google's Advanced Markers to create more dynamic and visually appealing map markers for your store locations, the latest [Google advanced markers](https://mapsplatform.google.com/resources/blog/announcing-highly-customizable-higher-performance-markers/) integration 🎉.
-
-
-### 🛒 [Store Detail Page](https://agilestorelocator.com/wiki/store-details-page/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-The Store Detail Page in Agile Store Locator provides a dedicated page for each store location, offering in-depth information to your customers. This feature enhances the user experience by allowing visitors to view comprehensive details about a particular store, such as its address, contact information, business hours, services offered, and more.
-
-### 🎯 [Create Call To Action Buttons](https://agilestorelocator.com/wiki/add-site-link-store-locator-list/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Boost user engagement by adding customizable Call To Action (CTA) buttons to your store locator, guiding users to take specific actions like contacting the store or making a purchase.
-
+### 🚀 Upgrade to Pro
+Unlock even more features including CSV import/export, multiple templates, analytics, store registration forms, search widgets, advanced customization, category management, and many more professional tools.
 
 ---
-
 ## 🛠️ How It Works
 
-1. **Install the Plugin**  
-   Install Agile Store Locator directly from the WordPress Plugin Repository or upload it manually.
+### 1️⃣ Install the Plugin
+Install Agile Store Locator from the WordPress Plugin Directory or upload it manually like any other WordPress plugin.
 
-2. **Add Your Store Locations**  
-   Use the plugin's interface to add your store details, including addresses, contact information, and custom fields.
+### 2️⃣ Add Your Store Locations
+Create your store locations by adding addresses, business details, categories, custom fields, images, and opening hours.
 
-3. **Add Google API Keys**  
-   Insert your [Google Maps API keys](https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version) into the plugin settings to enable map features, [watch our tutorial](https://www.youtube.com/watch?v=gJWVJsUOasg).
+### 3️⃣ Connect Google Maps
+Add your [Google Maps API Key](https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version) to enable maps, address search, directions, and geolocation.
 
-4. **Add the Shortcode**  
-   Use the shortcode `[ASL_STORELOCATOR]` to embed the store locator on any page or post.
+### 4️⃣ Display Your Store Locator
+Place the `[ASL_STORELOCATOR]` shortcode on any page or post to instantly display your interactive Store Locator.
+---
+## 🚀 Unlock More with Agile Store Locator Pro
+
+Upgrade to Agile Store Locator Pro and access powerful tools designed for growing businesses, franchises, retailers, dealers, and enterprises managing multiple locations.
+
+### 📥 [Bulk Import & Export](https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Import or export thousands of store locations with CSV files, making it easy to migrate, update, and manage large store networks.
+
+### 🎨 [Multiple Templates & Layouts](https://agilestorelocator.com/wiki/store-locator-templates/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Choose from multiple professionally designed templates, list layouts, grid layouts, accordion views, and category layouts to match your website.
+
+### 📊 [Store Locator Analytics](https://agilestorelocator.com/wiki/intro-store-locator-analytics/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Track customer searches, popular locations, top-performing stores, and user activity with built-in analytics and reporting dashboards.
+
+### 🔍 [Store Search Widget](https://agilestorelocator.com/wiki/address-search-widget/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Let visitors search for nearby stores directly from your homepage, sidebar, landing pages, or any widget area before opening the full Store Locator.
+
+### 📝 [Store Registration Form](https://agilestorelocator.com/wiki/store-registration-form/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Allow dealers, franchisees, retailers, or business partners to submit new store locations through a customizable registration form with administrator approval.
+
+### ⚙️ [Advanced Customization](https://agilestorelocator.com/wiki/customization-of-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Customize colors, fonts, templates, map styles, search filters, labels, and layouts to perfectly match your website and brand.
+
+### 🌍 [Multiple Languages & RTL Support](https://agilestorelocator.com/wiki/data-wpml/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Build multilingual Store Locator experiences with full RTL support for international businesses and WordPress websites.
+
+💡 **Perfect for** franchises, dealer networks, retailers, distributors, service centers, healthcare providers, restaurants, real estate agencies, and businesses with multiple locations.
+
+### ⭐ Free Features
+
+#### 📍 Store Management
+- Unlimited store locations
+- Duplicate stores with one click
+- Delete all stores with one click
+- Store logos and galleries
+- Custom fields
+- Multiple business hours
+- 12/24-hour time format
+- Assign multiple categories
+- Store priority management
+- SEO-friendly Location Pages
+- Store Detail Pages
+- CTA buttons
+- GDPR Compliance
+
+#### 🔍 Search
+- Google Places Autocomplete
+- Current location detection
+- Nearest store search
+
+#### 🗺️ Google Maps
+- Google Maps integration
+- Google Advanced Markers
+- Marker clustering
+- Draggable markers
+- Driving directions
+- Street View
+- Traffic, Transit & Bicycle layers
+- Hybrid, Roadmap, Satellite & Terrain maps
+- Map language & region support
+- Adjustable zoom
+- Full-screen maps
+- Scroll wheel control
+
+#### 🎨 Customization
+- Responsive design
+- Full-width layout
+- Color customizer
+- Font customizer
+- InfoWindow customization
+- Store list customization
+- Placeholder text
+- Shortcode overrides
+
+### 🚀 Pro Features
+
+#### 📥 Bulk Import & Store Management
+- CSV Import & Export
+- Bulk editing tools
+- Scheduled synchronization (Cron Jobs)
+- Import automation
+- Store schedules & opening hours management
+
+#### 🔍 Advanced Search & Filtering
+- Radius search
+- Distance slider
+- Additional filter dropdowns
+- Cascading dropdown filters
+- Category & sub-category filters
+- AND filtering logic
+- Search within map bounds
+- Country-restricted search
+- Search Widget
+- Display matching locations while searching
+- Store Database Search
+- Store by Store Names
+
+#### 📝 Store Registration & Lead Capture
+- Store Registration Form
+- Lead Forms with nearest store routing
+
+#### 🗺️ Advanced Google Maps
+- Advanced Google Maps customization
+- Category-specific markers
+- Time Switch (Open Now / Business Hours)
+- Multiple map templates & styling options
+
+#### 🎨 Premium Templates & Layouts
+- 8 premium Store Locator templates
+- Grid Layout
+- Accordion Layout
+- Category Layout
+- Profile Layout
+
+#### 📊 Analytics & Insights
+- Search analytics
+- Store analytics
+- Top searched locations
+- Most viewed stores
+
+#### 🌍 Enterprise & Integrations
+- WooCommerce Multi-Store integration
+- REST API integration
+- Google Business Profile synchronization
+- Multi-language store data support
 
 ---
 
-## 💼 Agile Store Locator Pro Version Features
+## 🏬 Perfect for Every Business with Multiple Locations
 
-### 🛠️ [Import/Export Stores CSV Files](https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Easily manage large volumes of store data by importing or exporting store locations via CSV files. This feature is perfect for businesses with extensive store networks.
+Agile Store Locator helps businesses of every size create interactive Google Maps that make it easy for customers to find stores, dealers, offices, service centers, and business locations. Whether you operate a few locations or thousands worldwide, Agile Store Locator adapts to your business.
 
-### 🔍 [Search Widget Addon](https://agilestorelocator.com/wiki/address-search-widget/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Enhance your site’s search capabilities with the Search Widget Addon. This feature allows users to search for stores directly from your site's sidebar or any widgetized area, making it easier to locate stores without navigating to the map.
+### Popular Use Cases
 
-### 📝 [Store Registration Form](https://agilestorelocator.com/wiki/store-registration-form/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Enable store owners to register their stores directly from your website with the Store Registration Form. This feature streamlines the process of adding new locations, especially for multi-vendor or franchise businesses.
+- 🚗 **[Dealer Locator](https://agilestorelocator.com/dealer-locator/)** – Display car dealers, equipment dealers, distributors, and partner networks.
+- 🏢 **[Branch Locator](https://agilestorelocator.com/branch-locator/)** – Help customers find bank branches, offices, and business locations.
+- 🛍️ **[Retail Store Locator](https://agilestorelocator.com/retailer-locator/)** – Showcase retail stores, shopping centers, and chain locations.
+- 🛠️ **[Service Center Locator](https://agilestorelocator.com/service-center-locator/)** – Display repair centers, support locations, and maintenance facilities.
+- 🤝 **[Agent Locator](https://agilestorelocator.com/agent-locator/)** – Connect customers with agents, representatives, consultants, and local partners.
+- 🏬 **Franchise Locator** – Help customers discover franchise locations across multiple regions.
+- 📦 **Warehouse & Distributor Locator** – Display warehouses, fulfillment centers, and distributors.
+- 🏥 **Healthcare Locator** – Hospitals, clinics, pharmacies, laboratories, and healthcare providers.
+- 🍽️ **Restaurant Locator** – Restaurants, cafés, food chains, and takeaway locations.
+- 🏨 **Hotel & Hospitality Locator** – Hotels, resorts, and accommodation providers.
+- 🏠 **Real Estate Locator** – Offices, developments, agencies, and property locations.
+- 🎓 **Education Locator** – Schools, universities, campuses, and training centers.
+- 🏋️ **Fitness Locator** – Gyms, sports clubs, fitness centers, and wellness studios.
+- 🛒 **Shopping Mall Locator** – Shopping malls, supermarkets, and convenience stores.
+- 🐾 **Pet Store & Veterinary Locator** – Pet shops, veterinary clinics, and animal hospitals.
+- ⚖️ **Professional Office Locator** – Legal firms, accounting offices, insurance agencies, and consulting businesses.
 
-### 🎨 [Multiple Templates](https://agilestorelocator.com/wiki/store-locator-templates/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Customize the look and feel of your store locator with multiple templates. Choose from a variety of designs to match your website's branding and provide a consistent user experience.
+And many more. If your business has physical locations, Agile Store Locator helps customers find them quickly using Google Maps and intelligent location search.
 
-### 📊 [Analytics & Reporting](https://agilestorelocator.com/wiki/intro-store-locator-analytics/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-Gain insights into how your customers interact with your store locator. The plugin includes a comprehensive analytics dashboard with bar charts showing user searches, top stores, and popular locations.
+---
+## 🌍 Global Support & Compatibility
 
-### 🌐 [Multiple Languages & RTL Supported](https://agilestorelocator.com/wiki/data-wpml/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-The Pro version of Agile Store Locator supports multiple languages, including RTL (Right-To-Left) languages, making it ideal for global audiences.
+### 🌐 Built for Global Businesses
 
-### 🎨 [Fully Customizable Content](https://agilestorelocator.com/wiki/customization-of-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)  
-With full customization options, you can tailor the store locator content to fit your brand’s unique style and requirements.
+Agile Store Locator supports multilingual WordPress websites with translations available in multiple languages, including:
 
-### List of Features
+- 🇺🇸 English
+- 🇩🇪 German
+- 🇫🇷 French
+- 🇪🇸 Spanish
+- 🇮🇹 Italian
+- 🇳🇱 Dutch
+- 🇵🇹 Portuguese
+- 🇸🇦 Arabic (RTL)
+- 🇯🇵 Japanese
 
-- 8 Beautiful Themes for the frontend Store Locator.
-- Multiple Layouts with Listing and Accordion Option.
-- Accordion template with a hierarchy of Countries, States, Cities and Stores.
-- Color Palette for Google Maps Plugin UI Color Selection.
-- Multiple Beautiful InfoWindow.
-- Extra Template for Deals Websites to show their exciting Deals on Maps.
-- Extra Template for Real Estate websites to show their Properties and categorize them into Sale, Rent, and Featured.
-- Easily customize your info window content, which is a unique feature.
-- Easily customize your store list by just adding few keywords.
-- Admin Dashboard with all the stats of your markers, stores, categories, and search.
-- Analytics Bar Chart to Show user searches which location they have searched most and which store is seen most.
-- Analytics Bar Chart to Show Searches, top stores, and top locations.
-- Time Selection for Each Day for Every Location.
-- Duplicate any Store with a Single Click.
-- Add Markers with Each Category, Switch between Category Markers and Default Markers.
-- 2 Prompt Location Dialog for GeoLocation.
-- Prompt Location 2nd Dialog the ask user to enter his Default Location in case site is not using SSL.
-- Assign Multiple Categories to a single store.
-- All the ASL Settings can be Overridden by ShortCode Attributes.
-- Add Minimum and Maximum Zoom Level for your Google maps.
-- Fetch Location Coordinates (Lat/Lng) as you type in store address.
-- Too many markers? Enable Marker Clustering.
-- Full-Width Interactive Google Maps Template.
-- Logo Management Panel.
-- Maps Marker Management Panel.
-- Choose Stores Time Format 12 or 24 Hours.
-- Choose Distance unit Miles/KM.
-- Draggable Marker to PinPoint Location.
-- Manage Markers icons with names ( UPDATE, ADD and Delete).
-- Set the zoom level of marker clicked.
-- Manage Categories icons with names ( UPDATE, ADD and Delete).
-- Import / Export Stores Excel Sheet with all the columns.
-- Delete All Stores with Single Click.
-- Choose a Google map type Hybrid, Roadmap, Satellite or Terrain.
-- Prompt Location shows the dialog box for confirmation to share current location.
-- Show Distance to each Store from Current Location.
-- Set Default Zoom of your Google Map.
-- Load on bound fetch Only markers of the Screen view of Google Map.
-- Custom Filter Option.
-- Disable Scroll Wheel of Google Maps.
-- Show additional Information about Store.
-- Enable/Disable Advance Filter.
-- Assign Marker to Each Category and Enable Category Markers.
-- Draw Shapes/Circle around your best locations.
-- Change Placeholder Text for your search field.
-- Show Category Icons instead of Marker icons.
-- Enable/Disable Distance Slider.
-- Distance Dropdown and Slider.
-- Sort by Distance, City and State.
-- Set Google Maps Language.
-- Set Default Lat/Lng of your Map.
-- Change Header Title Text.
-- Change font color for default Template.
-- Change Category Title Text.
-- Enable/Disable Store List Panel.
-- Search Stores with Search by search by Store ID, Title, Description, Street, State, City, Phone, Email, URL, Postal Code, Disabled, Marker, Start Time, End Time, Logo and Created Date.
-- Customize your Google maps with Drawing Overlay (Polygon, Rectangle, Circle) of Multiple Colors.
-- Choose Maps look and feel from Snazzy Maps.
-- Search by Address with an auto-panning option.
-- Add Google Layers to Show Traffic, Transit, and Bike Layers.
-- Enable Marker Animation.
-- Restrict your Google Search to Country.
-- Switch between Google Search and Title Search on Store Locator.
-- Enable Full Width for your Plugin.
-- Enable/Disable Analytics of Store Locator.
-- Enable/Disable Sort by Bound.
-- Add Text for "No Item Found".
-- Show Nearest Stores from search location.
-- Default Category Selection Option
-- Option to select Map Language
-- Option to select Map Region for Tiles
-- Logo Manger with Listing
-- Full Screen Map and Fixed
-- Search on Bound Button
-- Show Limited Stores
-- Select Default Category
-- Show Center Button
-- 60+ Advance Options for Store Locator Admin.
-- GeoDirectory Supported.
+The plugin also supports **RTL (Right-to-Left)** languages, making it an excellent choice for businesses serving customers around the world.
 
+### 💻 Works with Your Favorite WordPress Tools
 
+Agile Store Locator is designed to work seamlessly with modern WordPress websites and is compatible with:
+
+- WordPress 6.x+
+- Elementor
+- Divi
+- WPBakery Page Builder
+- Gutenberg
+- Astra Theme
+- Avada Theme
+- GeneratePress
+- Kadence Theme
+- Blocksy Theme
+- WooCommerce
+- GeoDirectory
+- Most WordPress themes and plugins
 
 ---
 
-## 🏬 Use Cases – Tailored for Every Business
+## 🎉 Live Demos & Integrations
 
-Agile Store Locator is the ideal solution for any business with multiple locations. Here are just a few examples:
+### 🖥️ Explore Agile Store Locator
 
-- **Retail Store Locator** 🛍️
-- **Restaurant Store Locator** 🍽️
-- **Real Estate Store Locator** 🏠
-- **Healthcare Store Locator** 🏥
-- **Fitness Store Locator** 🏋️
-- **Shopping Mall Store Locator** 🛒
-- **Hotel & Hospitality Locator** 🏨
-- **Automobile Dealership Locator** 🚗
-- **Bank & ATM Locator** 🏦
-- **Pharmacy & Drugstore Locator** 💊
-- **Grocery Store Locator** 🛒
-- **Beauty & Spa Locator** 💅
-- **Salon & Barber Shop Locator** ✂️
-- **Educational Institutions Locator** 🎓
-- **Event & Conference Venue Locator** 🎤
-- **Entertainment & Cinema Locator** 🎬
-- **Museum & Art Gallery Locator** 🖼️
-- **Government Office Locator** 🏛️
-- **Post Office & Courier Service Locator** 📦
-- **Community & Religious Center Locator** ⛪
-- **Library Locator** 📚
-- **Pet Store & Veterinary Clinic Locator** 🐾
-- **Hardware & Home Improvement Store Locator** 🔧
-- **Co-working Space Locator** 💼
-- **Real Estate Development Project Locator** 🏗️
-- **Wine & Liquor Store Locator** 🍷
-- **Bicycle & Outdoor Gear Store Locator** 🚴
-- **Toy Store Locator** 🧸
-- **Garden Center & Nursery Locator** 🌻
-- **Bookstore Locator** 📖
-- **Electronics & Appliance Store Locator** 📱
-- **Clothing & Fashion Store Locator** 👗
-- **Repair & Service Center Locator** 🛠️
-- **Legal & Consultancy Office Locator** ⚖️
-- **Insurance Office Locator** 📄
-- **Dealer & Warehouse Locator** 🚛
-- **Childcare & Daycare Center Locator** 🍼
-- **Supermarket & Convenience Store Locator** 🛒
+See Agile Store Locator in action and discover different layouts, templates, and real-world implementations.
 
-And many more! Whether you run a retail chain, a restaurant, a real estate agency, or any other business, Agile Store Locator can be customized to fit your specific needs.
+- 🌐 **[Live Store Locator Demo](https://agilestorelocator.com/demos/)**
+- 📍 **[Location Pages Demo](https://agilestorelocator.com/features/location-pages/)**
+- 🔍 **[Store Search Widget](https://agilestorelocator.com/features/store-search-widget/)**
+- 📝 **[Store Registration Form](https://agilestorelocator.com/features/store-registration-form/)**
+
+
+### Store Locator Templates
+
+- 🎨 [Classic Template](https://agilestorelocator.com/demos/store-locator-demo/)
+- 💼 [Professional Layout](https://agilestorelocator.com/demos/store-locator-demo-1/)
+- 📂 [Category Layout](https://agilestorelocator.com/demos/store-locator-demo-2/)
+- 👤 [Profile Layout](https://agilestorelocator.com/demos/store-locator-demo-3/)
+- 🟦 [Grid Layout](https://agilestorelocator.com/demos/store-locator-demo-4/)
+- 📋 [Accordion Layout](https://agilestorelocator.com/demos/store-locator-demo-5/)
+- 📍 [Minimal Layout](https://agilestorelocator.com/demos/store-locator-demo-6/)
+
+👉 Browse all demos: https://agilestorelocator.com/demos/
 
 ---
 
-## 🌐 Translations & Global Reach
+## 🛒 WooCommerce Multi-Store Integration
 
-### Currently Available in English  
-Agile Store Locator is available in multiple languages, including German, French, Spanish, Italian, Arabic, Dutch, Portuguese, and Japanese. We are continually working on adding more languages to cater to a global audience.
+Need more than a Store Locator?
 
+Agile Store Locator integrates seamlessly with **[Multi Store Addons for WooCommerce](https://agilestorelocator.com/multistore-woocommerce-addons/)**, allowing you to manage inventory, local pickup, shipping, and store selection directly inside WooCommerce.
 
----
+### Key Features
 
-## 💻 Compatibility
-
-Agile Store Locator is compatible with all major WordPress themes and page builders, including:
-
-- **Elementor**
-- **WP Composer**
-- **Divi**
-- **Astra Theme**
-- **Avada Theme**
-
----
-
-## 🎉 Demos
-
-- **Store Locator Demo:** [Embed Demo](https://agilestorelocator.com/demos/)
-
-
-### 🛒 [Integration with Multi Store Addons for WooCommerce](https://agilestorelocator.com/multistore-woocommerce-addons/)
-
-Agile Store Locator seamlessly integrates with the Multi Store Addons for WooCommerce, providing a robust solution for businesses managing multiple store locations within their WooCommerce setup. This integration allows you to efficiently manage and display your store locations while also taking advantage of advanced features tailored for WooCommerce users. 
-
-**Key Features of Multi Store Addons for WooCommerce:**
-
-- **Multi Store Local Pickup:** Offer your customers the flexibility to pick up their orders from any of your store locations.
-- **Store List Widgets:** Display a comprehensive list of all your stores using customizable widgets.
-- **Store Rate Shipping:** Calculate shipping rates based on the selected store, ensuring accurate pricing for your customers.
-- **WooCommerce Shipping Methods:** Easily manage various shipping methods across different store locations.
-- **Distance Shipping Rates:** Automatically calculate shipping costs based on the distance between the customer and the selected store.
-- **Table Rate Shipping:** Define custom shipping rates based on a variety of conditions like weight, quantity, and destination.
-- **Store Manager Dashboard:** Gain insights and control over your multi-store operations with a centralized dashboard.
-- **Locations Based Payment Method:** Enable or restrict payment methods based on store location, providing tailored payment options for your customers.
-
-This integration enhances the functionality of Agile Store Locator by allowing you to manage your WooCommerce multi-store inventory, shipping, and pickup options effectively, making it an all-in-one solution for businesses with multiple locations.
-
+- 📦 Local Pickup by Store
+- 🏬 Store Selector for WooCommerce
+- 🚚 Distance-Based Shipping
+- 💰 Table Rate Shipping
+- 📍 Store-Based Payment Methods
+- 📊 Store Manager Dashboard
+- 🛒 Multi-Store Inventory Management
+- 🔄 Store List Widgets
 
 For Help, Please create a ticket here, we will reply at our earliest. https://wordpress.org/support/plugin/agile-store-locator
 
 == Frequently Asked Questions ==
 
-= How to add it on Page or Post? =
-With the easy shortcode, you can add Store Locator on page, paste the [ASL_STORELOCATOR] shortcode on your page or post.
+= How do I add the Store Locator to a page? =
 
-= Why Search is not working? =
-Either Google Maps key is not added with service or you have [Multiple inclusion of Google Maps API Key](https://agilestorelocator.com/wiki/plugins-map-slow-malfunctioning/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+Simply create a page and add the shortcode:
 
-= Multiple inclusion of Google Maps =
-The most basic error is because of multiple times inclusion of Google maps, you can resolve the problem with the help of this guide ["Plugin's Map is Slow and Malfunctioning"](https://agilestorelocator.com/wiki/plugins-map-slow-malfunctioning/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version).
+[ASL_STORELOCATOR]
 
-= Oops! Something went wrong =
-This error on maps occur when you haven't added your Google maps API key in your ASL Settings, [how you can generate Google Maps API Key?](https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version)
+The Store Locator will automatically display on that page.
 
-= What we do if there are too many markers? =
-The plugin does support Marker Clustering so it will not be a problem, you just have to enable marker clustering from admin panel.
+= Does Agile Store Locator work with Elementor? =
 
-= Does this plugin support Category Markers? =
-Separate Marker for each category is available in [Agile Store Locator Pro version](https://codecanyon.net/item/agile-store-locator-for-wordpress/16973546).
+Yes. Agile Store Locator works with Elementor, Gutenberg, Divi, WPBakery, and virtually all modern WordPress themes.
 
-= Search Address field is not showing Google Address Type-ahead?
-Please make sure the API key is added properly and you don't have [multiple markers inclusion](https://agilestorelocator.com/wiki/plugins-map-slow-malfunctioning/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version) issue on your page.
+= Can I create unlimited store locations? =
 
-= How to add a site link in the listing?
-To add site link, follow the guide article [Add a Site Link in Store Locator List](https://agilestorelocator.com/wiki/add-site-link-store-locator-list/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version).
+Yes. You can create and manage unlimited stores, categories, markers, and locations.
 
-=Why GeoLocation not working?
-SSL is must for GeoLocation feature in browsers, [guide article].(https://agilestorelocator.com/blog/ssl-must-geolocation-api-chrome-browser/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version).
+= Can I import stores from a CSV file? =
 
-=Does it support Multi-Store Addons for  WooCommcerce?
-Yes, the plugin does support that WooCommerce extension and you don't need to buy the pro version of the main build.
+Yes. CSV Import & Export is available in the Pro version, allowing you to import thousands of store locations in minutes.
+
+= Does the plugin support Google Maps? =
+
+Yes. Agile Store Locator uses Google Maps and supports Google Places Autocomplete, Advanced Markers, Marker Clustering, Driving Directions, Traffic Layers, and much more.
+
+= Why isn't Google Address Autocomplete working? =
+
+Usually this happens because:
+
+- Your Google Maps API key is missing or restricted.
+- The Places API is not enabled.
+- Google Maps is being loaded multiple times.
+
+Read the troubleshooting guide:
+https://agilestorelocator.com/wiki/plugins-map-slow-malfunctioning/
+
+= Why do I see "Oops! Something went wrong" on the map? =
+
+This usually indicates that your Google Maps API key is missing, invalid, or doesn't have the required APIs enabled.
+
+Follow our setup guide:
+https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/
+
+= Why is my map loading twice or behaving unexpectedly? =
+
+The most common reason is that Google Maps has been loaded multiple times by your theme or another plugin.
+
+See our troubleshooting guide:
+https://agilestorelocator.com/wiki/plugins-map-slow-malfunctioning/
+
+= Does the plugin support marker clustering? =
+
+Yes. Marker Clustering is supported to keep maps fast and organized when displaying large numbers of locations.
+
+= Does Agile Store Locator support category markers? =
+
+Yes. The Pro version allows you to assign unique marker icons to each category.
+
+= Does the plugin support multilingual websites? =
+
+Yes. Agile Store Locator supports multiple languages and RTL (Right-to-Left) languages, making it suitable for international businesses.
+
+= Why isn't GeoLocation working? =
+
+Modern browsers require HTTPS (SSL) before allowing websites to access a visitor's location.
+
+Read more:
+https://agilestorelocator.com/blog/ssl-must-geolocation-api-chrome-browser/
+
+= Does Agile Store Locator work with WooCommerce? =
+
+Yes. Agile Store Locator integrates with the Multi Store Addons for WooCommerce plugin, enabling features like Local Pickup, Store-Based Shipping, Store Selector, and Multi-Store Inventory.
+
+Learn more:
+https://agilestorelocator.com/multistore-woocommerce-addons/
+
+= Where can I find the documentation? =
+
+Visit our complete documentation and tutorials:
+
+https://agilestorelocator.com/wiki/
 
 == Screenshots ==
 
@@ -337,6 +405,12 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.7.0 =
+- Added marker management, including uploading, editing, deleting, and assigning custom markers to stores
+- Added Customize Map controls for map appearance, drawing colors, and frontend map controls
+- Added store detail page options for country visibility and custom address formatting
+- Improved store detail page styling and fixed admin asset loading
 
 = 1.6.13 =
 - Added an optional feedback survey when deactivating the plugin

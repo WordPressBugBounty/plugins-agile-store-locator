@@ -512,6 +512,28 @@ class Helper {
   }
 
   /**
+   * Get the validated color palette for a UI template.
+   *
+   * @param string|int $template Template identifier.
+   * @param array      $defaults Default colors keyed by setting name.
+   * @return array
+   */
+  public static function get_ui_template_colors($template = 0, $defaults = []) {
+
+    $codes_json = self::get_setting('ui-template', 'template-'.$template);
+    $color_codes = $codes_json ? json_decode($codes_json, true) : [];
+    $color_codes = is_array($color_codes) ? $color_codes : [];
+    $colors = [];
+
+    foreach ($defaults as $key => $default_color) {
+      $color = isset($color_codes[$key]) ? sanitize_hex_color($color_codes[$key]) : '';
+      $colors[$key] = $color ?: $default_color;
+    }
+
+    return $colors;
+  }
+
+  /**
    * [generate_tmpl_css Generate the CSS codes for the template]
    * @param  [type] $template [description]
    * @return [type]           [description]
@@ -1192,6 +1214,76 @@ class Helper {
     $timings = self::_getHoursInFormat($store->open_hours, $format, $close_label);
     
     return $timings;
+  }
+
+  /**
+   * Return the store's current open state and today's configured time ranges.
+   *
+   * @param string $hours JSON-encoded weekly opening hours.
+   * @return array|null
+   */
+  public static function currentOpenStatus($hours) {
+
+    $weekly_hours = json_decode($hours, true);
+
+    if (!is_array($weekly_hours)) {
+      return null;
+    }
+
+    $timezone = function_exists('wp_timezone') ? wp_timezone() : new \DateTimeZone('UTC');
+    $now      = new \DateTimeImmutable('now', $timezone);
+    $day_keys = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+    $today_key = $day_keys[(int) $now->format('w')];
+    $today_hours = isset($weekly_hours[$today_key]) ? $weekly_hours[$today_key] : '0';
+    $is_open = ($today_hours === '1' || $today_hours === 1);
+
+    // Check today's ranges and yesterday's ranges that continue past midnight.
+    foreach ([0, -1] as $day_offset) {
+      $schedule_date = $now->modify($day_offset . ' day');
+      $schedule_key  = $day_keys[(int) $schedule_date->format('w')];
+      $ranges        = isset($weekly_hours[$schedule_key]) ? $weekly_hours[$schedule_key] : [];
+
+      if (!is_array($ranges)) {
+        continue;
+      }
+
+      foreach ($ranges as $range) {
+        $time_parts = preg_split('/\s+-\s+/', trim((string) $range), 2);
+
+        if (count($time_parts) !== 2) {
+          continue;
+        }
+
+        $start = \DateTimeImmutable::createFromFormat(
+          '!Y-m-d g:i A',
+          $schedule_date->format('Y-m-d') . ' ' . strtoupper(trim($time_parts[0])),
+          $timezone
+        );
+        $end = \DateTimeImmutable::createFromFormat(
+          '!Y-m-d g:i A',
+          $schedule_date->format('Y-m-d') . ' ' . strtoupper(trim($time_parts[1])),
+          $timezone
+        );
+
+        if (!$start || !$end) {
+          continue;
+        }
+
+        if ($end <= $start) {
+          $end = $end->modify('+1 day');
+        }
+
+        if ($now >= $start && $now <= $end) {
+          $is_open = true;
+          break 2;
+        }
+      }
+    }
+
+    return [
+      'is_open' => $is_open,
+      'hours'   => is_array($today_hours) ? $today_hours : [],
+    ];
   }
 
 

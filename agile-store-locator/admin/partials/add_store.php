@@ -365,7 +365,7 @@ if($level_mode == '1'): ?>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6 form-group mb-4 ">
-                                                            <div class="form-group asl-locked-box">
+                                                            <div class="form-group">
                                                                 <label
                                                                     for="ddl-asl-markers"><?php echo esc_attr__('Marker','asl_locator') ?></label>
                                                                 <div class="input-group">
@@ -385,12 +385,6 @@ if($level_mode == '1'): ?>
                                                                             class="me-2"><svg width="22" height="22">
                                                                                 <use xlink:href="#i-upload"></use>
                                                                             </svg></i><?php echo esc_attr__('New Marker','asl_locator') ?></button>
-                                                                </div>
-                                                                <div class="asl-locked-inner">
-                                                                    <h6><?php echo esc_attr__('Upgrade Plugin','asl_locator') ?>
-                                                                    </h6>
-                                                                    <a target="_blank"
-                                                                        href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><?php echo esc_attr__('License - $59','asl_locator') ?></a>
                                                                 </div>
                                                             </div>
                                                         </div>

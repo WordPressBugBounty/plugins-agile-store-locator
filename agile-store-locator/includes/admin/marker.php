@@ -28,7 +28,38 @@ class Marker extends Base
         parent::__construct();
     }
 
+    /**
+     * [add_marker Add Marker Method]
+     */
+    public function add_marker()
+    {
+        global $wpdb;
 
+        $response          = new \stdclass();
+        $response->success = false;
+
+        //  Upload the Icon File
+        $upload_result  = $this->_file_uploader($_FILES['files'], 'icon');
+
+        //  is upload file successful?
+        if (isset($upload_result['success']) && $upload_result['success']) {
+            $form_data = $_REQUEST['data'];
+            $file_name = $upload_result['file_name'];
+            $marker_name = isset($form_data['marker_name']) ? sanitize_text_field(wp_unslash($form_data['marker_name'])) : '';
+
+            if ($marker_name && $wpdb->insert(ASL_PREFIX . 'markers', ['marker_name' => $marker_name, 'icon' => $file_name], ['%s', '%s'])) {
+                $response->msg      = esc_attr__('Marker added successfully', 'asl_locator');
+                $response->success  = true;
+                $response->list     = array_map([$this, 'prepare_marker_response_row'], $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'markers ORDER BY id DESC'));
+            } else {
+                $response->msg = esc_attr__('Error occurred while saving record', 'asl_locator');
+            }
+        } else {
+            $response->msg = ($upload_result['error']) ? $upload_result['error'] : esc_attr__('Error occurred while uploading image.', 'asl_locator');
+        }//$form_data
+
+        return $this->send_response($response);
+    }
 
     /**
      * [delete_marker delete marker/markers]
@@ -81,6 +112,55 @@ class Marker extends Base
         return $this->send_response($response);
     }
 
+    /**
+     * [update_marker update marker with icon]
+     * @return [type] [description]
+     */
+    public function update_marker()
+    {
+        global $wpdb;
+
+        $response          = new \stdclass();
+        $response->success = false;
+
+        $data        = $_REQUEST['data'];
+
+        //  Marker Update Parameter
+        $data_params = ['marker_name' => trim(sanitize_text_field($data['marker_name']))];
+
+        // Have Icon Updated?
+        if ($data['action'] == 'notsame') {
+            //  Upload the Icon File
+            $upload_result  = $this->_file_uploader($_FILES['files'], 'icon');
+
+            //  Validate the Upload Success
+            if (isset($upload_result['success']) && $upload_result['success']) {
+                $file_name    = $upload_result['file_name'];
+
+                //  Add the newly uploaded file
+                $data_params['icon'] = $file_name;
+
+                //  Delete the old icon if exist
+                $old_icon     = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . ASL_PREFIX . 'markers WHERE id = %d', $data['marker_id']));
+
+                //  Delete the old file, if exist
+                if (file_exists(ASL_UPLOAD_DIR . 'icon/' . $old_icon[0]->icon)) {
+                    unlink(ASL_UPLOAD_DIR . 'icon/' . sanitize_file_name($old_icon[0]->icon));
+                }
+            } else {
+                $response->msg      = ($upload_result['error']) ? $upload_result['error'] : esc_attr__('Error! Failed to upload the image.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+
+        //  Execute the Update Query
+        $wpdb->update(ASL_PREFIX . 'markers', $data_params, ['id' => sanitize_text_field($data['marker_id'])]);
+
+        $response->msg      = esc_attr__('Marker Updated Successfully.', 'asl_locator');
+        $response->success  = true;
+
+        return $this->send_response($response);
+    }
 
     /**
      * [get_markers GET the Markers List]
@@ -164,7 +244,8 @@ class Marker extends Base
 
         // Format each row for DataTable
         foreach ($data_output as $row) {
-            $row->icon = '<img src="' . ASL_UPLOAD_URL . 'icon/' . esc_attr($row->icon) . '" alt="" style="width:20px"/>';
+            $row = $this->prepare_marker_response_row($row);
+            $row->icon = '<img src="' . esc_url(ASL_UPLOAD_URL . 'icon/' . $row->icon) . '" alt="" style="width:20px"/>';
 
             $row->check = '<div class="custom-control custom-checkbox">
             <input type="checkbox" data-id="' . esc_attr($row->id) . '" class="custom-control-input" id="asl-chk-' . esc_attr($row->id) . '">
@@ -195,7 +276,7 @@ class Marker extends Base
 
         $store_id = isset($_REQUEST['marker_id']) ? intval($_REQUEST['marker_id']) : 0;
 
-        $response->list = $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'markers WHERE id = ' . $store_id);
+        $response->list = array_map([$this, 'prepare_marker_response_row'], $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . 'markers WHERE id = ' . $store_id));
 
         if (count($response->list) != 0) {
             $response->success = true;
@@ -203,5 +284,20 @@ class Marker extends Base
             $response->error = esc_attr__('Error occurred while geting record', 'asl_locator');
         }
         return $this->send_response($response);
+    }
+
+    /**
+     * Escape marker fields before returning them to admin JSON consumers.
+     *
+     * @param object $row Marker database row.
+     * @return object
+     */
+    private function prepare_marker_response_row($row)
+    {
+        $row->id          = isset($row->id) ? intval($row->id) : 0;
+        $row->marker_name = isset($row->marker_name) ? esc_html($row->marker_name) : '';
+        $row->icon        = isset($row->icon) ? sanitize_file_name($row->icon) : '';
+
+        return $row;
     }
 }

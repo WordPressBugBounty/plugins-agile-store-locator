@@ -15,7 +15,6 @@
   max-width: 100%;
   font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
 }
-
 /* .asl-p-cont .container {font-family: "Noto Sans", Roboto, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;} */
 .asl-p-cont {
   letter-spacing: .3px;
@@ -8071,5 +8070,651 @@ table#tbl_stores tbody tr.disabled_color.scheduled_color td {
   .admin-bar .asl-p-cont #sl-bulk-edit {
     top: 46px;
     height: calc(100% - 46px);
+  }
+}
+.asl-customize-map {
+  --asl-map-primary: #2563eb;
+  --asl-map-primary-soft: #eff6ff;
+  --asl-map-border: #dfe6ef;
+  --asl-map-heading: #10204a;
+  --asl-map-muted: #667085;
+}
+
+.asl-customize-map .asl-map-customizer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.asl-customize-map .asl-map-customizer-header h3,
+.asl-customize-map .asl-map-customizer-header p {
+  margin-bottom: 0;
+}
+
+.asl-customize-map .asl-map-option-card,
+.asl-customize-map .asl-map-preview-card,
+.asl-customize-map .asl-kml-card {
+  background: #fff;
+  border: 1px solid var(--asl-map-border);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(16, 32, 74, 0.04);
+  padding: 22px;
+}
+
+.asl-customize-map .asl-option-card-heading,
+.asl-customize-map .asl-map-preview-heading,
+.asl-customize-map .asl-kml-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.asl-customize-map .asl-option-card-heading {
+  justify-content: flex-start;
+}
+
+.asl-customize-map .asl-option-card-heading > .dashicons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--asl-map-primary-soft);
+  color: var(--asl-map-primary);
+}
+
+.asl-customize-map .asl-map-option-card h4,
+.asl-customize-map .asl-map-preview-card h4,
+.asl-customize-map .asl-kml-card h4 {
+  color: var(--asl-map-heading);
+  font-size: 17px;
+  font-weight: 650;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+
+.asl-customize-map .asl-map-option-card h5 {
+  color: var(--asl-map-heading);
+  font-size: 14px;
+  font-weight: 650;
+  margin: 0 0 12px;
+}
+
+.asl-customize-map .asl-map-option-card p,
+.asl-customize-map .asl-map-preview-card p,
+.asl-customize-map .asl-kml-card p {
+  color: var(--asl-map-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.asl-customize-map .asl-drawing-tools {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.asl-customize-map .asl-drawing-tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 74px;
+  padding: 10px;
+  border: 1px solid var(--asl-map-border);
+  border-radius: 9px;
+  background: #fff;
+  color: #344054;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.asl-customize-map .asl-drawing-tool:hover,
+.asl-customize-map .asl-drawing-tool:focus,
+.asl-customize-map .asl-drawing-tool.active {
+  border-color: var(--asl-map-primary);
+  background: var(--asl-map-primary-soft);
+  color: var(--asl-map-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+  outline: none;
+}
+
+.asl-customize-map .asl-drawing-instructions {
+  min-height: 20px;
+  padding: 10px 12px;
+  margin-top: 12px !important;
+  border-radius: 7px;
+  background: #f8fafc;
+}
+
+.asl-customize-map .asl-drawing-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.asl-customize-map .asl-drawing-actions[hidden] {
+  display: none;
+}
+
+.asl-customize-map .asl-shape-editor {
+  padding: 16px 0;
+  margin-top: 4px;
+  border-top: 1px solid #eef2f6;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.asl-customize-map .asl-shape-editor-title,
+.asl-customize-map .asl-shape-editor-controls,
+.asl-customize-map .asl-shape-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.asl-customize-map .asl-shape-editor-title h5 {
+  margin-bottom: 0;
+}
+
+.asl-customize-map #asl-selected-shape-label {
+  color: var(--asl-map-muted);
+  font-size: 12px;
+}
+
+.asl-customize-map .asl-shape-editor-controls {
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.asl-customize-map .asl-shape-fill-options {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.asl-customize-map .asl-shape-fill-options .btn.active {
+  border-color: var(--asl-map-primary);
+  background: var(--asl-map-primary);
+  color: #fff;
+}
+
+.asl-customize-map .asl-inner-cont .color_scheme {
+  float: none;
+}
+
+.asl-customize-map .color_scheme .map_cange {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.asl-customize-map .color_scheme .map_cange span {
+  display: inline-flex;
+}
+
+.asl-customize-map .color_scheme .map_cange input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.asl-customize-map .color_scheme .map_cange label.color-box {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #d0d5dd;
+  cursor: pointer;
+}
+
+.asl-customize-map .color_scheme .map_cange input:checked + label.color-box,
+.asl-customize-map .color_scheme .map_cange input:focus + label.color-box {
+  box-shadow: 0 0 0 2px var(--asl-map-primary);
+}
+
+.asl-customize-map .asl-shape-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.asl-customize-map #frm-asl-layers {
+  margin-top: 16px;
+}
+
+.asl-customize-map .asl-layer-grid,
+.asl-customize-map .asl-control-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+}
+
+.asl-customize-map .asl-check-option {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 36px;
+  margin: 0;
+  color: #344054;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.asl-customize-map .asl-check-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.asl-customize-map .asl-check-indicator {
+  position: relative;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #b9c2cf;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.asl-customize-map .asl-check-option input:checked + .asl-check-indicator {
+  border-color: var(--asl-map-primary);
+  background: var(--asl-map-primary);
+}
+
+.asl-customize-map .asl-check-option input:checked + .asl-check-indicator:after {
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  content: '';
+  transform: rotate(45deg);
+}
+
+.asl-customize-map .asl-check-option input:focus + .asl-check-indicator {
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+.asl-customize-map .asl-map-control-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px;
+  margin-top: 20px;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.asl-customize-map .asl-map-control-note .dashicons {
+  flex: 0 0 18px;
+  color: var(--asl-map-primary);
+}
+
+.asl-customize-map .map_canvas {
+  overflow: hidden;
+  width: 100%;
+  height: 540px;
+  border: 1px solid var(--asl-map-border);
+  border-radius: 10px;
+  background: #eef2f6;
+}
+
+.asl-customize-map .asl-map-dirty-status {
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.asl-customize-map .asl-map-dirty-status.is-dirty {
+  color: #b45309;
+}
+
+.asl-customize-map .asl-kml-card-heading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.asl-customize-map .asl-kml-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asl-customize-map .asl-kml-search {
+  position: relative;
+  display: block;
+  width: 290px;
+  margin: 0;
+}
+
+.asl-customize-map .asl-kml-search .form-control {
+  height: 38px;
+  padding-right: 36px;
+  font-size: 13px;
+}
+
+.asl-customize-map .asl-kml-search .dashicons {
+  position: absolute;
+  top: 9px;
+  right: 10px;
+  color: #98a2b3;
+  pointer-events: none;
+}
+
+.asl-customize-map .asl-kml-guide-link,
+.asl-customize-map .asl-kml-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--asl-map-border);
+  border-radius: 7px;
+  background: #fff;
+  color: #667085;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.asl-customize-map .asl-kml-guide-link:hover,
+.asl-customize-map .asl-kml-guide-link:focus,
+.asl-customize-map .asl-kml-action:hover,
+.asl-customize-map .asl-kml-action:focus,
+.asl-customize-map .asl-kml-action.active {
+  border-color: var(--asl-map-primary);
+  color: var(--asl-map-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+
+.asl-customize-map .asl-kml-upload-form {
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.asl-customize-map .asl-kml-upload {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asl-customize-map .asl-kml-upload .form-control {
+  min-width: 0;
+}
+
+.asl-customize-map .asl-kml-upload .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.asl-customize-map .asl-kml-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--asl-map-border);
+  border-radius: 9px;
+}
+
+.asl-customize-map .asl-kml-table {
+  width: 100%;
+  min-width: 850px;
+  margin: 0;
+  border: 0;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.asl-customize-map .asl-kml-table th {
+  padding: 11px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--asl-map-border);
+  background: #f8fafc;
+  color: #667085;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.asl-customize-map .asl-kml-table td {
+  padding: 11px 14px;
+  border: 0;
+  border-bottom: 1px solid #eef2f6;
+  color: #475467;
+  font-size: 12px;
+  vertical-align: middle;
+}
+
+.asl-customize-map .asl-kml-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.asl-customize-map .asl-kml-table tbody tr:hover {
+  background: #fbfdff;
+}
+
+.asl-customize-map .asl-kml-file-cell {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.asl-customize-map .asl-kml-file-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 38px;
+  padding-bottom: 5px;
+  border-radius: 5px 5px 7px 7px;
+  background: #1677ee;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.asl-customize-map .asl-kml-file-icon:before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-width: 0 0 9px 9px;
+  border-style: solid;
+  border-color: transparent transparent #75b5ff transparent;
+  content: '';
+}
+
+.asl-customize-map .asl-kml-file-cell strong,
+.asl-customize-map .asl-kml-file-cell span {
+  display: block;
+}
+
+.asl-customize-map .asl-kml-file-cell strong {
+  max-width: 260px;
+  overflow: hidden;
+  color: #25345f;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.asl-customize-map .asl-kml-file-cell > div > span {
+  margin-top: 2px;
+  color: #98a2b3;
+  font-size: 11px;
+}
+
+.asl-customize-map .asl-kml-overlay-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.asl-customize-map .asl-kml-overlay-count .dashicons {
+  width: 16px;
+  height: 16px;
+  color: #667085;
+  font-size: 16px;
+}
+
+.asl-customize-map .asl-kml-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #ecfdf3;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.asl-customize-map .asl-kml-status:before {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+.asl-customize-map .asl-kml-status.is-previewing {
+  background: var(--asl-map-primary-soft);
+  color: var(--asl-map-primary);
+}
+
+.asl-customize-map .asl-kml-actions-heading {
+  text-align: center !important;
+}
+
+.asl-customize-map .asl-kml-row-actions {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+
+.asl-customize-map .asl-kml-row-actions .asl-trash-icon:hover,
+.asl-customize-map .asl-kml-row-actions .asl-trash-icon:focus {
+  border-color: #ef4444;
+  color: #dc2626;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.08);
+}
+
+.asl-customize-map .asl-kml-empty-row td,
+.asl-customize-map #asl-kml-no-results td {
+  padding: 28px;
+  color: #98a2b3;
+  text-align: center;
+}
+
+.asl-customize-map .asl-kml-side-bar ul.asl-kml-list,
+.asl-customize-map ul.asl-kml-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.asl-customize-map ul.asl-kml-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid var(--asl-map-border);
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #475467;
+}
+
+.asl-customize-map ul.asl-kml-list .asl-trash-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: #dc2626;
+  cursor: pointer;
+}
+
+.asl-customize-map .asl-map-save-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 18px;
+  color: var(--asl-map-muted);
+  font-size: 12px;
+}
+
+@media (max-width: 991.98px) {
+  .asl-customize-map .asl-map-customizer-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .asl-customize-map .asl-map-customizer-header .btn {
+    width: 100%;
+  }
+
+  .asl-customize-map .map_canvas {
+    height: 460px;
+  }
+
+  .asl-customize-map .asl-kml-card-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .asl-customize-map .asl-kml-header-actions,
+  .asl-customize-map .asl-kml-search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .asl-customize-map .asl-drawing-tools,
+  .asl-customize-map .asl-layer-grid,
+  .asl-customize-map .asl-control-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .asl-customize-map .asl-shape-editor-controls,
+  .asl-customize-map .asl-shape-actions,
+  .asl-customize-map .asl-kml-upload,
+  .asl-customize-map .asl-map-save-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .asl-customize-map .map_canvas {
+    height: 380px;
   }
 }

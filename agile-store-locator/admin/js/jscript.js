@@ -103,8 +103,8 @@ var asl_engine = window['asl_engine'] || {};
 
           var script = document.createElement('script');
           script.type = 'text/javascript';
-          script.src = '//maps.googleapis.com/maps/api/js?libraries=places,drawing&' +
-            'callback=asl_map_intialized' + API_KEY;
+          script.src = '//maps.googleapis.com/maps/api/js?libraries=places&' +
+            'loading=async&callback=asl_map_intialized' + API_KEY + '&v=weekly';
 
           document.body.appendChild(script);
           this.cb = _callback;
@@ -132,7 +132,7 @@ var asl_engine = window['asl_engine'] || {};
           var mapOptions = {
             zoom: zoom_value,
             center: latlng,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeId: (asl_configs && asl_configs.map_type) ? asl_configs.map_type : google.maps.MapTypeId.ROADMAP,
             styles: [{ "stylers": [{ "saturation": -100 }, { "gamma": 1 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.business", "elementType": "labels.text", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.business", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.place_of_worship", "elementType": "labels.text", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi.place_of_worship", "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "visibility": "simplified" }] }, { "featureType": "water", "stylers": [{ "visibility": "on" }, { "saturation": 50 }, { "gamma": 0 }, { "hue": "#50a5d1" }] }, { "featureType": "administrative.neighborhood", "elementType": "labels.text.fill", "stylers": [{ "color": "#333333" }] }, { "featureType": "road.local", "elementType": "labels.text", "stylers": [{ "weight": 0.5 }, { "color": "#333333" }] }, { "featureType": "transit.station", "elementType": "labels.icon", "stylers": [{ "gamma": 1 }, { "saturation": 50 }] }]
           };
 
@@ -2536,134 +2536,179 @@ var asl_engine = window['asl_engine'] || {};
      * @return {[type]}                    [description]
      */
     customize_map: function(_asl_map_customize) {
-
-      //RESET
-      var trafic_layer, transit_layer, bike_layer;
-      $('#frm-asl-layers')[0].reset();
-
-
-      window['asl_map_intialized'] = function() {
-
-        map_object.render_a_map(asl_configs.default_lat, asl_configs.default_lng);
-        asl_drawing.initialize(map_object.map_instance);
-
-
-        //ADd trafice layer
-        if (_asl_map_customize.trafic_layer && _asl_map_customize.trafic_layer == 1) {
-
-          $('#asl-trafic_layer')[0].checked = true;
-
-          trafic_layer = new google.maps.TrafficLayer();
-          trafic_layer.setMap(map_object.map_instance);
-        }
-
-
-        //ADd bike layer
-        if (_asl_map_customize.bike_layer && _asl_map_customize.bike_layer == 1) {
-
-          $('#asl-bike_layer')[0].checked = true;
-
-          bike_layer = new google.maps.BicyclingLayer();
-          bike_layer.setMap(map_object.map_instance);
-        }
-
-        //ADd transit layer
-        if (_asl_map_customize.transit_layer && _asl_map_customize.transit_layer == 1) {
-
-          $('#asl-transit_layer')[0].checked = true;
-
-          transit_layer = new google.maps.TransitLayer();
-          transit_layer.setMap(map_object.map_instance);
-        }
-
-        //ADd transit layer
-        if (_asl_map_customize.marker_animations && _asl_map_customize.marker_animations == 1) {
-
-          $('#asl-marker_animations')[0].checked = true;
-        }
-
-
-        ///Load the DATA
-        if (_asl_map_customize.drawing) {
-
-          asl_drawing.loadData(_asl_map_customize.drawing);
-        }
+      var mapLayers = {};
+      var kmlPreviewLayer = null;
+      var $activeKmlPreview = null;
+      var isDirty = false;
+      var isInitializing = true;
+      var layerConstructors = {
+        trafic_layer: function() { return new google.maps.TrafficLayer(); },
+        transit_layer: function() { return new google.maps.TransitLayer(); },
+        bike_layer: function() { return new google.maps.BicyclingLayer(); }
       };
 
-      //init the maps
-      if (!(window['google'] && google.maps)) {
-        map_object.intialize();
-        //drawing_instance.initialize();
-      } else
-        asl_map_intialized();
+      _asl_map_customize = (_asl_map_customize && typeof _asl_map_customize === 'object') ? _asl_map_customize : {};
 
+      function setDirty(dirty) {
+        isDirty = dirty;
+        var $status = $('#asl-map-dirty-status');
+        var labels = window.asl_customize_map_l10n || {};
+        $status
+          .toggleClass('is-dirty', dirty)
+          .text(dirty ? labels.unsaved : labels.saved);
+      }
 
-      //Trafic Layer
-      $('.asl-p-cont .map-option-bottom #asl-trafic_layer').bind('click', function(e) {
-
-        if (this.checked) {
-
-          trafic_layer = new google.maps.TrafficLayer();
-          trafic_layer.setMap(map_object.map_instance);
-        } else
-          trafic_layer.setMap(null);
-
-      });
-
-      //Transit Layer
-      $('.asl-p-cont .map-option-bottom #asl-transit_layer').bind('click', function(e) {
-
-        if (this.checked) {
-
-          transit_layer = new google.maps.TransitLayer();
-          transit_layer.setMap(map_object.map_instance);
-        } else
-          transit_layer.setMap(null);
-      });
-
-      //Bike Layer
-      $('.asl-p-cont .map-option-bottom #asl-bike_layer').bind('click', function(e) {
-
-        if (this.checked) {
-
-          bike_layer = new google.maps.BicyclingLayer();
-          bike_layer.setMap(map_object.map_instance);
-        } else
-          bike_layer.setMap(null);
-
-      });
-
-      //Marker Animate
-      $('.asl-p-cont .map-option-bottom #asl-marker_animations').bind('click', function(e) {
-
-        if (this.checked) {
-          map_object.map_marker.setAnimation(google.maps.Animation.Xp);
+      function markDirty() {
+        if (!isInitializing) {
+          setDirty(true);
         }
-      });
+      }
 
+      function setLayer(layerKey, enabled) {
+        if (!map_object.map_instance || !layerConstructors[layerKey]) {
+          return;
+        }
 
-      //Save the Map Customization
-      $('#asl-save-map').bind('click', function(e) {
+        if (enabled && !mapLayers[layerKey]) {
+          mapLayers[layerKey] = layerConstructors[layerKey]();
+        }
 
-        var $btn = $(this);
+        if (mapLayers[layerKey]) {
+          mapLayers[layerKey].setMap(enabled ? map_object.map_instance : null);
+        }
+      }
 
-        var layers = {
-          trafic_layer: ($('#asl-trafic_layer')[0].checked) ? 1 : 0,
-          transit_layer: ($('#asl-transit_layer')[0].checked) ? 1 : 0,
-          bike_layer: ($('#asl-bike_layer')[0].checked) ? 1 : 0,
-          marker_animations: ($('#asl-marker_animations')[0].checked) ? 1 : 0,
+      function readMapControls() {
+        var controls = {};
+        $('.asl-map-control-toggle').each(function() {
+          controls[$(this).data('control')] = this.checked ? 1 : 0;
+        });
+        return controls;
+      }
+
+      function applyMapControls() {
+        if (!map_object.map_instance) {
+          return;
+        }
+
+        var controls = readMapControls();
+        map_object.map_instance.setOptions({
+          cameraControl: controls.cameracontrol === 1,
+          zoomControl: controls.zoomcontrol === 1,
+          streetViewControl: controls.streetviewcontrol === 1,
+          fullscreenControl: controls.fullscreencontrol === 1,
+          mapTypeControl: controls.maptypecontrol === 1
+        });
+      }
+
+      function saveCustomization($button) {
+        var customization = {
+          trafic_layer: $('#asl-trafic_layer').prop('checked') ? 1 : 0,
+          transit_layer: $('#asl-transit_layer').prop('checked') ? 1 : 0,
+          bike_layer: $('#asl-bike_layer').prop('checked') ? 1 : 0,
+          marker_animations: $('#asl-marker_animations').prop('checked') ? 1 : 0,
+          map_controls: readMapControls(),
           drawing: asl_drawing.get_data()
         };
 
-        $btn.bootButton('loading');
+        var $buttons = $('#asl-save-map, .asl-save-map-secondary');
+        $buttons.prop('disabled', true);
+        $button.bootButton('loading');
 
-        ServerCall(ASL_REMOTE.URL, { 'action': 'asl_ajax_handler', 'sl-action': 'save_custom_map', 'data_map': JSON.stringify(layers) }, function(_response) {
-
-          $btn.bootButton('reset');
-
-          toastIt(_response);
-
+        ServerCall(ASL_REMOTE.URL, {
+          action: 'asl_ajax_handler',
+          'sl-action': 'save_custom_map',
+          data_map: JSON.stringify(customization)
+        }, function(response) {
+          $button.bootButton('reset');
+          $buttons.prop('disabled', false);
+          toastIt(response);
+          if (response.success) {
+            setDirty(false);
+          }
         }, 'json');
+      }
+
+      window['asl_map_intialized'] = function() {
+        var drawingData = _asl_map_customize.drawing || {};
+        var center = Array.isArray(drawingData.center) && drawingData.center.length === 2
+          ? drawingData.center
+          : [asl_configs.default_lat, asl_configs.default_lng];
+
+        map_object.render_a_map(center[0], center[1]);
+
+        if (drawingData.zoom && !isNaN(drawingData.zoom)) {
+          map_object.map_instance.setZoom(parseInt(drawingData.zoom));
+        }
+
+        asl_drawing.initialize(map_object.map_instance);
+
+        ['trafic_layer', 'transit_layer', 'bike_layer', 'marker_animations'].forEach(function(optionKey) {
+          $('#' + 'asl-' + optionKey).prop('checked', parseInt(_asl_map_customize[optionKey]) === 1);
+        });
+
+        Object.keys(layerConstructors).forEach(function(layerKey) {
+          setLayer(layerKey, parseInt(_asl_map_customize[layerKey]) === 1);
+        });
+
+        if (map_object.map_marker && parseInt(_asl_map_customize.marker_animations) === 1) {
+          map_object.map_marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+
+        if (drawingData.shapes) {
+          asl_drawing.loadData(drawingData);
+        }
+
+        applyMapControls();
+
+        google.maps.event.addListener(map_object.map_instance, 'zoom_changed', markDirty);
+        google.maps.event.addListener(map_object.map_instance, 'dragend', markDirty);
+
+        isInitializing = false;
+        setDirty(false);
+      };
+
+      if (!(window.google && google.maps)) {
+        map_object.intialize();
+      } else {
+        window.asl_map_intialized();
+      }
+
+      Object.keys(layerConstructors).forEach(function(layerKey) {
+        $('#asl-' + layerKey).off('.aslCustomizeMap').on('change.aslCustomizeMap', function() {
+          setLayer(layerKey, this.checked);
+          markDirty();
+        });
+      });
+
+      $('#asl-marker_animations').off('.aslCustomizeMap').on('change.aslCustomizeMap', function() {
+        if (map_object.map_marker) {
+          map_object.map_marker.setAnimation(this.checked ? google.maps.Animation.BOUNCE : null);
+        }
+        markDirty();
+      });
+
+      $('.asl-map-control-toggle').off('.aslCustomizeMap').on('change.aslCustomizeMap', function() {
+        var controlKey = $(this).data('control');
+        if (this.checked && controlKey === 'cameracontrol') {
+          $('#asl-zoomcontrol').prop('checked', false);
+        } else if (this.checked && controlKey === 'zoomcontrol') {
+          $('#asl-cameracontrol').prop('checked', false);
+        }
+        applyMapControls();
+        markDirty();
+      });
+
+      $(document).off('asl:map-customization-change.aslCustomizeMap').on('asl:map-customization-change.aslCustomizeMap', markDirty);
+
+      $('#asl-save-map, .asl-save-map-secondary').off('.aslCustomizeMap').on('click.aslCustomizeMap', function() {
+        saveCustomization($(this));
+      });
+
+      $(window).off('beforeunload.aslCustomizeMap').on('beforeunload.aslCustomizeMap', function() {
+        if (isDirty) {
+          return (window.asl_customize_map_l10n && asl_customize_map_l10n.unsaved) || 'Unsaved changes';
+        }
       });
 
 
@@ -2684,19 +2729,82 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //Validate
-      $('#btn-asl-upload-kml').bind('click', function(e) {
+      $('#btn-asl-upload-kml').off('.aslCustomizeMap').on('click.aslCustomizeMap', function(e) {
 
         if ($('#sl-frm-kml ul li').length == 0) {
 
-          atoastr.error('No KML file to upload');
+          atoastr.error((window.asl_customize_map_l10n && asl_customize_map_l10n.no_kml) || 'Choose a KML or KMZ file to upload.');
 
           e.preventDefault();
           return;
         }
       });
 
+      $('#asl-kml-search').off('.aslCustomizeMap').on('input.aslCustomizeMap', function() {
+        var query = $.trim($(this).val()).toLowerCase();
+        var visibleRows = 0;
+
+        $('.asl-kml-file-row').each(function() {
+          var visible = !query || $(this).data('search').indexOf(query) !== -1;
+          $(this).toggle(visible);
+          if (visible) {
+            visibleRows++;
+          }
+        });
+
+        $('#asl-kml-no-results').prop('hidden', visibleRows !== 0 || !query);
+      });
+
+      $('.asl-kml-preview').off('.aslCustomizeMap').on('click.aslCustomizeMap', function() {
+        var $button = $(this);
+        var labels = window.asl_customize_map_l10n || {};
+
+        if ($activeKmlPreview && $activeKmlPreview[0] === $button[0]) {
+          kmlPreviewLayer.setMap(null);
+          kmlPreviewLayer = null;
+          $activeKmlPreview.removeClass('active').attr('aria-pressed', 'false');
+          $activeKmlPreview.closest('tr').find('.asl-kml-status').removeClass('is-previewing').text(labels.kml_available || 'Available');
+          $activeKmlPreview = null;
+          return;
+        }
+
+        if (kmlPreviewLayer) {
+          kmlPreviewLayer.setMap(null);
+        }
+        if ($activeKmlPreview) {
+          $activeKmlPreview.removeClass('active').attr('aria-pressed', 'false');
+          $activeKmlPreview.closest('tr').find('.asl-kml-status').removeClass('is-previewing').text(labels.kml_available || 'Available');
+        }
+
+        kmlPreviewLayer = new google.maps.KmlLayer($button.data('url'), {
+          preserveViewport: false,
+          map: map_object.map_instance
+        });
+        var previewLayer = kmlPreviewLayer;
+        $activeKmlPreview = $button.addClass('active').attr('aria-pressed', 'true');
+        $button.closest('tr').find('.asl-kml-status').addClass('is-previewing').text(labels.kml_previewing || 'Previewing');
+
+        google.maps.event.addListenerOnce(previewLayer, 'status_changed', function() {
+          if (previewLayer.getStatus() !== google.maps.KmlLayerStatus.OK) {
+            atoastr.error(labels.kml_preview_error || 'The KML file could not be previewed.');
+            previewLayer.setMap(null);
+            if (kmlPreviewLayer === previewLayer) {
+              $button.removeClass('active').attr('aria-pressed', 'false');
+              $button.closest('tr').find('.asl-kml-status').removeClass('is-previewing').text(labels.kml_available || 'Available');
+              kmlPreviewLayer = null;
+              $activeKmlPreview = null;
+            }
+          }
+        });
+      });
+
       //  Remove KML file event
-      $('.asl-kml-list .asl-trash-icon').bind('click', function(e) {
+      $('.asl-kml-list .asl-trash-icon').off('.aslCustomizeMap').on('click.aslCustomizeMap', function(e) {
+
+        var message = window.asl_customize_map_l10n && asl_customize_map_l10n.confirm_delete_kml;
+        if (!window.confirm(message || 'Delete this KML file?')) {
+          return;
+        }
 
         //  Remove the KML File
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=delete_kml', { data_: $(this).attr('data-file') }, function(_response) {
@@ -3412,6 +3520,7 @@ var asl_engine = window['asl_engine'] || {};
             display_list: 0,
             cat_in_grid: 0,
             store_schema: 0,
+            store_page_show_country: 0,
             hide_hours: 0,
             slug_link: 0,
             hide_logo: 0,

@@ -972,7 +972,25 @@ if($level_mode == '1'){ ?>
 	                        </div>
 			                  </div>
 			                </div>
-		              		<div class="col-md-12 col-lg-6 col-12 mb-5">
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
+			                  <div class="form-group d-lg-flex d-md-block">
+			                    <label class="custom-control-label" for="asl-store_page_show_country"><?php echo esc_attr__('Show Country in Address','asl_locator') ?></label>
+			                    <div class="form-group-inner">
+	                          <label class="switch" for="asl-store_page_show_country"><input type="checkbox" value="1" class="custom-control-input" name="data[store_page_show_country]" id="asl-store_page_show_country"><span class="slider round"></span></label>
+	                          <p class="help-p"><?php echo esc_attr__('Show the country in the address displayed on the store detail page. Directions and schema continue to use the full address.','asl_locator') ?></p>
+	                        </div>
+			                  </div>
+			                </div>
+			                <div class="col-md-12 col-lg-6 col-12 mb-5">
+			                  <div class="form-group d-lg-flex d-md-block">
+			                    <label class="custom-control-label" for="asl-store_page_address_format"><?php echo esc_attr__('Store Page Address Format','asl_locator') ?></label>
+			                    <div class="form-group-inner">
+			                      <input type="text" class="form-control" name="data[store_page_address_format]" id="asl-store_page_address_format" placeholder="{street}, {city}, {state} {postal_code}, {country}">
+	                          <p class="help-p"><?php echo esc_attr__('Optional. Available placeholders: {street}, {city}, {state}, {postal_code}, {country}. Leave empty to use the default format.','asl_locator') ?></p>
+	                        </div>
+			                  </div>
+			                </div>
+                                <div class="col-md-12 col-lg-6 col-12 mb-5">
 			                  <div class="form-group d-lg-flex d-md-block">
 			                    <label class="custom-control-label" for="asl-rewrite_slug"><?php echo esc_attr__('Store Page Slug','asl_locator') ?></label>
 			                    <div class="form-group-inner">

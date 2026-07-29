@@ -248,7 +248,29 @@ class Label {
         'badge'             => esc_attr__('Badge','asl_locator'),
         'reg_map'           => esc_attr__('Map','asl_locator'),
         'reg_lng'           => esc_attr__('Longitude','asl_locator'),
-        'photo_gallery'     => esc_attr__('Photo Gallery','asl_locator')
+        'photo_gallery'     => esc_attr__('Photo Gallery','asl_locator'),
+        // Store detail page
+        'store_page_home'            => esc_attr__('Home', 'asl_locator'),
+        'store_page_locations'       => esc_attr__('Locations', 'asl_locator'),
+        'store_page_breadcrumb'      => esc_attr__('Breadcrumb', 'asl_locator'),
+        'store_page_verified'        => esc_attr__('Verified', 'asl_locator'),
+        'store_page_review'          => esc_attr__('Review', 'asl_locator'),
+        'store_page_reviews'         => esc_attr__('Reviews', 'asl_locator'),
+        'store_page_rating'          => esc_attr__('%s out of 5 stars', 'asl_locator'),
+        'store_page_directions'      => esc_attr__('Get Directions', 'asl_locator'),
+        'store_page_call'            => esc_attr__('Call Now', 'asl_locator'),
+        'store_page_photos'          => esc_attr__('Photos', 'asl_locator'),
+        'store_page_view_photos'     => esc_attr__('View All Photos', 'asl_locator'),
+        'store_page_photo_alt'       => esc_attr__('Photo of %s', 'asl_locator'),
+        'store_page_about'           => esc_attr__('About This Location', 'asl_locator'),
+        'store_page_business_hours'  => esc_attr__('Business Hours', 'asl_locator'),
+        'store_page_sunday'          => esc_attr__('Sunday', 'asl_locator'),
+        'store_page_monday'          => esc_attr__('Monday', 'asl_locator'),
+        'store_page_tuesday'         => esc_attr__('Tuesday', 'asl_locator'),
+        'store_page_wednesday'       => esc_attr__('Wednesday', 'asl_locator'),
+        'store_page_thursday'        => esc_attr__('Thursday', 'asl_locator'),
+        'store_page_friday'          => esc_attr__('Friday', 'asl_locator'),
+        'store_page_saturday'        => esc_attr__('Saturday', 'asl_locator')
         );
         
 

@@ -150,7 +150,7 @@ class Manager extends Base {
     wp_register_script( $this->AgileStoreLocator.'-upload', ASL_URL_PATH . 'admin/js/jquery.fileupload.min.js', array('jquery', 'jquery-ui-core'), $this->version, false );
 
     //  drawing
-    wp_register_script( $this->AgileStoreLocator.'-draw', ASL_URL_PATH . 'admin/js/drawing.js', array('jquery'), $this->version, false );
+    wp_register_script( $this->AgileStoreLocator.'-draw', ASL_URL_PATH . 'admin/js/drawing.js', array('jquery'), $this->version, true );
 
     //  Datetimepicker
     wp_register_script( $this->AgileStoreLocator.'-datetimepicker', ASL_URL_PATH . 'admin/js/datetimepicker.min.js', array('jquery'), $this->version, false );
@@ -159,7 +159,7 @@ class Manager extends Base {
     wp_register_script( $this->AgileStoreLocator.'-dashboard', ASL_URL_PATH . 'admin/js/dashboard.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datetimepicker'), $this->version, false );
 
     //  jscript
-    wp_register_script( $this->AgileStoreLocator.'-jscript', ASL_URL_PATH . 'admin/js/jscript.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datatable'), $this->version, false );
+    wp_register_script( $this->AgileStoreLocator.'-jscript', ASL_URL_PATH . 'admin/js/jscript.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datatable', $this->AgileStoreLocator.'-draw'), $this->version, true );
   }
 
   /**
@@ -599,26 +599,117 @@ class Manager extends Base {
 
     $this->_enqueue_scripts();
 
-    global $wpdb;
+    $customizer_config_keys = [
+      'api_key',
+      'default_lat',
+      'default_lng',
+      'zoom',
+      'map_type',
+      'cameracontrol',
+      'zoomcontrol',
+      'streetviewcontrol',
+      'fullscreencontrol',
+      'maptypecontrol',
+    ];
+    $config_list = \AgileStoreLocator\Helper::get_configs($customizer_config_keys);
 
-    $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key' OR `key` = 'default_lat' OR `key` = 'default_lng' ORDER BY id;";
-    $all_configs_result = $wpdb->get_results($sql);
+    $all_configs = [
+      'api_key'     => isset($config_list['api_key']) ? $config_list['api_key'] : '',
+      'default_lat' => isset($config_list['default_lat']) ? $config_list['default_lat'] : '-33.947128',
+      'default_lng' => isset($config_list['default_lng']) ? $config_list['default_lng'] : '25.591169',
+      'zoom'        => isset($config_list['zoom']) ? $config_list['zoom'] : '5',
+      'map_type'    => isset($config_list['map_type']) ? $config_list['map_type'] : 'roadmap',
+    ];
 
-    
-    $config_list = array();
-    foreach($all_configs_result as $item) {
-      $config_list[$item->key] = $item->value;
+    $map_customize_json = \AgileStoreLocator\Helper::get_setting('map', 'map_customize');
+    $map_customize_json = $map_customize_json ? $map_customize_json : '{}';
+    $map_customize      = json_decode($map_customize_json, true);
+
+    if (!is_array($map_customize)) {
+      $map_customize = [];
     }
 
-    $all_configs = array('api_key' => $config_list['api_key'],'default_lat' => $config_list['default_lat'],'default_lng' => $config_list['default_lng']);
-    
+    $map_control_defaults = [];
+    foreach (['cameracontrol', 'zoomcontrol', 'streetviewcontrol', 'fullscreencontrol', 'maptypecontrol'] as $control_key) {
+      if (isset($map_customize['map_controls'][$control_key])) {
+        $map_control_defaults[$control_key] = (bool) $map_customize['map_controls'][$control_key];
+      } elseif (isset($config_list[$control_key])) {
+        $map_control_defaults[$control_key] = in_array(strtolower((string) $config_list[$control_key]), ['1', 'true'], true);
+      } else {
+        $map_control_defaults[$control_key] = in_array($control_key, ['zoomcontrol', 'fullscreencontrol'], true);
+      }
+    }
 
-    $map_customize  = $wpdb->get_results("SELECT content FROM ".ASL_PREFIX."settings WHERE type = 'map' AND id = 1");
-    $map_customize  = ($map_customize && $map_customize[0]->content)?$map_customize[0]->content:'[]';
+    // The modern Camera control and legacy Zoom control occupy the same role.
+    if ($map_control_defaults['cameracontrol']) {
+      $map_control_defaults['zoomcontrol'] = false;
+    }
 
+    $files     = \AgileStoreLocator\Helper::get_kml_files();
+    $kml_files = [];
+    foreach ($files as $file) {
+      $file_details = $this->get_kml_file_details($file);
+      if ($file_details) {
+        $kml_files[] = $file_details;
+      }
+    }
 
     //add_action( 'init', 'my_theme_add_editor_styles' );
     include ASL_PLUGIN_PATH.'admin/partials/customize_map.php';
+  }
+
+  /**
+   * Return display-safe metadata for an uploaded KML or KMZ file.
+   */
+  private function get_kml_file_details($file) {
+    $file = basename((string) $file);
+    $path = ASL_UPLOAD_DIR.'kml/'.$file;
+
+    if (!$file || !is_file($path) || !in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['kml', 'kmz'], true)) {
+      return null;
+    }
+
+    $modified = filemtime($path);
+    $size     = filesize($path);
+
+    return [
+      'name'          => $file,
+      'url'           => ASL_UPLOAD_URL.'kml/'.rawurlencode($file),
+      'uploaded_on'   => $modified ? wp_date(get_option('date_format').' '.get_option('time_format'), $modified) : '—',
+      'size'          => $size !== false ? size_format($size, 1) : '—',
+      'overlay_count' => $this->get_kml_overlay_count($path),
+    ];
+  }
+
+  /**
+   * Count placemarks without extracting KMZ archives to disk.
+   */
+  private function get_kml_overlay_count($path) {
+    $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+    $contents  = '';
+
+    if ($extension === 'kml' && is_readable($path) && filesize($path) <= 10 * MB_IN_BYTES) {
+      $contents = file_get_contents($path);
+    } elseif ($extension === 'kmz' && class_exists('ZipArchive')) {
+      $archive = new \ZipArchive();
+      if ($archive->open($path) === true) {
+        for ($index = 0; $index < $archive->numFiles; $index++) {
+          $entry = $archive->statIndex($index);
+          if ($entry && preg_match('/\.kml$/i', $entry['name']) && $entry['size'] <= 10 * MB_IN_BYTES) {
+            $contents = $archive->getFromIndex($index);
+            break;
+          }
+        }
+        $archive->close();
+      }
+    }
+
+    if (!is_string($contents) || $contents === '') {
+      return null;
+    }
+
+    preg_match_all('/<\s*Placemark\b/i', $contents, $matches);
+    return count($matches[0]);
   }
 
   /**
@@ -957,4 +1048,3 @@ class Manager extends Base {
   }
 
 }
-

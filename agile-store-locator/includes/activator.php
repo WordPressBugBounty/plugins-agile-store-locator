@@ -629,9 +629,9 @@ class Activator {
 		$prefix 	 	 = $wpdb->prefix."asl_";
 
 		//$database    = $wpdb->dbname;
-		$c = $wpdb->get_results("SELECT count(*) AS 'c' FROM `{$prefix}configs` WHERE `key` = 'server_key' || `key` = 'advanced_marker'");
+		$c = $wpdb->get_results("SELECT count(*) AS 'c' FROM `{$prefix}configs` WHERE `key` IN ('server_key', 'advanced_marker', 'store_page_show_country', 'store_page_address_format')");
 
-		if($c && isset($c[0]) && $c[0]->c != 2) {
+		if($c && isset($c[0]) && $c[0]->c != 4) {
 
 				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         //  Run the script to add missing tables
@@ -700,6 +700,8 @@ class Activator {
 			array('sort_by_bound','0',''),
 			array('show_categories','1',''),
 			array('store_schema','1',''),
+			array('store_page_show_country','1',''),
+			array('store_page_address_format','',''),
 			array('slug_link','1',''),
 			array('hide_hours','0',''),
 			array('rewrite_slug','',''),

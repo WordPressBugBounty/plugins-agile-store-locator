@@ -497,16 +497,45 @@ class App
 
                 $store_data->country = ($country && isset($country[0])) ? esc_attr__($country[0]->country, 'asl_locator') : '';
 
+                $custom_fields  = \AgileStoreLocator\Helper::get_custom_fields();
+                $gallery_fields = [];
+                $gallery_images = [];
+
+                if ($custom_fields && is_array($custom_fields)) {
+                    foreach ($custom_fields as $field) {
+                        if (isset($field['type'], $field['name']) && $field['type'] === 'gallery') {
+                            $gallery_fields[] = $field['name'];
+                        }
+                    }
+                }
+
                 //	Custom Field
                 if (isset($store_data->custom) && $store_data->custom) {
-                    $custom_fields = json_decode($store_data->custom, true);
+                    $custom_values = json_decode($store_data->custom, true);
 
-                    if ($custom_fields && is_array($custom_fields) && count($custom_fields) > 0) {
-                        foreach ($custom_fields as $custom_key => $custom_value) {
+                    if ($custom_values && is_array($custom_values) && count($custom_values) > 0) {
+                        foreach ($custom_values as $custom_key => $custom_value) {
                             $store_data->$custom_key = str_replace("\n", '<br>', esc_attr($custom_value));
                         }
                     }
                 }
+
+                if ($gallery_fields && isset($custom_values) && is_array($custom_values)) {
+                    foreach ($gallery_fields as $field_name) {
+                        if (empty($custom_values[$field_name])) {
+                            continue;
+                        }
+                        $field_value = $custom_values[$field_name];
+                        if (is_array($field_value)) {
+                            $gallery_images = array_merge($gallery_images, $field_value);
+                        } else {
+                            $gallery_images = array_merge($gallery_images, array_map('trim', explode(',', $field_value)));
+                        }
+                    }
+                }
+
+                $gallery_images = array_values(array_filter(array_map('esc_url', $gallery_images)));
+                $store_data->gallery_images = $gallery_images;
 
                 $store_data->description  	 = wpautop($store_data->description);
                 $store_data->description_2  = wpautop($store_data->description_2);
@@ -517,7 +546,45 @@ class App
                 $store_data->address = (trim(implode(', ', $address)));
 
                 //	All the configuration
-                $all_configs 		= \AgileStoreLocator\Helper::get_configs(['store_schema', 'zoom', 'map_layout', 'week_hours', 'hide_hours', 'gdpr']);
+                $all_configs 		= \AgileStoreLocator\Helper::get_configs(['store_schema', 'store_page_show_country', 'store_page_address_format', 'zoom', 'map_layout', 'week_hours', 'hide_hours', 'additional_info', 'show_categories', 'gdpr']);
+
+                $show_country = ! isset($all_configs['store_page_show_country'])
+                    || $all_configs['store_page_show_country'] !== '0';
+                $address_format = isset($all_configs['store_page_address_format'])
+                    ? trim($all_configs['store_page_address_format'])
+                    : '';
+
+                if ($address_format === '') {
+                    $display_locality = array_filter([
+                        $store_data->city,
+                        $store_data->state,
+                        $store_data->postal_code,
+                        $show_country ? $store_data->country : '',
+                    ]);
+                    $display_address = array_filter([
+                        $store_data->street,
+                        implode(', ', $display_locality),
+                    ]);
+                    $store_data->display_address = implode(', ', $display_address);
+                } else {
+                    $store_data->display_address = strtr($address_format, [
+                        '{street}'      => $store_data->street,
+                        '{city}'        => $store_data->city,
+                        '{state}'       => $store_data->state,
+                        '{postal_code}' => $store_data->postal_code,
+                        '{country}'     => $show_country ? $store_data->country : '',
+                    ]);
+                    $store_data->display_address = preg_replace('/\s+/', ' ', $store_data->display_address);
+                    $store_data->display_address = preg_replace('/(?:\s*,\s*){2,}/', ', ', $store_data->display_address);
+                    $store_data->display_address = trim($store_data->display_address, " \t\n\r\0\x0B,");
+                }
+
+                $store_data->display_address = apply_filters(
+                    'asl_filter_store_display_address',
+                    $store_data->display_address,
+                    $store_data,
+                    $all_configs
+                );
 
                 //	To display only one parameter
                 if (isset($atts['field'])) {
@@ -612,6 +679,9 @@ class App
 
                 //	Show the closed or not?
                 $show_close_label 			= (isset($atts['closed_label']) && $atts['closed_label'] == '1') ? true : false;
+
+                // Always show individual days on the full store page.
+                $all_configs['week_hours'] = '1';
 
                 //	Open hours
                 $store_data->open_hours = ($all_configs['hide_hours'] != '1') ? \AgileStoreLocator\Helper::openHours($store_data, $all_configs['week_hours'], $show_close_label) : '';
@@ -1173,8 +1243,18 @@ class App
         $all_configs['map_layout'] = $this->_map_layout($all_configs['map_layout']);
         
         //Load the map customization
-        $map_customize  = $wpdb->get_results('SELECT content FROM ' . ASL_PREFIX . "settings WHERE type = 'map' AND id = 1");
-        $map_customize  = ($map_customize && $map_customize[0]->content) ? $map_customize[0]->content : '[]';
+        $map_customize = \AgileStoreLocator\Helper::get_setting('map', 'map_customize');
+        $map_customize = $map_customize ? $map_customize : '[]';
+
+        // Customize Map provides the defaults; explicit shortcode controls keep priority.
+        $map_customize_data = json_decode($map_customize, true);
+        if (is_array($map_customize_data) && isset($map_customize_data['map_controls']) && is_array($map_customize_data['map_controls'])) {
+            foreach (['cameracontrol', 'zoomcontrol', 'streetviewcontrol', 'fullscreencontrol', 'maptypecontrol'] as $control_key) {
+                if (!array_key_exists($control_key, $atts) && isset($map_customize_data['map_controls'][$control_key])) {
+                    $all_configs[$control_key] = empty($map_customize_data['map_controls'][$control_key]) ? 'false' : 'true';
+                }
+            }
+        }
 
         //For Translation
         $words = [

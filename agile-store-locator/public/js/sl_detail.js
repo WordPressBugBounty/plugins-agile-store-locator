@@ -134,4 +134,28 @@
     return true;
   };
 
+  function initStoreGallery() {
+    document.querySelectorAll('.asl-store-pg .asl-gallery-toggle').forEach(function(toggle) {
+      toggle.addEventListener('click', function() {
+        var storePage = toggle.closest('.asl-store-pg');
+        if (!storePage) {
+          return;
+        }
+
+        storePage.querySelectorAll('.asl-gallery-extra[hidden]').forEach(function(photo) {
+          photo.hidden = false;
+        });
+
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.hidden = true;
+      });
+    });
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initStoreGallery();
+  } else {
+    document.addEventListener('DOMContentLoaded', initStoreGallery);
+  }
+
 }( jQuery ));

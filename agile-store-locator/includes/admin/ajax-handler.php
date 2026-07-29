@@ -67,7 +67,9 @@ class AjaxHandler {
 
 
     /*Markers*/
+    $this->register_route('add_markers', 'Marker', 'add_marker');
     $this->register_route('delete_marker', 'Marker', 'delete_marker');
+    $this->register_route('update_marker', 'Marker', 'update_marker');
     $this->register_route('get_marker_byid', 'Marker', 'get_marker_by_id');
     $this->register_route('get_markers', 'Marker', 'get_markers');  
     
@@ -192,4 +194,3 @@ class AjaxHandler {
     die;
   }
 }
-

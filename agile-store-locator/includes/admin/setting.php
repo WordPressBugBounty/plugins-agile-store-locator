@@ -150,6 +150,10 @@ class Setting extends Base
             $data_['country_restrict'] = $validation_result['country_restrict'];
         }
 
+        if (isset($data_['store_page_address_format'])) {
+            $data_['store_page_address_format'] = sanitize_text_field($data_['store_page_address_format']);
+        }
+
         //  Loop over the setting items
         foreach ($keys as $key) {
             $wpdb->update(
