@@ -113,7 +113,7 @@ class Store
 
         //  Validate the allowed clauses
         foreach ($where_clause as $cl_key => $cl_value) {
-            if (!in_array($cl_key, ['category', 'countries', 'state', 'city', 'country','pending', 'lang', 'meta', 'id', 'title', 'description', 'is_disabled'])) {
+            if (!in_array($cl_key, ['category', 'exclude_categories', 'countries', 'state', 'city', 'country','pending', 'lang', 'meta', 'id', 'title', 'description', 'is_disabled'])) {
                 unset($where_clause[$cl_key]);
             }
         }
@@ -157,12 +157,29 @@ class Store
 
             $categories       = $where_clause['category'];
 
-            $the_categories   = array_map('intval', explode(',', $categories));
+            $the_categories   = array_filter(array_map('intval', explode(',', $categories)));
             $the_categories   = implode(',', $the_categories);
 
-            $category_clause  = " AND {$ASL_PREFIX}stores_categories.`category_id` IN (".$the_categories.')';
+            if ($the_categories) {
+                $category_clause  = " AND {$ASL_PREFIX}stores_categories.`category_id` IN (".$the_categories.')';
+            }
 
             unset($where_clause['category']);
+        }
+
+        //  Exclude Categories Clause
+        if (isset($where_clause['exclude_categories'])) {
+
+            $exclude_categories = $where_clause['exclude_categories'];
+
+            $excluded_categories = array_filter(array_map('intval', explode(',', $exclude_categories)));
+            $excluded_categories = implode(',', $excluded_categories);
+
+            if ($excluded_categories) {
+                $where_query .= " AND s.`id` NOT IN (SELECT store_id FROM {$ASL_PREFIX}stores_categories WHERE `category_id` IN (".$excluded_categories.'))';
+            }
+
+            unset($where_clause['exclude_categories']);
         }
 
         //  Pending Clause
@@ -589,8 +606,8 @@ class Store
                   WHEN (
                     lat IS NOT NULL AND lng IS NOT NULL AND lat <> '' AND lng <> '' AND lat NOT IN ('0','0.0') AND lng NOT IN ('0','0.0')
                     AND (
-                      lat NOT REGEXP '^[+-]?(?:[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:e[+-]?[0-9]+)?$'
-                      OR  lng NOT REGEXP '^[+-]?(?:[0-9]+\\.?[0-9]*|\\.[0-9]+)(?:e[+-]?[0-9]+)?$'
+                      lat NOT REGEXP '^[+-]?([0-9]+\\.?[0-9]*|\\.[0-9]+)(e[+-]?[0-9]+)?$'
+                      OR  lng NOT REGEXP '^[+-]?([0-9]+\\.?[0-9]*|\\.[0-9]+)(e[+-]?[0-9]+)?$'
                       OR  lat < -90 OR lat > 90 OR lng < -180 OR lng > 180
                     )
                   )

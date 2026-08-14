@@ -296,6 +296,13 @@ if($level_mode == '1'): ?>
                                                                 <?php endforeach ?>
                                                             </select>
                                                         </div>
+                                                        <?php foreach ($address_custom_fields as $fieldName => $fieldData):
+                                                            $field = new \AgileStoreLocator\Form\CustomField($fieldData);
+                                                        ?>
+                                                        <div class="col-md-6 form-group mb-4">
+                                                            <?php echo $field->render('asl-custom'); ?>
+                                                        </div>
+                                                        <?php endforeach; ?>
                                                         <div class="col-12">
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -467,7 +474,7 @@ if($level_mode == '1'): ?>
                                                         <?php 
 
                                 // Organize fields into sections based on their types
-                                foreach ($fields as $fieldName => $fieldData) {
+                                foreach ($other_custom_fields as $fieldName => $fieldData) {
                                     
                                   $field = new \AgileStoreLocator\Form\CustomField($fieldData);
 

@@ -558,6 +558,7 @@ class Store extends Base
         //  Custom Field
         $custom_fields        = (isset($_REQUEST['asl-custom']) && $_REQUEST['asl-custom']) ? stripslashes_deep($_REQUEST['asl-custom']) : null;
         $custom_fields        = ($custom_fields && is_array($custom_fields) && count($custom_fields) > 0) ? $this->clean_html_array($custom_fields) : null;
+        $custom_fields        = $custom_fields ? \AgileStoreLocator\Form\CustomField::sanitizeValues($custom_fields, \AgileStoreLocator\Helper::get_custom_fields()) : null;
 
         //  Clean the array
         $form_data = $this->clean_input_array($form_data);
@@ -635,6 +636,7 @@ class Store extends Base
         //  Custom Field
         $custom_fields        = (isset($_REQUEST['asl-custom']) && $_REQUEST['asl-custom']) ? stripslashes_deep($_REQUEST['asl-custom']) : null;
         $custom_fields        = ($custom_fields && is_array($custom_fields) && count($custom_fields) > 0) ? $this->clean_html_array($custom_fields) : null;
+        $custom_fields        = $custom_fields ? \AgileStoreLocator\Form\CustomField::sanitizeValues($custom_fields, \AgileStoreLocator\Helper::get_custom_fields()) : null;
 
         //  When Update Id is there
         if ($update_id && is_numeric($update_id)) {

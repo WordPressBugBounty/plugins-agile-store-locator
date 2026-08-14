@@ -143,9 +143,8 @@ class Attribute {
     //  must be a valid attribute
     $attr_name   = (in_array($type, self::$options))? $type: self::$options[0]; 
 
-
-    //  Where clause string
-    $sql_query = "SELECT id, name, ordr FROM ".ASL_PREFIX.$attr_name;
+    // Query all columns so older specials tables without brand_id remain readable.
+    $sql_query = "SELECT * FROM ".ASL_PREFIX.$attr_name;
 
     //  Add the clause with prepare stmt
     if(!empty($clauses)) {
@@ -160,6 +159,10 @@ class Attribute {
     $list        = [];
 
     foreach ($results as $r) {  
+
+      if($attr_name === 'specials' && !property_exists($r, 'brand_id')) {
+        $r->brand_id = null;
+      }
 
       //  Clean the attribute
       $r->name = esc_attr($r->name);

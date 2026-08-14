@@ -1182,20 +1182,18 @@ if($level_mode == '1'){ ?>
                <div class="card-body">
                   <div class="row">
                      <div class="col-md-12">
-                        <p><?php echo esc_attr__('Additional fields for the store can be created through this section, new fields will appear in the store form and via CSV import.','asl_locator') ?> <?php echo esc_attr__('To show the additional fields on the template, please add the fields in the template as in this ','asl_locator') ?><a target="_blank" href="https://www.youtube.com/watch?v=WpPUMxlNX4M"><?php echo esc_attr__('Video Guide','asl_locator') ?></a></p>
-                        <p class="alert alert-primary" role="alert"><?php echo wp_kses_post(__(' <b>Control Name</b> must be small-case and without spacing, please use underscore sign (_) as the space separator, example: <b>facebook_url</b></p>', 'asl_locator')); ?> </p>
+                        <p><?php echo esc_html__('Create extra fields for your stores and choose which tab they appear in. These fields are also available through CSV import and export.','asl_locator') ?> <?php echo esc_html__('To show additional fields on the frontend template, see this ','asl_locator') ?><a target="_blank" href="https://www.youtube.com/watch?v=WpPUMxlNX4M"><?php echo esc_html__('Video Guide','asl_locator') ?></a></p>
+                        <p class="alert alert-primary" role="alert"><?php echo wp_kses_post(__('The <b>Internal Field Name</b> is generated automatically for new fields. Open <b>Advanced settings</b> only when you need to review it or add a CSS class.', 'asl_locator')); ?></p>
                         <form id="frm-asl-custom-fields">
                            <div class="table-responsive">
                               <table class="table table-bordered table-stripped asl-attr-manage">
                                  <thead>
                                     <tr>
-                                       <th><?php echo esc_attr__('Label','asl_locator') ?></th>
-                                       <th><?php echo esc_attr__('Control Name','asl_locator') ?></th>
-                                       <th><?php echo esc_attr__('Control Type','asl_locator') ?></th>
-                                       <th><?php echo esc_attr__('Options (Comma-separated values)','asl_locator') ?></th>
-                                       <th><?php echo esc_attr__('Require','asl_locator') ?></th>
-                                       <th><?php echo esc_attr__('CSS Class','asl_locator') ?></th>
-                                       <th><?php echo esc_attr__('Action','asl_locator') ?></th>
+                                       <th><?php echo esc_html__('Field Label','asl_locator') ?></th>
+                                       <th><?php echo esc_html__('Field Type','asl_locator') ?></th>
+                                       <th><?php echo esc_html__('Show Field In','asl_locator') ?></th>
+                                       <th><?php echo esc_html__('Required','asl_locator') ?></th>
+                                       <th><?php echo esc_html__('Actions','asl_locator') ?></th>
                                     </tr>
                                  </thead>
                                  <tbody>
@@ -1208,7 +1206,8 @@ if($level_mode == '1'){ ?>
                                           'dropdown'  => esc_attr__('Dropdown', 'asl_locator'),
                                           'radio'     => esc_attr__('Radio List', 'asl_locator'),
                                           'checkbox'  => esc_attr__('Checkbox', 'asl_locator'),
-                                          'gallery'   => esc_attr__('Gallery', 'asl_locator')
+                                          'gallery'   => esc_attr__('Gallery', 'asl_locator'),
+                                          'page_link' => esc_attr__('Internal Page Link', 'asl_locator')
                                        ];
 
                                        $field_index = 0;
@@ -1222,16 +1221,31 @@ if($level_mode == '1'){ ?>
                               				$field_label     = strip_tags($field['label']);
                               				$css_class 	     = isset($field['css_class'])? strip_tags($field['css_class']): '';
                                           $field_require   = (isset($field['require']) && $field['require'])? true: false;
+                                          $field_section   = isset($field['section']) && $field['section'] === 'address' ? 'address' : 'other';
 
                                        	?>
-                                    <tr>
-                                       <td colspan="1">
-                                          <div class="form-group"><input value="<?php echo esc_attr__($field_label); ?>" type="text" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div>
+                                    <tr class="asl-custom-field-row">
+                                       <td>
+                                          <div class="form-group mb-2"><input value="<?php echo esc_attr__($field_label); ?>" type="text" aria-label="<?php echo esc_attr__('Field Label', 'asl_locator'); ?>" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div>
+                                          <div class="asl-field-choices <?php echo in_array($field_type, ['dropdown', 'radio'], true) ? '' : 'd-none'; ?> mb-2">
+                                             <label class="small font-weight-bold"><?php echo esc_html__('Choices', 'asl_locator'); ?></label>
+                                             <input value="<?php echo esc_attr($field_option); ?>" type="text" placeholder="<?php echo esc_attr__('Example: Small, Medium, Large', 'asl_locator'); ?>" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]">
+                                             <small class="form-text text-muted"><?php echo esc_html__('Separate each choice with a comma.', 'asl_locator'); ?></small>
+                                          </div>
+                                          <details class="asl-field-advanced">
+                                             <summary><?php echo esc_html__('Advanced settings', 'asl_locator'); ?></summary>
+                                             <div class="form-group mt-2 mb-2">
+                                                <label class="small font-weight-bold"><?php echo esc_html__('Internal Field Name', 'asl_locator'); ?></label>
+                                                <input value="<?php echo esc_attr__($field_name); ?>" type="text" data-auto-name="0" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]">
+                                                <small class="form-text text-muted"><?php echo esc_html__('Changing this name can disconnect previously saved values.', 'asl_locator'); ?></small>
+                                             </div>
+                                             <div class="form-group mb-2">
+                                                <label class="small font-weight-bold"><?php echo esc_html__('CSS Class', 'asl_locator'); ?></label>
+                                                <input maxlength="50" value="<?php echo esc_attr($css_class); ?>" type="text" class="asl-attr-class form-control">
+                                             </div>
+                                          </details>
                                        </td>
-                                       <td colspan="1">
-                                          <div class="form-group"><input value="<?php echo esc_attr__($field_name); ?>" type="text" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"></div>
-                                       </td>
-                                       <td colspan="1">
+                                       <td>
                                           <div class="form-group">
                                              <select class="form-control asl-attr-type">
                                                 <?php
@@ -1243,25 +1257,28 @@ if($level_mode == '1'){ ?>
                                              </select>
                                           </div>
                                        </td>
-                                       <td colspan="1">
-                                          <div class="form-group"><input <?php if(in_array($field_type, ['text', 'textarea', 'richtext', 'checkbox', 'gallery'])) echo 'readonly="true"'; ?> value="<?php echo esc_attr($field_option); ?>" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div>
-                                       </td>
-                                       <td colspan="1">
-                                          <div class="form-group-inner mt-2">
-                                             <label class="switch" for="asl-cf-req-<?php echo esc_attr($field_index); ?>"><input type="checkbox" <?php if($field_require) echo 'checked' ?> value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-<?php echo esc_attr($field_index); ?>"><span class="slider round"></span></label>
-                                          </div>
-                                       </td>
-                                       <td colspan="1">
+                                       <td>
                                           <div class="form-group">
-                                             <input maxlength="50" value="<?php echo esc_attr($css_class); ?>" type="text" class="asl-attr-class form-control">
+                                             <select class="form-control asl-attr-section">
+                                                <option value="other" <?php selected($field_section, 'other'); ?>><?php echo esc_html__('Other Details tab', 'asl_locator'); ?></option>
+                                                <option value="address" <?php selected($field_section, 'address'); ?>><?php echo esc_html__('Store Address tab', 'asl_locator'); ?></option>
+                                             </select>
+                                             <small class="form-text text-muted"><?php echo esc_html__('Choose where this field appears when editing a store.', 'asl_locator'); ?></small>
                                           </div>
                                        </td>
-                                       <td colspan="1">
-                                          <span class="add-k-delete glyp-trash">
+                                       <td>
+                                          <div class="form-group-inner mt-2 d-flex align-items-center">
+                                             <label class="switch" for="asl-cf-req-<?php echo esc_attr($field_index); ?>"><input type="checkbox" <?php if($field_require) echo 'checked' ?> value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-<?php echo esc_attr($field_index); ?>"><span class="slider round"></span></label>
+                                             <span class="asl-required-status ml-2"><?php echo $field_require ? esc_html__('Yes', 'asl_locator') : esc_html__('No', 'asl_locator'); ?></span>
+                                          </div>
+                                       </td>
+                                       <td>
+                                          <button type="button" class="btn btn-link text-danger add-k-delete glyp-trash" title="<?php echo esc_attr__('Remove field', 'asl_locator'); ?>">
                                              <svg width="16" height="16">
                                                 <use xlink:href="#i-trash"></use>
                                              </svg>
-                                          </span>
+                                             <span><?php echo esc_html__('Remove', 'asl_locator'); ?></span>
+                                          </button>
                                        </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -1279,7 +1296,7 @@ if($level_mode == '1'){ ?>
                                  <use xlink:href="#i-plus"></use>
                               </svg>
                            </i>
-                           <?php echo esc_attr__('New Field','asl_locator') ?>
+                           <?php echo esc_html__('Add Custom Field','asl_locator') ?>
                         </button>
                         <button type="button" class="btn btn-success mt-3 float-right" data-loading-text="<?php echo esc_attr__('Saving...','asl_locator') ?>" data-completed-text="Fields Updated" id="btn-asl-save-schema"><?php echo esc_attr__('Save Fields','asl_locator') ?></button>
                      </div>

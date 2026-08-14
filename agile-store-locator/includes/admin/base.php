@@ -236,9 +236,13 @@ class Base {
 
         $field_key = strip_tags($field_key);
 
-        $field['type']  = strip_tags($field['type']);
-        $field['name']  = strip_tags($field['name']);
-        $field['label'] = strip_tags($field['label']);
+        $field['type']      = strip_tags($field['type']);
+        $field['name']      = strip_tags($field['name']);
+        $field['label']     = strip_tags($field['label']);
+        $field['css_class'] = isset($field['css_class']) ? strip_tags($field['css_class']) : '';
+        $field['section']   = isset($field['section']) && in_array($field['section'], ['address', 'other'], true)
+          ? $field['section']
+          : 'other';
 
         $filter_fields[$field_key] = $field;
       }
@@ -247,6 +251,28 @@ class Base {
     }
 
     return $fields;
+  }
+
+  /**
+   * Group admin custom fields by the store form section where they render.
+   * Existing fields without a section remain in Other Details.
+   *
+   * @param array $fields Custom field definitions.
+   * @return array
+   */
+  protected function _partition_custom_fields($fields) {
+
+    $sections = ['address' => [], 'other' => []];
+
+    foreach ((array) $fields as $field_name => $field) {
+      $section = isset($field['section']) ? $field['section'] : 'other';
+      $section = apply_filters('asl_admin_custom_field_section', $section, $field_name, $field);
+      $section = in_array($section, ['address', 'other'], true) ? $section : 'other';
+
+      $sections[$section][$field_name] = $field;
+    }
+
+    return $sections;
   }
 
 

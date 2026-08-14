@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 7.0
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -385,11 +385,16 @@ https://agilestorelocator.com/wiki/
 
 == Screenshots ==
 
-1. FrontView
+1. Store Locator UI
 2. FrontView with Infobox
-3. FrontView with Direction Dailog
-4. FrontView with Direction Panel
-5. Add Store Panel
+3. FrontView with Direction Panel
+4. Manage Stores
+5. Map Customization
+6. Create New Store
+7. Manage Markers
+8. Manage Logos
+9. Manage Categories
+9. ASL Settings
 
 
 
@@ -405,6 +410,12 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.7.1 =
+- Added configurable custom field placement in the Store Address or Other Details tabs
+- Simplified the custom field manager for easier setup and clearer field controls
+- Added one-time internal field name generation without renaming saved field keys, conditional choices, and safer field removal
+- Added an Internal Page Link custom field with searchable local content and relative URL storage
 
 = 1.7.0 =
 - Added marker management, including uploading, editing, deleting, and assigning custom markers to stores

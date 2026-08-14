@@ -2216,6 +2216,93 @@ var asl_engine = window['asl_engine'] || {};
               updateBulkGalleryPreview(input);
           }).open();
         });
+
+        // Internal page link picker for custom fields in the bulk editor.
+        var activeBulkPageLinkInput = null,
+            bulkPageLinkSearchTimer = null;
+
+        function closeBulkPageLinkPicker() {
+          $(".asl-page-link-dialog").remove();
+          activeBulkPageLinkInput = null;
+        }
+
+        function loadBulkPageLinkResults(search) {
+          var $results = $(".asl-page-link-results");
+          $results.html('<div class="asl-page-link-message">Searching&hellip;</div>');
+
+          $.get(ASL_REMOTE.URL, {
+            action: "asl_search_internal_pages",
+            nonce: ASL_REMOTE.nounce,
+            search: search || ""
+          }).done(function(response) {
+            var items = response && response.success && response.data ? response.data.items : [];
+            $results.empty();
+
+            if (!items || !items.length) {
+              $results.html('<div class="asl-page-link-message">No matching pages found.</div>');
+              return;
+            }
+
+            $.each(items, function(index, item) {
+              var $button = $('<button type="button" class="asl-page-link-result"></button>');
+              $button.append($("<strong></strong>").text(item.title || "(no title)"));
+              $button.append($("<span></span>").text((item.type || "Page") + " · " + item.url));
+              $button.data("url", item.url);
+              $results.append($button);
+            });
+          }).fail(function() {
+            $results.html('<div class="asl-page-link-message asl-page-link-error">Unable to load pages. Please try again.</div>');
+          });
+        }
+
+        $bulk_offcanvas.on("click", ".asl-page-link-button", function(e) {
+          e.preventDefault();
+
+          activeBulkPageLinkInput = $(this).closest(".asl-page-link-control").find(".asl-page-link-value")[0] || null;
+          if (!activeBulkPageLinkInput) {
+            return;
+          }
+
+          $("body").append(
+            '<div class="asl-page-link-dialog" role="dialog" aria-modal="true" aria-labelledby="asl-page-link-title">' +
+              '<div class="asl-page-link-backdrop"></div>' +
+              '<div class="asl-page-link-panel">' +
+                '<div class="asl-page-link-header"><h2 id="asl-page-link-title">Select a page</h2><button type="button" class="asl-page-link-close" aria-label="Close">&times;</button></div>' +
+                '<div class="asl-page-link-search"><label for="asl-page-link-search-input">Search pages and posts</label><input id="asl-page-link-search-input" type="search" autocomplete="off" placeholder="Start typing a page title&hellip;"></div>' +
+                '<div class="asl-page-link-results"></div>' +
+              '</div>' +
+            '</div>'
+          );
+
+          loadBulkPageLinkResults("");
+          $("#asl-page-link-search-input").trigger("focus");
+        });
+
+        $(document).on("input.aslBulkPageLink", "#asl-page-link-search-input", function() {
+          var search = this.value;
+          clearTimeout(bulkPageLinkSearchTimer);
+          bulkPageLinkSearchTimer = setTimeout(function() { loadBulkPageLinkResults(search); }, 250);
+        });
+
+        $(document).on("click.aslBulkPageLink", ".asl-page-link-result", function() {
+          if (activeBulkPageLinkInput) {
+            $(activeBulkPageLinkInput).val($(this).data("url")).trigger("change");
+          }
+          closeBulkPageLinkPicker();
+        });
+
+        $(document).on("click.aslBulkPageLink", ".asl-page-link-close, .asl-page-link-backdrop", closeBulkPageLinkPicker);
+
+        $(document).on("keydown.aslBulkPageLink", function(e) {
+          if (e.key === "Escape" && activeBulkPageLinkInput) {
+            closeBulkPageLinkPicker();
+          }
+        });
+
+        $bulk_offcanvas.on("click", ".asl-page-link-clear", function(e) {
+          e.preventDefault();
+          $(this).closest(".asl-page-link-control").find(".asl-page-link-value").val("").trigger("change");
+        });
       }
 
       $('#btn-asl-bulk-edit').on('click', function(e) {
@@ -3263,6 +3350,71 @@ var asl_engine = window['asl_engine'] || {};
         }).open();
     });
 
+      // Plugin-owned searchable picker avoids conflicts with global admin CSS.
+      var activePageLinkInput = null,
+          pageLinkSearchTimer = null;
+
+      function closePageLinkPicker() {
+        $(".asl-page-link-dialog").remove();
+        activePageLinkInput = null;
+      }
+
+      function loadPageLinkResults(search) {
+        var $results = $(".asl-page-link-results");
+        $results.html('<div class="asl-page-link-message">Searching&hellip;</div>');
+        $.get(ASL_REMOTE.URL, {
+          action: "asl_search_internal_pages", nonce: ASL_REMOTE.nounce, search: search || ""
+        }).done(function(response) {
+          var items = response && response.success && response.data ? response.data.items : [];
+          $results.empty();
+          if (!items || !items.length) {
+            $results.html('<div class="asl-page-link-message">No matching pages found.</div>');
+            return;
+          }
+          $.each(items, function(index, item) {
+            var $button = $('<button type="button" class="asl-page-link-result"></button>');
+            $button.append($("<strong></strong>").text(item.title || "(no title)"));
+            $button.append($("<span></span>").text((item.type || "Page") + " · " + item.url));
+            $button.data("url", item.url);
+            $results.append($button);
+          });
+        }).fail(function() {
+          $results.html('<div class="asl-page-link-message asl-page-link-error">Unable to load pages. Please try again.</div>');
+        });
+      }
+
+      $form.on("click", ".asl-page-link-button", function(e) {
+        e.preventDefault();
+        activePageLinkInput = document.getElementById($(this).data("target"));
+        if (!activePageLinkInput) return;
+        $("body").append(
+          '<div class="asl-page-link-dialog" role="dialog" aria-modal="true" aria-labelledby="asl-page-link-title"><div class="asl-page-link-backdrop"></div><div class="asl-page-link-panel"><div class="asl-page-link-header"><h2 id="asl-page-link-title">Select a page</h2><button type="button" class="asl-page-link-close" aria-label="Close">&times;</button></div><div class="asl-page-link-search"><label for="asl-page-link-search-input">Search pages and posts</label><input id="asl-page-link-search-input" type="search" autocomplete="off" placeholder="Start typing a page title&hellip;"></div><div class="asl-page-link-results"></div></div></div>'
+        );
+        loadPageLinkResults("");
+        $("#asl-page-link-search-input").trigger("focus");
+      });
+
+      $(document).on("input", "#asl-page-link-search-input", function() {
+        var search = this.value;
+        clearTimeout(pageLinkSearchTimer);
+        pageLinkSearchTimer = setTimeout(function() { loadPageLinkResults(search); }, 250);
+      });
+      $(document).on("click", ".asl-page-link-result", function() {
+        if (activePageLinkInput) {
+          activePageLinkInput.value = $(this).data("url");
+          $(activePageLinkInput).trigger("change");
+        }
+        closePageLinkPicker();
+      });
+      $(document).on("click", ".asl-page-link-close, .asl-page-link-backdrop", closePageLinkPicker);
+      $(document).on("keydown", function(e) {
+        if (e.key === "Escape" && $(".asl-page-link-dialog").length) closePageLinkPicker();
+      });
+      $form.on("click", ".asl-page-link-clear", function(e) {
+        e.preventDefault();
+        $("#" + $(this).data("target")).val("").trigger("change");
+      });
+
     
       
       //  Add store button
@@ -3729,18 +3881,12 @@ var asl_engine = window['asl_engine'] || {};
         const field_uniq_id = generateUniqueId();
 
 
-        var $new_slot = $('<tr>\
-                            <td colspan="1"><div class="form-group"><input type="text" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div></td>\
-                            <td colspan="1"><div class="form-group"><input type="text" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"></div></td>\
-                            <td colspan="1"><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="richtext">Rich Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option></select></div></td>\
-                            <td colspan="1"><div class="form-group"><input readonly="true" type="text" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"></div></td>\
-                            <td colspan="1"><div class="form-group-inner mt-2"><label class="switch" for="asl-cf-req-'+field_uniq_id+'"><input type="checkbox" value="1" class="asl-attr-require custom-control-input"  id="asl-cf-req-'+field_uniq_id+'"><span class="slider round"></span></label></div></td>\
-                            <td colspan="1"><div class="form-group"><input maxlength="50" type="text" class="asl-attr-class form-control"></div></td>\
-                            <td colspan="1">\
-                              <span class="add-k-delete glyp-trash">\
-                                <svg width="16" height="16"><use xlink:href="#i-trash"></use></svg>\
-                              </span>\
-                            </td>\
+        var $new_slot = $('<tr class="asl-custom-field-row">\
+                            <td><div class="form-group mb-2"><input type="text" aria-label="Field Label" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div><div class="asl-field-choices d-none mb-2"><label class="small font-weight-bold">Choices</label><input type="text" placeholder="Example: Small, Medium, Large" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"><small class="form-text text-muted">Separate each choice with a comma.</small></div><details class="asl-field-advanced"><summary>Advanced settings</summary><div class="form-group mt-2 mb-2"><label class="small font-weight-bold">Internal Field Name</label><input type="text" data-auto-name="1" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"><small class="form-text text-muted">Generated automatically from the label.</small></div><div class="form-group mb-2"><label class="small font-weight-bold">CSS Class</label><input maxlength="50" type="text" class="asl-attr-class form-control"></div></details></td>\
+                            <td><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="richtext">Rich Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option><option value="page_link">Internal Page Link</option></select></div></td>\
+                            <td><div class="form-group"><select class="form-control asl-attr-section"><option value="other">Other Details tab</option><option value="address">Store Address tab</option></select><small class="form-text text-muted">Choose where this field appears when editing a store.</small></div></td>\
+                            <td><div class="form-group-inner mt-2 d-flex align-items-center"><label class="switch" for="asl-cf-req-'+field_uniq_id+'"><input type="checkbox" value="1" class="asl-attr-require custom-control-input" id="asl-cf-req-'+field_uniq_id+'"><span class="slider round"></span></label><span class="asl-required-status ml-2">No</span></div></td>\
+                            <td><button type="button" class="btn btn-link text-danger add-k-delete glyp-trash" title="Remove field"><svg width="16" height="16"><use xlink:href="#i-trash"></use></svg><span>Remove</span></button></td>\
                           </tr>');
         
         var $cur_slot = $('.asl-attr-manage tbody').append($new_slot);
@@ -3750,26 +3896,49 @@ var asl_engine = window['asl_engine'] || {};
       //  Delete current field
       $('.asl-attr-manage tbody').on('click', '.add-k-delete', function(e) {
 
-        var $this_tr = $(this).parent().parent().remove();
+        var field_label = $(this).closest('tr').find('.asl-attr-label').val() || 'this field';
+        if (window.confirm('Remove "' + field_label + '"? Existing store values for this field will no longer be available in the form.')) {
+          $(this).closest('tr').remove();
+        }
       });
 
       //  Text will have it locked
       $('.asl-attr-manage tbody').on('change', '.asl-attr-type', function(e) {
 
 
-        var $this_tr      = $(this).parent().parent().parent(),
-            $option_field = $this_tr.find('.asl-attr-options');
+        var $this_tr       = $(this).closest('tr'),
+            $option_field  = $this_tr.find('.asl-attr-options'),
+            $choices_group = $this_tr.find('.asl-field-choices');
 
 
-        if (['richtext', 'textarea', 'text', 'checkbox', 'gallery'].includes(this.value)) {
-
-          $option_field.attr('readonly','true');
-          $option_field.val('');
+        if (['dropdown', 'radio'].includes(this.value)) {
+          $option_field.removeAttr('readonly','true');
+          $choices_group.removeClass('d-none');
         }
         else {
-          $option_field.removeAttr('readonly','true');
+          $option_field.attr('readonly','true');
+          $option_field.val('');
+          $choices_group.addClass('d-none');
         }
 
+      });
+
+      // Generate an internal name once for a new field. Label edits never
+      // update an internal name that already has a value.
+      $('.asl-attr-manage tbody').on('change', '.asl-attr-label', function() {
+        var $name = $(this).closest('tr').find('.asl-attr-name');
+        if ($name.attr('data-auto-name') === '1' && !$name.val()) {
+          $name.val($(this).val().toLowerCase().trim().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, ''));
+          $name.attr('data-auto-name', '0');
+        }
+      });
+
+      $('.asl-attr-manage tbody').on('input', '.asl-attr-name', function() {
+        $(this).attr('data-auto-name', '0');
+      });
+
+      $('.asl-attr-manage tbody').on('change', '.asl-attr-require', function() {
+        $(this).closest('td').find('.asl-required-status').text(this.checked ? 'Yes' : 'No');
       });
 
 
@@ -3786,9 +3955,21 @@ var asl_engine = window['asl_engine'] || {};
       //  Save Event for the Fields
       $('#btn-asl-save-schema').on('click', function(e) {
 
+        $('.asl-custom-field-row').each(function() {
+          var $row = $(this),
+              $name = $row.find('.asl-attr-name');
+
+          if (!$name.val()) {
+            $name.val($row.find('.asl-attr-label').val().toLowerCase().trim().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, ''));
+            $name.attr('data-auto-name', '0');
+          }
+        });
+
         if (!$field_form.validationEngine('validate')) return;
 
         var $btn = $(this);
+
+        custom_fields = {};
 
         //  Capture fields data
         var $fields_tr = $('.asl-attr-manage tbody tr');
@@ -3799,10 +3980,11 @@ var asl_engine = window['asl_engine'] || {};
                 field_name    = $tr.find('.asl-attr-name').val(),
                 field_type    = $tr.find('.asl-attr-type').val(),
                 field_options = $tr.find('.asl-attr-options').val(),
+                field_section = $tr.find('.asl-attr-section').val(),
                 css_class     = $tr.find('.asl-attr-class').val(),
                 field_require = ($tr.find('.asl-attr-require')[0].checked)? 1: 0;
 
-            custom_fields[field_name] = {name: field_name, label: field_label, type: field_type, options: field_options, require: field_require, css_class: css_class };
+            custom_fields[field_name] = {name: field_name, label: field_label, type: field_type, options: field_options, require: field_require, section: field_section, css_class: css_class };
         });
 
         //  Send an AJAX Request
@@ -3812,6 +3994,10 @@ var asl_engine = window['asl_engine'] || {};
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=save_custom_fields', {fields: custom_fields}, function(_response) {
 
           $btn.bootButton('reset');
+
+          if (_response && _response.success) {
+            $('.asl-attr-name').attr('data-auto-name', '0');
+          }
 
           toastIt(_response);
 

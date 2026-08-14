@@ -27,6 +27,37 @@ use AgileStoreLocator\Admin\Base;
  */
 class Manager extends Base {
 
+  /** Search published public content for the Internal Page Link field. */
+  public function search_internal_pages() {
+    check_ajax_referer('asl-nounce', 'nonce');
+    if (!current_user_can('edit_posts')) {
+      wp_send_json_error(['message' => esc_html__('You are not allowed to search pages.', 'asl_locator')], 403);
+    }
+
+    $search = isset($_GET['search']) ? sanitize_text_field(wp_unslash($_GET['search'])) : '';
+    $post_types = get_post_types(['public' => true, 'show_ui' => true], 'names');
+    unset($post_types['attachment']);
+    $query = new \WP_Query([
+      'post_type' => array_values($post_types), 'post_status' => 'publish', 'posts_per_page' => 20,
+      's' => $search, 'orderby' => $search === '' ? 'date' : 'relevance', 'order' => 'DESC',
+      'no_found_rows' => true, 'ignore_sticky_posts' => true,
+      'update_post_meta_cache' => false, 'update_post_term_cache' => false,
+    ]);
+
+    $items = [];
+    foreach ($query->posts as $post) {
+      $url = get_permalink($post);
+      if (!$url) continue;
+      $post_type = get_post_type_object($post->post_type);
+      $items[] = [
+        'title' => html_entity_decode(get_the_title($post), ENT_QUOTES, get_bloginfo('charset')),
+        'type' => $post_type ? $post_type->labels->singular_name : $post->post_type,
+        'url' => wp_make_link_relative($url),
+      ];
+    }
+    wp_send_json_success(['items' => $items]);
+  }
+
 
   /**
    * The ID of this plugin.
@@ -258,7 +289,7 @@ class Manager extends Base {
     }
     
     // Plugin Validation
-    $this->localize_scripts( $this->AgileStoreLocator.'-'.$tag, 'ASL_REMOTE',  array('nounce' => wp_create_nonce('asl-nounce'), 'Com' => get_option('asl-compatible'),  'sl_lang' => $this->lang,  'LANG' => $langs, 'URL' => admin_url( 'admin-ajax.php' )));
+    $this->localize_scripts( $this->AgileStoreLocator.'-'.$tag, 'ASL_REMOTE',  array('nounce' => wp_create_nonce('asl-nounce'), 'Com' => get_option('asl-compatible'),  'sl_lang' => $this->lang,  'LANG' => $langs, 'URL' => admin_url( 'admin-ajax.php' ), 'home_url' => home_url('/')));
     
     //  Inject script with inline_script
     //wp_add_inline_script( $this->AgileStoreLocator.'-'.$tag, $this->get_local_script_data(), 'before');
@@ -370,6 +401,9 @@ class Manager extends Base {
 
     //  Custom Fields
     $fields       = $this->_get_custom_fields();
+    $field_sections = $this->_partition_custom_fields($fields);
+    $address_custom_fields = $field_sections['address'];
+    $other_custom_fields   = $field_sections['other'];
     $custom_data  = (isset($store->custom) && $store->custom)? json_decode($store->custom, true): []; 
 
     $all_configs = \AgileStoreLocator\Helper::get_configs(['api_key', 'time_format', 'branches']);
@@ -417,6 +451,9 @@ class Manager extends Base {
     $specials   = [];
 
     $fields = $this->_get_custom_fields();
+    $field_sections = $this->_partition_custom_fields($fields);
+    $address_custom_fields = $field_sections['address'];
+    $other_custom_fields   = $field_sections['other'];
     
     include ASL_PLUGIN_PATH.'admin/partials/add_store.php';    
   }

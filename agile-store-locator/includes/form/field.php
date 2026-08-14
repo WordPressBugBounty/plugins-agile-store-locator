@@ -70,9 +70,30 @@ class Field {
                     return apply_filters('asl_render_gallery_field', $this->value, $this->field_name);
                 }
 
+            case 'page_link':
+                return $this->renderPageLinkField();
+
             default:
                 return '';
         }
+    }
+
+    /** Render a searchable same-site page link field. */
+    protected function renderPageLinkField() {
+        $require_field = ($this->require) ? 'validate[required]' : '';
+
+        if (!is_admin()) {
+            return sprintf(
+                '<div class="sl-form-group sl-group"><label class="control-label" for="sl-%1$s">%2$s</label><input type="text" id="sl-%1$s" name="%3$s" class="form-control %4$s" value="%5$s"></div>',
+                esc_attr($this->name), esc_html($this->label), esc_attr($this->field_name), esc_attr($require_field), esc_attr($this->value)
+            );
+        }
+
+        return sprintf(
+            '<div class="sl-form-group sl-group asl-page-link-control"><label class="control-label" for="sl-%1$s">%2$s</label><div class="input-group"><input type="text" id="sl-%1$s" name="%3$s" class="asl-page-link-value form-control %4$s" value="%5$s" placeholder="/example-page/"><button type="button" class="btn btn-secondary asl-page-link-button" data-target="sl-%1$s">%6$s</button><button type="button" class="btn btn-outline-secondary asl-page-link-clear" data-target="sl-%1$s">%7$s</button></div><small class="form-text text-muted asl-page-link-help">%8$s</small></div>',
+            esc_attr($this->name), esc_html($this->label), esc_attr($this->field_name), esc_attr($require_field), esc_attr($this->value),
+            esc_html__('Select Page', 'asl_locator'), esc_html__('Clear', 'asl_locator'), esc_html__('Search for a page or enter a relative URL such as /example-page/.', 'asl_locator')
+        );
     }
 
     /**

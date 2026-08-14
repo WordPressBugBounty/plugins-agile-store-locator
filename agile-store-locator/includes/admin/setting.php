@@ -936,6 +936,9 @@ class Setting extends Base
             $field['type']  = strip_tags(sanitize_text_field($field['type']));
             $field['name']  = strip_tags(sanitize_text_field($field['name']));
             $field['label'] = strip_tags(sanitize_text_field($field['label']));
+            $field['section'] = isset($field['section']) && in_array($field['section'], ['address', 'other'], true)
+                ? $field['section']
+                : 'other';
 
             $filter_fields[$field_key] = $field;
         }

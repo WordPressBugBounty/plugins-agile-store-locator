@@ -122,6 +122,7 @@ class Plugin {
 		
 		add_action('wp_ajax_asl_load_stores', array($this->public_request, 'load_stores'));	
 		add_action('wp_ajax_nopriv_asl_load_stores', array($this->public_request, 'load_stores'));
+		add_action('wp_ajax_asl_search_internal_pages', array($this->plugin_admin, 'search_internal_pages'));
 
 		if (is_admin())
 			$this->define_admin_hooks();
