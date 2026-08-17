@@ -261,10 +261,20 @@ class Slug {
     $store_uri = trim((string) $store_uri, '/');
 
     if($store_uri === '') {
-      return trailingslashit($base_url);
+      $store_url = trailingslashit($base_url);
+    }
+    else {
+      $store_url = trailingslashit($base_url . '/' . $store_uri);
     }
 
-    return trailingslashit($base_url . '/' . $store_uri);
+    /**
+     * Filter a generated store detail URL.
+     *
+     * @param string $store_url    Complete store detail URL.
+     * @param string $store_uri    Store slug used in the URL.
+     * @param string $language_slug Optional language slug.
+     */
+    return apply_filters('asl_store_detail_url', $store_url, $store_uri, $language_slug);
   }
 
   /**

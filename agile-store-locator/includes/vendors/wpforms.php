@@ -43,10 +43,35 @@ class WPForms {
 	 */
 	function field_properties_hidden( $properties, $field, $form_data ) {
 
-	    global $wpform_inst;
+	    $properties = $this->set_store_id_value($properties, $field);
+
+	    return $properties;
+	}
+
+	/**
+	 * [field_properties_text Add the store id to the text field (lite version)]
+	 * @param  [type] $properties [description]
+	 * @param  [type] $field      [description]
+	 * @param  [type] $form_data  [description]
+	 * @return [type]             [description]
+	 */
+	function field_properties_text( $properties, $field, $form_data ) {
+
+	    $properties = $this->set_store_id_value($properties, $field);
+
+	    return $properties;
+	}
+
+	/**
+	 * Set store id value for fields labeled "asl_store_id".
+	 * @param  [type] $properties [description]
+	 * @param  [type] $field      [description]
+	 * @return [type]             [description]
+	 */
+	protected function set_store_id_value($properties, $field) {
 
 	    //  Set the value
-	    if($field['label'] == 'asl_store_id') {
+	    if(isset($field['label']) && $field['label'] == 'asl_store_id') {
 
 	        $store = \AgileStoreLocator\Model\Store::get_store_id_via_slug();
 	        

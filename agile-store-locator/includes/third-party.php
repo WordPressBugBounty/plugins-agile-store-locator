@@ -46,6 +46,7 @@ if(!defined('ASL_DISABLE_WPFORMS') && class_exists( 'WPForms' )) {
 
 	    //  Add the hidden field via slug
 	    add_filter( 'wpforms_field_properties_hidden', [$wpforms_class, 'field_properties_hidden'], 10, 3 );
+	    add_filter( 'wpforms_field_properties_text', [$wpforms_class, 'field_properties_text'], 10, 3 );
 
 	    //  Chagne the email recipcient
 	    add_filter( 'wpforms_entry_email_atts', [$wpforms_class, 'change_email_recipient'], 10, 4 );
@@ -85,7 +86,7 @@ if(!defined('ASL_DISABLE_RANKMATH') && class_exists('RankMath\Sitemap\Sitemap') 
 	
   require_once ASL_PLUGIN_PATH.'includes/vendors/rank-math.php';
 
-  add_filter( 'rank_math/sitemap/enable_caching', '__return_false');
+  //add_filter( 'rank_math/sitemap/enable_caching', '__return_false');
   
   add_filter('rank_math/sitemap/providers', function( $external_providers ) {
     $external_providers['custom'] = new \RankMath\Sitemap\Providers\ASLRankMath();
@@ -96,6 +97,46 @@ if(!defined('ASL_DISABLE_RANKMATH') && class_exists('RankMath\Sitemap\Sitemap') 
 
   add_filter( 'rank_math/frontend/canonical', [\AgileStoreLocator\Schema\Slug::class, 'update_canonical_tag']);
 
+  }
+  catch (\Exception $e) { }
+}
+
+
+/*
+SEOPRESS
+*/
+if(!defined('ASL_DISABLE_SEOPRESS') && defined('SEOPRESS_VERSION')) {
+
+	try {
+		
+	  $seopress_class = new \AgileStoreLocator\Vendors\SeoPress();
+  	}
+	catch (\Exception $e) { }
+}
+
+
+////////////////////
+// All in One SEO //
+////////////////////
+if(!defined('ASL_DISABLE_AIOSEO') && (defined('AIOSEO_VERSION') || function_exists('aioseo'))) {
+
+  try {
+
+    $aioseo_class = new \AgileStoreLocator\Vendors\Aioseo();
+    $aioseo_class->register_hooks();
+  }
+  catch (\Exception $e) { }
+}
+
+
+///////////////////////////////
+// Ocean Extra / OceanWP SEO //
+///////////////////////////////
+if(!defined('ASL_DISABLE_OCEAN_EXTRA') && class_exists('Ocean_Extra')) {
+
+  try {
+
+    new \AgileStoreLocator\Vendors\OceanExtra();
   }
   catch (\Exception $e) { }
 }
@@ -146,4 +187,12 @@ if(!defined('ASL_DISABLE_SEOFRAMEWORK') && defined('THE_SEO_FRAMEWORK_VERSION'))
 
   }
 	catch (\Exception $e) { }
+}
+
+/**
+ * Polylang compatibility: ensure language switcher links include the store slug.
+ */
+if(function_exists('pll_the_languages')) {
+
+  add_filter('pll_translation_url', [\AgileStoreLocator\Schema\Slug::class, 'filter_polylang_translation_url'], 10, 2);
 }

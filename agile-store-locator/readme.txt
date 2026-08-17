@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 7.0
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.7.2
+Stable tag: 1.7.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -410,6 +410,16 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.7.3 =
+- AISEO plugin supported
+- Third-party improvements
+
+= 1.7.2 =
+- Redesigned the dashboard with guided setup steps, quick actions, improved system information, and monthly search and interaction summaries
+- Added dashboard onboarding progress for Google Maps setup, first-store creation, website placement, and locator color customization
+- Redesigned the UI Customizer with dedicated CSS and JavaScript, a Template 0 live preview, corrected color mappings, and automatic theme-color updates from the primary color
+- Disabled sample store, category, and store-category creation by default on new Pro installations
 
 = 1.7.1 =
 - Added configurable custom field placement in the Store Address or Other Details tabs
