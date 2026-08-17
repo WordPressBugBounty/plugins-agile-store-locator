@@ -148,9 +148,23 @@ class Manager extends Base {
      * class.
      */
 
+    $asl_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
+
+    if ('sl-ui-customizer' === $asl_page) {
+      wp_enqueue_style( 'asl_ui_customizer', ASL_URL_PATH . 'admin/css/ui-customizer.css', array(), $this->version, 'all' );
+      return;
+    }
+
     wp_enqueue_style( $this->AgileStoreLocator, ASL_URL_PATH . 'admin/css/bootstrap.min.css', array(), $this->version, 'all' );//$this->version
     wp_enqueue_style( 'asl_chosen_plugin', ASL_URL_PATH . 'admin/css/chosen.min.css', array(), $this->version, 'all' );
-    wp_enqueue_style( 'asl_locator', ASL_URL_PATH . 'admin/css/style.css', array(), $this->version, 'all' );
+
+    if ('agile-dashboard' === $asl_page) {
+      wp_enqueue_style( 'asl_dashboard', ASL_URL_PATH . 'admin/css/dashboard.css', array($this->AgileStoreLocator), $this->version, 'all' );
+      wp_enqueue_style( 'asl_dashboard_palette', ASL_URL_PATH . 'admin/css/dashboard-palette.css', array('asl_dashboard'), $this->version, 'all' );
+    }
+    else {
+      wp_enqueue_style( 'asl_locator', ASL_URL_PATH . 'admin/css/style.css', array(), $this->version, 'all' );
+    }
     wp_enqueue_style( 'asl_datatable2', ASL_URL_PATH . 'admin/datatable/media/css/jquery.dataTables.css', array(), $this->version, 'all' );
     wp_enqueue_style( 'asl_datetimepicker', ASL_URL_PATH . 'admin/css/daterangepicker.css', array(), $this->version, 'all' );
   }
@@ -191,6 +205,9 @@ class Manager extends Base {
 
     //  jscript
     wp_register_script( $this->AgileStoreLocator.'-jscript', ASL_URL_PATH . 'admin/js/jscript.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datatable', $this->AgileStoreLocator.'-draw'), $this->version, true );
+
+    // UI Customizer
+    wp_register_script( $this->AgileStoreLocator.'-ui-customizer', ASL_URL_PATH . 'admin/js/ui-customizer.js', array('jquery'), $this->version, true );
   }
 
   /**
@@ -330,8 +347,23 @@ class Manager extends Base {
    * @return [type] [description]
    */
   public function page_ui_customizer() {
-    
-    $this->_enqueue_scripts();
+
+    $handle = $this->AgileStoreLocator.'-ui-customizer';
+    wp_enqueue_script($handle);
+    $this->localize_scripts($handle, 'ASL_CUSTOMIZER', array(
+      'nonce'    => wp_create_nonce('asl-nounce'),
+      'ajaxUrl'  => admin_url('admin-ajax.php'),
+      'settings' => admin_url('admin.php?page=asl-settings'),
+      'strings'  => array(
+        'loadFirst' => esc_html__('Load a template first.', 'asl_locator'),
+        'loading'   => esc_html__('Loading template...', 'asl_locator'),
+        'saving'    => esc_html__('Saving settings...', 'asl_locator'),
+        'saved'     => esc_html__('Your customizer settings were saved.', 'asl_locator'),
+        'resetting' => esc_html__('Resetting template...', 'asl_locator'),
+        'confirm'   => esc_html__('Reset this template to its default colors and font sizes?', 'asl_locator'),
+        'error'     => esc_html__('Something went wrong. Please try again.', 'asl_locator'),
+      ),
+    ));
 
     $all_configs = array();
 
@@ -464,15 +496,14 @@ class Manager extends Base {
    * @return [type] [description]
    */
   public function page_dashboard() {
+    wp_enqueue_script('asl-bootstrap');
 
-    $this->_enqueue_scripts(false, 'dashboard');
-    
     global $wpdb;
 
     $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key'";
     $all_configs_result = $wpdb->get_results($sql);
 
-    $all_configs = array('api_key' => $all_configs_result[0]->value);
+    $all_configs = array('api_key' => isset($all_configs_result[0]->value) ? $all_configs_result[0]->value : '');
     $all_stats = array();
     
     $temp = $wpdb->get_results( "SELECT count(*) as c FROM ".ASL_PREFIX."markers");;

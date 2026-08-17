@@ -114,10 +114,18 @@ class Setting extends Base
     {
         global $wpdb;
 
+        // Focused dashboard onboarding request: save only the browser Maps API key.
+        if (isset($_POST['dashboard_google_maps_setup']) && '1' === sanitize_text_field(wp_unslash($_POST['dashboard_google_maps_setup']))) {
+            return $this->save_dashboard_google_maps_key();
+        }
+
         $response  = new \stdclass();
 
         //  Settings data
         $data_     = isset($_POST['data']) ? stripslashes_deep($_POST['data']) : [];
+        $previous_api_key = array_key_exists('api_key', $data_)
+            ? (string) $wpdb->get_var("SELECT `value` FROM " . ASL_PREFIX . "configs WHERE `key` = 'api_key'")
+            : null;
 
         //  Custom Map Style
         $custom_map_style = isset($_POST['map_style']) ? wp_unslash($_POST['map_style']) : '';
@@ -161,6 +169,11 @@ class Setting extends Base
                 ['value' => $data_[$key]],
                 ['key'   => $key]
             );
+        }
+
+        // A changed browser key must pass validation again before Step 1 is complete.
+        if (null !== $previous_api_key && $previous_api_key !== (string) $data_['api_key']) {
+            Dashboard::set_onboarding_step('connect_google_maps', false);
         }
 
         //  Custom Map Style
@@ -219,6 +232,48 @@ class Setting extends Base
         }
 
         return $this->send_response($response);
+    }
+
+    /**
+     * Save the browser Google Maps API key from the focused dashboard setup.
+     * Validation happens in the browser so referrer-restricted keys are tested
+     * in the context where the Maps JavaScript API will actually run.
+     */
+    private function save_dashboard_google_maps_key()
+    {
+        global $wpdb;
+
+        $api_key = isset($_POST['data']['api_key'])
+            ? sanitize_text_field(wp_unslash($_POST['data']['api_key']))
+            : '';
+
+        if ('' === $api_key) {
+            return $this->send_response([
+                'success' => false,
+                'error'   => esc_attr__('Please enter a Google Maps API key.', 'asl_locator'),
+            ]);
+        }
+
+        $updated = $wpdb->update(
+            ASL_PREFIX . 'configs',
+            ['value' => $api_key],
+            ['key' => 'api_key']
+        );
+
+        if (false === $updated) {
+            return $this->send_response([
+                'success' => false,
+                'error'   => esc_attr__('Unable to save the Google Maps API key.', 'asl_locator'),
+            ]);
+        }
+
+        // Saving a key never proves it works. Validation must set this true.
+        Dashboard::set_onboarding_step('connect_google_maps', false);
+
+        return $this->send_response([
+            'success' => true,
+            'msg'     => esc_attr__('Google Maps API key saved. Verifying configuration…', 'asl_locator'),
+        ]);
     }
 
     /**
@@ -862,7 +917,16 @@ class Setting extends Base
 
         $data     = json_encode($data_);
 
-        \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
+        $saved = \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
+
+        if (false === $saved) {
+            $response->error = esc_attr__('Unable to save the template settings.', 'asl_locator');
+
+            return $this->send_response($response);
+        }
+
+        // Completing the Color Customizer save finishes the final onboarding step.
+        Dashboard::set_onboarding_step('customize_locator', true);
 
         $response->msg     = esc_attr__('Template updated', 'asl_locator');
         $response->success = true;

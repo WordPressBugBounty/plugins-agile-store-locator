@@ -3,7 +3,7 @@
 
 $level_mode = \AgileStoreLocator\Helper::expertise_level();
 //	simple level
-if($level_mode == '1'){ ?>
+if ($level_mode === true) { ?>
 <style type="text/css">
 	.sl-complx {display: none;}
 </style>
@@ -63,12 +63,16 @@ if($level_mode == '1'){ ?>
 					</div>   
 				</h3> -->
 			     <div class="asl-tabs-body">
-			     	<div class="col-12">
-							<?php 
-							if($level_mode == '1'): ?>
-							<p class="alert alert-warning mb-4" role="alert"><?php echo esc_attr__('Expert mode is disabled, simple options are visible only, to view all options, enable from the dashboard.','asl_locator') ?></p>
-							<?php endif; ?>
+					<?php if ($level_mode === true) : ?>
+						<div class="asl-expert-mode-notice" role="status">
+							<span class="dashicons dashicons-info-outline" aria-hidden="true"></span>
+							<div>
+								<strong><?php esc_html_e('Easy mode is enabled', 'asl_locator'); ?></strong>
+								<p><?php esc_html_e('Only simple options are currently visible. Enable Expert mode to view all settings.', 'asl_locator'); ?></p>
 							</div>
+							<a href="<?php echo esc_url(admin_url('admin.php?page=agile-dashboard')); ?>"><?php esc_html_e('Enable Expert Mode', 'asl_locator'); ?> <span aria-hidden="true">→</span></a>
+						</div>
+					<?php endif; ?>
 			        <ul class="nav nav-pills justify-content-center">
 			           <li class="active rounded"><a data-toggle="pill" href="#sl-gen-tab"><?php echo esc_attr__('General','asl_locator') ?></a></li>
 			           <li class="rounded"><a data-toggle="pill" href="#maps-tab"><?php echo esc_attr__('Maps','asl_locator') ?></a></li>

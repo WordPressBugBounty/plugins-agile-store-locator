@@ -6,7 +6,7 @@ Tags:  store locator, location finder,google maps, directions,store finder, geoc
 Requires at least: 3.3.2
 Tested up to: 7.0
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

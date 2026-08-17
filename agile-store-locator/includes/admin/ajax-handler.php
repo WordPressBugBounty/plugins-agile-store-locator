@@ -82,6 +82,11 @@ class AjaxHandler {
     $this->register_route('reset_custom_template', 'Setting', 'reset_custom_template');
     $this->register_route('expertise_level', 'Setting', 'expertise_level');
 
+    // Dashboard
+    $this->register_route('create_locator_page', 'Dashboard', 'create_locator_page');
+    $this->register_route('save_onboarding_step', 'Dashboard', 'save_onboarding_step');
+    $this->register_route('complete_locator_manually', 'Dashboard', 'complete_locator_manually');
+
     $this->register_route('save_custom_fields', 'Setting', 'save_custom_fields'); 
     $this->register_route('load_ui_settings', 'Setting', 'load_ui_settings');
     $this->register_route('sl_theme_ui_save', 'Setting', 'sl_theme_ui_save');

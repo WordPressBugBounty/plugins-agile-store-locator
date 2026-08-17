@@ -195,7 +195,7 @@ if($level_mode == '1'): ?>
                                                             <label
                                                                 for="txt_title"><?php echo esc_attr__('Title','asl_locator') ?></label>
                                                             <input type="text" id="txt_title" name="data[title]"
-                                                                class="form-control validate[required]">
+                                                                class="form-control validate[required]" autofocus>
                                                         </div>
 
                                                         <div class="col-md-6 form-group mb-4">
@@ -1211,6 +1211,9 @@ var asl_logos = <?php echo json_encode($logos); ?>;
 
 window.addEventListener("load", function() {
     asl_engine.pages.add_store();
-    console.log(`File: add_store.php, Line: 1183`);
+    var titleField = document.getElementById('txt_title');
+    if (titleField) {
+        titleField.focus();
+    }
 });
 </script>

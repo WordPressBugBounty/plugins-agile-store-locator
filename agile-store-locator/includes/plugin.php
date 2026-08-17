@@ -332,16 +332,12 @@ class Plugin {
 			if(!defined('ASL_WC_PLUGIN')) {
 				
 				if(!$level_mode) {
-					//add_submenu_page( 'asl-plugin', esc_attr__('Manage Specialities','asl_locator'), esc_attr__('Specialities (Pro)','asl_locator'), ASL_PERMISSION, 'manage-asl-specials', array($this->plugin_admin, 'page_manage_specials'));
-					//add_submenu_page( 'asl-plugin', esc_attr__('Manage Brands','asl_locator'), esc_attr__('Brands (Pro)','asl_locator'), ASL_PERMISSION, 'manage-asl-filter', array($this->plugin_admin,'page_manage_attribute'));
 				}
 
-				add_submenu_page( 'asl-plugin', esc_attr__('Import/Export Stores','asl_locator'), esc_attr__('Import/Export (Pro)','asl_locator'), ASL_PERMISSION, 'import-store-list', array($this->plugin_admin,'page_import_stores'));
 			}
-
-			if(!$level_mode) {
-				add_submenu_page( 'asl-plugin', esc_attr__('Customize Map','asl_locator'), esc_attr__('Customize Map','asl_locator'), ASL_PERMISSION, 'customize-map', array($this->plugin_admin,'page_customize_map'));
-			}
+			add_submenu_page( 'asl-plugin', esc_attr__('Import/Export Stores','asl_locator'), esc_attr__('Import/Export (Pro)','asl_locator'), ASL_PERMISSION, 'import-store-list', array($this->plugin_admin,'page_import_stores'));
+			add_submenu_page( 'asl-plugin', esc_attr__('Customize Map','asl_locator'), esc_attr__('Customize Map','asl_locator'), ASL_PERMISSION, 'customize-map', array($this->plugin_admin,'page_customize_map'));
+			
 
 			add_submenu_page( 'asl-plugin', esc_attr__('ASL Settings','asl_locator'), esc_attr__('ASL Settings','asl_locator'), ASL_PERMISSION, 'asl-settings', array($this->plugin_admin,'page_user_settings'));
 			add_submenu_page( 'options-writing.php', esc_attr__('Agile Store Locator UI Customizer','asl_locator'), esc_attr__('Agile Store Locator UI Customizer','asl_locator'), ASL_PERMISSION, 'sl-ui-customizer', array($this->plugin_admin, 'page_ui_customizer'));
