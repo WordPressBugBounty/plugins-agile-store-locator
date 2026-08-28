@@ -1,38 +1,54 @@
-=== Store Locator WordPress ===
+=== Agile Store Locator ===
 Contributors: agilelogix
 Author URI: https://agilelogix.com/
 Plugin URI: https://agilestorelocator.com/
-Tags:  store locator, location finder,google maps, directions,store finder, geocoding,business locations, google maps plugin, map directions, nearest stores, routes, street view, store locator widget, wp google maps, wp store locator,geolocation
+Tags: wordpress store locator, store locator wordpress, store finder, where to buy, google maps
 Requires at least: 3.3.2
-Tested up to: 7.0
+Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.7.3
+Stable tag: 1.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Agile Store Locator is a premium store finder plugin designed to offer you immediate access to all the best stores in your local area. It enables you to find the very best stores and their location thanks to the power of Google Maps.
+Agile Store Locator is a WordPress store locator and store finder for where-to-buy pages, with free no-key maps and native Google Maps.
 
 == Description ==
 
-[Agile Store Locator](https://agilestorelocator.com/) is a free **WordPress Store Locator Plugin** that helps customers find your stores, dealers, branches, retailers, offices, and service centers using **Google Maps**. Add unlimited store locations, display interactive maps, and let visitors search by address, ZIP code, city, category, or their current location—all without writing code.
+[Agile Store Locator](https://agilestorelocator.com/) is a free **WordPress store locator** for stores, dealers, branches, retailers, offices, and service centers. This flexible **store locator WordPress** solution also works as a **store finder** and **where to buy** directory. Add unlimited locations, display responsive maps, and help visitors find the nearest location by address, ZIP code, category, or their current position—without writing code.
 
-Whether you manage a single storefront or hundreds of business locations, Agile Store Locator makes it easy to build a fast, mobile-friendly store finder that works with any WordPress theme. The free version includes powerful features like custom fields, SEO-friendly location pages, and flexible store management, while the Pro version adds CSV import, multiple templates, analytics, advanced customization, search widgets, store registration forms, and many more professional tools.
+Start with **free maps that need no API key** by using MapLibre with OpenStreetMap. You can also choose Geoapify, Mapbox, MapTiler, a custom MapLibre style, or the plugin's **native Google Maps integration**. Address search can use Google Places, Geoapify, or Mapbox independently from your map provider.
+
+Whether you manage one storefront or hundreds of business locations, Agile Store Locator creates a fast, mobile-friendly locator that works with any WordPress theme. Build **SEO-friendly location pages** with unique store URLs and detailed business information to make individual locations easier for customers and search engines to discover.
+
+The free version provides flexible location management, multiple map and search providers, and Template 0. Pro adds CSV import/export, multiple templates, analytics, advanced filters, search widgets, registration forms, and additional professional tools.
+
+### 🆓 Free Maps — No API Key Needed
+Choose **MapLibre + OpenStreetMap** to publish a complete interactive store locator without creating a Google Maps account, adding billing details, or entering an API key. OpenStreetMap tiles work out of the box and are a practical option for directories, local businesses, and new websites.
+
+Prefer another service? Agile Store Locator also supports:
+
+- **Google Maps** with native map types, Google Places search, directions, and Advanced Markers
+- **Geoapify** maps and address search
+- **Mapbox** maps and address search
+- **MapTiler** map tiles and styles
+- **Custom MapLibre style URLs** for compatible third-party map services
+
 ## 🌟 Key Features & Benefits
 
 ### 📍 Unlimited Store Locations
 Create a store locator with unlimited stores, dealers, branches, retailers, offices, or service centers. Add detailed information, images, business hours, contact details, and custom markers for every location.
 
 ### 🔍 Powerful Store Search
-Help visitors quickly find the nearest location by searching with an address, ZIP code, city, store name, category, or their current location. Results can also be sorted by distance or relevance.
+Help visitors find the nearest location using an address, ZIP code, category, or their current position. Choose Google Places, Geoapify, or Mapbox for address suggestions and geocoding.
 
-### 🗺️ Interactive Google Maps
-Display all your locations on responsive Google Maps with marker clustering, directions, Street View, multiple map types, and support for Google Advanced Markers.
+### 🗺️ Multiple Map Providers
+Display locations using no-key OpenStreetMap maps, MapLibre, Geoapify, Mapbox, MapTiler, custom compatible styles, or native Google Maps. Switch providers from WordPress settings without rebuilding your stores.
 
 ### ✍️ Flexible Custom Fields
 Store additional information such as business hours, phone numbers, emails, social links, galleries, services, promotions, or any custom data using flexible custom fields.
 
-### 🌐 SEO-Friendly Location Pages
-Create dedicated location pages for every store with unique URLs, business information, images, and structured content that helps customers discover your locations through search engines.
+### 🌐 SEO-Friendly Store Location Pages
+Create a dedicated, indexable page for each store with a unique URL, address, opening hours, contact information, images, and location content. These local landing pages help search engines connect customers with the most relevant business location.
 
 ### 📱 Mobile-Friendly Design
 Deliver a fast and responsive store locator that works perfectly across desktop, tablet, and mobile devices without requiring additional customization.
@@ -58,8 +74,8 @@ Install Agile Store Locator from the WordPress Plugin Directory or upload it man
 ### 2️⃣ Add Your Store Locations
 Create your store locations by adding addresses, business details, categories, custom fields, images, and opening hours.
 
-### 3️⃣ Connect Google Maps
-Add your [Google Maps API Key](https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version) to enable maps, address search, directions, and geolocation.
+### 3️⃣ Choose Your Map Provider
+Use MapLibre with OpenStreetMap immediately—no API key needed. Alternatively, connect Google Maps, Geoapify, Mapbox, MapTiler, or a custom compatible MapLibre style.
 
 ### 4️⃣ Display Your Store Locator
 Place the `[ASL_STORELOCATOR]` shortcode on any page or post to instantly display your interactive Store Locator.
@@ -109,12 +125,16 @@ Build multilingual Store Locator experiences with full RTL support for internati
 - GDPR Compliance
 
 #### 🔍 Search
-- Google Places Autocomplete
+- Google Places, Geoapify, or Mapbox address search
 - Current location detection
 - Nearest store search
 
-#### 🗺️ Google Maps
-- Google Maps integration
+#### 🗺️ Maps
+- MapLibre map engine
+- OpenStreetMap with no API key needed
+- Geoapify, Mapbox, and MapTiler providers
+- Custom MapLibre style URLs
+- Native Google Maps integration
 - Google Advanced Markers
 - Marker clustering
 - Draggable markers
@@ -410,6 +430,13 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.8.0 =
+- Added multiple map providers with Google Maps and MapLibre support
+- Added OpenStreetMap, Geoapify, Mapbox, MapTiler, and custom MapLibre tile and style providers
+- Added Google Places, Geoapify, and Mapbox address search providers
+- Refreshed the Free edition with a streamlined Template 0 experience
+- Improved the admin dashboard, settings interface, and Pro feature previews
 
 = 1.7.3 =
 - AISEO plugin supported

@@ -16,19 +16,6 @@ namespace AgileStoreLocator;
 class Activator {
 
 	/**
-	 * Check whether a database table exists before running optional migrations.
-	 *
-	 * @param string $table_name Full table name.
-	 * @return bool
-	 */
-	private static function table_exists( $table_name ) {
-
-		global $wpdb;
-
-		return ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) === $table_name );
-	}
-
-	/**
 	 * Short Description. (use period)
 	 *
 	 * Long Description.
@@ -39,7 +26,6 @@ class Activator {
 
 		\AgileStoreLocator\Activator::add_basic_tables();
 
-		//\AgileStoreLocator\Activator::add_cron_job();
 	}
 
 
@@ -60,6 +46,7 @@ class Activator {
 		$wpdb->query($query);
 	}
 
+
 	/**
 	 * [add_basic_tables add the tables]
 	 */
@@ -75,7 +62,6 @@ class Activator {
 		$prefix 	 	 = $wpdb->prefix."asl_";
 		$database    = $wpdb->dbname;
 
-		
 
 		/*Categories*/
 		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}categories` (
@@ -102,15 +88,22 @@ class Activator {
 
 
 		//	Add Ordr column for the `brands`
-		if ( self::table_exists( "{$prefix}brands" ) ) {
-			$sql 	= "SELECT count(*) as c FROM information_schema.COLUMNS WHERE TABLE_NAME = '{$prefix}brands' AND COLUMN_NAME = 'ordr'";
-			$result = $wpdb->get_results($sql);
-			if($result[0]->c == 0) {
-				$wpdb->query("ALTER TABLE {$prefix}brands ADD COLUMN `ordr` int(11) DEFAULT '0';");
-			}
+		$sql 	= "SELECT count(*) as c FROM information_schema.COLUMNS WHERE TABLE_NAME = '{$prefix}brands' AND COLUMN_NAME = 'ordr'";
+		$result = $wpdb->get_results($sql);
+		if($result[0]->c == 0) {
+			$wpdb->query("ALTER TABLE {$prefix}brands ADD COLUMN `ordr` int(11) DEFAULT '0';");
 		}
 
+ 
+		// Define Data for Additional Attributes
+		$additional_attributes = [
+			//'training'  			=> ['label' => 'Training',   'plural' => 'Training',  'field' => 'training']
+			//'certification'  	=> ['label' => 'Certification',   'plural' => 'Certifications',  'field' => 'certification'],
+		];
 
+		// Save Data to for Additional Attributes 
+		//\AgileStoreLocator\Helper::set_setting(maybe_serialize($additional_attributes), 'additional_attributes', 'additional_attributes');
+	
 		//	Add the parent id
 		self::add_cat_parent_id(); 
 
@@ -123,17 +116,22 @@ class Activator {
 		//	Create the DDL Filter tables
 		foreach($ddl_tables as $ddl_table_name => $ddl_table) {
 
+			$relationship_field = ($ddl_table_name === 'specials') ? "`brand_id` int(11) DEFAULT NULL," : "";
+
 			$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}$ddl_table_name` (
 				  `id` int unsigned NOT NULL AUTO_INCREMENT,
 				  `name` varchar(255) DEFAULT NULL,
 				  `ordr` int DEFAULT '0',
 				  `lang` varchar(10) DEFAULT '',
+				  {$relationship_field}
 				  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 				  PRIMARY KEY (`id`)
 				)  DEFAULT CHARSET=UTF8MB4;";
 			dbDelta( $sql );
 	
 		}
+
+		self::add_special_brand_id();
 	
 	
 		/*Config*/
@@ -280,12 +278,25 @@ class Activator {
 		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}stores_view` (
 				  `id` int unsigned NOT NULL AUTO_INCREMENT,
 				  `store_id` int DEFAULT NULL,
-				  `search_str` varchar(100) DEFAULT NULL,
-				  `place_id` varchar(100) DEFAULT NULL,
+				  `search_str` varchar(255) DEFAULT NULL,
+				  `place_id` varchar(255) DEFAULT NULL,
+				  `search_source` varchar(30) DEFAULT NULL,
+				  `search_kind` varchar(40) DEFAULT NULL,
+				  `search_key` varchar(191) DEFAULT NULL,
+				  `country_code` varchar(6) DEFAULT NULL,
+				  `latitude` decimal(10,7) DEFAULT NULL,
+				  `longitude` decimal(10,7) DEFAULT NULL,
+				  `result_count` int unsigned DEFAULT NULL,
+				  `visitor_hash` char(64) DEFAULT NULL,
 				  `is_search` tinyint DEFAULT NULL,
-				  `ip_address` varchar(25) DEFAULT NULL,
+				  `ip_address` varchar(45) DEFAULT NULL,
 				  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-				  PRIMARY KEY (`id`)
+				  PRIMARY KEY (`id`),
+				  KEY `created_on` (`created_on`),
+				  KEY `event_date` (`is_search`, `created_on`),
+				  KEY `store_date` (`store_id`, `created_on`),
+				  KEY `search_date` (`search_key`, `created_on`),
+				  KEY `visitor_hash` (`visitor_hash`)
 				)  DEFAULT CHARSET=UTF8MB4;";
 		dbDelta( $sql );
 
@@ -322,14 +333,12 @@ class Activator {
 			$wpdb->query("ALTER TABLE `{$prefix}stores` ADD INDEX(`country`);");
 		}
 
-
-
-
 		// Sample stores and categories are opt-in; new installations start empty.
 		$seed_sample_data = (bool) apply_filters( 'asl_seed_sample_data', false );
 
 		//categories;
 		$c = $wpdb->get_results("SELECT count(*) AS 'count' FROM {$prefix}categories");
+		
 		if($seed_sample_data && $c[0]->count <= 0) {
 			
 			$sql =  "INSERT INTO `{$prefix}categories`(`id`,`category_name`,`is_active`,`icon`,`created_on`) VALUES (1,'Arts & Entertainment',1,'movie-theater.svg','2016-05-07 20:31:04'),(2,'For The Home',1,'home.svg','2016-05-07 20:31:09'),(4,'Amusement Park',1,'amusement-park.svg','2016-05-07 20:31:16'),(5,'Medical / Dental / Vision Care',1,'hospital.svg','2016-05-07 20:31:20'),(6,'Jewelry',1,'jewelry-store.svg','2016-05-07 20:31:23'),(7,'Fitness',1,'gym.svg','2016-05-07 20:31:26'),(8,'Electronics',1,'electronics-store.svg','2016-05-07 20:31:32'),(9,'Pets',1,'pet-store.svg','2016-05-07 20:31:33'),(10,'Auto',1,'car-repair.svg','2016-05-07 20:31:36'),(11,'Local Services',1,'local-government.svg','2016-05-07 20:31:39'),(13,'Beauty and Spas',1,'spa.svg','2016-05-07 20:31:50'),(14,'Nightlife',1,'night-club.svg','2016-05-07 20:31:55'),(16,'Restaurants',1,'restaurant.svg','2016-05-07 20:32:03'),(17,'Travel',1,'airport.svg','2016-05-07 20:32:55');";
@@ -379,7 +388,6 @@ class Activator {
 			$sql =  "INSERT INTO `{$prefix}stores`(`id`,`title`,`description`,`street`,`city`,`state`,`postal_code`,`country`,`lat`,`lng`,`phone`,`fax`,`email`,`website`,`description_2`,`logo_id`,`marker_id`,`is_disabled`,`open_hours`,`brand`,`special`,`custom`,`ordr`,`slug`,`pending`,`created_on`,`updated_on`) values (1,'Amanda Food Court','not available','45 North Street','Uitenhage','Eastern Cape','5043',193,'-33.749771','25.405823','041 111 3964','','amanda.food.court@example.com','https://agilestorelocator.com','',0,1,0,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'amanda-food-court-uitenhage',NULL,'2017-10-24 20:12:29','2022-02-01 10:24:00'),(2,'Aqua Food Store','not available','26 Northriding, Lorraine Manor','Port Elizabeth','Eastern Cape','1234',193,'-33.97506','25.513332','213 882 8888',NULL,'aqua.food.court@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'aqua-food-store-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(3,'Astro Club','not available','15 Heartly Road, Parsons Hill','Port Elizabeth','Eastern Cape','45553',193,'-33.947128','25.591169','123 226 2222',NULL,'astro.club@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'astro-club-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(4,'Barry Mason Pool Services','not available','34 Saddlewood, Louis Michael Drive, Lovemore Heights','Port Elizabeth','Eastern Cape','33422',193,'-33.99213','25.531601','123 888 5555',NULL,'pool.services@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'barry-mason-pool-services-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(5,'Bid-Bon Development','not available','274 Kragga Kamma Road, Lorraine','Port Elizabeth','Eastern Cape','23452',193,'-33.96524','25.50242','041 888 3534',NULL,'bid.bon@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'bid-bon-development-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(6,'Deon\'S Pool Maintenance Servics','not available','1 Demurville, Lorraine','Port Elizabeth','Eastern Cape','23455',193,'-33.968891','25.52002','072 888 1607',NULL,'deon.pools@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'deon-s-pool-maintenance-servics-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(7,'East Coast Pools','not available','17 Reith Street, Sidwell','Port Elizabeth','Eastern Cape','5043',193,'-33.92194','25.595169','041 888 4916',NULL,'east.pools@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'east-coast-pools-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(8,'Mica Food Court','not available','48 Church Street','Graaf Reinet','Eastern Cape','1234',193,'-32.253212','24.536243','049 888 2640',NULL,'mica.food.court@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'mica-food-court-graaf-reinet',NULL,'2017-10-24 20:12:29',NULL),(9,'Haggie\'s Swimpool Services & Supplies ','not available','Noorsekloof','Jeffreys Bay','Eastern Cape','6331',193,'-34.027143','24.916028','041 888 6343',NULL,'haggie.services@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'haggie-s-swimpool-services-supplies-jeffreys-bay',NULL,'2017-10-24 20:12:29',NULL),(10,'Heritage Rock Hotel','not available','Idle  Wydle, Sardinia Bay Road, Lovemore Park','Port Elizabeth','Eastern Cape','33422',193,'-34.014511','25.523298','082 888 9282',NULL,'heritage.rock@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'heritage-rock-hotel-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(11,'Norman\'s Hotel','not available','15 Vincent Road','East London','Eastern Cape','23452',193,'-32.978962','27.901928','043 888 8445',NULL,'norman.hotel@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'norman-s-hotel-east-london',NULL,'2017-10-24 20:12:29',NULL),(12,'Pelican Spa','not available','143 Heugh Road, Walmer','Port Elizabeth','Eastern Cape','23455',193,'-33.980839','25.59514','041 888 6453',NULL,'pelican.spa@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'pelican-spa-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(13,'Pool and Spa Centre','not available','6 Boshof Street, Westering','Port Elizabeth','Eastern Cape','5043',193,'-33.944561','25.522751','041 888 8005',NULL,'pool.spa@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'pool-and-spa-centre-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(14,'Pool Maintenance Services','not available','100 Dijon Road, Lorraine','Port Elizabeth','Eastern Cape','1234',193,'-33.976929','25.529341','041 888 4927',NULL,'awesome.pools@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'pool-maintenance-services-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(15,'Sandstone Pools','not available','5 Yale Road, Blue Water Bay','Port Elizabeth','Eastern Cape','45553',193,'-33.857689','25.62956','072 888 0505',NULL,'sandstone.pools@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'sandstone-pools-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(16,'Royal Autos','not available','61 Heugh Road, Walmer','Port Elizabeth','Eastern Cape','33422',193,'-33.976898','25.605591','041 888 8117',NULL,'royal.autos@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'royal-autos-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(17,'Grahamstown Restaurant','not available','4 Hill Street','Grahamstown','Eastern Cape','23452',193,'-33.308353','26.525585','046 888 4320',NULL,'grahamstown.restaurant@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'grahamstown-restaurant-grahamstown',NULL,'2017-10-24 20:12:29',NULL),(18,'Port Alfred Restaurant','not available','88 Albany Road','Port Alfred','Eastern Cape','23455',193,'-33.586407','26.907701','046 888 8618',NULL,'port.alfred@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'port-alfred-restaurant-port-alfred',NULL,'2017-10-24 20:12:29',NULL),(19,'JIM Beauty Saloon','not available','Jacaranda Street','Jeffreys Bay','Eastern Cape','5043',193,'-34.033333','24.916668','042 888 0813',NULL,'beauty.saloon@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'jim-beauty-saloon-jeffreys-bay',NULL,'2017-10-24 20:12:29',NULL),(20,'Sliming Center','not available','28 6th Avenue, Walmer','Port Elizabeth','Eastern Cape','1234',193,'-33.978668','25.594669','041 888 6568',NULL,'sliming.center@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'sliming-center-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(21,'Artcraft Centre','not available','43 3rd Avenue, Newton Park','Port Elizabeth','Eastern Cape','45553',193,'-33.947609','25.568867','041 888 1257',NULL,'artcraft.center@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'artcraft-centre-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(22,'Tams Hyperstore','not available','5 High Street','Cradock','Eastern Cape','33422',193,'-32.175652','25.621719','048 888 3022',NULL,'tams.market@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'tams-hyperstore-cradock',NULL,'2017-10-24 20:12:29',NULL),(23,'The Pool Lab','not available','17 Young Road, Mill Park','Port Elizabeth','Eastern Cape','23452',193,'-33.965435','25.59059','083 888 1181',NULL,'pools.lab@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'the-pool-lab-port-elizabeth',NULL,'2017-10-24 20:12:29',NULL),(24,'Brandons Club','not available','Leaping Frog Shopping Centre, Cnr William Nicol & Mulbarton Road, Fourways','Johannesburg','Gauteng','23455',193,'-26.005112','28.020357','011 888 1224',NULL,'frog.center@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'brandons-club-johannesburg',NULL,'2017-10-24 20:12:29',NULL),(25,'Amanzi Club','not available','46 Longfellow Street, Ridgeway','Johannesburg','Gauteng','5043',193,'-26.253469','27.996401','011 888 4569',NULL,'amanzi.club@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'amanzi-club-johannesburg',NULL,'2017-10-24 20:12:29',NULL),(26,'White Shop','50% Clothes available','Central Park','Denver','CO','60204',223,'37.3990371','-105.6721263','333-3333-333','222-2222-22','white.shop@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"0\",\"tue\":\"0\",\"wed\":\"0\",\"thu\":\"0\",\"fri\":\"0\",\"sat\":\"0\",\"sun\":\"0\"}',NULL,NULL,NULL,0,'white-shop-denver',NULL,'2017-10-24 20:12:29',NULL),(27,'Tires Shop Center','ABC Tires','315 West Main Street','Walla Walla','WA','45553',223,'46.0645809','-118.3430209','333-333-33','11-11-11','tires.center@example.com','https://agilestorelocator.com',NULL,1,1,NULL,'{\"mon\":\"1\",\"tue\":\"1\",\"wed\":\"1\",\"thu\":\"1\",\"fri\":\"1\",\"sat\":\"1\",\"sun\":\"1\"}',NULL,NULL,NULL,0,'tires-shop-center-walla-walla',NULL,'2017-10-24 20:12:29',NULL);";
 			dbDelta( $sql );
 
-
 			//store category relation
 			$sql =  "INSERT INTO `{$prefix}stores_categories`(`id`,`category_id`,`store_id`,`created_on`) VALUES (1,16,1,'2016-06-08 11:59:49'),(2,16,2,'2016-06-08 12:00:00'),(3,7,3,'2016-06-08 12:00:39'),(4,14,3,'2016-06-08 12:00:52'),(5,11,4,'2016-06-08 12:01:29'),(6,11,5,'2016-06-08 12:01:30'),(7,11,6,'2016-06-08 12:01:31'),(8,11,7,'2016-06-08 12:01:31'),(9,16,8,'2016-06-08 12:10:09'),(10,11,9,'2016-06-08 12:10:10'),(11,17,1,'2016-06-08 12:10:12'),(12,17,11,'2016-06-08 12:10:12'),(13,17,12,'2016-06-08 12:10:13'),(14,7,13,'2016-06-08 12:10:14'),(15,11,14,'2016-06-08 12:10:15'),(16,7,15,'2016-06-08 12:10:16'),(17,1,16,'2016-06-08 12:10:17'),(18,16,17,'2016-06-08 12:10:18'),(19,16,18,'2016-06-08 12:10:19'),(20,13,19,'2016-06-08 12:10:20'),(21,7,20,'2016-06-08 12:10:21'),(22,1,21,'2016-06-08 12:10:22'),(23,4,22,'2016-06-08 12:10:23'),(24,11,23,'2016-06-08 12:10:24'),(25,14,24,'2016-06-08 12:10:25'),(26,14,25,'2016-06-08 12:10:26'),(261,2,215,'2016-06-20 15:18:19');";
 			dbDelta( $sql );
@@ -427,6 +435,21 @@ class Activator {
       $sql = "ALTER TABLE `{$prefix}stores` MODIFY `slug` TEXT DEFAULT NULL";
       $result = $wpdb->query($sql);
    	}
+
+		/**
+		 * Convert legacy brand/special columns from VARCHAR(100) to TEXT.
+		 */
+		$sql = "SELECT count(*) as c
+				FROM information_schema.COLUMNS
+				WHERE TABLE_NAME = '{$prefix}stores'
+				AND TABLE_SCHEMA = '{$database}'
+				AND COLUMN_NAME IN ('brand', 'special')
+				AND DATA_TYPE = 'varchar'";
+		$result = $wpdb->get_results($sql);
+
+		if(!empty($result) && $result[0]->c > 0) {
+			$wpdb->query("ALTER TABLE `{$prefix}stores` MODIFY `brand` TEXT DEFAULT NULL, MODIFY `special` TEXT DEFAULT NULL;");
+		}
 
 
 		//$wpdb->query("TRUNCATE TABLE `{$prefix}configs`");
@@ -491,7 +514,6 @@ class Activator {
 			$wpdb->query("ALTER TABLE {$prefix}leads ADD COLUMN `store_id` int(11) DEFAULT NULL;");
 		}
 
-
 		//	Add Configs
 		self::add_configs();
 
@@ -504,6 +526,9 @@ class Activator {
 		//	Add the langs
 		self::add_langs();
 
+		//	Add the lbl_ prefix, since version 4.9.8
+		self::fix_trans_labels();
+
 		//	Try to migrate the assets
 		try {
     	
@@ -514,12 +539,10 @@ class Activator {
 			
 		} 
 		catch (\Exception $e) {}
-		
+
 		//	Migration is marked as done
 		update_option('asl-migrate', '1');
 	}
-
-
 
 	/**
 	 * [Add parent_id Column for the `categories`]
@@ -537,7 +560,30 @@ class Activator {
 			$wpdb->query("ALTER TABLE {$prefix}categories ADD COLUMN `parent_id` int(11) DEFAULT 0;");
 		}
 	}
-	
+
+	/**
+	 * [Add brand_id Column for the `specials`]
+	 */
+	public static function add_special_brand_id() {
+		global $wpdb;
+		$prefix = $wpdb->prefix."asl_";
+		$database = $wpdb->dbname;
+
+		$sql = "SELECT count(*) as c FROM information_schema.COLUMNS WHERE TABLE_NAME = '{$prefix}specials' AND COLUMN_NAME = 'brand_id' AND TABLE_SCHEMA = '{$database}'";
+		$results = $wpdb->get_row($sql);
+
+		if(!$results->c) {
+			$wpdb->query("ALTER TABLE {$prefix}specials ADD COLUMN `brand_id` int(11) DEFAULT NULL;");
+		}
+
+		$sql = "SELECT count(*) as c FROM information_schema.STATISTICS WHERE TABLE_NAME = '{$prefix}specials' AND INDEX_NAME = 'brand_id' AND TABLE_SCHEMA = '{$database}'";
+		$results = $wpdb->get_row($sql);
+
+		if(!$results->c) {
+			$wpdb->query("ALTER TABLE {$prefix}specials ADD INDEX `brand_id` (`brand_id`);");
+		}
+	}
+
 	/**
 	 * [validate_autoinc make sure the auto increament to the tables are working]
 	 * @return [type] [description]
@@ -560,14 +606,8 @@ class Activator {
 			$wpdb->query("ALTER TABLE {$prefix}stores_categories MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
 			$wpdb->query("ALTER TABLE {$prefix}storelogos MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
 			$wpdb->query("ALTER TABLE {$prefix}markers MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
-
-			if ( self::table_exists( "{$prefix}brands" ) ) {
-				$wpdb->query("ALTER TABLE {$prefix}brands MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
-			}
-
-			if ( self::table_exists( "{$prefix}specials" ) ) {
-				$wpdb->query("ALTER TABLE {$prefix}specials MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
-			}
+			//$wpdb->query("ALTER TABLE {$prefix}brands MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
+			//$wpdb->query("ALTER TABLE {$prefix}specials MODIFY id int NOT NULL AUTO_INCREMENT PRIMARY KEY;");
 		}
 	}
 
@@ -590,34 +630,9 @@ class Activator {
 			
 			$wpdb->query("ALTER TABLE {$prefix}stores ADD COLUMN `lang` varchar(10) DEFAULT '';");
 			$wpdb->query("ALTER TABLE {$prefix}categories ADD COLUMN `lang` varchar(10) DEFAULT '';");
-
-			if ( self::table_exists( "{$prefix}brands" ) ) {
-				$wpdb->query("ALTER TABLE {$prefix}brands ADD COLUMN `lang` varchar(10) DEFAULT '';");
-			}
-
-			if ( self::table_exists( "{$prefix}specials" ) ) {
-				$wpdb->query("ALTER TABLE {$prefix}specials ADD COLUMN `lang` varchar(10) DEFAULT '';");
-			}
+			$wpdb->query("ALTER TABLE {$prefix}brands ADD COLUMN `lang` varchar(10) DEFAULT '';");
+			$wpdb->query("ALTER TABLE {$prefix}specials ADD COLUMN `lang` varchar(10) DEFAULT '';");
 		}
-	}
-
-
-	/**
-	 * [add_cron_job Add the WP ASL Cron Jobs]
-	 */
-	public static function add_cron_job() {
-
-		$args = array();
-
-		if (! wp_next_scheduled ( 'asl_import_cron', $args )) {
-        wp_schedule_event( time(), 'hourly', 'asl_import_cron', $args );
-    }
-
-    /*
-    if (! wp_next_scheduled ( 'asl_lead_cron', $args )) {
-      wp_schedule_event( time(), 'hourly', 'asl_lead_cron', $args );
-    }
-    */
 	}
 
 
@@ -631,10 +646,15 @@ class Activator {
 
 		$prefix 	 	 = $wpdb->prefix."asl_";
 
-		//$database    = $wpdb->dbname;
-		$c = $wpdb->get_results("SELECT count(*) AS 'c' FROM `{$prefix}configs` WHERE `key` IN ('server_key', 'advanced_marker', 'store_page_show_country', 'store_page_address_format')");
+		// Repair legacy rows that predate the Distance Control default.
+		$wpdb->query(
+			"UPDATE `{$prefix}configs` SET `value` = '1' WHERE `key` = 'distance_control' AND (`value` IS NULL OR TRIM(`value`) = '')"
+		);
 
-		if($c && isset($c[0]) && $c[0]->c != 4) {
+		//$database    = $wpdb->dbname;
+		$c = $wpdb->get_results("SELECT count(*) AS 'c' FROM `{$prefix}configs` WHERE `key` = 'server_key' || `key` = 'wpfrm_store_notify' || `key` = 'tile_provider_style'");
+
+		if($c && isset($c[0]) && $c[0]->c != 3) {
 
 				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         //  Run the script to add missing tables
@@ -649,76 +669,116 @@ class Activator {
 	private static function add_configs() {
 
 		global $wpdb;
-
 		$charset_collate = 'UTF8MB4';
 		$prefix 	 	 = $wpdb->prefix."asl_";
 
-
-
+		
 
 		$asl_configs = array(
-			array('api_key','',''),
-			array('template','0',''),
-			array('default_lat','-33.947128',''),
-			array('default_lng','25.591169',''),
-			array('zoom','9',''),
-			array('head_title','Stores',''),
-			array('category_title','Category',''),
-			array('no_item_text','No Store Found',''),
+			array('cluster','1',''),
+			array('prompt_location','2',''),
 			array('map_type','roadmap',''),
 			array('distance_unit','Miles',''),
+			array('zoom','9',''),
+			array('show_categories','1',''),
+			array('distance_slider','1',''),
+			array('layout','0',''),
+			array('default_lat','-33.947128',''),
+			array('default_lng','25.591169',''),
+			array('map_layout','0','Setting'),
+			array('infobox_layout','0','Setting'),
+			array('advance_filter','1',''),
+			array('color_scheme','0',''),
+			array('time_switch','0',''),
+			array('category_marker','0',''),
+			array('load_all','1',''),
+			//array('head_title','Number Of Shops',''),
+			array('font_color_scheme','1',''),
+			array('template','0',''),
+			array('color_scheme_1','0',''),
+			array('api_key','',''),
+			array('map_vendor','google',''),
+			array('tile_provider','geoapify',''),
+			array('tile_provider_style','default',''),
+			array('tile_provider_api_key','',''),
+			array('maplibre_style_url','',''),
+			array('search_provider','automatic',''),
+			array('geoapify_api_key','',''),
+			array('mapbox_access_token','',''),
+			array('display_list','1',''),
+			array('hide_search','0',''),
+			array('full_width','0',''),
 			array('time_format','0',''),
-			array('cluster','1',''),
+			//array('category_title','Category',''),
+			//array('no_item_text','No Item Found',''),
+			array('zoom_li','13',''),
+			array('single_cat_select','0',''),
+			array('country_restrict','',''),
+			array('google_search_type','',''),
+			array('color_scheme_2','0',''),
+			array('analytics','0',''),
+			array('sort_by_bound','0',''),
+			array('scroll_wheel','0',''),
+			array('search_type','0',''),
 			//NEW
+			array('search_destin','0',''),
+			array('full_height','',''),
 			array('map_language','',''),
 			array('map_region','',''),
 			array('sort_by','',''),
 
-			//	New 2020
-			array('display_list','1',''),
-			array('prompt_location','1',''),
-			array('search_destin','0',''),
+			array('distance_control','1',''),
+			array('dropdown_range','20,40,60,80,*100',''),
+			array('target_blank','0',''),
 			array('geo_button','0',''),
 			array('week_hours','0',''),
-			array('zoom_li','13',''),
+
+			array('user_center','0',''),
+			array('smooth_pan','1',''),
 			array('search_zoom','12',''),
-			array('search_type','0',''),
-			array('full_height','',''),
-			array('map_top','0',''),
-			array('full_width','0',''),
-			array('target_blank','0',''),
-			array('scroll_wheel','0',''),      
-			array('country_restrict','',''),
-			array('direction_redirect','0',''),
-			array('sort_random','0',''),
-			array('geo_marker','1',''),
-      array('gdpr','0',''),
-      array('distance_control','',''),
-      array('admin_notify','0',''),
-			array('notify_email','',''),
-      array('color_scheme','0',''),
-      array('map_layout','0','Setting'),
-      array('stores_limit','',''),
+			array('stores_limit','',''),
+			//array('filter_result','0',''),
+			array('radius_circle','1',''),
+			array('server_key','','priv'),
 			array('first_load','1',''),
-			array('sort_by_bound','0',''),
-			array('show_categories','1',''),
+			array('map_top','0',''),
+			array('direction_redirect','0',''),
+			array('color_scheme_3','0',''),
+			array('category_bound','1',''),
+			array('sort_random','0',''),
+			array('and_filter','0',''),
+			array('admin_notify','0',''),
+			array('geo_marker','1',''),
+			array('gdpr','0',''),
+			array('notify_email','',''),
 			array('store_schema','1',''),
 			array('store_page_show_country','1',''),
 			array('store_page_address_format','',''),
-			array('slug_link','1',''),
+			array('slug_link','0',''),
+			array('hide_logo','0',''),
 			array('hide_hours','0',''),
 			array('rewrite_slug','',''),
 			array('link_type','0',''),
 			array('rewrite_id','',''),
-			array('print_btn','1',''),
+			array('print_btn','0',''),
 			array('direction_btn','1',''),
+			array('zoom_btn','1',''),
 			array('additional_info','0',''),
-			array('server_key','','priv'),
-			array('tran_lbl','0',''),//translation labels
-			array('advanced_marker','','')
+			array('address_ddl','0',''),
+			array('locale','0',''),
+			array('tabs_layout','0',''),
+			array('cf7_hook','0','priv'),
+			array('cf7_field','','priv'),
+			array('filter_ddl','',''),
+			array('branches','0',''),
+			array('store_schedule','0',''),
+			array('tran_lbl','1',''),//translation labels
+			array('advanced_marker','',''),
+			array('wpfrm_store_notify','0','priv'),
+			// array('filter_ddl_store','','')
 		);
 
-		foreach($asl_configs as $_config) {
+		foreach($asl_configs as $_config) {	
 
 			$key  = $_config[0];	
 			$val  = $_config[1];	

@@ -78,21 +78,47 @@ class Field {
         }
     }
 
-    /** Render a searchable same-site page link field. */
+    /**
+     * Render a same-site page link selected through WordPress's link picker.
+     * The saved value is a relative URL, not a post ID.
+     *
+     * @return string
+     */
     protected function renderPageLinkField() {
         $require_field = ($this->require) ? 'validate[required]' : '';
 
         if (!is_admin()) {
             return sprintf(
-                '<div class="sl-form-group sl-group"><label class="control-label" for="sl-%1$s">%2$s</label><input type="text" id="sl-%1$s" name="%3$s" class="form-control %4$s" value="%5$s"></div>',
-                esc_attr($this->name), esc_html($this->label), esc_attr($this->field_name), esc_attr($require_field), esc_attr($this->value)
+                '<div class="sl-form-group sl-group">
+                    <label class="control-label" for="sl-%1$s">%2$s</label>
+                    <input type="text" id="sl-%1$s" name="%3$s" class="form-control %4$s" value="%5$s">
+                </div>',
+                esc_attr($this->name),
+                esc_html($this->label),
+                esc_attr($this->field_name),
+                esc_attr($require_field),
+                esc_attr($this->value)
             );
         }
 
         return sprintf(
-            '<div class="sl-form-group sl-group asl-page-link-control"><label class="control-label" for="sl-%1$s">%2$s</label><div class="input-group"><input type="text" id="sl-%1$s" name="%3$s" class="asl-page-link-value form-control %4$s" value="%5$s" placeholder="/example-page/"><button type="button" class="btn btn-secondary asl-page-link-button" data-target="sl-%1$s">%6$s</button><button type="button" class="btn btn-outline-secondary asl-page-link-clear" data-target="sl-%1$s">%7$s</button></div><small class="form-text text-muted asl-page-link-help">%8$s</small></div>',
-            esc_attr($this->name), esc_html($this->label), esc_attr($this->field_name), esc_attr($require_field), esc_attr($this->value),
-            esc_html__('Select Page', 'asl_locator'), esc_html__('Clear', 'asl_locator'), esc_html__('Search for a page or enter a relative URL such as /example-page/.', 'asl_locator')
+            '<div class="sl-form-group sl-group asl-page-link-control">
+                <label class="control-label" for="sl-%1$s">%2$s</label>
+                <div class="input-group">
+                    <input type="text" id="sl-%1$s" name="%3$s" class="asl-page-link-value form-control %4$s" value="%5$s" placeholder="/example-page/">
+                    <button type="button" class="btn btn-secondary asl-page-link-button" data-target="sl-%1$s">%6$s</button>
+                    <button type="button" class="btn btn-outline-secondary asl-page-link-clear" data-target="sl-%1$s">%7$s</button>
+                </div>
+                <small class="form-text text-muted asl-page-link-help">%8$s</small>
+            </div>',
+            esc_attr($this->name),
+            esc_html($this->label),
+            esc_attr($this->field_name),
+            esc_attr($require_field),
+            esc_attr($this->value),
+            esc_html__('Select Page', 'asl_locator'),
+            esc_html__('Clear', 'asl_locator'),
+            esc_html__('Search for a page or enter a relative URL such as /example-page/.', 'asl_locator')
         );
     }
 
@@ -102,6 +128,8 @@ class Field {
      */
     protected function renderGalleryField() {
         $require_field = ($this->require) ? 'validate[required]' : '';
+        $has_value = !empty($this->value);
+        $preview_class = $has_value ? '' : ' is-empty';
 
         return sprintf(
             '<div class="asl-gallery-field-control">
@@ -110,6 +138,10 @@ class Field {
                     <input type="text" id="sl-%s" class="asl-gallery-field form-control %s" name="%s" value="%s" />
                     <button type="button" class="asl-gallery-field-button">%s</button>
                 </div>
+                <div class="asl-gallery-preview%s">
+                    <button type="button" class="asl-gallery-clear" aria-label="%s">&times;</button>
+                    <img src="%s" alt="" />
+                </div>
             </div>',
             esc_attr($this->field_name),
             esc_html($this->label),
@@ -117,7 +149,10 @@ class Field {
             esc_attr($require_field),
             esc_attr($this->field_name),
             esc_attr($this->value),
-            esc_attr__('Open Media Library', 'asl_locator')
+            esc_attr__('Open Media Library', 'asl_locator'),
+            esc_attr($preview_class),
+            esc_attr__('Clear image', 'asl_locator'),
+            esc_attr($this->value)
         );
     }
 

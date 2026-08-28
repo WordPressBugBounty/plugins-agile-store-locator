@@ -10,7 +10,7 @@ if($level_mode == '1'): ?>
 }
 </style>
 <?php endif; ?>
-<div class="asl-p-cont asl-new-bg">
+<div class="asl-p-cont asl-new-bg asl-admin-header-page asl-store-form-page asl-create-store-page">
     <div class="hide">
         <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="i-trash" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor"
@@ -95,26 +95,28 @@ if($level_mode == '1'): ?>
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                 <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
             </symbol>
+            <symbol id="asl-admin-icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7" />
+            </symbol>
         </svg>
     </div>
     <div class="container sl-add-store-page">
         <div class="row asl-inner-cont">
             <div class="col-md-12">
-                <div class="card p-0 mb-4">
-                    <div class="card-title"><div>
-                            <h3>
-                                <?php echo esc_attr__('Create New Store','asl_locator') ?><?php echo \AgileStoreLocator\Helper::getLangControl(); ?>
-                            </h3>
-                            <p class="card-text">
-                                <?php echo esc_attr__('Fill in the details to add a new store to your network','asl_locator') ?>
-                            </p>
+                <div class="card p-0 mb-4 asl-grid-shell">
+                    <header class="asl-admin-page-header">
+                        <span class="asl-admin-page-header__icon" aria-hidden="true"><svg><use href="#i-store"></use></svg></span>
+                        <div class="asl-admin-page-header__copy">
+                            <h3><?php echo esc_html__('Create New Store','asl_locator') ?></h3>
+                            <p><?php echo esc_html__('Fill in the details to add a new store to your network','asl_locator') ?></p>
                         </div>
-                        <a target="_blank" class="btn btn-outline-light"
-                            href="https://www.youtube.com/watch?v=PmHCtZIP-KE"><?php echo esc_attr__('Guide', 'asl-wc') ?>
-                            <i ><svg style="margin-bottom:2px;" width="15" height="15">
-                                    <use xlink:href="#i-info"></use>
-                                </svg></i></a>
-                    </div>
+                        <div class="asl-admin-page-header__actions">
+                            <?php echo \AgileStoreLocator\Helper::getLangControl(); ?>
+                            <a target="_blank" rel="noopener noreferrer" class="asl-admin-page-header__guide" href="https://agilestorelocator.com/wiki/add-new-store/">
+                                <?php echo esc_html__('Guide', 'asl_locator') ?><svg aria-hidden="true"><use href="#asl-admin-icon-external"></use></svg>
+                            </a>
+                        </div>
+                    </header>
                     <div class="card-body p-0">
                         <form id="frm-addstore">
                             <div class="row">
@@ -162,7 +164,7 @@ if($level_mode == '1'): ?>
                                                     </a>
                                                 </li>
                                                 <?php if(class_exists('ASL_WC_Instance')): ?>
-                                                <li class=""><a data-toggle="pill" href="#sl-woocommerce"><i
+                                                <li class="sl-complx"><a data-toggle="pill" href="#sl-woocommerce"><i
                                                             class="mr-2"><svg width="20" height="20">
                                                                 <use xlink:href="#i-store"></use>
                                                             </svg></i>
@@ -206,7 +208,7 @@ if($level_mode == '1'): ?>
                                                                     </svg></i>
                                                                 <?php echo esc_attr__('Website','asl_locator') ?></label>
                                                             <input type="text" id="txt_website" name="data[website]"
-                                                                placeholder="http://example.com" class="form-control">
+                                                                placeholder="https://example.com" class="form-control">
                                                         </div>
 
                                                         <div class="col-md-6 form-group mb-4">
@@ -218,7 +220,7 @@ if($level_mode == '1'): ?>
                                                                 class="input-medium form-control"></textarea>
                                                         </div>
 
-                                                        <div class="col-md-6 form-group mb-4">
+                                                        <div class="col-md-6 form-group mb-4 sl-complx">
                                                             <label
                                                                 for="txt_description_2"><?php echo esc_attr__('Additional Description','asl_locator') ?></label>
                                                             <textarea id="txt_description_2" name="data[description_2]"
@@ -228,16 +230,13 @@ if($level_mode == '1'): ?>
                                                         </div>
 
                                                         <div class="col-md-6 form-group mb-4">
-                                                            <label for="txt_phone"> <i class="me-1"><svg width="18"
-                                                                        height="20">
+                                                            <label for="txt_phone"> <i class="me-1"><svg width="18" height="20">
                                                                         <use xlink:href="#i-phone"></use>
                                                                     </svg></i><?php echo esc_attr__('Phone','asl_locator') ?></label>
-                                                            <input type="text" id="txt_phone" name="data[phone]"
-                                                                class="form-control">
-
+                                                            <input placeholder="000-000-0000" type="text" id="txt_phone" name="data[phone]" class="form-control">
                                                         </div>
 
-                                                        <div class="col-md-6 form-group mb-4">
+                                                        <div class="col-md-6 form-group mb-4 sl-complx">
                                                             <label
                                                                 for="txt_fax"><?php echo esc_attr__('Fax','asl_locator') ?></label>
                                                             <input type="text" id="txt_fax" name="data[fax]"
@@ -308,15 +307,15 @@ if($level_mode == '1'): ?>
                                                                 <div class="col-md-6">
                                                                     <div class="row">
                                                                         <?php if(class_exists('ASL_GRR_Instance')): ?>
-                                                                        <div class="col-12">
+                                                                        <div class="col-12 sl-complx">
                                                                             <div class="form-group mb-3">
                                                                                 <label
                                                                                     for="txt_placed_id"><?php echo esc_attr__('Google Place ID','asl_locator') ?></label>
-                                                                                <input type="text" id="txt_placed_id"
-                                                                                    name="grr[placed_id]"
-                                                                                    data-country-restrict="<?php echo esc_attr(\AgileStoreLocator\Helper::get_configs('country_restrict')); ?>"
-                                                                                    placeholder="<?php echo esc_attr__('Type an address and select a suggestion','asl_locator') ?>"
-                                                                                    autocomplete="off" class="form-control">
+                                                                        <input type="text" id="txt_placed_id"
+                                                                            name="grr[placed_id]"
+                                                                            data-country-restrict="<?php echo esc_attr(\AgileStoreLocator\Helper::get_configs('country_restrict')); ?>"
+                                                                            placeholder="<?php echo esc_attr__('Type an address and select a suggestion','asl_locator') ?>"
+                                                                            autocomplete="off" class="form-control">
                                                                             </div>
                                                                         </div>
                                                                         <?php endif ?>
@@ -371,7 +370,7 @@ if($level_mode == '1'): ?>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-6 form-group mb-4 ">
+                                                        <div class="col-md-6 form-group mb-4">
                                                             <div class="form-group">
                                                                 <label
                                                                     for="ddl-asl-markers"><?php echo esc_attr__('Marker','asl_locator') ?></label>
@@ -395,21 +394,18 @@ if($level_mode == '1'): ?>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 form-group mb-4  ">
-                                                            <div >
-                                                                <label
-                                                                    for="ddl-asl-logos"><?php echo esc_attr__('Logo','asl_locator') ?></label>
-                                                                <div class="input-group">
-                                                                    <div id="ddl-asl-logos"></div>
-                                                                    <button type="button"
-                                                                        class="btn btn-success text-white rounded px-4 sl-logo-btn-newstyle"
-                                                                        data-bs-toggle="smodal"
-                                                                        data-bs-target="#addimagemodel">
-                                                                        <i class="me-2"><svg width="22" height="22">
-                                                                                <use xlink:href="#i-upload"></use>
-                                                                            </svg></i><?php echo esc_attr__('New Logo','asl_locator') ?></button>
-                                                                </div>
-                                                                
+                                                        <div class="col-md-6 form-group mb-4">
+                                                            <label
+                                                                for="ddl-asl-logos"><?php echo esc_attr__('Logo','asl_locator') ?></label>
+                                                            <div class="input-group">
+                                                                <div id="ddl-asl-logos"></div>
+                                                                <button type="button"
+                                                                    class="btn btn-success text-white rounded px-4 sl-logo-btn-newstyle"
+                                                                    data-bs-toggle="smodal"
+                                                                    data-bs-target="#addimagemodel">
+                                                                    <i class="me-2"><svg width="22" height="22">
+                                                                            <use xlink:href="#i-upload"></use>
+                                                                        </svg></i><?php echo esc_attr__('New Logo','asl_locator') ?></button>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6 form-group mb-4">
@@ -442,7 +438,7 @@ if($level_mode == '1'): ?>
                                     //  Get control values
                                     $ddl_values = \AgileStoreLocator\Model\Attribute::get_list($control_key, $lang);
                                 ?>
-                                                        <div class="col-md-6 sl-complx form-group mb-3 d-none">
+                                                        <div class="col-md-6 sl-complx form-group mb-3">
                                                             <div class="form-group sl-chosen">
                                                                 <label
                                                                     for="ddl_<?php echo esc_attr($control_key) ?>"><?php echo esc_attr($control['label'], 'asl_locator') ?></label>
@@ -473,16 +469,16 @@ if($level_mode == '1'): ?>
                                                         </div>
                                                         <?php 
 
-                                // Organize fields into sections based on their types
-                                foreach ($other_custom_fields as $fieldName => $fieldData) {
-                                    
-                                  $field = new \AgileStoreLocator\Form\CustomField($fieldData);
+                                                        // Organize fields into sections based on their types
+                                                        foreach ($other_custom_fields as $fieldName => $fieldData) {
+                                                            
+                                                        $field = new \AgileStoreLocator\Form\CustomField($fieldData);
 
-                                  echo '<div class="col-md-6 form-group mb-4">';
-                                  echo $field->render('asl-custom');
-                                  echo '</div>'; 
-                                }
-                                ?>
+                                                        echo '<div class="col-md-6 form-group mb-4">';
+                                                        echo $field->render('asl-custom');
+                                                        echo '</div>'; 
+                                                        }
+                                                        ?>
                                                         <div class="col-md-6 form-group mb-4 align-items-center">
                                                             <label
                                                                 for="sl-disabled"><?php echo esc_attr__('Disabled','asl_locator') ?></label>
@@ -1108,8 +1104,9 @@ if($level_mode == '1'): ?>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <?php 
-                                    $logo_meta = 'add_img';
-                                    echo $this->asl_logo_uploader( $logo_meta,'' ); ?>
+                    
+                    $logo_meta = 'add_img';
+                    echo $this->asl_logo_uploader( $logo_meta,'' ); ?>
                                     </div>
                                 </div>
                             </div>
@@ -1165,12 +1162,6 @@ if($level_mode == '1'): ?>
                                     <input name="files" type="file" class="form-control"
                                         accept=".jpg,.png,.jpeg,.gif,.JPG" id="file-logo-2">
                                     <span class="input-group-text"><?php echo esc_attr__('Icon','asl_locator') ?></span>
-                                    <!-- <div class="custom-file">
-                                        <div class="input-group-prepend">
-                                        </div>
-                                        <label class="custom-file-label"
-                                            for="file-logo-2"><?php echo esc_attr__('File Path...','asl_locator') ?></label>
-                                    </div> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -1211,9 +1202,5 @@ var asl_logos = <?php echo json_encode($logos); ?>;
 
 window.addEventListener("load", function() {
     asl_engine.pages.add_store();
-    var titleField = document.getElementById('txt_title');
-    if (titleField) {
-        titleField.focus();
-    }
 });
 </script>

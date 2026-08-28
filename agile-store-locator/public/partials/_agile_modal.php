@@ -1,9 +1,42 @@
+<?php if (!empty($all_configs['no_stores_modal'])): ?>
+<div id="no-stores-modal" class="agile-modal fade">
+    <div class="agile-modal-backdrop-in"></div>
+    <div class="agile-modal-dialog in">
+        <div class="agile-modal-content">
+            <div class="sl-form-group sl-icon-group">
+                <button type="button" class="close-directions sl-close" data-dismiss="agile-modal"
+                    aria-label="<?php echo asl_esc_lbl('close') ?>"><i aria-hidden="true"
+                        class="icon-cancel-1"></i></button>
+                <div class="sl-loct-icon">
+                    <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="18" r="12" fill="#F44336" />
+                        <ellipse cx="32" cy="18" rx="8" ry="10" fill="#FF6B6B" opacity="0.4" />
+
+                        <path d="M32 30 C30 38 29 48 32 60 C35 48 34 38 32 30Z" fill="#90A4AE" />
+
+                        <line x1="32" y1="30" x2="32" y2="60" stroke="#78909C" stroke-width="1.5" />
+                    </svg>
+                </div>
+                <span class="sl-modal-title"><?php echo esc_attr__('Contact Us', 'asl_locator'); ?></span>
+                <p><?php echo esc_attr__('Please contact our team by phone or email for more information.', 'asl_locator'); ?></p>
+                <p><?php echo esc_attr__('You can also visit our contact page for assistance.', 'asl_locator'); ?></p>
+            </div>
+            <?php if (!empty($all_configs['no_stores_cta'])): ?>
+            <div class="sl-form-group text-center mb-0">
+                <a id="asl-no-stores-cta" href="<?php echo esc_url($all_configs['no_stores_cta']); ?>" class="btn btn-block btn-default"><?php echo esc_attr__('Go to Contact Page', 'asl_locator'); ?></a>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
 <div id="agile-modal-direction" class="agile-modal fade">
     <div class="agile-modal-backdrop-in"></div>
     <div class="agile-modal-dialog in">
         <div class="agile-modal-content">
             <div class="sl-form-group d-flex justify-content-between">
-                <h4><?php echo asl_esc_lbl('modal_get_direc') ?></h4>
+                <span><?php echo asl_esc_lbl('modal_get_direc') ?></span>
                 <button type="button" class="close-directions sl-close" data-dismiss="agile-modal"
                     aria-label="<?php echo asl_esc_lbl('close') ?>"><i aria-hidden="true" class="icon-cancel-1"></i></button>
             </div>
@@ -40,11 +73,11 @@
         <div class="agile-modal-content">
             <?php if($all_configs['prompt_location'] == '2'): ?>
             <div class="sl-form-group d-flex justify-content-between">
-                <h2><?php echo asl_esc_lbl('modal_geo_pos') ?></h2>
+                <span><?php echo asl_esc_lbl('modal_geo_pos') ?></span>
                 <button type="button" class="close-directions sl-close" data-dismiss="agile-modal"
                     aria-label="<?php echo asl_esc_lbl('close') ?>"><i aria-hidden="true" class="icon-cancel-1"></i></button>
             </div>
-            <div class="sl-form-group  sl-geolocation">
+            <div class="sl-form-group sl-geolocation">
                 <label for="asl-current-loc" class="sr-only"><?php echo asl_esc_lbl('modal_your_add') ?></label>
                 <input type="text" class="form-control" id="asl-current-loc"
                 placeholder="<?php echo asl_esc_lbl('modal_your_add') ?>">
@@ -53,9 +86,9 @@
                 <button type="button" id="asl-btn-locate" aria-label="<?php echo asl_esc_lbl('modal_locate') ?>" class="btn btn-block btn-default"><?php echo asl_esc_lbl('modal_locate') ?></button>
             </div>
             <?php else: ?>
-              <div class="sl-form-group sl-icon-group">
-              <button type="button" class="close-directions sl-close" data-dismiss="agile-modal"
-                    aria-label="<?php echo asl_esc_lbl('close') ?>"><i aria-hidden="true" class="icon-cancel-1"></i></button>
+                <div class="sl-form-group sl-icon-group">
+                <button type="button" class="close-directions sl-close" data-dismiss="agile-modal"
+                      aria-label="<?php echo asl_esc_lbl('close') ?>"><i aria-hidden="true" class="icon-cancel-1"></i></button>
                 <div class="sl-loct-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -65,7 +98,7 @@
                         <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                 </div>
-                <h2><?php echo asl_esc_lbl('modal_use_my_loc_title') ?></h2>
+                <span><?php echo asl_esc_lbl('modal_use_my_loc_title') ?></span>
                 <p><?php echo asl_esc_lbl('modal_use_my_loc') ?></p>
             </div>
             <div class="sl-form-group text-center mb-0">
@@ -84,7 +117,7 @@
             <div class="sl-row">
                 <div class="pol-md-12">
                     <div class="sl-form-group d-flex justify-content-between">
-                        <h4 class="sl-title"><?php echo asl_esc_lbl('view_desc') ?></h4>
+                        <span class="sl-title"><?php echo asl_esc_lbl('view_desc') ?></span>
                         <button type="button" class="close-directions sl-close" data-dismiss="agile-modal"
                             aria-label="Close"><i aria-hidden="true" class="icon-cancel-1"></i></button>
                     </div>

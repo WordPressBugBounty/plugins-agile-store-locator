@@ -1,6 +1,23 @@
 <?php
 
 
+$list_column = [
+  'md' => 5,
+  'lg' => 4,
+];
+
+$map_column = [
+  'md' => 7,
+  'lg' => 8,
+];
+
+$this->overrideColumnConfigs($all_configs, $list_column, $map_column);
+
+
+list($list_class, $map_class) = $this->createColClasses($list_column, $map_column);
+
+
+$all_configs['advance_filter'] = '0';
 $geo_btn_icon       = ($all_configs['geo_button'] == '1')? 'icon-direction-outline':'icon-search';
 $geo_btn_class      = ($all_configs['geo_button'] == '1')? 'asl-geo-event':'asl-search-event';
 $search_type_class  = ($all_configs['search_type'] == '1')? 'asl-search-name':'asl-search-address';
@@ -13,8 +30,6 @@ $adv_class_grid = ($all_configs['search_2'])? 'pol-lg-8 pol-md-7': 'pol-lg-8 pol
 
 $ddl_class      = '';
 
-
-$all_configs['advance_filter'] = '0';
 
 $class = (isset($all_configs['css_class']))? ' '.$all_configs['css_class']: '';
 
@@ -36,16 +51,6 @@ if(isset($all_configs['full_map']))
 if($all_configs['advance_filter'] == '0')
   $class .= ' no-asl-filters';
 
-if($all_configs['advance_filter'] == '1' && $all_configs['layout'] == '1')
-  $class .= ' asl-adv-lay1';
-
-if($all_configs['tabs_layout'] == '1') {
-
-  $ddl_class  .= ' asl-tabs-ddl pol-12 pol-lg-12 pol-md-12 pol-sm-12';
-  $class      .= ' sl-category-tabs';
-}
-
-
 //add Full height
 $class .= ' '.$all_configs['full_height'];
 
@@ -58,19 +63,22 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
 
 ?>
 <style type="text/css">
-<?php echo $css_code;
+<?php echo esc_attr($css_code);
 
-?>.asl-cont .onoffswitch .onoffswitch-label .onoffswitch-switch:before {
-    content: "<?php echo asl_esc_lbl('open') ?>" !important;
+?>#asl-storelocator.asl-cont .sl-main-cont .asl-panel.pol-lg-12 {
+    order: <?php echo esc_attr($panel_order) ?>;
 }
 
-.asl-cont .onoffswitch .onoffswitch-label .onoffswitch-switch:after {
-    content: "<?php echo asl_esc_lbl('all') ?>" !important;
+#asl-storelocator.asl-cont .sl-main-cont .asl-panel.pol-lg-12 .asl-panel-inner {
+    position: relative;
+    height: 450px;
 }
+
+
 
 @media (max-width: 767px) {
     #asl-storelocator.asl-cont .asl-panel {
-        order: <?php echo $panel_order ?>;
+        order: <?php echo esc_attr($panel_order) ?>;
     }
 }
 
@@ -79,17 +87,16 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
 }
 </style>
 <div id="asl-storelocator"
-    class="storelocator-main asl-cont asl-template-0 asl-layout-<?php echo $layout_code; ?> asl-bg-<?php echo $all_configs['color_scheme'].$class; ?> asl-text-<?php echo $all_configs['font_color_scheme'] ?>">
+    class="storelocator-main asl-cont asl-template-0 asl-layout-<?php echo esc_attr($layout_code); ?> asl-bg-<?php echo esc_attr($all_configs['color_scheme'].$class); ?> asl-text-<?php echo esc_attr($all_configs['font_color_scheme']) ?>">
     <div class="asl-wrapper">
-        <div class="<?php echo $container_class ?>">
-
+        <div class="<?php echo esc_attr($container_class) ?>">
             <?php if($all_configs['gdpr'] == '1'): ?>
             <div class="sl-gdpr-cont">
                 <div class="gdpr-ol"></div>
                 <div class="gdpr-ol-bg">
                     <div class="gdpr-box">
                         <p><?php echo asl_esc_lbl('label_gdpr') ?></p>
-                        <a class="btn btn-asl" id="sl-btn-gdpr"><?php echo asl_esc_lbl('load')?></a>
+                        <a class="btn btn-asl" id="sl-btn-gdpr"><?php echo asl_esc_lbl('load') ?></a>
                     </div>
                 </div>
             </div>
@@ -98,7 +105,7 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
                 <div class="pol-12">
                     <div class="sl-main-cont">
                         <div class="sl-row no-gutters sl-main-row">
-                            <div id="asl-panel" class="asl-panel pol-md-5 pol-lg-4 asl_locator-panel">
+                            <div id="asl-panel" class="asl-panel <?php echo esc_attr($list_class) ?> asl_locator-panel">
                                 <div class="asl-overlay" id="map-loading">
                                     <div class="white"></div>
                                     <div class="sl-loading">
@@ -106,33 +113,36 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
                                         <?php echo asl_esc_lbl('loading') ?>
                                     </div>
                                 </div>
+                                <?php if(!$all_configs['advance_filter']): ?>
                                 <div class="inside search_filter">
                                     <label for="auto-complete-search"
                                         class="mb-2"><?php echo asl_esc_lbl('search_loc') ?></label>
                                     <div class="asl-store-search input-group d-flex">
-                                        <input type="text" value="<?php echo $default_addr ?>" id="auto-complete-search"
-                                            class="<?php echo $search_type_class ?> form-control"
+                                        <input type="text" value="<?php echo esc_attr($default_addr) ?>"
+                                            id="auto-complete-search"
+                                            class="<?php echo esc_attr($search_type_class) ?> form-control"
                                             placeholder="<?php echo asl_esc_lbl('enter_loc') ?>">
                                         <div class="input-group-append">
-                                            <button aria-label="<?php echo esc_attr($btn_text) ?>"
-                                                title="<?php echo esc_attr($btn_text) ?>" type="button" class="<?php echo $geo_btn_class ?> input-group-text span-geo">
-                                                <i class="<?php echo esc_attr($geo_btn_icon) ?>" aria-hidden="true"></i>
+                                            <button type="button" class="input-group-text <?php echo esc_attr($geo_btn_class) ?> span-geo" aria-label="<?php echo esc_attr($btn_text) ?>">
+                                                <i class="<?php echo esc_attr($geo_btn_icon) ?>"  aria-hidden="true"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
+                                <?php endif; ?>
                                 <!-- list -->
                                 <div class="asl-panel-inner">
                                     <div class="top-title Num_of_store">
                                         <span><span
                                                 class="sl-head-title"><?php echo asl_esc_lbl('head_title') ?></span>:
                                             <span class="count-result">0</span></span>
-                                        <?php if($all_configs['branches'] == '1'): ?>
+                                        <?php if($all_configs['branches'] != '0'): ?>
                                         <a title="<?php echo asl_esc_lbl('bck_to_list') ?>"
                                             class="sl-hide-branches d-none"><i
                                                 class="icon-back mr-1"></i><?php echo asl_esc_lbl('bck_to_list') ?></a>
-                                        <?php else: ?>
-                                        <a class="asl-print-btn"><span><?php echo asl_esc_lbl('print') ?></span><span
+                                        <?php elseif (isset($all_configs['print_btn']) && $all_configs['print_btn'] != '0'): ?>
+                                        <a class="asl-print-btn"
+                                            aria-label="<?php echo asl_esc_lbl('print') ?>"><span><?php echo asl_esc_lbl('print') ?></span><span
                                                 class="asl-print"></span></a>
                                         <?php endif; ?>
                                     </div>
@@ -153,7 +163,7 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
                                     </div>
                                 </div>
                             </div>
-                            <div class="pol-md-7 pol-lg-8 asl-map">
+                            <div class="<?php echo esc_attr($map_class) ?> asl-map">
                                 <div class="map-image">
                                     <div id="asl-map-canv" class="asl-map-canv"></div>
                                     <?php include ASL_PLUGIN_PATH.'public/partials/_agile_modal.php'; ?>

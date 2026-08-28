@@ -1,0 +1,297 @@
+/* Shared ASweetAlert2 6.x presentation for Agile Store Locator admin pages. */
+.aswal2-container {
+  padding: 18px;
+  background: transparent !important;
+  backdrop-filter: none;
+}
+
+.aswal2-container.aswal2-in {
+  background: rgba(30, 41, 59, .38) !important;
+  backdrop-filter: blur(5px);
+}
+
+.aswal2-container:not(.aswal2-in) {
+  backdrop-filter: none !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) {
+  width: min(560px, calc(100vw - 36px)) !important;
+  padding: 42px 44px 38px !important;
+  border: 1px solid rgba(226, 232, 240, .92);
+  border-radius: 18px;
+  background: #fff !important;
+  box-shadow: 0 24px 65px rgba(15, 23, 42, .22);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-close {
+  display: block !important;
+  top: 22px;
+  right: 22px;
+  width: 34px;
+  height: 34px;
+  color: transparent;
+  font-size: 0;
+  opacity: 1;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-close::before,
+.aswal2-modal:not(.asl-license-modal) .aswal2-close::after {
+  position: absolute;
+  top: 16px;
+  left: 5px;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: #526079;
+  content: "";
+  transition: background-color .18s ease, transform .18s ease;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-close::before {
+  transform: rotate(45deg);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-close::after {
+  transform: rotate(-45deg);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-close:hover::before,
+.aswal2-modal:not(.asl-license-modal) .aswal2-close:hover::after {
+  background: #17233a;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon {
+  width: 80px;
+  height: 80px;
+  margin: 8px auto 26px;
+  font-size: 56px;
+  line-height: 80px;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-warning {
+  border-color: #fb8a3c;
+  color: #fb7d2b;
+  background: #fffaf5;
+  box-shadow: 0 0 0 12px rgba(251, 138, 60, .08);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-error {
+  border-color: #ef4050;
+  background: #fff7f8;
+  box-shadow: 0 0 0 12px rgba(239, 64, 80, .08);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-success {
+  border-color: #22a968;
+  background: #fff;
+  box-shadow: 0 0 0 12px rgba(34, 169, 104, .09);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-success .line {
+  background-color: #22a968;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-success .placeholder {
+  border-color: rgba(34, 169, 104, .2);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-error .line {
+  background-color: #ef4050;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-info,
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-question {
+  border-color: #2583ed;
+  color: #1677e5;
+  background: #f5faff;
+  box-shadow: 0 0 0 12px rgba(37, 131, 237, .08);
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-title {
+  margin: 0 34px 12px;
+  color: #101c34;
+  font-size: 28px;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-content {
+  margin: 0 auto;
+  color: #66738d;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-spacer {
+  height: 0;
+  margin: 30px 0 0;
+  border: 0;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-styled {
+  min-width: 150px;
+  min-height: 46px;
+  margin: 10px 5px 0;
+  padding: 11px 22px;
+  border: 1px solid transparent !important;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  box-shadow: none !important;
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-confirm {
+  color: #fff !important;
+  background: #0874e8 !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-confirm:hover,
+.aswal2-modal:not(.asl-license-modal) .aswal2-confirm:focus {
+  background: #0863ce !important;
+  box-shadow: 0 7px 16px rgba(8, 116, 232, .22) !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-cancel {
+  border-color: #d8e0eb !important;
+  color: #24314a !important;
+  background: #fff !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-cancel:hover,
+.aswal2-modal:not(.asl-license-modal) .aswal2-cancel:focus {
+  border-color: #b9c7d9 !important;
+  background: #f7f9fc !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-warning[style*="display: block"] ~ .aswal2-confirm,
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-error[style*="display: block"] ~ .aswal2-confirm {
+  background: #ef2438 !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-warning[style*="display: block"] ~ .aswal2-confirm:hover,
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-warning[style*="display: block"] ~ .aswal2-confirm:focus,
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-error[style*="display: block"] ~ .aswal2-confirm:hover,
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-error[style*="display: block"] ~ .aswal2-confirm:focus {
+  background: #d91d30 !important;
+  box-shadow: 0 7px 16px rgba(239, 36, 56, .22) !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-success[style*="display: block"] ~ .aswal2-confirm {
+  background: #18a45f !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-success[style*="display: block"] ~ .aswal2-confirm:hover,
+.aswal2-modal:not(.asl-license-modal) .aswal2-icon.aswal2-success[style*="display: block"] ~ .aswal2-confirm:focus {
+  background: #12894e !important;
+  box-shadow: 0 7px 16px rgba(24, 164, 95, .22) !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-input,
+.aswal2-modal:not(.asl-license-modal) .aswal2-select,
+.aswal2-modal:not(.asl-license-modal) .aswal2-textarea,
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields input[type="text"],
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields input[type="number"],
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields input[type="email"],
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields input[type="url"],
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields select,
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 46px;
+  margin: 0 !important;
+  padding: 10px 13px;
+  border: 1px solid #d7dfeb;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #17233a;
+  background: #fbfcfe;
+  font-size: 14px;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, .03);
+  outline: 0;
+  transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-input:focus,
+.aswal2-modal:not(.asl-license-modal) .aswal2-select:focus,
+.aswal2-modal:not(.asl-license-modal) .aswal2-textarea:focus,
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields input:focus,
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields select:focus,
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields textarea:focus {
+  border-color: #086ADE;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(8, 106, 222, .12);
+}
+
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields {
+  gap: 17px;
+  margin-top: 20px;
+}
+
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields .form-group {
+  margin: 0;
+}
+
+.aswal2-modal:not(.asl-license-modal) .asl-attr-modal-fields label {
+  display: block;
+  margin: 0 0 7px;
+  color: #26344d;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.aswal2-modal:not(.asl-license-modal) input::placeholder,
+.aswal2-modal:not(.asl-license-modal) textarea::placeholder {
+  color: #98a2b3;
+  opacity: 1;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-inputerror,
+.aswal2-modal:not(.asl-license-modal) .is-invalid {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, .1) !important;
+}
+
+.aswal2-modal:not(.asl-license-modal) .aswal2-validationerror {
+  border-radius: 8px;
+  color: #a51d2a;
+  background: #fff1f2;
+}
+
+@media (max-width: 600px) {
+  .aswal2-modal:not(.asl-license-modal) {
+    padding: 34px 20px 26px !important;
+  }
+
+  .aswal2-modal:not(.asl-license-modal) .aswal2-title {
+    margin-right: 24px;
+    margin-left: 24px;
+    font-size: 23px;
+  }
+
+  .aswal2-modal:not(.asl-license-modal) .aswal2-content {
+    font-size: 14px;
+  }
+
+  .aswal2-modal:not(.asl-license-modal) .aswal2-styled {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aswal2-modal:not(.asl-license-modal) {
+    animation-duration: .01ms !important;
+    transition: none !important;
+  }
+
+  .aswal2-modal:not(.asl-license-modal) .aswal2-icon,
+  .aswal2-modal:not(.asl-license-modal) .aswal2-styled {
+    animation: none !important;
+    transition: none !important;
+  }
+}

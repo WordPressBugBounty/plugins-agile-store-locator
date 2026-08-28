@@ -20,17 +20,23 @@
 
   <!-- Bulk Edit Offcanvas -->
   <div class="sl_offcanvas sl_offcanvas-end" tabindex="-1" id="sl-bulk-edit" aria-labelledby="sl-bulk-edit-label">
-    <div class="sl_offcanvas-header">
-      <h5 id="sl-bulk-edit-label"><?php echo esc_attr__('Bulk Edit Stores', 'asl_locator') ?></h5>
+    <div class="sl_offcanvas-header asl-bulk-edit-header">
+      <span class="asl-bulk-edit-header__icon" aria-hidden="true"><span class="dashicons dashicons-edit-page"></span></span>
+      <div class="asl-bulk-edit-header__copy">
+        <h5 id="sl-bulk-edit-label"><?php echo esc_html__('Bulk Edit Stores', 'asl_locator') ?></h5>
+        <p><?php echo esc_html__('Update selected fields across multiple stores at once.', 'asl_locator') ?></p>
+      </div>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="sl_offcanvas" aria-label="Close"></button>
     </div>
     <div class="sl_offcanvas-body">
-      <p class="small text-muted mb-3">
-        <?php echo esc_attr__('Applies to', 'asl_locator') ?>
-        <strong><span id="sl-bulk-edit-count">0</span></strong>
-        <?php echo esc_attr__('selected stores.', 'asl_locator') ?>
-      </p>
-      <form id="frm-bulk-edit-stores" name="frm-bulk-edit-stores">
+      <div class="asl-bulk-edit-selection" role="status">
+        <span class="dashicons dashicons-store" aria-hidden="true"></span>
+        <div>
+          <strong><span id="sl-bulk-edit-count">0</span> <?php echo esc_html__('stores selected', 'asl_locator') ?></strong>
+          <p><?php echo esc_html__('Enable only the fields you want to replace. Other store data will remain unchanged.', 'asl_locator') ?></p>
+        </div>
+      </div>
+      <form id="frm-bulk-edit-stores" class="asl-bulk-edit-form" name="frm-bulk-edit-stores">
         <input type="hidden" id="asl-bulk-edit-store-ids" value="" />
         <?php if (isset($bulk_edit_fields_map['description'])): ?>
         <div class="form-group d-flex align-items-center justify-content-between mb-2">
@@ -343,12 +349,12 @@
           <?php endforeach; ?>
         <?php endif; ?>
       </form>
-      <div class="d-flex justify-content-end gap-2">
+      <div class="asl-bulk-edit-footer">
+        <button type="button" class="btn asl-bulk-edit-btn asl-bulk-edit-btn--secondary"
+          data-bs-dismiss="sl_offcanvas"><?php echo esc_html__('Cancel', 'asl_locator') ?></button>
         <button type="button" id="btn-asl-bulk-edit-apply"
           data-loading-text="<?php echo esc_attr__('Submitting ...', 'asl_locator') ?>"
-          class="btn btn-primary"><?php echo esc_attr__('Apply Changes', 'asl_locator') ?></button>
-        <button type="button" class="btn btn-secondary"
-          data-bs-dismiss="sl_offcanvas"><?php echo esc_attr__('Close', 'asl_locator') ?></button>
+          class="btn asl-bulk-edit-btn asl-bulk-edit-btn--primary"><span class="dashicons dashicons-saved" aria-hidden="true"></span><?php echo esc_html__('Apply Changes', 'asl_locator') ?></button>
       </div>
     </div>
   </div>

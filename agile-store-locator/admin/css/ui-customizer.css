@@ -32,3 +32,4 @@
 @media(max-width:1200px){.asl-customizer__workspace{grid-template-columns:320px minmax(0,1fr)}.asl-fields-grid{gap:12px}.asl-color-control{width:145px;flex-basis:145px}.asl-color-control .hexcolor{width:90px}.asl-field-copy small{display:none}}
 @media(max-width:900px){.asl-customizer{margin:10px}.asl-customizer__toolbar{flex-wrap:wrap}.asl-button--reset{margin-left:0}.asl-customizer__workspace{grid-template-columns:1fr}.asl-fields-grid{grid-template-columns:1fr}.asl-field-copy small{display:block}}
 @media(max-width:600px){.asl-customizer__header{padding:16px;align-items:flex-start;gap:12px}.asl-customizer__header h1{font-size:17px}.asl-customizer__toolbar{padding:16px;gap:10px}.asl-template-select{width:100%}.asl-button{flex:1}.asl-button--reset{flex-basis:100%}.asl-color-control{width:130px;flex-basis:130px}.asl-customizer__help{padding:12px;align-items:flex-start;flex-wrap:wrap}.asl-customizer__help>a{margin-left:32px}}
+

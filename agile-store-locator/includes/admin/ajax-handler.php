@@ -42,7 +42,9 @@ class AjaxHandler {
     $this->register_route('update_store', 'Store' ,'update_store');
     $this->register_route('add_store', 'Store', 'add_new_store');  
     $this->register_route('delete_all_stores', 'Store', 'admin_delete_all_stores');  
+
     $this->register_route('get_store_list', 'Store', 'get_store_list');  
+    
     $this->register_route('delete_store', 'Store', 'delete_store');  
     $this->register_route('duplicate_store', 'Store', 'duplicate_store');  
     $this->register_route('remove_duplicates', 'Store', 'remove_duplicates');  
@@ -51,6 +53,9 @@ class AjaxHandler {
     $this->register_route('approve_stores', 'Store', 'approve_stores');
     $this->register_route('bulk_update_store_attributes', 'Store', 'bulk_update_store_attributes');
 
+    $this->register_route('schedule_the_store', 'Store', 'schedule_the_store');
+    
+
     /*Categories*/
     $this->register_route('add_categories', 'Category', 'add_category');
     $this->register_route('delete_category', 'Category', 'delete_category');
@@ -58,13 +63,12 @@ class AjaxHandler {
     $this->register_route('get_category_byid', 'Category', 'get_category_by_id');
     $this->register_route('get_categories', 'Category', 'get_categories');  
     
-    /*Logo*/
-    $this->register_route('get_logos', 'Logo', 'get_logos');  
-    $this->register_route('get_logo_byid', 'Logo', 'get_logo_by_id');
-    $this->register_route('update_logo', 'Logo', 'update_logo');
-    $this->register_route('delete_logo', 'Logo', 'delete_logo');
-    $this->register_route('upload_logo', 'Logo', 'upload_logo');
 
+    /*Attributes*/
+    $this->register_route('add_attribute', 'Attribute', 'add_attribute');
+    $this->register_route('delete_attribute', 'Attribute', 'delete_attribute');
+    $this->register_route('update_attribute', 'Attribute', 'update_attribute');
+    $this->register_route('get_attributes', 'Attribute', 'get_attributes');  
 
     /*Markers*/
     $this->register_route('add_markers', 'Marker', 'add_marker');
@@ -72,41 +76,70 @@ class AjaxHandler {
     $this->register_route('update_marker', 'Marker', 'update_marker');
     $this->register_route('get_marker_byid', 'Marker', 'get_marker_by_id');
     $this->register_route('get_markers', 'Marker', 'get_markers');  
-    
-    //  Settings
-    $this->register_route('export_configs', 'Setting', 'export_configs');
-    $this->register_route('import_configs', 'Setting', 'import_configs');
-    $this->register_route('save_setting', 'Setting', 'save_setting');
-    $this->register_route('load_custom_template', 'Setting', 'load_custom_template');
-    $this->register_route('save_custom_template', 'Setting', 'save_custom_template');
-    $this->register_route('reset_custom_template', 'Setting', 'reset_custom_template');
-    $this->register_route('expertise_level', 'Setting', 'expertise_level');
 
-    // Dashboard
-    $this->register_route('create_locator_page', 'Dashboard', 'create_locator_page');
-    $this->register_route('save_onboarding_step', 'Dashboard', 'save_onboarding_step');
-    $this->register_route('complete_locator_manually', 'Dashboard', 'complete_locator_manually');
-
-    $this->register_route('save_custom_fields', 'Setting', 'save_custom_fields'); 
-    $this->register_route('load_ui_settings', 'Setting', 'load_ui_settings');
-    $this->register_route('sl_theme_ui_save', 'Setting', 'sl_theme_ui_save');
-    $this->register_route('reset_ui_template', 'Setting', 'reset_ui_template');
+    /*Logo*/
+    $this->register_route('get_logos', 'Logo', 'get_logos');  
+    $this->register_route('get_logo_byid', 'Logo', 'get_logo_by_id');
+    $this->register_route('update_logo', 'Logo', 'update_logo');
+    $this->register_route('delete_logo', 'Logo', 'delete_logo');
+    $this->register_route('upload_logo', 'Logo', 'upload_logo');
 
     /*Import and settings*/
     $this->register_route('fill_missing_coords', 'ImportExport', 'fill_missing_coords');
     $this->register_route('validate_api_key', 'ImportExport', 'validate_api_key');   
-    
 
-    
+    //  Assets
+    $this->register_route('backup_assets', 'Asset', 'backup_logo_icons');   
+    $this->register_route('import_assets', 'Asset', 'import_assets');
+    $this->register_route('migrate_assets', 'Asset', 'migrate_assets');
+
+    //  Settings
+    $this->register_route('save_setting', 'Setting', 'save_setting');
+    $this->register_route('load_custom_template', 'Setting', 'load_custom_template');
+    $this->register_route('save_custom_template', 'Setting', 'save_custom_template');
+    $this->register_route('reset_custom_template', 'Setting', 'reset_custom_template');
+
+    // Dashboard onboarding
+    $this->register_route('create_locator_page', 'Dashboard', 'create_locator_page');
+    $this->register_route('save_onboarding_step', 'Dashboard', 'save_onboarding_step');
+    $this->register_route('complete_locator_manually', 'Dashboard', 'complete_locator_manually');
+
+    $this->register_route('export_configs', 'Setting', 'export_configs');
+    $this->register_route('import_configs', 'Setting', 'import_configs');
+
+    $this->register_route('save_custom_fields', 'Setting', 'save_custom_fields'); 
+    $this->register_route('backup_tmpl', 'Setting', 'backup_template');
+    $this->register_route('remove_tmpl', 'Setting', 'remove_template');
+    $this->register_route('cache_status', 'Setting', 'manage_cache');
+    $this->register_route('load_ui_settings', 'Setting', 'load_ui_settings');
+    $this->register_route('sl_theme_ui_save', 'Setting', 'sl_theme_ui_save');
+    $this->register_route('reset_ui_template', 'Setting', 'reset_ui_template');
+    $this->register_route('expertise_level', 'Setting', 'expertise_level');
+
     $this->register_route('change_options', 'Setting', 'change_options');
-
-    // label
-    $this->register_route('set_label', 'Label', 'set_label');  
 
     //  KML files
     $this->register_route('add_kml', 'GoogleMap', 'upload_kml_file');
     $this->register_route('delete_kml', 'GoogleMap', 'remove_kml_file');
     $this->register_route('save_custom_map', 'GoogleMap', 'save_custom_map');
+
+    /*Leads*/
+
+    // Slugs
+    $this->register_route('reset_all_slugs', 'Setting', 'reset_all_slugs');  
+
+    // store branch
+    $this->register_route('add_store_into_branch', 'Branch', 'add_store_into_branch');  
+    $this->register_route('get_store_list_edit', 'Branch', 'get_store_list_edit');  
+
+     // label
+    $this->register_route('set_label', 'Label', 'set_label');  
+    
+    // Shortcodes Presets
+
+    // Store Schedule
+    $this->register_route('get_schedule_detail', 'Meta', 'get_schedule_detail');
+    $this->register_route('edit_schedule_store_switch', 'Meta', 'edit_schedule_store_switch');  
   }
 
   /**
@@ -128,11 +161,9 @@ class AjaxHandler {
    */
   public function handle_request() {
 
-    //  Disable Error when AJAX
-    error_reporting(0);
-
     //  sl-action
     $route  = isset($_REQUEST['sl-action'])? sanitize_text_field($_REQUEST['sl-action']): ''; 
+
 
     //  Make sure that user is logged in
     if(!current_user_can( ASL_PERMISSION )) {
@@ -143,7 +174,7 @@ class AjaxHandler {
     $route = apply_filters('asl_admin_route_filter', $route);
 
     // Get the nounce
-    $nounce =  isset($_REQUEST['asl-nounce'])? sanitize_text_field($_REQUEST['asl-nounce']): null;
+    $nounce =  isset($_REQUEST['asl-nounce'])? sanitize_key($_REQUEST['asl-nounce']): null;
 
     //  nouce validation for CSRF
     if(!$nounce || !wp_verify_nonce($nounce, 'asl-nounce')) {
@@ -154,8 +185,8 @@ class AjaxHandler {
     //  validate the route
     if(isset($this->ajax_actions[$route])) {
 
-      $sl_request = $this->ajax_actions[$route]; 
-
+      $sl_request = $this->ajax_actions[$route];
+      
 
       $class_name = '\\'.__NAMESPACE__ . '\\' .$sl_request[0];
       $class_inst = new $class_name;

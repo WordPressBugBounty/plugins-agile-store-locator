@@ -55,9 +55,7 @@
 
 		$form.on('submit', function (event) {
 			event.preventDefault();
-
 			var $submit = $form.find('.asl-deactivate-submit');
-			var originalLabel = $submit.text();
 			var requestFinished = false;
 			$submit.prop('disabled', true).text(config.sending);
 			$form.find('input, textarea').prop('disabled', true);
@@ -79,7 +77,6 @@
 			window.setTimeout(function () {
 				if (!requestFinished) {
 					requestFinished = true;
-					$submit.text(originalLabel);
 					deactivate();
 				}
 			}, 3000);

@@ -93,7 +93,14 @@ if(!defined('ASL_DISABLE_RANKMATH') && class_exists('RankMath\Sitemap\Sitemap') 
     return $external_providers;
   });
 
-  add_filter( 'rank_math/frontend/title',  [\RankMath\Sitemap\Providers\ASLRankMath::class,'update_page_title_by_store_slug'] );
+  add_filter( 'rank_math/frontend/title', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_page_title_by_store_slug'] );
+  add_filter( 'rank_math/frontend/description', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_page_description_by_store_slug'] );
+
+  add_filter( 'rank_math/opengraph/facebook/og_title', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_page_title_by_store_slug'] );
+  add_filter( 'rank_math/opengraph/facebook/og_description', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_page_description_by_store_slug'] );
+  add_filter( 'rank_math/opengraph/facebook/og_url', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_opengraph_url_by_store_slug'] );
+  add_filter( 'rank_math/opengraph/twitter/twitter_title', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_page_title_by_store_slug'] );
+  add_filter( 'rank_math/opengraph/twitter/twitter_description', [\RankMath\Sitemap\Providers\ASLRankMath::class, 'update_page_description_by_store_slug'] );
 
   add_filter( 'rank_math/frontend/canonical', [\AgileStoreLocator\Schema\Slug::class, 'update_canonical_tag']);
 

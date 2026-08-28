@@ -43,33 +43,47 @@ class Category extends Base
         $response->success = false;
 
         //  Forms Data
-        $form_data = stripslashes_deep($_REQUEST['data']);
+        $form_data = isset($_REQUEST['data']) && is_array($_REQUEST['data'])
+            ? stripslashes_deep($_REQUEST['data'])
+            : [];
+
+        $category_name = isset($form_data['category_name'])
+            ? $this->clean_input($form_data['category_name'])
+            : '';
+
+        if ($category_name === '') {
+            $response->msg = esc_attr__('Category name is required.', 'asl_locator');
+            return $this->send_response($response);
+        }
 
         //  The Order ID
         $order_id  = (isset($form_data['ordr']) && is_numeric($form_data['ordr'])) ? $form_data['ordr'] : '0';
 
         //  Parameters to Save
         $data_params = [
-            'parent_id'     => $this->clean_input($form_data['parent_id']),
-            'category_name' => $this->clean_input($form_data['category_name']),
+            'parent_id'     => isset($form_data['parent_id']) ? $this->clean_input($form_data['parent_id']) : 0,
+            'category_name' => $category_name,
             'ordr'          => $order_id
         ];
 
         //  lang
         $data_params['lang']    = $this->lang;
+        $data_params['icon']    = 'default.png';
 
-        //  Upload the Category Icon File
-        $upload_result  = $this->_file_uploader($_FILES['files'], 'svg');
+        // Upload an icon when supplied; otherwise retain the shared default.
+        $has_icon = isset($_FILES['files'])
+            && isset($_FILES['files']['error'])
+            && (int) $_FILES['files']['error'] !== UPLOAD_ERR_NO_FILE;
 
-        //  Validate the Upload Success
-        if (isset($upload_result['success']) && $upload_result['success']) {
-            $file_name    = $upload_result['file_name'];
+        if ($has_icon) {
+            $upload_result = $this->_file_uploader($_FILES['files'], 'svg');
 
-            //  Add the newly uploaded file
-            $data_params['icon'] = $file_name;
-        } else {
-            $response->msg      = ($upload_result['error']) ? $upload_result['error'] : esc_attr__('Error! Failed to upload the image.', 'asl_locator');
-            return $this->send_response($response);
+            if (isset($upload_result['success']) && $upload_result['success']) {
+                $data_params['icon'] = $upload_result['file_name'];
+            } else {
+                $response->msg = !empty($upload_result['error']) ? $upload_result['error'] : esc_attr__('Error! Failed to upload the image.', 'asl_locator');
+                return $this->send_response($response);
+            }
         }
 
         //  Insert the Category Record
@@ -169,7 +183,7 @@ class Category extends Base
                 $old_icon     = $wpdb->get_results($wpdb->prepare('SELECT * FROM ' . ASL_PREFIX . 'categories WHERE id = %d', $data['category_id']));
 
                 //  Delete the old file, if exist
-                if (file_exists(ASL_UPLOAD_DIR . 'svg/' . $old_icon[0]->icon)) {
+                if ($old_icon[0]->icon !== 'default.png' && file_exists(ASL_UPLOAD_DIR . 'svg/' . $old_icon[0]->icon)) {
                     unlink(ASL_UPLOAD_DIR . 'svg/' . sanitize_file_name($old_icon[0]->icon));
                 }
             } else {
@@ -227,7 +241,7 @@ class Category extends Base
         $params = $_REQUEST ?? null;
 
         // Allowed column names for sorting and filtering
-        $acolumns        = ['id', 'id', 'category_name', 'ordr', 'icon', 'created_on', 'parent_id'];
+        $acolumns        = ['id', 'id', 'category_name', 'parent_id', 'ordr', 'icon', 'created_on', 'id'];
         $allowed_columns = ['id', 'category_name', 'ordr', 'icon', 'created_on', 'parent_id'];
 
         $clause     = [];

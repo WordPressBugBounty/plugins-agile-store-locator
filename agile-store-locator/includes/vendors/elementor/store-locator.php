@@ -141,11 +141,11 @@ class StoreLocator extends \Elementor\Widget_Base {
 				'default' => '0',
 				'options' => array(
 					'0' => esc_attr__('Template 0','asl_locator'),
-					'1' => esc_attr__('Template 1 (Pro)','asl_locator'),
-					'2' => esc_attr__('Template 2 (Pro)','asl_locator'),
-					'3' => esc_attr__('Template 3 (Pro)','asl_locator'),
-					'4' => esc_attr__('Template 4 (Pro)','asl_locator'),
-					'list' => esc_attr__('Template List (Pro)','asl_locator'),
+					'1' => esc_attr__('Template 1','asl_locator'),
+					'2' => esc_attr__('Template 2','asl_locator'),
+					'3' => esc_attr__('Template 3','asl_locator'),
+					'4' => esc_attr__('Template 4','asl_locator'),
+					'list' => esc_attr__('Template List','asl_locator'),
 				),
 			]
 		);
@@ -158,9 +158,10 @@ class StoreLocator extends \Elementor\Widget_Base {
 				'default' => '0',
 				'options' => array(
 					'0' => esc_attr__('Search By Address (Google)','asl_locator'),
-					'1' => esc_attr__('Search By Store Name (Database) (Pro)','asl_locator'),
-					'2' => esc_attr__('Search By Stores Cities, States (Database) (Pro)','asl_locator'),
+					'1' => esc_attr__('Search By Store Name (Database)','asl_locator'),
+					'2' => esc_attr__('Search By Stores Cities, States (Database)','asl_locator'),
 					'3' => esc_attr__('Geocoding on Enter key (Google Geocoding API)','asl_locator'),
+					'4' => esc_attr__('Search By New Place API (Google)','asl_locator'),
 				),
 			]
 		);
@@ -173,24 +174,35 @@ class StoreLocator extends \Elementor\Widget_Base {
 				'default' => '0',
 				'options' => array(
 					'0' => esc_attr__('List Format','asl_locator'),
-					'1' => esc_attr__('Accordion (States, Cities, Countries) (Pro)','asl_locator'),
-					'2' => esc_attr__('Accordion (Categories)','asl_locator (Pro)'),
+					'1' => esc_attr__('Accordion (States, Cities, Countries)','asl_locator'),
+					'2' => esc_attr__('Accordion (Categories)','asl_locator'),
 				),
 			]
 		);
 
+		$this->add_control(
+			'distance_control',
+			[
+				'label' => esc_html__( 'Distance Control', 'asl_locator' ),
+				'type' => \Elementor\Controls_Manager::SELECT2,
+				'default' => '0',
+				'options' => [
+					'0' => esc_html__( 'Slider', 'asl_locator' ),
+					'1' => esc_html__( 'Dropdown', 'asl_locator' ),
+					'2' => esc_html__( 'Boundary Box', 'asl_locator' ),
+				],
+
+			]
+		);
 
 		$this->add_control(
-		    'distance_unit',
-		    [
-		        'label' => __( 'Select Distance Unit', 'asl_locator' ),
-		        'type' => \Elementor\Controls_Manager::SELECT2,
-		        'default' => 'Miles',
-		        'options' => array(
-		            'Miles' => esc_attr__('Miles','asl_locator'),
-		            'KM' => esc_attr__('KM','asl_locator'),
-		        ),
-		    ]
+			'head_title',
+			[
+				'label' => esc_html__( 'Head Title', 'asl_locator' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => 'No. of Stores'
+
+			]
 		);
 
 
@@ -216,20 +228,17 @@ class StoreLocator extends \Elementor\Widget_Base {
 		$shortcode_attr = array();
 
 		// Template Selection
-		((!empty($settings['template']) || $settings['template'] == '0') ? $shortcode_attr['template'] = 'template="0"' : '' );
-
-
-		// Distance Unit
-		((!empty($settings['distance_unit']) || $settings['distance_unit'] == '0') ? $shortcode_attr['distance_unit'] = 'distance_unit="'.$settings['distance_unit'].'"' : '' );
-		
+		((!empty($settings['template']) || $settings['template'] == '0') ? $shortcode_attr['template'] = 'template="'.$settings['template'].'"' : '' );
 
 
 		// Select Search Type
 		((!empty($settings['search_type']) || $settings['search_type'] == '0') ? $shortcode_attr['search_type'] = 'search_type="'.$settings['search_type'].'"' : '' );
 
 		// Layout Selection
-		((!empty($settings['layout'])  || $settings['layout'] == '0') ? $shortcode_attr['layout'] = 'layout="0"' : '' );
+		((!empty($settings['layout'])  || $settings['layout'] == '0') ? $shortcode_attr['layout'] = 'layout="'.$settings['layout'].'"' : '' );
 
+		// Select Distance Control
+		((!empty($settings['distance_control']) || $settings['distance_control'] == '0') ? $shortcode_attr['distance_control'] = 'distance_control="'.$settings['distance_control'].'"' : '' );
 
 
 		$shortcode_attr = implode(' ', $shortcode_attr);

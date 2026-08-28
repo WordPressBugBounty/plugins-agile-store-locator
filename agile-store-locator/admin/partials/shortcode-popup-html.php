@@ -1,10 +1,10 @@
 <!-- sModal -->
-<div class="smodal asl-p-cont fade sl-cont sl-main-shortcode-popup" id="insert-sl-shortcode" tabindex="-1" role="dialog" aria-labelledby="insert-sl-shortcodeLabel" aria-hidden="true">
+<div class="smodal asl-p-cont fade sl-cont sl-main-shortcode-popup" id="insert-sl-shortcode"  role="dialog" aria-labelledby="insert-sl-shortcodeLabel" aria-hidden="true">
   <div class="smodal-dialog smodal-dialog-centered" role="document">
     <div class="smodal-content">
       <div class="smodal-header">
         <h5 class="smodal-title" id="insert-sl-shortcodeLabel"><?php echo esc_attr__('Store Locator Shortcode','asl_locator'); ?></h5>
-        <button type="button" class="close" data-dismiss="smodal" aria-label="Close">
+        <button type="button" class="close" data-bs-dismiss="smodal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -19,9 +19,6 @@
                   <div class="field-group-inner">
                     <select class="custom-select custom-nice-select input" id="asl-template" name="template">
                       <option value="0"><?php echo esc_attr__('Template 0','asl_locator'); ?></option>
-                      <option disabled="disabled" value="1"><?php echo esc_attr__('Template 1','asl_locator'); ?></option>
-                      <option disabled="disabled" value="2"><?php echo esc_attr__('Template 2','asl_locator'); ?></option>
-                      <option disabled="disabled" value="3"><?php echo esc_attr__('Template 3','asl_locator'); ?></option>
                       <option disabled="disabled" value="list"><?php echo esc_attr__('Template list','asl_locator'); ?></option>
                     </select>
                   </div>
@@ -34,6 +31,7 @@
                       <option disabled="disabled" value="1"><?php echo esc_attr__('Search By Store Name (Database)','asl_locator'); ?></option>
                       <option disabled="disabled" value="2"><?php echo esc_attr__('Search By Stores Cities, States (Database)','asl_locator'); ?></option>
                       <option value="3"><?php echo esc_attr__('Geocoding on Enter key (Google Geocoding API)','asl_locator'); ?></option>
+                      <option value="4"><?php echo esc_attr__('Search By New Place API (Google)','asl_locator'); ?></option>
                     </select>
                   </div>
                 </div>
@@ -80,7 +78,7 @@
         </form>
       </div>
       <div class="smodal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="smodal"><?php echo esc_attr__('Close','asl_locator'); ?></button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="smodal"><?php echo esc_attr__('Close','asl_locator'); ?></button>
         <button type="button" id="sl-add-shortcode" class="btn btn-primary"><?php echo esc_attr__('Insert Shortcode','asl_locator'); ?></button>
       </div>
     </div>
@@ -92,8 +90,6 @@
   var ASL_Instance = {
     url: '<?php echo ASL_UPLOAD_URL ?>'
   };
-
-
   window.addEventListener("load", function() {
     asl_engine.shortcode_generator();
   });

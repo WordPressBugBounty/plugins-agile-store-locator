@@ -1,21 +1,34 @@
-<div class="asl-p-cont asl-new-bg">
+<?php $asl_non_google_map = isset($all_configs['map_vendor']) && 'google' !== strtolower((string) $all_configs['map_vendor']); ?>
+<div class="asl-p-cont asl-new-bg asl-admin-header-page asl-customize-map-page">
     <div class="container">
         <div class="asl-customize-map">
-            <div class="card p-0 mb-4 asl-inner-cont">
-                <div class="card-title asl-map-customizer-header">
-                    <div>
+            <div class="card p-0 mb-4 asl-inner-cont asl-grid-shell">
+                <header class="asl-admin-page-header">
+                    <span class="asl-admin-page-header__icon" aria-hidden="true">
+                        <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 7l7-3 8 3 7-3v21l-7 3-8-3-7 3z" />
+                            <path d="M12 4v21M20 7v21" />
+                            <circle cx="16" cy="15" r="3" />
+                        </svg>
+                    </span>
+                    <div class="asl-admin-page-header__copy">
                         <h3><?php echo esc_html__('Customize Map', 'asl_locator'); ?></h3>
-                        <p class="card-text"><?php echo esc_html__('Draw map areas, configure layers, and choose the controls shown to visitors.', 'asl_locator'); ?></p>
+                        <p><?php echo esc_html__('Draw map areas, configure layers, and choose the controls shown to visitors.', 'asl_locator'); ?></p>
                     </div>
-                    <button type="button" id="asl-save-map" data-loading-text="<?php echo esc_attr__('Saving...', 'asl_locator'); ?>" class="btn btn-success">
-                        <?php echo esc_html__('Save Customization', 'asl_locator'); ?>
-                    </button>
-                </div>
+                    <div class="asl-admin-page-header__actions">
+                        <button type="button" id="asl-save-map" data-loading-text="<?php echo esc_attr__('Saving...', 'asl_locator'); ?>" class="btn asl-map-header-save">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 3h12l2 2v16H5zM8 3v6h8V3M8 21v-7h8v7" />
+                            </svg>
+                            <span><?php echo esc_html__('Save Customization', 'asl_locator'); ?></span>
+                        </button>
+                    </div>
+                </header>
 
                 <div class="card-body p-4">
                     <div class="row g-3 asl-map-customizer-panels">
                         <div class="col-xl-7 col-12">
-                            <section class="asl-map-option-card h-100" aria-labelledby="asl-drawing-title">
+                            <section class="asl-map-option-card h-100<?php echo $asl_non_google_map ? ' asl-map-option-card-disabled' : ''; ?>" aria-labelledby="asl-drawing-title"<?php echo $asl_non_google_map ? ' aria-disabled="true"' : ''; ?>>
                                 <div class="asl-option-card-heading">
                                     <span class="dashicons dashicons-edit"></span>
                                     <div>
@@ -75,7 +88,7 @@
                                                 ?>
                                                     <span>
                                                         <input type="radio" id="asl-color_scheme-<?php echo esc_attr($index); ?>" value="<?php echo esc_attr($shape_color); ?>" name="data[color_scheme]"<?php checked($index, 0); ?>>
-                                                        <label class="color-box color-<?php echo esc_attr($index); ?>" for="asl-color_scheme-<?php echo esc_attr($index); ?>" title="<?php echo esc_attr($shape_color); ?>" style="background-color: <?php echo esc_attr($shape_color); ?>"></label>
+                                                        <label class="color-box color-<?php echo esc_attr($index); ?>" for="asl-color_scheme-<?php echo esc_attr($index); ?>" title="<?php echo esc_attr($shape_color); ?>"></label>
                                                     </span>
                                                 <?php endforeach; ?>
                                             </div>
@@ -113,6 +126,14 @@
                                         <?php endforeach; ?>
                                     </div>
                                 </form>
+                                <?php if ($asl_non_google_map) : ?>
+                                    <div class="asl-map-feature-overlay" role="note">
+                                        <span class="dashicons dashicons-lock" aria-hidden="true"></span>
+                                        <strong><?php echo esc_html__('Available with Google Maps', 'asl_locator'); ?></strong>
+                                        <p><?php echo esc_html__('Drawing tools and these map layers require Google Maps.', 'asl_locator'); ?></p>
+                                        <a href="#"><?php echo esc_html__('Learn more', 'asl_locator'); ?></a>
+                                    </div>
+                                <?php endif; ?>
                             </section>
                         </div>
 
@@ -138,9 +159,10 @@
 
                                     foreach ($map_controls as $control_key => $control_label) :
                                         $control_enabled = !isset($map_control_defaults[$control_key]) || $map_control_defaults[$control_key];
+                                        $maplibre_unsupported = $asl_non_google_map && in_array($control_key, ['cameracontrol', 'streetviewcontrol', 'maptypecontrol'], true);
                                     ?>
-                                        <label class="asl-check-option" for="asl-<?php echo esc_attr($control_key); ?>">
-                                            <input type="checkbox" class="asl-map-control-toggle" id="asl-<?php echo esc_attr($control_key); ?>" data-control="<?php echo esc_attr($control_key); ?>"<?php checked($control_enabled); ?>>
+                                        <label class="asl-check-option<?php echo $maplibre_unsupported ? ' asl-check-option-disabled' : ''; ?>" for="asl-<?php echo esc_attr($control_key); ?>">
+                                            <input type="checkbox" class="asl-map-control-toggle" id="asl-<?php echo esc_attr($control_key); ?>" data-control="<?php echo esc_attr($control_key); ?>"<?php checked($control_enabled); disabled($maplibre_unsupported); ?>>
                                             <span class="asl-check-indicator"></span>
                                             <span><?php echo esc_html($control_label); ?></span>
                                         </label>
@@ -159,6 +181,9 @@
                                             esc_url(admin_url('admin.php?page=asl-settings'))
                                         );
                                         ?>
+                                        <?php if ($asl_non_google_map) : ?>
+                                            <?php echo esc_html__('MapLibre supports Zoom and Fullscreen. Camera, Street View, and Map Type controls require Google Maps and are disabled.', 'asl_locator'); ?>
+                                        <?php endif; ?>
                                     </p>
                                 </div>
                             </section>
@@ -173,8 +198,10 @@
                             </div>
                             <span id="asl-map-dirty-status" class="asl-map-dirty-status" aria-live="polite"></span>
                         </div>
-                        <label class="screen-reader-text" for="asl-setting-search-box"><?php echo esc_html__('Search location', 'asl_locator'); ?></label>
-                        <input id="asl-setting-search-box" type="search" class="form-control mb-3" placeholder="<?php echo esc_attr__('Search location', 'asl_locator'); ?>">
+                        <div class="asl-map-preview-search">
+                            <label class="screen-reader-text" for="asl-setting-search-box"><?php echo esc_html__('Search location', 'asl_locator'); ?></label>
+                            <input id="asl-setting-search-box" type="search" class="form-control mb-3" placeholder="<?php echo esc_attr__('Search location', 'asl_locator'); ?>">
+                        </div>
                         <div class="map_canvas" id="map_canvas" aria-label="<?php echo esc_attr__('Map customization preview', 'asl_locator'); ?>"></div>
                     </section>
 
@@ -287,8 +314,11 @@
     </div>
 </div>
 
-<?php
-$asl_customize_map_l10n = [
+<script type="text/javascript">
+var ASL_Instance = <?php echo wp_json_encode(['url' => ASL_UPLOAD_URL]); ?>;
+var asl_configs = <?php echo wp_json_encode($all_configs); ?>;
+var asl_map_customize = <?php echo wp_json_encode($map_customize); ?>;
+var asl_customize_map_l10n = <?php echo wp_json_encode([
     'select_tool'       => __('Select a drawing tool to begin.', 'asl_locator'),
     'polygon'          => __('Click to add polygon points, then select Finish Drawing or double-click.', 'asl_locator'),
     'polyline'         => __('Click to add line points, then select Finish Drawing or double-click.', 'asl_locator'),
@@ -303,17 +333,9 @@ $asl_customize_map_l10n = [
     'kml_available'     => __('Available', 'asl_locator'),
     'kml_previewing'    => __('Previewing', 'asl_locator'),
     'kml_preview_error' => __('The KML file could not be previewed. Confirm that it is publicly accessible and valid.', 'asl_locator'),
-];
-$asl_customize_map_script = sprintf(
-    "var ASL_Instance = %s;\nvar asl_configs = %s;\nvar asl_map_customize = %s;\nvar asl_customize_map_l10n = %s;\n" .
-    "window.addEventListener('load', function() {\n" .
-    "    asl_engine.pages.customize_map(asl_map_customize);\n" .
-    "});",
-    wp_json_encode(['url' => ASL_UPLOAD_URL]),
-    wp_json_encode($all_configs),
-    wp_json_encode($map_customize),
-    wp_json_encode($asl_customize_map_l10n)
-);
+]); ?>;
 
-wp_add_inline_script('agile-store-locator-jscript', $asl_customize_map_script, 'after');
-?>
+window.addEventListener('load', function() {
+    asl_engine.pages.customize_map(asl_map_customize);
+});
+</script>

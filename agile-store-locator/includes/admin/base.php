@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The base class for the admin-specific functionality of the plugin.
  *
  * @link       https://agilestorelocator.com
- * @since      1.4.3
+ * @since      4.7.32
  *
  * @package    AgileStoreLocator
  * @subpackage AgileStoreLocator/Admin/Base
@@ -72,13 +72,21 @@ class Base {
   public $as_object;
 
 
+
   /**
    * [__construct]
    */
   public function __construct() {
 
-    //  lang query parameter, called by ServerCall AJAX method
-    $this->lang = (isset($_REQUEST['asl-lang']) && $_REQUEST['asl-lang'])? esc_sql(sanitize_text_field($_REQUEST['asl-lang'])): '';
+    // Use the requested data language, or the language retained by the admin selector.
+    $has_requested_lang = isset($_REQUEST['asl-lang']);
+    $lang = $has_requested_lang ? wp_unslash($_REQUEST['asl-lang']) : '';
+
+    if(!$has_requested_lang && isset($_COOKIE['asl-lang'])) {
+      $lang = wp_unslash($_COOKIE['asl-lang']);
+    }
+
+    $this->lang = esc_sql(sanitize_text_field($lang));
 
     //  must be a valid lang code
     if(strlen($this->lang) >= 13 || $this->lang == 'en_US') {
@@ -87,7 +95,7 @@ class Base {
 
   }
 
-  
+
   /**
    * [send_response This method is used to return the results either as JSON or as object, Used in the asl-wc since version 4.8.33]
    * @param  [type] $response [description]
@@ -146,6 +154,19 @@ class Base {
       'span'    => array(
         'style' => array()
       ),
+      'img'     => array(
+        'src'      => array(),
+        'alt'      => array(),
+        'title'    => array(),
+        'width'    => array(),
+        'height'   => array(),
+        'class'    => array(),
+        'style'    => array(),
+        'loading'  => array(),
+        'decoding' => array(),
+        'srcset'   => array(),
+        'sizes'    => array()
+      ),
     );
 
     // Use wp_kses() to sanitize any HTML in the value and allow only the specified tags and attributes
@@ -162,7 +183,7 @@ class Base {
     // Loop through each element in the input array
     foreach($input_array as $key => $value) {
 
-        $input_array[$key] = $this->clean_input_html($value);
+      $input_array[$key] = $this->clean_input_html($value);
     }
 
     // Return the sanitized input array
@@ -177,13 +198,12 @@ class Base {
    */
   protected function clean_input_array($input_array) {
 
-    
     // Loop through each element in the input array
     foreach($input_array as $key => $value) {
 
       if($key == 'website' || strpos($key, '_url') !== false) {
 
-        $input_array[$key] = esc_url($value);
+        $input_array[$key] = esc_url_raw($value);
       }
       else {
 
@@ -197,7 +217,6 @@ class Base {
     // Return the sanitized input array
     return $input_array;
   }
-
 
   /**
    * [fixURL Add https:// to the URL]
@@ -239,7 +258,7 @@ class Base {
         $field['type']      = strip_tags($field['type']);
         $field['name']      = strip_tags($field['name']);
         $field['label']     = strip_tags($field['label']);
-        $field['css_class'] = isset($field['css_class']) ? strip_tags($field['css_class']) : '';
+        $field['css_class'] = isset($field['css_class'])? strip_tags($field['css_class']): '';
         $field['section']   = isset($field['section']) && in_array($field['section'], ['address', 'other'], true)
           ? $field['section']
           : 'other';
@@ -322,6 +341,7 @@ class Base {
     $file_extension = pathinfo($source["name"], PATHINFO_EXTENSION);
     $real_file_name = substr(strtolower($source["name"]), 0, strpos(strtolower($source["name"]), '.'));
     $real_file_name = substr($real_file_name, 0, 15);
+    $real_file_name = sanitize_file_name($real_file_name);
     $new_file_name  = $real_file_name.'-'.uniqid();
     
     //  Add File Extension
@@ -355,9 +375,29 @@ class Base {
       if(!in_array(strtolower($file_extension), $supported_extensions)) {
         return array('error' => esc_attr__("Sorry, only JPG, JPEG, PNG & GIF files are allowed.",'asl_locator'));
       }
+
+      if(strtolower($file_extension) == 'svg' && !$this->is_safe_svg($image_file)) {
+        return array('error' => esc_attr__("Sorry, this SVG file is not allowed.",'asl_locator'));
+      }
       
-      $img_max_width  = ($folder == 'Logo')? $this->max_img_width: $this->max_ico_width;
-      $img_max_height = ($folder == 'Logo')? $this->max_img_height: $this->max_ico_height;
+
+      $img_max_width  = $img_max_height = null;
+
+      //  Logo
+      if($folder == 'Logo') {
+
+        $img_max_width  = $this->max_img_width;
+        $img_max_height = $this->max_img_height;
+        
+        //  Add it back
+        //list($img_max_width, $img_max_height) = apply_filters( 'asl_logo_size', [$img_max_width, $img_max_height]);
+      }
+      //  Icon
+      else {
+
+        $img_max_width  = $this->max_ico_width;
+        $img_max_height = $this->max_ico_height;
+      }
 
 
       //  Width or Height Issue
@@ -374,6 +414,7 @@ class Base {
       //  $supported_mime = array('text/plain', 'text/kml', 'text/comma-separated-values');
 
       //  Only CSV file is allowed
+      //if(strtolower($file_extension) != 'kml' || !in_array($source['type'], $supported_mime)) {
       if(strtolower($file_extension) != 'kml') {
         return array('error' => esc_attr__("Sorry, only KML files are allowed to import",'asl_locator'));
       }
@@ -417,6 +458,18 @@ class Base {
        
       return array('error' => $movefile['error']);
     }
+  }
+
+  /**
+   * [is_safe_svg Basic SVG safety validation]
+   * @param  string $file_path [description]
+   * @return bool
+   */
+  protected function is_safe_svg($file_path) {
+
+    $svg = file_get_contents($file_path);
+
+    return \AgileStoreLocator\Helper::is_safe_svg_content($svg);
   }
 
  

@@ -39,17 +39,17 @@ class Helper {
     //  Filter address fields
     $store->street          = esc_attr($store->street);
     $store->city            = esc_attr($store->city);
-    $store->state           = esc_attr($store->state);
+    $store->state           = wp_kses_post($store->state);
     $store->postal_code     = esc_attr($store->postal_code);
     //$store->country         = esc_attr($store->country);
     $store->phone           = esc_attr($store->phone);
     $store->email           = esc_attr($store->email);
-    $store->website         = esc_attr($store->website);
+    $store->website         = esc_url_raw($store->website);
 
     return $store;
   }
 
-   /**
+  /**
    * [sanitize_custom_map_style Validate and normalize custom Google Map style JSON]
    * @param  string $map_style     [description]
    * @param  mixed  $invalid_value [description]
@@ -86,7 +86,7 @@ class Helper {
     return array_keys($value) === range(0, count($value) - 1);
   }
 
-  
+
   /**
    * [advanced_marker_tmpls All the supported Advanced Markers]
    * @return [type] [description]
@@ -111,20 +111,21 @@ class Helper {
    * @return [type] [description]
    */
   public static function cards_tmpls() {
-    $templates = scandir(ASL_PLUGIN_PATH . '/public/partials');
-    $template_files = [];
+    
+    $cards = scandir(ASL_PLUGIN_PATH . '/public/partials');
+    $card_files = [];
 
     $ii = 0;
-    for ($i=0; $i < count($templates); $i++) { 
+    for ($i=0; $i < count($cards); $i++) { 
       // Skip files not starting with'asl-cards' || non-php files
-      if ( (substr($templates[$i], 0, 9) !== 'asl-cards') || (substr($templates[$i], -4) !== '.php') ) continue;
+      if ( (substr($cards[$i], 0, 9) !== 'asl-card-') || (substr($cards[$i], -4) !== '.php') ) continue;
 
       $ii++;
-      $template_files[] = ['label' => esc_attr__('Cards ' . $ii), 'value' => str_replace('.php', '', $templates[$i]),  'disable' => false];
+      $card_files[] = ['label' => esc_attr__('Card ' . $ii), 'value' => str_replace('.php', '', $cards[$i]),  'disable' => false];
     }
 
 
-    return $template_files;
+    return $card_files;
   }
 
   /**
@@ -133,27 +134,11 @@ class Helper {
   public static function customizer_tmpls() {
 
     $tmpl_options  = [['label' => esc_attr__('List'), 'value' => 'list'], ['label' => esc_attr__('InfoBox'), 'value' => 'infobox']];
-    $list_tmp_opts = [['label' => esc_attr__('List'), 'value' => 'list']];
-
     $templates = [
       'template-0'      => ['label' => esc_attr__('Template 0'), 'options' => $tmpl_options],
       'advanced_marker' => ['label' => esc_attr__('Advanced Markers'), 'options' => self::advanced_marker_tmpls()],
-      'template-1'      => ['label' => esc_attr__('Template 1 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
-      'template-2'      => ['label' => esc_attr__('Template 2 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
-      'template-3'      => ['label' => esc_attr__('Template 3 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
-      'template-3'      => ['label' => esc_attr__('Template 4 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
-      'template-3'      => ['label' => esc_attr__('Template 5 (Pro)'), 'options' => $tmpl_options, 'disable' => true],
-      'store-grid'      => ['label' => esc_attr__('Template Grid (Pro)'), 'options'   => $tmpl_options, 'disable' => true],
-      'template-list'   => ['label' => esc_attr__('Template List (Pro)'), 'options'   => $list_tmp_opts, 'disable' => true]
+      'cards-templates' => ['label' => esc_attr__('Cards Templates'), 'options' => self::cards_tmpls()],
     ];
-
-    if(defined('ASL_WC_PLUGIN')) { 
-
-      $templates = [
-        'template-0'      => ['label' => esc_attr__('Template 0'), 'options' => $tmpl_options],
-        'advanced_marker' => ['label' => esc_attr__('Advanced Markers'), 'options' => self::advanced_marker_tmpls()]
-      ];
-    }
 
     // Add a filter here for the $templates customizer
     $templates = apply_filters('asl_customizer_templates', $templates);
@@ -185,6 +170,7 @@ class Helper {
    * [add_content_to_head adds content to <head>]
    */
   public static function add_content_to_head(string $content) {
+    
     echo $content;
   }
 
@@ -429,6 +415,11 @@ class Helper {
             WHERE category_id = %s
           )", $cl_val);
 
+        } elseif ($cl_key == 'is_disabled') {
+
+          // Always include stores that are not explicitly disabled
+          $clause .= " AND (is_disabled IS NULL OR is_disabled = 0)";
+
         } elseif ($cl_key == 'website' && $cl_val == '*') {
 
           $clause .= " AND website != ''";
@@ -553,7 +544,7 @@ class Helper {
         
         if($code) {
 
-          if(is_numeric($code)) {
+          if(ctype_digit($code)) {
             $code = $code.'px';
           }
 
@@ -788,16 +779,11 @@ class Helper {
 
     $files = [
       ['title' => 'Template 0', 'file' => 'template-frontend-0.php', 'image' => 'tmpl-0.png'],
-      ['title' => 'Template 1', 'file' => 'template-frontend-1.php', 'image' => 'tmpl-1.png'],
-      ['title' => 'Template 2', 'file' => 'template-frontend-2.php', 'image' => 'tmpl-2.png'],
-      ['title' => 'Template 3', 'file' => 'template-frontend-3.php', 'image' => 'tmpl-3.png'],
-      ['title' => 'Template 4', 'file' => 'template-frontend-4.php', 'image' => 'tmpl-4.png'],
-      ['title' => 'Template List',      'file' => 'template-frontend-list.php', 'image' => 'tmpl-list.png'],
       ['title' => 'Search Widget',      'file' => 'asl-search.php', 'image' => 'tmpl-search.png'],
       ['title' => 'Registration Form',  'file' => 'asl-store-form.php', 'image' => 'tmpl-form.png'],
       ['title' => 'Store Detail',       'file' => 'asl-store-page.php', 'image' => 'tmpl-form.png'],
       ['title' => 'Lead Form',          'file' => 'asl-lead-form.php', 'image' => 'tmpl-lead.png'],
-      ['title' => 'Store Grid',         'file' => 'asl-store-grid.php', 'image' => 'store-grid.png']
+      ['title' => 'Store Card',         'file' => 'asl-store-card.php', 'image' => 'store-card.png']
     ];
 
     $back_files = [];
@@ -847,6 +833,9 @@ class Helper {
       array_unshift($langs, 'en_US');
     }
 
+    //  Add the filter so users can change it
+    $langs  = apply_filters( 'asl_lang_datasets', $langs);
+
     if($json) {
 
       return $langs;
@@ -858,12 +847,12 @@ class Helper {
       return '';
     }
 
-    $html  = '<div class="form-group asl-lang"><select id="asl-lang-ctrl" class="custom-select">';
+    $html  = '<div class="asl-lang ms-md-3 mt-3 mt-md-0 flex-shrink-0"><select id="asl-lang-ctrl" class="form-select custom-select" aria-label="' . esc_attr__('Select language', 'asl_locator') . '">';
 
     foreach ($langs as $lang) {
 
-      $lang_code = ($lang == 'en_US')? '': $lang;
-      $html     .= '<option value="'.$lang_code.'">'.$lang.'</option>'; 
+      $lang_code = ($lang === 'en_US') ? '' : $lang;
+      $html     .= '<option value="' . esc_attr($lang_code) . '">' . esc_html($lang) . '</option>'; 
     }
 
     $html .= '</select></div>';
@@ -971,6 +960,47 @@ class Helper {
 
 
   /**
+   * Validate and normalize exact-search coordinate overrides.
+   *
+   * @param mixed $search_coordinates Search text mapped to lat/lng pairs.
+   * @return array
+   */
+  public static function sanitize_search_coordinates($search_coordinates) {
+
+    if(!is_array($search_coordinates)) {
+      return [];
+    }
+
+    $validated_coordinates = [];
+
+    foreach($search_coordinates as $search_text => $coordinates) {
+
+      if((!is_string($search_text) && !is_int($search_text)) || !is_array($coordinates)) {
+        continue;
+      }
+
+      $search_key = strtolower(trim((string)$search_text));
+      $lat        = isset($coordinates['lat']) ? $coordinates['lat'] : null;
+      $lng        = isset($coordinates['lng']) ? $coordinates['lng'] : null;
+
+      if($search_key === '' || !is_numeric($lat) || !is_numeric($lng)) {
+        continue;
+      }
+
+      $lat = (float)$lat;
+      $lng = (float)$lng;
+
+      $validated_coordinates[$search_key] = [
+        'lat' => $lat,
+        'lng' => $lng
+      ];
+    }
+
+    return $validated_coordinates;
+  }
+
+
+  /**
    * [create_upload_dirs Create the upload directories if not exist]
    * @return [type] [description]
    */
@@ -1009,7 +1039,12 @@ class Helper {
       case '1':
       case '2':
       case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
       case 'list':
+      case 'list-2':
         
         $template = 'template-frontend-'.$template.'.php';
         break;
@@ -1035,9 +1070,9 @@ class Helper {
         break;
 
 
-      case 'grid':
+      case 'card':
 
-        $template = 'asl-store-grid.php';
+        $template = 'asl-store-card.php';
         break;
 
       default:
@@ -1316,6 +1351,10 @@ class Helper {
 
           foreach($open_hours as $key => $_day) {
 
+            if(!array_key_exists($key, $days_str)) {
+              continue;
+            }
+
             $key_value = '';
 
             if($_day && is_array($_day)) {
@@ -1528,7 +1567,6 @@ class Helper {
 
     return $days_full[$day];
   }
-  
 
   /**
    * [googleSchema description]
@@ -1552,7 +1590,7 @@ class Helper {
       $store->email($store_data->email);
 
     if(isset($store_data->path) && $store_data->path)
-      $store->setProperty('images', [ASL_UPLOAD_URL.'Logo/'.$store_data->path]);
+      $store->setProperty('image', [ASL_UPLOAD_URL.'Logo/'.$store_data->path]);
 
 
     //  Address
@@ -1601,26 +1639,29 @@ class Helper {
       $week_hours = json_decode($store_data->hours);
       
 
-      foreach($week_hours as $day => $day_hours) {
-
-        $day_full = self::dayFullName($day);
+      if($week_hours) {
         
-        //  only process array
-        if(!$day_hours || !is_array($day_hours))continue;
+        foreach($week_hours as $day => $day_hours) {
 
-        $hours_spec = new \AgileStoreLocator\Schema\Generator('OpeningHoursSpecification', false);
-        $hours_spec->setProperty('dayOfWeek', $day_full);
-        $hours_spec->setProperty('opens', $day_full);
-  
-        //  explode to get hours          
-        $open_close = explode('-', $day_hours[0]);
+          $day_full = self::dayFullName($day);
+          
+          //  only process array
+          if(!$day_hours || !is_array($day_hours))continue;
 
-        $open_close = array_map(function($o) { return trim($o); }, $open_close);
+          $hours_spec = new \AgileStoreLocator\Schema\Generator('OpeningHoursSpecification', false);
+          $hours_spec->setProperty('dayOfWeek', $day_full);
+          $hours_spec->setProperty('opens', $day_full);
+    
+          //  explode to get hours          
+          $open_close = explode('-', $day_hours[0]);
 
-        $hours_spec->setProperty('opens', $open_close[0]);
-        $hours_spec->setProperty('closes', $open_close[1]);
+          $open_close = array_map(function($o) { return trim($o); }, $open_close);
 
-        $all_open_hours[] = $hours_spec;
+          $hours_spec->setProperty('opens', $open_close[0]);
+          $hours_spec->setProperty('closes', $open_close[1]);
+
+          $all_open_hours[] = $hours_spec;
+        }
       }
 
       if(count($all_open_hours) > 1) {
@@ -1628,6 +1669,10 @@ class Helper {
         $store->setProperty('openingHoursSpecification', $all_open_hours);
       }
     }
+
+
+    //  Add the filter to be customizable
+    apply_filters( 'asl_filter_store_json_schema', $store, $store_data);
 
 
     return $store->toScript();
@@ -1891,7 +1936,11 @@ class Helper {
           $extension  = $extension[count($extension) - 1];
 
           //Extract only allowed extension
-          if(in_array($extension, $allow_exts)) {
+          if(in_array($extension, $allow_exts) && self::is_safe_zip_entry($a_file)) {
+
+            if(strtolower($extension) === 'svg' && !self::is_safe_svg_content($zip->getFromIndex($i))) {
+              continue;
+            }
 
             //$zip->extractTo(ASL_PLUGIN_PATH.'public', array($a_file));
             $zip->extractTo(ASL_UPLOAD_DIR, array($a_file));
@@ -1905,6 +1954,63 @@ class Helper {
     }
 
     return false;
+  }
+
+  /**
+   * [is_safe_zip_entry Validate zip entry path before extraction]
+   * @param  string $entry [description]
+   * @return bool
+   */
+  private static function is_safe_zip_entry($entry) {
+
+    $entry = str_replace('\\', '/', $entry);
+
+    if(!$entry || $entry[0] === '/' || strpos($entry, "\0") !== false) {
+      return false;
+    }
+
+    $parts = explode('/', $entry);
+
+    foreach($parts as $part) {
+      if($part === '..') {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * [is_safe_svg_content Basic SVG safety validation]
+   * @param  string $svg [description]
+   * @return bool
+   */
+  public static function is_safe_svg_content($svg) {
+
+    if(!$svg) {
+      return false;
+    }
+
+    $blocked_patterns = [
+      '/<\s*script\b/i',
+      '/<\s*foreignObject\b/i',
+      '/<\s*iframe\b/i',
+      '/<\s*object\b/i',
+      '/<\s*embed\b/i',
+      '/<\s*link\b/i',
+      '/<\s*meta\b/i',
+      '/<!ENTITY\b/i',
+      '/\son[a-z]+\s*=/i',
+      '/(?:href|xlink:href)\s*=\s*["\']?\s*(?:javascript|data):/i',
+    ];
+
+    foreach($blocked_patterns as $pattern) {
+      if(preg_match($pattern, $svg)) {
+        return false;
+      }
+    }
+
+    return (bool) preg_match('/<\s*svg[\s>]/i', $svg);
   }
 
 
@@ -1961,6 +2067,16 @@ class Helper {
               
               $css_class = 'icon-instagram';
               break;
+
+            case 'linkedin_url':
+              
+              $css_class = 'icon-linkedin';
+              break;
+            
+            case 'youtube_url':
+              
+              $css_class = 'icon-youtube';
+              break;
           }
         }
 
@@ -2006,22 +2122,23 @@ class Helper {
     return $marker_html;
   }
 
+
   /**
    * [get_customizer_file_path Get the Customizer File Path]
    */
   public static function get_customizer_file_path($template_id, $type)
   {
-    // Replace 'template-' with ''
-    $template_id  = str_replace('template-', '', $template_id);
+      // Replace 'template-' with ''
+      $template_id  = str_replace('template-', '', $template_id);
 
-    //  Template ID
-    $template_name = ($template_id === 'advanced_marker') ? $template_id : 'template-'.$template_id;
+      //  Template ID
+      $template_name = ($template_id === 'advanced_marker') ? $template_id : 'template-'.$template_id;
 
-    // Construct the file path
-    $view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($template_id == 'advanced_marker') ? 'markers/' : '') . sanitize_file_name($template_name) . '-' . sanitize_file_name($type) . '.html';
-
-    // Apply a filter to allow modification of the file path
-    return apply_filters('asl_filter_view_file_path', $view_file_path, $template_id, $type);
+      // Construct the file path
+      $view_file_path = ASL_PLUGIN_PATH . 'public/views/' . (($template_id == 'advanced_marker') ? 'markers/' : '') . sanitize_file_name($template_name) . '-' . sanitize_file_name($type) . '.html';
+  
+      // Apply a filter to allow modification of the file path
+      return apply_filters('asl_filter_view_file_path', $view_file_path, $template_id, $type);
   }
 
   /**
@@ -2146,19 +2263,20 @@ class Helper {
 
     $response = new \stdclass();
 
-    //  Sanitize the file name
+    //  make file path
     $file_path = $directory.sanitize_file_name($file);
 
     //  Validate the file?
-    if(file_exists($file_path)) { 
+    if(file_exists($file_path)) {
           
       unlink($file_path);
     
       $response->success  = true;
       $response->msg      = esc_attr__('File deleted successfully.','asl_locator');
     }
-    else
+    else {
       $response->error = esc_attr__('Error! fail to delete the file.','asl_locator');
+    }
 
     return $response;
   }

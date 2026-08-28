@@ -62,7 +62,7 @@ class CF7 {
       $form_data  = $submission->get_posted_data();
 
 			//	Get the field name for the postal code
-			$sl_configs = \AgileStoreLocator\Helper::get_configs(['cf7_field', 'admin_notify', 'notify_email', 'server_key', 'country_restrict', 'lead_follow_up']);
+			$sl_configs = \AgileStoreLocator\Helper::get_configs(['cf7_field', 'admin_notify', 'notify_email', 'server_key', 'country_restrict']);
 
 			$field_name   = $sl_configs['cf7_field'];
 
@@ -185,7 +185,7 @@ class CF7 {
 		if(!empty($lead_data)) {
 
 			$lead_data['store_id'] 		= ($closest_store)?$closest_store->id: null;
-			$lead_data['follow_up'] 	= ($closest_store)?$closest_store->id: $sl_configs['lead_follow_up'];
+			$lead_data['follow_up'] 	= 0;
 			$lead_data['postal_code'] = $postal_code;
 
 			$wpdb->insert(ASL_PREFIX."leads", $lead_data);

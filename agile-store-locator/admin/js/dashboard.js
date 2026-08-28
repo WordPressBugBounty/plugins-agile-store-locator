@@ -34,12 +34,6 @@ var asl_engine = window['asl_engine'] || {};
         month     = months[date_.getMonth()],
         data_arr  = [];
 
-      //  Tabs switch
-      $('.asl-p-cont .nav-tabs a').click(function(e) {
-        e.preventDefault()
-        $(this).tab('show');
-      });
-      
       //  add dummy data
       for (var a = 1; a <= date_.getDate(); a++) {
 
@@ -79,6 +73,16 @@ var asl_engine = window['asl_engine'] || {};
       //  Datetime
       var $datepicker = $('#sl-datetimepicker');
 
+      /**
+       * [get_duration_string Return the duration  string used for the AJAX]
+       * @return {[type]} [description]
+       */
+      function get_duration_string() {
+
+        var dt_data = $datepicker.data('daterangepicker');
+
+        return encodeURI('sl-start=' + dt_data.startDate.format('YYYY-MM-DD') + '&sl-end=' + dt_data.endDate.format('YYYY-MM-DD'));
+      };
 
       /////////////////////////////////
       //  Change the expertise level //
@@ -118,6 +122,19 @@ var asl_engine = window['asl_engine'] || {};
         update_level(status);
       });
 
+      // Analytics is a locked preview in the Free edition.
+      if (!document.getElementById('asl_search_canvas')) {
+        return;
+      }
+
+
+      //  Export the leads
+      $('#sl-btn-export-stats').bind('click', function() {
+
+        window.location.href = ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=export_stats&" + get_duration_string();
+      });
+
+
 
       ///////////bar chart
       var ctx = document.getElementById("asl_search_canvas").getContext("2d"),
@@ -148,24 +165,234 @@ var asl_engine = window['asl_engine'] || {};
       Chart.defaults.scales.linear.min = 0;
 
       /**
-       * [updateChart Get the Stats Chart]
+ * [updateChart Get the Stats Chart]
+ * @return {[type]}   [description]
+ */
+function updateChart(_chart_data) {
+  var searchDataRaw = _chart_data[0];
+  var interactionDataRaw = _chart_data[1];
+
+  var labels = [];
+  var searchData = [];
+  var interactionData = [];
+
+  // Use Object.keys to iterate
+  for (var key in searchDataRaw) {
+    if (searchDataRaw.hasOwnProperty(key) && interactionDataRaw.hasOwnProperty(key)) {
+      labels.push(searchDataRaw[key]['label']);
+      searchData.push(parseInt(searchDataRaw[key]['data']));
+      interactionData.push(parseInt(interactionDataRaw[key]['data']));
+    }
+  }
+
+  // Destroy old chart
+  if (myBar) {
+    myBar.destroy();
+  }
+
+  // Create new chart with two datasets
+  myBar = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Searches',
+          data: searchData,
+          borderColor: 'rgba(75,192,192,1)',
+          backgroundColor: 'rgba(75,192,192,0.2)',
+          tension: 0.1,
+          fill: true
+        },
+        {
+          label: 'Interactions',
+          data: interactionData,
+          borderColor: 'rgba(255,99,132,1)',
+          backgroundColor: 'rgba(255,99,132,0.2)',
+          tension: 0.1,
+          fill: true
+        }
+      ]
+    },
+    options: charts_option.options
+  });
+}
+
+
+
+      //
+      //updateChart(m, y);
+
+      /**
+       * [getViews Get the Stores Views and Search]
        * @return {[type]}   [description]
        */
-      function updateChart(_chart_data) {
+      function escapeHtml(value) {
+        return $('<div>').text(value == null ? '' : String(value)).html();
+      }
 
-        var temp_keys = [],
-            temp_vals = [];
+      function countryFlag(countryCode) {
+        var code = String(countryCode || '').toUpperCase();
 
-        for (var k in _chart_data) {
+        if (!/^[A-Z]{2}$/.test(code)) {
+          return '<span class="asl-location-placeholder">&#128205;</span>';
+        }
 
-          temp_keys.push(_chart_data[k]['label']);
-          temp_vals.push(_chart_data[k]['data']);
+        return `<img class="asl-country-flag" src="https://flagcdn.com/${escapeHtml(code.toLowerCase())}.svg" alt="${escapeHtml(code)} flag" width="24" height="18" loading="lazy">`;
+      }
+
+      function changeHtml(change) {
+        change = change || {label: '—', trend: 'same'};
+
+        var icon = change.trend === 'up' ? '&#9650;' : (change.trend === 'down' ? '&#9660;' : '');
+        return `<span class="asl-change asl-change-${escapeHtml(change.trend || 'same')}">${icon} ${escapeHtml(change.label || '—')}</span>`;
+      }
+
+      var analytics_data = {
+        stores: [],
+        searches: []
+      };
+
+      var analytics_sort = {
+        stores: {key: 'views', direction: 'desc'},
+        searches: {key: 'views', direction: 'desc'}
+      };
+
+      function sortAnalyticsRows(rows, listName) {
+        var sort = analytics_sort[listName];
+
+        return rows.slice().sort(function(a, b) {
+          var aValue;
+          var bValue;
+
+          if (sort.key === 'change') {
+            aValue = a.change && a.change.value != null ? parseFloat(a.change.value) : Number.POSITIVE_INFINITY;
+            bValue = b.change && b.change.value != null ? parseFloat(b.change.value) : Number.POSITIVE_INFINITY;
+          }
+          else {
+            aValue = parseInt(a.views, 10) || 0;
+            bValue = parseInt(b.views, 10) || 0;
+          }
+
+          if (aValue === bValue) {
+            return (parseInt(b.views, 10) || 0) - (parseInt(a.views, 10) || 0);
+          }
+
+          return sort.direction === 'asc' ? aValue - bValue : bValue - aValue;
+        });
+      }
+
+      function getViews(stores_views, search_views) {
+
+        if (Array.isArray(stores_views)) {
+          analytics_data.stores = stores_views;
+        }
+
+        if (Array.isArray(search_views)) {
+          analytics_data.searches = search_views;
+        }
+
+        stores_views = sortAnalyticsRows(analytics_data.stores, 'stores');
+        search_views = sortAnalyticsRows(analytics_data.searches, 'searches');
+
+        //  Clear old records
+        jQuery('#asl-stores-views li').remove();
+        jQuery('#asl-searches-views li').remove();
+
+
+        ///////////////////////////////
+        //  Iterate to fill the list //
+        ///////////////////////////////
+
+        var stores_views_html = '';
+        if (stores_views && stores_views.length) {
+
+          for (var s = 0; s < stores_views.length; s++) {
+
+            var _store_view = stores_views[s];
+            var store_logo = _store_view.logo || ASL_REMOTE.logo;
+            stores_views_html += `<li class="list-group-item">
+                          <div class="row">
+                            <div class="col-7"><div class="list-items asl-analytics-name"><img src="${escapeHtml(store_logo)}" alt=""> <span>${escapeHtml(_store_view.title)}</span></div></div>
+                            <div class="col-2 text-right"><div class="list-items">${escapeHtml(_store_view.views)}</div></div>
+                            <div class="col-3 text-right"><div class="list-items">${changeHtml(_store_view.change)}</div></div>
+                          </div>
+                        </li>`;
+          }
+        } 
+        else {
+
+          stores_views_html += `<li class="list-group-item">
+                          <div class="row">
+                            <div class="col-12 text-center asl-empty-state">${escapeHtml(ASL_REMOTE.LANG.no_store_views)}</div>
+                          </div>
+                        </li>`;
+        }
+
+        jQuery('#asl-stores-views').append(stores_views_html);
+
+
+        ///////////////////////////////
+        //  Iterate to fill the list //
+        ///////////////////////////////
+        var searches_views_html = '';
+        if (search_views && search_views.length) {
+
+          for (var s = 0; s < search_views.length; s++) {
+
+            var _store_view = search_views[s];
+            searches_views_html += `<li class="list-group-item">
+                          <div class="row">
+                            <div class="col-7"><div class="list-items asl-analytics-name">${countryFlag(_store_view.country_code)} <span>${escapeHtml(_store_view.search_str)}</span></div></div>
+                            <div class="col-2 text-right"><div class="list-items">${escapeHtml(_store_view.views)}</div></div>
+                            <div class="col-3 text-right"><div class="list-items">${changeHtml(_store_view.change)}</div></div>
+                          </div>
+                        </li>`;
+          }
+        } 
+        else {
+
+          searches_views_html += `<li class="list-group-item">
+                          <div class="row">
+                            <div class="col-12 text-center asl-empty-state">${escapeHtml(ASL_REMOTE.LANG.no_search_results)}</div>
+                          </div>
+                        </li>`;
         }
         
-        myBar.config.data.labels           = temp_keys;
-        myBar.config.data.datasets[0].data = temp_vals;
-        myBar.update();
+
+        jQuery('#asl-searches-views').append(searches_views_html);
       };
+
+      $('.asl-sort-button').bind('click', function() {
+        var $button = $(this);
+        var listName = $button.data('list');
+        var sortKey = $button.data('sort');
+        var currentSort = analytics_sort[listName];
+
+        if (currentSort.key === sortKey) {
+          currentSort.direction = currentSort.direction === 'desc' ? 'asc' : 'desc';
+        }
+        else {
+          currentSort.key = sortKey;
+          currentSort.direction = 'desc';
+        }
+
+        $('.asl-sort-button[data-list="' + listName + '"]').removeClass('is-active').attr('aria-sort', 'none').find('.asl-sort-indicator').html('');
+        $button.addClass('is-active')
+          .attr('data-direction', currentSort.direction)
+          .attr('aria-sort', currentSort.direction === 'desc' ? 'descending' : 'ascending')
+          .find('.asl-sort-indicator')
+          .html(currentSort.direction === 'desc' ? '&#9660;' : '&#9650;');
+
+        getViews(null, null);
+      });
+
+
+      //  Export the analytics
+      $('#sl-btn-export-analytics').bind('click', function() {
+
+        window.location.href = ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=export_stats&" + get_duration_string();
+      });
 
 
       //getViews(temp[0], temp[1]);
@@ -173,7 +400,7 @@ var asl_engine = window['asl_engine'] || {};
       //  datetime options
       var date_time_options = {
         "timePicker": false,
-        "parentEl": '.asl-p-cont',
+        "parentEl": '.tab-content .form-group',
         "alwaysShowCalendars": false,
         "startDate": moment().subtract(6, 'days'),
         "endDate": moment().startOf('hour'),
@@ -187,15 +414,51 @@ var asl_engine = window['asl_engine'] || {};
         }
       };
     
-     
+      /**
+       * [refetch_data Refetch data of the stats]
+       * @return {[type]} [description]
+       */
+      function refetch_data() {
+
+        //  Length of data
+        var rows_len = $('#asl-search-len').val();
+
+        //  apply servercall
+        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=get_stats&" + get_duration_string(), {len: rows_len }, function(_response) {
+
+          var stores_views = _response.stores;
+          var search_views = _response.searches;
+          var chart_data   = _response.chart_data;
+
+          getViews(stores_views, search_views);
+
+          updateChart(chart_data);
+        });
+      };
+
+      $('.asl-view-all').bind('click', function() {
+        $('#asl-search-len').val('0');
+        $('.asl-view-all').prop('disabled', true).addClass('d-none');
+        refetch_data();
+      });
 
 
       //  Add datetimepicker
       $datepicker.daterangepicker(date_time_options, 
         function(start, end, label) {
           
+          refetch_data();
           //console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')')
       });
+
+      //  first time
+      refetch_data();
+
+      //  For the Views
+      $('#asl-search-view,#asl-search-len').bind('change', function(e) {
+        refetch_data();
+      });
+
     }
   };
 

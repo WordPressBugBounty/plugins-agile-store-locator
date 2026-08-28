@@ -27,13 +27,17 @@ $show_descriptions = ! empty($descriptions)
     && $all_configs['additional_info'] == '1';
 $show_business_hours = ! empty($store_data->open_hours)
     && (! isset($all_configs['hide_hours']) || $all_configs['hide_hours'] != '1');
-$show_categories = ! empty($store_data->categories)
+$category_items = isset($store_data->categories) && is_iterable($store_data->categories)
+    ? $store_data->categories
+    : [];
+$show_categories = ! empty($category_items)
     && isset($all_configs['show_categories'])
     && $all_configs['show_categories'] == '1';
 $has_contact_details = ! empty($display_address)
     || ! empty($store_data->phone)
     || ! empty($store_data->email)
     || ! empty($store_data->open_hours);
+$has_rating_summary = ! empty($store_data->rating) || ! empty($store_data->review);
 $current_open_status = ! empty($store_data->hours)
     ? \AgileStoreLocator\Helper::currentOpenStatus($store_data->hours)
     : null;
@@ -114,7 +118,7 @@ if ($full_open_hours) {
                         >
                     <?php endif; ?>
 
-                    <div class="asl-store-heading-copy">
+                    <div class="asl-store-heading-copy<?php echo ! $has_rating_summary ? ' asl-store-heading-copy-no-rating' : ''; ?>">
                         <div class="asl-store-title-row">
                             <h1 class="sl-store-title"><?php echo esc_html($store_data->title); ?></h1>
                             <?php if (! empty($store_data->verified)) : ?>
@@ -125,7 +129,7 @@ if ($full_open_hours) {
                             <?php endif; ?>
                         </div>
 
-                        <?php if (! empty($store_data->rating) || ! empty($store_data->review)) : ?>
+                        <?php if ($has_rating_summary) : ?>
                             <div class="asl-store-rating">
                                 <?php if (! empty($store_data->rating)) : ?>
                                     <?php $rating_width = min(100, max(0, (float) $store_data->rating * 20)); ?>
@@ -252,7 +256,7 @@ if ($full_open_hours) {
                     <section class="asl-detail-card">
                         <h2><?php echo asl_esc_lbl('categories_tab'); ?></h2>
                         <ul class="asl-category-list">
-                            <?php foreach ($store_data->categories as $category) : ?>
+                            <?php foreach ($category_items as $category) : ?>
                                 <?php if (! empty($category->category_name)) : ?>
                                     <li>
                                         <?php if (! empty($category->icon)) : ?>

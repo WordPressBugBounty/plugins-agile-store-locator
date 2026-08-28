@@ -43,8 +43,13 @@ class Logo extends Base
             return $this->send_response($response);
         }
 
+        if (empty($_POST['data']['img_id'])) {
+            $response->msg = __('Error! Please select a logo image.', 'asl_locator');
+            return $this->send_response($response);
+        }
+
         if (!empty($_POST['data']['img_id'])) {
-            $img_path  = get_attached_file($_POST['data']['img_id'], 'medium');
+            $img_path  = get_attached_file(absint($_POST['data']['img_id']), 'medium');
             $content   = file_get_contents($img_path);
             $pathinfo  = pathinfo($img_path);
             $put       = file_put_contents(ASL_UPLOAD_DIR . 'Logo/' . $pathinfo['filename'] . '.' . $pathinfo['extension'], $content);

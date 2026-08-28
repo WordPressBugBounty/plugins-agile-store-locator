@@ -26,8 +26,8 @@ class Addon {
      */
     public function widgets_registered() {
 
-         $vc_search_widget  = new \AgileStoreLocator\Vendors\WPBakery\SearchWidget();
-         $vc_store_grid     = new \AgileStoreLocator\Vendors\WPBakery\StoreCards();
+         //$vc_search_widget  = new \AgileStoreLocator\Vendors\WPBakery\SearchWidget();
+         //$vc_store_grid     = new \AgileStoreLocator\Vendors\WPBakery\StoreCards();
          $vc_store_detail   = new \AgileStoreLocator\Vendors\WPBakery\StoreDetail();
          $vc_store_locator  = new \AgileStoreLocator\Vendors\WPBakery\StoreLocator();
     }

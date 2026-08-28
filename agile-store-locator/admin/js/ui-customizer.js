@@ -21,3 +21,4 @@
   $root.on('click keydown', '.asl-preview__store', function (event) {if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return; event.preventDefault(); $('.asl-preview__store').removeClass('is-selected'); $(this).addClass('is-selected');});
   loadTemplate();
 })(jQuery);
+

@@ -3,6 +3,78 @@ var asl_engine = window['asl_engine'] || {};
 (function($, app_engine) {
   'use strict';
 
+  /* Add the same searchable UI to every ddSlick control without changing its API. */
+  if ($.fn.ddslick && !$.fn.ddslick.aslEnhanced) {
+    var originalDdSlick = $.fn.ddslick;
+
+    function enhanceDdSlick($controls) {
+      $controls.each(function() {
+        var $control = $(this),
+            $options = $control.find('.dd-options');
+
+        if (!$options.length || $options.find('.asl-dd-search').length) return;
+
+        var $firstItem = $options.children('li').first();
+        if (!$firstItem.length) return;
+
+        var placeholder = (window.ASL_REMOTE && ASL_REMOTE.LANG.search_options) || 'Search...';
+        var $searchInput = $('<input>', {type: 'search'}).attr({
+          placeholder: placeholder,
+          autocomplete: 'off',
+          'aria-label': placeholder
+        });
+        var $search = $('<div>', {'class': 'asl-dd-search'}).append(
+          $('<span>', {'class': 'asl-dd-search-icon', 'aria-hidden': 'true'}),
+          $searchInput
+        );
+
+        $firstItem.prepend($search);
+        $search.on('click mousedown', function(e) { e.stopPropagation(); });
+        $search.find('input').on('input', function() {
+          var query = $.trim($(this).val()).toLocaleLowerCase(),
+              visible = 0;
+
+          $options.children('li').each(function(index) {
+            var $item = $(this),
+                $option = $item.children('.dd-option'),
+                label = $option.find('.dd-option-text').text().toLocaleLowerCase(),
+                show = !query || label.indexOf(query) !== -1;
+
+            $option.toggle(show);
+            if (show) visible++;
+            if (index > 0) $item.toggle(show);
+          });
+
+          $options.find('.asl-dd-empty').toggle(visible === 0);
+        });
+
+        $options.append(
+          $('<li>', {'class': 'asl-dd-empty'}).text(
+            (window.ASL_REMOTE && ASL_REMOTE.LANG.no_options_found) || 'No options found'
+          )
+        );
+      });
+    }
+
+    $.fn.ddslick = function(option) {
+      var controlIds = [];
+      this.each(function() {
+        if (this.id) controlIds.push(this.id);
+      });
+      var result = originalDdSlick.apply(this, arguments);
+      if (typeof option === 'object' || typeof option === 'undefined') {
+        var $renderedControls = $();
+        $.each(controlIds, function(index, controlId) {
+          var renderedControl = document.getElementById(controlId);
+          if (renderedControl) $renderedControls = $renderedControls.add(renderedControl);
+        });
+        enhanceDdSlick($renderedControls);
+      }
+      return result;
+    };
+    $.fn.ddslick.aslEnhanced = true;
+  }
+
   /* API method to get paging information */
   if($.fn.dataTableExt && $.fn.dataTableExt.oApi){
     
@@ -45,6 +117,22 @@ var asl_engine = window['asl_engine'] || {};
    * @return {[type]}           [description]
    */
   function codeAddress(_address, _callback) {
+
+    if (window.ASLCommonMap && asl_configs && asl_configs.map_vendor === 'maplibre') {
+      ASLCommonMap.geocodeAddress(_address, asl_configs).then(function(results) {
+        if (!results.length) throw new Error('ZERO_RESULTS');
+        var point = results[0].location;
+        map.setCenter(point);
+        _callback({location: {
+          lat: function() { return point.lat; },
+          lng: function() { return point.lng; }
+        }});
+      }).catch(function(error) {
+        if (error && error.code === 'NO_GEOCODER_CONFIGURED') return;
+        atoastr.error(ASL_REMOTE.LANG.geocode_fail + error.message);
+      });
+      return;
+    }
 
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': _address }, function(results, status) {
@@ -96,6 +184,12 @@ var asl_engine = window['asl_engine'] || {};
          */
         intialize: function(_callback) {
 
+          if (window.ASLCommonMap && asl_configs && asl_configs.map_vendor === 'maplibre') {
+            this.cb = _callback;
+            if (typeof window.asl_map_intialized === 'function') window.asl_map_intialized();
+            return;
+          }
+
           var API_KEY = '';
           if (asl_configs && asl_configs.api_key) {
             API_KEY = '&key=' + asl_configs.api_key;
@@ -123,6 +217,35 @@ var asl_engine = window['asl_engine'] || {};
 
           
           hdlr.store_location = (_lat && _lng) ? [parseFloat(_lat), parseFloat(_lng)] : [-37.815, 144.965];
+
+          var isStoreForm = !!document.getElementById('frm-addstore'),
+              isSettingsMapModal = !!document.getElementById('asl-map-modal');
+
+          if (window.ASLCommonMap && (isStoreForm || isSettingsMapModal || (asl_configs && asl_configs.map_vendor === 'maplibre'))) {
+            if (!map_div) return false;
+            var commonLocation = {lat: hdlr.store_location[0], lng: hdlr.store_location[1]};
+            var commonPicker = ASLCommonMap.createLocationPicker({
+              container: map_div,
+              config: asl_configs || {},
+              center: commonLocation,
+              zoom: (asl_configs && asl_configs.zoom) ? parseInt(asl_configs.zoom) : 5,
+              searchZoom: 14,
+              searchInput: document.getElementById('asl-setting-search-box'),
+              latitudeInput: document.getElementById('asl_txt_lat'),
+              longitudeInput: document.getElementById('asl_txt_lng'),
+              markerUrl: ASL_Instance.url + 'icon/default.png',
+              draggable: isStoreForm || isSettingsMapModal,
+              onChange: function(location) {
+                hdlr.store_location = [location.lat, location.lng];
+                hdlr.changed = true;
+                app_engine.pages.store_changed(hdlr.store_location);
+              }
+            });
+            hdlr.common_picker = commonPicker;
+            hdlr.map_instance = map = commonPicker.map;
+            hdlr.map_marker = commonPicker.marker;
+            return;
+          }
 
           var latlng = new google.maps.LatLng(hdlr.store_location[0], hdlr.store_location[1]);
 
@@ -260,7 +383,7 @@ var asl_engine = window['asl_engine'] || {};
     window.wpCookies.set('asl-lang', lang_value);
 
     //  Reload Event
-    $(lang_ctrl).bind('change', function(e) {
+    $(lang_ctrl).on('change', function(e) {
 
       //  change in the storage
       window.wpCookies.set('asl-lang', lang_ctrl.value);
@@ -330,7 +453,7 @@ var asl_engine = window['asl_engine'] || {};
           _data.context = tpl.appendTo(ul);
 
           var jqXHR = null;
-          $form.find('.btn-start').unbind().bind('click', function() {
+          $form.find('.btn-start').off().on('click', function() {
 
 
             /*if(_submit_callback){
@@ -370,7 +493,7 @@ var asl_engine = window['asl_engine'] || {};
           return formData;
         }*/
       })
-      .bind('fileuploadsubmit', function(e, _data) {
+      .on('fileuploadsubmit', function(e, _data) {
 
         _data.formData = $form.ASLSerializeObject();
 
@@ -385,62 +508,7 @@ var asl_engine = window['asl_engine'] || {};
 
   //http://harvesthq.github.io/chosen/options.html
   app_engine['pages'] = {
-    _validate_page: function() {
-
-      if (ASL_REMOTE.Com) return;
-
-      aswal({
-        title: ASL_REMOTE.LANG.pur_title,
-        html: ASL_REMOTE.LANG.pur_text,
-        input: 'text',
-        type: "question",
-        showCancelButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        confirmButtonColor: "#dc3545",
-        confirmButtonText: "VALIDATE",
-        preConfirm: function(_value) {
-
-          return new Promise(function(resolve, reject) {
-
-            if ($.trim(_value) == '') {
-
-              aswal.showValidationError('Purchase Code is Missing!');
-              return false;
-            }
-
-            aswal.showLoading();
-
-            ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=validate_me", { value: _value }, function(_response) {
-
-              aswal.hideLoading();
-
-              if (!_response.success) {
-
-                aswal.showValidationError(_response.message);
-                reject();
-                return false;
-              } else {
-
-                aswal({
-                  type: (_response.success) ? 'success' : 'error',
-                  title: (_response.success) ? 'Validate Successfully!' : 'Validation Failed!',
-                  html: (_response.message) ? _response.message : ('Validation Failed, Please Contact Support')
-                });
-
-                reject();
-                return true;
-              }
-
-            }, 'json');
-
-          })
-        }
-        /*inputValidator: function(value) {
-              return !value && 'You need to write something!'
-          }*/
-      })
-    },
+    _validate_page: function() {},
     /**
      * [store_changed Stores Changed]
      * @param  {[type]} _position [description]
@@ -456,283 +524,408 @@ var asl_engine = window['asl_engine'] || {};
     },
     /**
      * [manage_attribute Manage Attribute]
-     * @param  {[type]} _params [description]
-     * @return {[type]}         [description]
+     * @return {[type]}           [description]
      */
-    manage_attribute: function(_params) {
+    manage_attribute: function() {
+      
+      /**
+       * [asl_attributes_tabs For each dropdown tabs]
+       * @param  {[type]} _options [description]
+       * @return {[type]}          [description]
+       */
+      $.fn.asl_attributes_tabs = function(_options) {
 
-      var table = null;
+        var options = $.extend({},_options);
+        var panim = null;
 
 
-      var asInitVals = {};
-      table = $('#tbl_attribute').dataTable({
-        "bProcessing": true,
-        "sPaginationType": "bootstrap",
-        "bFilter": false,
-        "bServerSide": true,
-        //"scrollX": true,
-        /*"aoColumnDefs": [
-          { 'bSortable': false, 'aTargets': [ 1 ] }
-        ],*/
-        "bAutoWidth": true,
-        "columnDefs": [
-          { 'bSortable': false, "width": "75px", "targets": 0 },
-          { "width": "75px", "targets": 1 },
-          { "width": "200px", "targets": 2 },
-          { "width": "150px", "targets": 3 },
-          { "width": "150px", "targets": 4 },
-          { "width": "150px", "targets": 5 },
-          { 'bSortable': false, 'aTargets': [0, 5] }
-        ],
-        "iDisplayLength": 10,
-        "sAjaxSource": ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=get_attributes&type=" + _params.name,
-        "columns": [
-          { "data": "check" },
-          { "data": "id" },
-          { "data": "name" },
-          { "data": "ordr" },
-          { "data": "created_on" },
-          { "data": "action" }
-        ],
-        'fnServerData': function(sSource, aoData, fnCallback) {
+        /**
+         * [attr_main Run all the methods of the attributes]
+         * @return {[type]} [description]
+         */
+        function attr_main() {
+          
+          //  Main This
+          var $this      = $(this),
+              $section   = $this.find('> .asl-attr-listing'),
+              $table     = $section.find('table'),
+              tab_title  = $this.data('tab-title'),
+              tab_plural = $this.data('tab-plural'),
+              tab_single = $this.data('tab-single'),
+              tab_name   = $this.data('tab-name'),
+              is_special_tab = tab_name == 'specials';
 
-          $.get(sSource, aoData, function(json) {
+            function attributeBrandOptions(selected_id) {
+              var brands = ASL_REMOTE.attribute_brands || [],
+                  brand_label = $('<div>').text(ASL_REMOTE.LANG.brand).html(),
+                  html = '<div class="form-group asl-attr-brand-row"><label for="aswal2-input-brand">' + brand_label + '</label><select id="aswal2-input-brand" class="form-control aswal2-select"><option value="0">' + $('<div>').text(ASL_REMOTE.LANG.none).html() + '</option>';
 
-            fnCallback(json);
+              for(var brand_index = 0; brand_index < brands.length; brand_index++) {
+                var brand = brands[brand_index],
+                    brand_id = String(brand.id || ''),
+                    selected = String(selected_id || '0') == brand_id ? ' selected="selected"' : '';
 
-          }, 'json');
+                html += '<option value="' + brand_id + '"' + selected + '>' + $('<div>').text(brand.name || '').html() + '</option>';
+              }
 
-        },
-        "fnServerParams": function(aoData) {
+              html += '</select></div>';
 
-          //  add lang
-          if(lang_ctrl)
-            aoData.push({"name": 'asl-lang',"value": lang_ctrl.value});
-
-          //  Add the filters
-          $("thead input").each(function(i) {
-            if (this.value != "") {
-              aoData.push({
-                "name": 'filter[' + $(this).attr('data-id') + ']',
-                "value": this.value
-              });
+              return html;
             }
-          });
-        },
-        "order": [
-          [1, 'desc']
-        ]
-      });
 
-      //New Attribute
-      $('#btn-asl-new-attr').bind('click', function(e) {
-        
-        aswal({
-            title: "Create " + _params.title,
-            text: "Do you want to add new " + _params.title + "?",
-            html:'<input type="number" value="0" placeholder="Enter the priority number" id="aswal2-input-ordr" class="form-control aswal2-input aswal2-ordr">',
-            input: 'text',
-            type: "question",
-            inputPlaceholder: "Enter the value",
-            showCancelButton: true,
-            focusCancel: true,
-            confirmButtonColor: "#dc3545",
-            confirmButtonText: "Create it!",
-            customClass: 'aswal-attr-modal',
-            onOpen: function() {
-                
-              var $attr_txt_input  =  $('.aswal2-input:not(.aswal2-ordr)');
-              $attr_txt_input.insertBefore($('.aswal2-content')[0]);
-            },
-            preConfirm: function(_value) {
+            function attributeModalFields(selected_brand_id, order_value, current_value) {
+              var safe_value = $('<div>').text(current_value || '').html();
 
-
-              return new Promise(function(resolve) {
-
-                if ($.trim(_value) != '') {
-                  resolve();
-                } 
-                else {
-
-                  aswal.showValidationError( _params.title +' value is required.');
-                  return false;
-                }
-              })
+              return '<div class="asl-attr-modal-fields">' +
+                '<div class="form-group asl-attr-name-row"><label for="aswal2-input">Name</label><input type="text" value="' + safe_value + '" placeholder="Enter the value" id="aswal2-input" class="form-control asl-attr-name-input"></div>' +
+                (is_special_tab ? attributeBrandOptions(selected_brand_id) : '') +
+                '<div class="form-group asl-attr-order-row"><label for="aswal2-input-ordr">Order</label><input type="number" value="' + order_value + '" placeholder="Enter the priority number" id="aswal2-input-ordr" class="form-control aswal2-input aswal2-ordr"></div>' +
+              '</div>';
             }
-            /*inputValidator: function(value) {
-              return !value && 'You need to write something!'
-          }*/
-          })
-          .then(function(result) {
 
-            if (result) {
+            var attr_columns = [
+              { "data": "check" },
+              { "data": "id" },
+              { "data": "name" }
+            ];
 
-              var $attr_ordr_input =  $('#aswal2-input-ordr');
+            if(is_special_tab) {
+              attr_columns.push({ "data": "brand_name" });
+            }
+
+            attr_columns = attr_columns.concat([
+              { "data": "ordr" },
+              { "data": "created_on" },
+              { "data": "action" }
+            ]);
+
+            var action_col_index = attr_columns.length - 1;
+            var attr_column_defs = [
+              { 'bSortable': false, "width": "140px", "targets": 0 },
+              { "width": "150px", "targets": 1 },
+              { "width": "300px", "targets": 2 },
+              { "width": "170px", "targets": action_col_index - 2 },
+              { "width": "220px", "targets": action_col_index - 1 },
+              { "width": "180px", "targets": action_col_index },
+              { 'bSortable': false, 'aTargets': [0, action_col_index] }
+            ];
+
+            if(is_special_tab) {
+              attr_column_defs.push({ "width": "220px", "targets": 3 });
+            }
+
+            var asInitVals = {};
+            $table.dataTable({
+              "bProcessing": true,
+              "sPaginationType": "bootstrap",
+              "bFilter": false,
+              "bServerSide": true,
+              "scrollX": true,
+              "scrollCollapse": true,
+              "sScrollX": "100%",
+              "sScrollXInner": "100%",
+              /*"aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 1 ] }
+              ],*/
+              "bAutoWidth": false,
+              "columnDefs": attr_column_defs,
+              "iDisplayLength": 10,
+              "sAjaxSource": ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=get_attributes&type=" + tab_name,
+              "columns": attr_columns,
+              'fnServerData': function(sSource, aoData, fnCallback) {
+                $.get(sSource, aoData, function(json) {
+                  fnCallback(json);
+                }, 'json');
+              },
+              "fnServerParams": function(aoData) {
+      
+                //  add lang
+                if(lang_ctrl)
+                  aoData.push({"name": 'asl-lang',"value": lang_ctrl.value});
+      
+                //  Add the filters
+                $table.find("thead input").each(function(i) {
+                  if (this.value != "") {
+                    aoData.push({
+                      "name": 'filter[' + $(this).attr('data-id') + ']',
+                      "value": this.value
+                    });
+                  }
+                });
+              },
+              "order": [
+                [1, 'desc']
+              ],
+              "fnInitComplete": function() {
+                $table.fnAdjustColumnSizing();
+              }
+            });
+
+            $this.closest('.tab-content').siblings('.nav').find('a[data-toggle="pill"]').on('shown.bs.tab click', function() {
+              window.setTimeout(function() {
+                $table.fnAdjustColumnSizing();
+              }, 0);
+            });
+      
+            //New Attribute
+            $section.find('.btn-asl-new-attr').on('click', function(e) {
               
-              ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=add_attribute", { title: _params.title, name: _params.name, value: result, ordr: $attr_ordr_input.val() }, function(_response) {
+              aswal({
+                  title: ASL_REMOTE.LANG.create + " " + tab_single,
+                  text: ASL_REMOTE.LANG.add_new_question.replace('%s', tab_single),
+                  html: attributeModalFields(0, 0, ''),
+                  showCancelButton: true,
+                  focusCancel: true,
+                  confirmButtonColor: "#28a745",
+                  confirmButtonText: ASL_REMOTE.LANG.create_it,
+                  customClass: 'aswal-attr-modal',
+                  preConfirm: function() {
+      
+      
+                    return new Promise(function(resolve) {
 
-                toastIt(_response);
-                
-                if (_response.success) {
-                  
-                  table.fnDraw();
-                  return;
-                }
+                      var _value = $('#aswal2-input').val();
+      
+                      if ($.trim(_value) != '') {
+                        resolve(_value);
+                      } 
+                      else {
+      
+                        aswal.showValidationError( tab_single +' value is required.');
+                        return false;
+                      }
+                    })
+                  }
+                  /*inputValidator: function(value) {
+                    return !value && 'You need to write something!'
+                }*/
+                })
+                .then(function(result) {
+      
+                  if (result) {
+      
+                    var $attr_ordr_input =  $('#aswal2-input-ordr');
+                    
+                    var add_payload = { title: tab_title, name: tab_name, value: result, ordr: $attr_ordr_input.val() };
 
-              }, 'json');
-            }
-          });
-      });
+                      if(is_special_tab) {
+                        add_payload.brand_id = $('#aswal2-input-brand').val();
+                      }
 
-      //Select all button
-      $('.table .select-all').bind('click', function(e) {
+                    ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=add_attribute", add_payload, function(_response) {
+	      
+                      toastIt(_response);
+	                      
+	                      if (_response.success) {
 
-        $('.asl-p-cont .table input').attr('checked', 'checked');
+                          if(tab_name == 'brands') {
+                            ASL_REMOTE.attribute_brands = ASL_REMOTE.attribute_brands || [];
+                            ASL_REMOTE.attribute_brands.push({id: _response.id, name: result, ordr: $attr_ordr_input.val()});
+                          }
+	                        
+                        $table.fnDraw();
+                        return;
+                      }
+      
+                    }, 'json');
+                  }
+                }, aswal.noop);
+            });
+      
+            //Select all button
+            $section.find('.select-all').on('click', function(e) {
+      
+              $section.find('.table input').attr('checked', 'checked');
+      
+            });
+      
+            //Delete Selected Attributes:: bulk
+            $section.find('.btn-asl-delete-all').on('click', function(e) {
+      
+              var $tmp_categories = $section.find('.table input:checked');
+      
+              if ($tmp_categories.length == 0) {
+                displayMessage('No Category selected', $(".dump-message"), 'alert alert-danger static', true);
+                return;
+              }
+      
+              var item_ids = [];
+              $tmp_categories.each(function(i) {
+                item_ids.push($(this).attr('data-id'));
+              });
+      
+      
+              aswal({
+                title: "Delete " + tab_title,
+                text: "Are you sure you want to delete selected " + tab_title + " ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Delete it!"
+              }).then(function() {
+      
+                ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=delete_attribute", { title: tab_title, name: tab_name, item_ids: item_ids, multiple: true }, function(_response) {
+      
+                  toastIt(_response);
+      
+                  if (_response.success) {
+                    if(tab_name == 'brands' && ASL_REMOTE.attribute_brands) {
+                      ASL_REMOTE.attribute_brands = ASL_REMOTE.attribute_brands.filter(function(brand) {
+                        return item_ids.indexOf(String(brand.id)) === -1 && item_ids.indexOf(parseInt(brand.id)) === -1;
+                      });
+                    }
 
-      });
+                    $table.fnDraw();
+                    return;
+                  }
+      
+      
+                }, 'json');
+              });
+            });
+      
+      
+      
+            //show edit attribute model
+            $table.find('tbody').on('click', '.edit_attr', function(e) {
+      
+              var _value = $(this).data('value'),
+                _id      = $(this).data('id'),
+                _ordr    = $(this).data('ordr'),
+                  _brand_id = $(this).data('brand-id') || 0;
+      
+      
+              aswal({
+                  title: "Update " + tab_title,
+                  text: "Update existing " + tab_title + " to new name",
+                  html: attributeModalFields(_brand_id, _ordr, _value),
+                  showCancelButton: true,
+                  confirmButtonColor: "#28a745",
+                  confirmButtonText: "Update it!",
+                  customClass: 'aswal-attr-modal',
+                  preConfirm: function() {
+      
+                    return new Promise(function(resolve) {
 
-      //Delete Selected Categories:: bulk
-      $('#btn-asl-delete-all').bind('click', function(e) {
-
-        var $tmp_categories = $('.asl-p-cont .table input:checked');
-
-        if ($tmp_categories.length == 0) {
-          displayMessage('No Category selected', $(".dump-message"), 'alert alert-danger static', true);
-          return;
-        }
-
-        var item_ids = [];
-        $('.asl-p-cont .table input:checked').each(function(i) {
-          item_ids.push($(this).attr('data-id'));
-        });
-
-
-        aswal({
-          title: "Delete " + _params.title,
-          text: "Are you sure you want to delete selected " + _params.title + " ?",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#dc3545",
-          confirmButtonText: "Delete it!"
-        }).then(function() {
-
-          ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=delete_attribute", { title: _params.title, name: _params.name, item_ids: item_ids, multiple: true }, function(_response) {
-
-            toastIt(_response);
-
-            if (_response.success) {
-              table.fnDraw();
-              return;
-            }
-
-
-          }, 'json');
-        });
-      });
-
-
-
-      //show edit attribute model
-      $('#tbl_attribute tbody').on('click', '.edit_attr', function(e) {
-
-        var _value = $(this).data('value'),
-          _id      = $(this).data('id'),
-          _ordr    = $(this).data('ordr');
-
-
-        aswal({
-            title: "Update " + _params.title,
-            text: "Update existing " + _params.title + " to new name",
-            input: 'text',
-            html:'<input type="number" value="'+_ordr+'" placeholder="Enter the priority number" id="aswal2-input-ordr" class="form-control aswal2-input aswal2-ordr">',
-            type: "question",
-            inputValue: _value,
-            showCancelButton: true,
-            confirmButtonColor: "#dc3545",
-            confirmButtonText: "Update it!",
-            customClass: 'aswal-attr-modal',
-            onOpen: function() {
-                
-              var $attr_txt_input  =  $('.aswal2-input:not(.aswal2-ordr)');
-              $attr_txt_input.insertBefore($attr_txt_input[0].previousElementSibling);
-            },
-            preConfirm: function(_value) {
-
-              return new Promise(function(resolve) {
-
-                if ($.trim(_value) != '') {
-                  resolve();
-                } else {
-
-                  aswal.showValidationError('Field is empty.');
-                  return false;
-                }
+                      var _value = $('#aswal2-input').val();
+      
+                      if ($.trim(_value) != '') {
+                        resolve(_value);
+                      } else {
+      
+                        aswal.showValidationError('Field is empty.');
+                        return false;
+                      }
+                    })
+                  }
               })
-            }
-        })
-        .then(function(result) {
+              .then(function(result) {
+      
+                if (result) {
+      
+                  var $attr_ordr_input =  $('#aswal2-input-ordr');
+      
+                  var update_payload = { id: _id, title: tab_title, name: tab_name, value: result, ordr: $attr_ordr_input.val() };
 
-          if (result) {
+                    if(is_special_tab) {
+                      update_payload.brand_id = $('#aswal2-input-brand').val();
+                    }
 
-            var $attr_ordr_input =  $('#aswal2-input-ordr');
+                  ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=update_attribute", update_payload, function(_response) {
+	      
+                    toastIt(_response);
+	      
+	                    if (_response.success) {
 
-            ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=update_attribute", { id: _id, title: _params.title, name: _params.name, value: result, ordr: $attr_ordr_input.val() }, function(_response) {
+                        if(tab_name == 'brands' && ASL_REMOTE.attribute_brands) {
+                          for(var brand_index = 0; brand_index < ASL_REMOTE.attribute_brands.length; brand_index++) {
+                            if(String(ASL_REMOTE.attribute_brands[brand_index].id) == String(_id)) {
+                              ASL_REMOTE.attribute_brands[brand_index].name = result;
+                              ASL_REMOTE.attribute_brands[brand_index].ordr = $attr_ordr_input.val();
+                              break;
+                            }
+                          }
+                        }
+	      
+                      $table.fnDraw();
+                      return;
+                    }
+      
+                  }, 'json');
+                }
+              }, aswal.noop);
+      
+            });
+      
+      
+            //  Show delete attribute model
+            $table.find('tbody').on('click', '.delete_attr', function(e) {
+      
+              var _category_id = $(this).attr("data-id");
+      
+              aswal({
+                title: "Delete " + tab_title,
+                text: "Are you sure you want to delete " + tab_title + " " + _category_id + " ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Delete it!",
+              }).then(
+                function() {
+      
+                  ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=delete_attribute", { title: tab_title, name: tab_name, category_id: _category_id }, function(_response) {
+      
+                    toastIt(_response);
+      
+                    if (_response.success) {
+                      if(tab_name == 'brands' && ASL_REMOTE.attribute_brands) {
+                        ASL_REMOTE.attribute_brands = ASL_REMOTE.attribute_brands.filter(function(brand) {
+                          return String(brand.id) != String(_category_id);
+                        });
+                      }
 
-              toastIt(_response);
-
-              if (_response.success) {
-
-                table.fnDraw();
-                return;
+                      $table.fnDraw();
+                      return;
+                    }
+      
+                  }, 'json');
+      
+                }
+              );
+            });
+      
+      
+            //  Search
+            $section.find("thead input").keyup(function(e) {
+      
+              if (e.keyCode == 13) {
+                $table.fnDraw();
               }
+            });
+        };
+        
+        /*loop for each*/
+        this.each(attr_main);
 
-            }, 'json');
-          }
-        });
+        return this;
+      };
 
-      });
+	      //   Main Loop
+	      $('.asl-attr-tab').asl_attributes_tabs({});
 
+	      $('.asl-attributes-cont .nav-pills li').on('click', function(e) {
+	        if(e.target.tagName && e.target.tagName.toLowerCase() == 'a') {
+	          return;
+	        }
 
-      //  Show delete attribute model
-      $('#tbl_attribute tbody').on('click', '.delete_attr', function(e) {
+	        var $tab_link = $(this).find('a[data-toggle="pill"]');
 
-        var _category_id = $(this).attr("data-id");
+	        if($tab_link.length) {
+	          $tab_link.trigger('click');
+	        }
+	      });
 
-        aswal({
-          title: "Delete " + _params.title,
-          text: "Are you sure you want to delete " + _params.title + " " + _category_id + " ?",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#dc3545",
-          confirmButtonText: "Delete it!",
-        }).then(
-          function() {
-
-            ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=delete_attribute", { title: _params.title, name: _params.name, category_id: _category_id }, function(_response) {
-
-              toastIt(_response);
-
-              if (_response.success) {
-                table.fnDraw();
-                return;
-              }
-
-            }, 'json');
-
-          }
-        );
-      });
-
-
-      //  Search
-      $("thead input").keyup(function(e) {
-
-        if (e.keyCode == 13) {
-          table.fnDraw();
-        }
-      });
-    },
-
+	    },
     /**
      * [manage_categories description]
      * @return {[type]} [description]
@@ -750,18 +943,18 @@ var asl_engine = window['asl_engine'] || {};
         "bServerSide": true,
         "bAutoWidth": true,
         "columnDefs": [
-          { 'bSortable': false, "width": "75px", "targets": 0 },
-          { "width": "75px","targets": 1},
-          {"targets": 2,
+          { 'bSortable': false, "width": "140px", "targets": 0 },
+          { "width": "150px", "targets": 1 },
+          { "width": "260px", "targets": 2,
             render: function (data, type, full, meta) {
               return '<a class="sl-store-title" href="'+ASL_Instance.manage_stores_url + full.id +'">' + data + "</a>";
             }
           },
-          { "width": "100px", "targets": 3 },
-          { "width": "100px", "targets": 4 },
-          {"targets": 5 },
-          {"targets": 6 },
-          { 'bSortable': false, 'aTargets': [0, 6] }
+          { "width": "220px", "targets": 3 },
+          { "width": "170px", "targets": 4 },
+          { "width": "200px", "targets": 5 },
+          { "width": "220px", "targets": 6 },
+          { 'bSortable': false, "width": "180px", "targets": 7 }
         ],
         "iDisplayLength": 10,
         "sAjaxSource": ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=get_categories",
@@ -793,7 +986,7 @@ var asl_engine = window['asl_engine'] || {};
             aoData.push({"name": 'asl-lang',"value": lang_ctrl.value});
 
           //  Add the search
-          $("thead input").each(function(i) {
+          $("#tbl_categories_wrapper thead .asl-grid-filter-row input").each(function(i) {
 
             if (this.value != "") {
               aoData.push({
@@ -818,7 +1011,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //prompt the category box
-      $('#btn-asl-new-c').bind('click', function() {
+      $('#btn-asl-new-c').on('click', function() {
         $("#parent_id").html('<option value="0">None</option>');
         $.each(parent_categories, function(index, value) {
           $("#parent_id").append('<option value="' + value.id  + '">' + value.category_name  + '</option>');
@@ -827,14 +1020,14 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //  Select all button
-      $('.table .select-all').bind('click', function(e) {
+      $('.table .select-all').on('click', function(e) {
 
         $('.asl-p-cont .table input').attr('checked', 'checked');
 
       });
 
       //  Delete Selected Categories:: bulk
-      $('#btn-asl-delete-all').bind('click', function(e) {
+      $('#btn-asl-delete-all').on('click', function(e) {
 
         var $tmp_categories = $('.asl-p-cont .table input:checked');
 
@@ -894,15 +1087,36 @@ var asl_engine = window['asl_engine'] || {};
         } 
       });
 
-      //Validate
-      $('#btn-asl-add-categories').bind('click', function(e) {
+      // Submit without an upload; the server assigns the default category icon.
+      $('#btn-asl-add-categories').on('click', function(e) {
 
         if ($('#frm-addcategory ul li').length == 0) {
-
-          atoastr.error('Please Upload Category Icon');
-
           e.preventDefault();
-          return;
+          var $button = $(this),
+              $categoryForm = $('#frm-addcategory'),
+              formData = {
+                data: {
+                  category_name: $categoryForm.find('[name="data[category_name]"]').val(),
+                  parent_id: $categoryForm.find('[name="data[parent_id]"]').val() || 0,
+                  ordr: $categoryForm.find('[name="data[ordr]"]').val() || 0
+                }
+              };
+
+          if(lang_ctrl && lang_ctrl.value && formData)
+            formData['asl-lang'] = lang_ctrl.value;
+
+          $button.bootButton('loading');
+          ServerCall(url_to_upload + '?action=asl_ajax_handler&asl-nounce=' + ASL_REMOTE.nounce + '&sl-action=add_categories', formData, function(data) {
+            $button.bootButton('reset');
+            toastIt(data);
+
+            if (data.success) {
+              $('#asl-add-modal').smodal('hide');
+              $('#frm-addcategory').find('input:text, input:file').val('');
+              $('#progress_bar').hide();
+              table.fnDraw();
+            }
+          }, 'json');
         }
       });
 
@@ -1022,7 +1236,7 @@ var asl_engine = window['asl_engine'] || {};
 
 
 
-      $("thead input").keyup(function(e) {
+      $("#tbl_categories_wrapper thead .asl-grid-filter-row input").keyup(function(e) {
 
         if (e.keyCode == 13) {
           table.fnDraw();
@@ -1038,7 +1252,7 @@ var asl_engine = window['asl_engine'] || {};
       var table = null;
 
       //prompt the marker box
-      $('#btn-asl-new-c').bind('click', function() {
+      $('#btn-asl-new-c').on('click', function() {
         $('#asl-add-modal').smodal('show');
       });
 
@@ -1055,11 +1269,11 @@ var asl_engine = window['asl_engine'] || {};
         ],*/
         "bAutoWidth": true,
         "columnDefs": [
-          { 'bSortable': false, "width": "75px", "targets": 0 },
-          { "width": "75px", "targets": 1 },
-          {"targets": 2 },
-          { "width": "100px", "targets": 3 },
-          {"targets": 4 },
+          { 'bSortable': false, "width": "140px", "targets": 0 },
+          { "width": "180px", "targets": 1 },
+          { "width": "300px", "targets": 2 },
+          { "width": "220px", "targets": 3 },
+          { "width": "180px", "targets": 4 },
           { 'bSortable': false, 'aTargets': [4] }
         ],
         "iDisplayLength": 10,
@@ -1076,7 +1290,7 @@ var asl_engine = window['asl_engine'] || {};
         ],
         "fnServerParams": function(aoData) {
 
-          $("#tbl_markers_wrapper thead input").each(function(i) {
+          $("#tbl_markers_wrapper thead .asl-grid-filter-row input").each(function(i) {
 
             if (this.value != "") {
               aoData.push({
@@ -1090,7 +1304,6 @@ var asl_engine = window['asl_engine'] || {};
           [1, 'desc']
         ]
       });
-
 
       //TO ADD New Marker
       var url_to_upload = ASL_REMOTE.URL,
@@ -1223,13 +1436,13 @@ var asl_engine = window['asl_engine'] || {};
       //////////////Delete Selected Categories////////////////
 
       //  Select all button
-      $('.table .select-all').bind('click', function(e) {
+      $('.table .select-all').on('click', function(e) {
 
         $('.asl-p-cont .table input').attr('checked', 'checked');
       });
 
       //Bulk
-      $('#btn-asl-delete-all').bind('click', function(e) {
+      $('#btn-asl-delete-all').on('click', function(e) {
 
         var $tmp_markers = $('.asl-p-cont .table input:checked');
 
@@ -1266,11 +1479,11 @@ var asl_engine = window['asl_engine'] || {};
               }
 
             }, 'json');
-          });
+          }, aswal.noop);
 
       });
 
-      $("thead input").keyup(function(e) {
+      $("#tbl_markers_wrapper thead .asl-grid-filter-row input").keyup(function(e) {
 
         if (e.keyCode == 13) {
           table.fnDraw();
@@ -1361,6 +1574,8 @@ var asl_engine = window['asl_engine'] || {};
               if (is_upload) {
                 /* add an image ID to the array of all images */
                 hiddenfield.val( hiddenfieldvalue );
+                button.removeAttr('aria-invalid');
+                button.closest('form').find('#message_upload').first().addClass('hide').hide().text('');
               }
               else{
                 /* add the IDs to the hidden field value */
@@ -1377,21 +1592,42 @@ var asl_engine = window['asl_engine'] || {};
       // Upload New Logo 
       $('.new_upload_logo').on('click',function(){
 
-        var img_id    = $('#add_img').val(),
-            logo_name = $('#txt_logo-name').val();
+        var $button   = $(this),
+            $form     = $button.closest('form'),
+            $message  = $form.find('#message_upload').first(),
+            $name     = $form.find('#txt_logo-name').first(),
+            img_id    = $form.find('#add_img').first().val(),
+            logo_name = $.trim($name.val()),
+            error     = '';
 
-            if (img_id != '' && logo_name != '') {
-                ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=upload_logo", { data:{img_id:img_id,logo_name:logo_name} }, function(data) {
+        $name.removeClass('is-invalid').removeAttr('aria-invalid');
+        $form.find('.asl_upload_logo_btn').removeAttr('aria-invalid');
+        $message.addClass('hide').hide().text('');
+
+        if (!logo_name) {
+          error = $form.data('name-required') || 'Please enter a logo name.';
+          $name.addClass('is-invalid').attr('aria-invalid', 'true').trigger('focus');
+        }
+        else if (!img_id) {
+          error = $form.data('image-required') || 'Please select a logo image before uploading.';
+          $form.find('.asl_upload_logo_btn').attr('aria-invalid', 'true').trigger('focus');
+        }
+
+        if (error) {
+          $message.removeClass('hide').show().text(error);
+          return;
+        }
+
+        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=upload_logo", { data:{img_id:img_id,logo_name:logo_name} }, function(data) {
                   
-                  toastIt(data);
+          toastIt(data);
 
-                  //  run the call back
-                  if(_callback) {
-                    _callback(data);
-                  }
+          //  run the call back
+          if(_callback) {
+            _callback(data);
+          }
 
-              }, 'json');
-            }
+        }, 'json');
       });
     },
     /**
@@ -1399,6 +1635,7 @@ var asl_engine = window['asl_engine'] || {};
      * @return {[type]} [description]
      */
     manage_logos: function() {
+
 
       /// Remove the logo images
       $('body').on('click', '.asl_remove_logo', function(){
@@ -1425,7 +1662,7 @@ var asl_engine = window['asl_engine'] || {};
       var table = null;
 
       //prompt the logo box
-      $('#btn-asl-new-c').bind('click', function() {
+      $('#btn-asl-new-c').on('click', function() {
         $('ul.asl_logo_mtb').html('');
         $('#asl-add-modal').smodal('show');
       });
@@ -1443,11 +1680,11 @@ var asl_engine = window['asl_engine'] || {};
         ],*/
         "bAutoWidth": true,
         "columnDefs": [
-          { 'bSortable': false, "width": "75px", "targets": 0 },
-          { "width": "75px", "targets": 1 },
-          {"targets": 2 },
-          { "width": "100px", "targets": 3 },
-          {"targets": 4 },
+          { 'bSortable': false, "width": "140px", "targets": 0 },
+          { "width": "180px", "targets": 1 },
+          { "width": "300px", "targets": 2 },
+          { "width": "220px", "targets": 3 },
+          { "width": "180px", "targets": 4 },
           { 'bSortable': false, 'aTargets': [4] }
         ],
         "iDisplayLength": 10,
@@ -1461,7 +1698,7 @@ var asl_engine = window['asl_engine'] || {};
         ],
         "fnServerParams": function(aoData) {
 
-          $("#tbl_logos_wrapper thead input").each(function(i) {
+          $("#tbl_logos_wrapper thead .asl-grid-filter-row input").each(function(i) {
 
             if (this.value != "") {
               aoData.push({
@@ -1590,13 +1827,13 @@ var asl_engine = window['asl_engine'] || {};
       //////////////Delete Selected Categories////////////////
 
       //Select all button
-      $('.table .select-all').bind('click', function(e) {
+      $('.table .select-all').on('click', function(e) {
 
         $('.asl-p-cont .table input').attr('checked', 'checked');
       });
 
       //Bulk
-      $('#btn-asl-delete-all').bind('click', function(e) {
+      $('#btn-asl-delete-all').on('click', function(e) {
 
         var $tmp_logos = $('.asl-p-cont .table input:checked');
 
@@ -1634,25 +1871,349 @@ var asl_engine = window['asl_engine'] || {};
       });
 
 
-      $("thead input").keyup(function(e) {
+      $("#tbl_logos_wrapper thead .asl-grid-filter-row input").keyup(function(e) {
 
         if (e.keyCode == 13) {
           table.fnDraw();
         }
       });
     },
+
     /**
-     * [dashboard Main Dashboard page]
+     * [manage_cards description]
      * @return {[type]} [description]
      */
-    dashboard: function() {
+    manage_cards: function() {
+
+        var parent_row,
+        updated_shortcode_str;
+
+        function show_hide_table() {
+          $('#tbl_shortcode tbody tr').each(function(i) {
+            if ($(this).text().trim() == '') {
+              $(this).remove();
+            }
+          });
+
+          let shortcode_row = $('#tbl_shortcode tbody tr');
+
+          if (shortcode_row.length) {
+            $('#tbl_shortcode').removeClass('d-none');
+            $('.no-shortcode').addClass('d-none');
+          } else {
+            $('#tbl_shortcode').addClass('d-none');
+            $('.no-shortcode').removeClass('d-none');
+          }
+        }
+
+        function update_shortcode(data, parent_row = false) {
+            ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=cards_shortcode_presets', data, function(_response) {
+                toastIt(_response);
+                
+                if (_response.success) {
+
+                    switch (data.db_action) {
+                        case 'add':
+                            $('#asl-add-card').smodal('hide');
+                            var table_row = asl_configs.html.table_row.replace('the_shortcode', _response.data.replaceAll('\\', ''));
+                            $('#tbl_shortcode tbody').append(table_row);
+                            break;
+
+                        case 'delete':
+                            parent_row.remove();
+                            break;
+
+                        case 'edit':
+                            parent_row.find('td:first-child span').text(_response.data.replaceAll('\\', ''));
+                            $('#asl-edit-card').smodal('hide');
+                            break;
+                    }
+
+                    show_hide_table();
+                }
+            }, 'json');
+        }
+
+        // Switch template visibility according to template dropdown field
+        function show_card_layout(modal) {
+            const target_card = modal.find('.choose-card').val();
+            modal.find('.cards .card-preview').addClass('hide');
+            modal.find('.cards .' + target_card).removeClass('hide');
+        }
+
+
+        // Scan through active modal and return toggled-off 
+        function get_hidden_fields(modal) {
+            var hidden_fields = '';
+            const hidden_fields_obj = modal.find('.field-toggles .switch input:checkbox:not(:checked)');
+
+            hidden_fields_obj.each(function() {
+                hidden_fields += $(this).data('target') + ',';
+            });
+            if (hidden_fields.length) {
+                hidden_fields = ' hide_fields="' + hidden_fields.replace(/,\s*$/, "") + '"';
+            }
+            return hidden_fields;
+        }
+
+
+        // Scan through active modal and find filter fields
+        function get_filters(modal) {
+            var filter_fields = '';
+            const filter_fields_obj = modal.find('.asl_cardFilterBox .asl_cardFilterCtnBox');
+            filter_fields_obj.each(function() {
+                if ($(this).find('select').val().length && $(this).find('input').val().length) {
+                filter_fields += $(this).find('select').val() + '="' + $(this).find('input').val() + '" ';
+                }
+            });
+            
+            if (filter_fields.length) {
+                modal.find('.asl_noFilters').addClass('hide');
+                filter_fields = ' ' + filter_fields.trim();
+            }
+
+            return filter_fields;
+        }
+
+
+        // Scan through active modal and find the selected template from the dropdown
+        function get_card(modal) {
+            const card_card = modal.find('.choose-card').val();
+            return ' card="' + card_card + '"';
+        }
+
+
+        function get_use_slider(modal) {
+          const user_slider_obj = modal.find('.use-slider input[type=checkbox]:checked');
+          if (user_slider_obj.length) {
+            return ' slider="1"';
+          }
+
+          return '';
+        }
+
+
+        function get_heading_tag(modal) {
+          const heading_tag = modal.find('.heading-tag').val();
+          return ' heading_tag="' + heading_tag + '"';
+        }
+
+        function fields_to_shortcode(modal) {
+            const card_layout     = get_card(modal);
+            const hidden_fields   = get_hidden_fields(modal);
+            const filters         = get_filters(modal);
+            const use_slider      = get_use_slider(modal);
+            const heading_tag     = get_heading_tag(modal);
+            updated_shortcode_str = '[ASL_CARDS' + hidden_fields + filters + card_layout + use_slider + heading_tag + ']';
+        }
+
+
+        function shortcode_to_fields(existing_shortcode) {
+            var filter_fields;
+            var empty_field = asl_configs.html.filter_field;
+            var field = '';
+            var modal = $('#asl-edit-card');
+
+            // Add empty filter field
+            modal.find('.filter-fields-container').html(empty_field);
+
+            // Show "No Filters are Applied" Text
+            modal.find('.asl_noFilters').removeClass('hide');
+
+            // Reset All Filter Fields
+            modal.find('.choose-card option:selected').attr('selected', false);
+
+            // Reset All Toggles
+            modal.find('.fields-toggle input[data-target]').attr('checked', true);
+            modal.find('.use-slider input[type=checkbox]').attr('checked', false);
+            modal.find('.asl_previewCard *[data-field]').removeClass('hide');
+
+
+            var attributes = existing_shortcode.replaceAll(']', '');
+            attributes = attributes.replaceAll('[ASL_CARDS ', '');
+            attributes = attributes.split('" ');
+
+            var attribute;
+            for (attribute of attributes) {
+
+                attribute = attribute.split('="');
+
+                attribute[1] = attribute[1].replaceAll('"', ''); // Attribute Value
+
+                if (attribute[0] == 'hide_fields') {
+
+                    var hide_fields_attr = attribute[1].split(',');
+                    modal.find('.fields-toggle > div').each(function() {
+                        var input_swt = $(this).find('.switch input');
+                        var target = input_swt.attr('data-target');
+                        if (hide_fields_attr.includes(target)) {
+                            input_swt.attr('checked', false);
+                            modal.find('.asl_previewCard *[data-field="' + target + '"]').addClass('hide');
+                        }
+                    });
+
+                } else if (attribute[0] == 'heading_tag') {
+
+                    modal.find('.heading-tag option[value=' + attribute[1] + ']').attr('selected', true);
+
+                } else if (attribute[0] == 'card') {
+
+                    modal.find('.choose-card option[value=' + attribute[1] + ']').attr('selected', true);
+
+                } else if (attribute[0] == 'slider' && attribute[1]) {
+
+                  modal.find('.use-slider input[type=checkbox]').attr('checked', true);
+
+                } else {
+                    field = empty_field;
+                    field = field.replace('<option value="' + attribute[0] + '"', '<option value="' + attribute[0] + '" selected');
+                    field = field.replace( '<input ', '<input value="' + attribute[1] + '" ');
+
+                    filter_fields += field;
+
+                    if (!modal.find('.asl_noFilters').hasClass('hide')) {
+                    modal.find('.asl_noFilters').addClass('hide');
+                    }
+                }
+                
+                if (filter_fields !== undefined) {
+                    modal.find('.filter-fields-container').html(filter_fields);
+                }
+            }
+
+            show_card_layout(modal);
+        }
+
+
+        // Choose Template Event
+        $('.choose-card').on('change', function() {
+            const modal = $(this).parents('.asl_manageCardModal');
+            show_card_layout(modal);
+        });
+
+
+        // Filter Dropdown change Event
+        $('.filter-field').on('change', function() {
+            const field_container = $(this).parents('.filter-fields-container');
+            var selected_filter_fields = [];
+            field_container.find('.custom-select').each(function() {
+                selected_filter_fields.push($(this).val());
+            });
+        });
+
+
+        // Toggle Field Switches Event
+        $('.fields-toggle .switch input').on('change', function() {
+            const target_val = $(this).attr('data-target');
+            var target = $(this).parents('.smodal-body').find('.asl_previewCard *[data-field="' + target_val + '"]');
+
+            if ($(this).prop('checked')) {
+                target.removeClass('hide');
+            } else {
+                target.addClass('hide');
+            }
+        });
+
+
+        // Add Filter Field on "New Field" Button click
+        $('.smodal-body').on('click', '.btn-asl-add-field', function() {
+            var field = asl_configs.html.filter_field;
+            $(this).parents('.smodal-body').find('.filter-fields-container').append(field);
+        });
+
+
+        // Remove Filter Field
+        $('.filter-fields-container').on('click', '.asl_cardFilterRemoveButton', function() {
+            $(this).parents('.asl_cardFilterCtnBox').remove();
+        });
+
+
+        // Copy Shortcode
+        $('#tbl_shortcode').on('click', '.copy-shortcode', function() {
+            var bubble = $(this).find('.alert');
+            var shortcode_text = $(this).siblings('span').text();
+
+            navigator.clipboard
+            .writeText(shortcode_text)
+            .then(() => {
+                bubble.addClass('show alert-success');
+                bubble.text('Copied!');
+              })
+              .catch(() => {
+                bubble.addClass('show alert-danger');
+                bubble.text('Couldn\'t Copy!');
+            });
+
+            setTimeout(function () {
+              bubble.removeClass('show alert-danger alert-success');
+            }, 2000);
+        });
 
       
-      $('.asl-p-cont .nav-tabs a').click(function(e) {
-        e.preventDefault()
-        $(this).tab('show');
-      })
+        // Edit shortcode Modal
+        $('#tbl_shortcode').on('click', '.btn-asl-edit', function(el) {
+            parent_row = $(this).closest('tr');
+            var existing_shortcode = $(this).parents('tr').find('td:first-child span').text();
+            shortcode_to_fields(existing_shortcode);
+        });
+
+
+        // Add shortcode action
+        $('#asl-add-card .btn-asl-save').on('click', function() {
+            var modal = $(this).parents('.asl_manageCardModal');
+            fields_to_shortcode(modal);
+            var data = {shortcode: updated_shortcode_str, db_action: 'add'};
+            update_shortcode(data);
+
+
+        });
+
+
+        // Edit shortcode action
+        $('#asl-edit-card .btn-asl-save').on('click', function() {
+            // parent_row = $(this).parents('tr');
+
+            var existing_shortcode = parent_row.find('td:first-child span').text();
+            var modal  = $(this).parents('.asl_manageCardModal');
+            fields_to_shortcode(modal);
+            var data   = {shortcode: existing_shortcode, updated_shortcode: updated_shortcode_str, db_action: 'edit'};
+            update_shortcode(data, parent_row);
+
+
+        });
+
+
+        // Delete shortcode action
+        var shortcode_str;
+        $('#tbl_shortcode').on('click', '.btn-asl-delete', function() {
+            var parent_row_to_delete = $(this).closest('tr');
+            shortcode_str = parent_row_to_delete.find('td:first-child span').text();
+
+            aswal({
+                title: 'Do you really want to delete shortcode?',
+                html: '<p>' + shortcode_str + '</p>',
+                type: "warning",
+                showCancelButton: true,
+                allowOutsideClick: true,
+                allowEscapeKey: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            })
+            
+            .then(
+                function() {
+                  var data = {shortcode: shortcode_str, db_action: 'delete'};
+                  update_shortcode(data, parent_row_to_delete);
+                }
+            );
+
+
+        });
+
+
     },
+
     /**
      * [manage_stores description]
      * @return {[type]} [description]
@@ -1738,7 +2299,7 @@ var asl_engine = window['asl_engine'] || {};
       };
 
       /*Delete All stores*/
-      $('#asl-delete-stores').bind('click', function(e) {
+      $('#asl-delete-stores').on('click', function(e) {
 
         aswal({
           title: ASL_REMOTE.LANG.delete_all_stores,
@@ -1756,39 +2317,41 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       var columnDefs = [
-        {"targets": 0},
-        {"targets": 1 },
-        {"targets": 2},
-        {"targets": 3 },
-        {"targets": 4 },
-        {"targets": 5 },
-        {"targets": 6 },
-        {"targets": 7 },
-        {"targets": 8 },
-        {"targets": 9 },
-        {"targets": 10 },
-        {"targets": 11 },
-        {"targets": 12 },
-        {"targets": 13 },
-        {"targets": 14 },
-        {"targets": 15 },
-        {"targets": 16 },
-        {"targets": 17 },
-        {"targets": 18 },
-        {"targets": 19 },
-      ];
+          {"width": "140px", "targets": 0},
+          {"width": "190px", "targets": 1 },
+          {"width": "170px", "targets": 2},
+          {"width": "140px", "targets": 3 },
+          {"width": "260px", "targets": 4 },
+          {"width": "170px", "targets": 5 },
+          {"width": "170px", "targets": 6 },
+          {"width": "280px", "targets": 7 },
+          {"width": "190px", "targets": 8 },
+          {"width": "190px", "targets": 9 },
+          {"width": "190px", "targets": 10 },
+          {"width": "190px", "targets": 11 },
+          {"width": "240px", "targets": 12 },
+          {"width": "240px", "targets": 13 },
+          {"width": "190px", "targets": 14 },
+          {"width": "170px", "targets": 15 },
+          {"width": "260px", "targets": 16 },
+          {"width": "180px", "targets": 17 },
+          {"width": "180px", "targets": 18 },
+          {"width": "220px", "targets": 19 },
+        ];
 
-      var col_number = columnDefs.length;
-
-      for(var c in dt_custom_columns) {
-        columnDefs.push({"targets": col_number, "orderable": false });
-        col_number++;
-      }
-
-      columnDefs.push({ 'bSortable': false, 'aTargets': [0, 1, 2, 14] });
+        var col_number = columnDefs.length;
+        for(var c in dt_custom_columns) {
+          columnDefs.push({"width": "220px", "targets": col_number, "orderable": false });
+          col_number++;
+        }
+        columnDefs.push({ 'bSortable': false, 'aTargets': [0, 1, 2, 14] });
 
       // Hide 'Schedule Store' Column when store schedule option is disable 
-      columnDefs[2]['visible'] = false;
+      if (asl_configs.store_schedule == 0) {
+            
+            columnDefs[2]['visible'] = false;
+            
+        }
         
       //  Loop over to hide
       for(var ch in asl_hidden_columns) {
@@ -1799,6 +2362,7 @@ var asl_engine = window['asl_engine'] || {};
           columnDefs[asl_hidden_columns[ch]]['visible'] = false;
         }
       }
+
 
       /**
        * [validate_coordinate Validate the coordinates]
@@ -1844,13 +2408,12 @@ var asl_engine = window['asl_engine'] || {};
         { "data": "website" },
         { "data": "postal_code" },
         { "data": "is_disabled",  "render": function(data) {
-          
+
           if (data == "1") {
             return '<span class="sl-status-inactive">'+ASL_REMOTE.LANG.disabled+'</span>';
           } else {
             return '<span class="sl-status-active">'+ASL_REMOTE.LANG.enabled+'</span>';
           }
-
         } },
         { "data": "categories" },
         { "data": "marker_id" },
@@ -1879,18 +2442,23 @@ var asl_engine = window['asl_engine'] || {};
 
           // Change disable's store row color
           if( _data['is_disabled'] ==  '1'){
+              
             $(_row).addClass('disabled_color');
+
            }
 
           // Change schedule's store row color
         // Change schedule's store row color
           if(_data['is_scheduled'] == '1') { 
-            $(_row).addClass('scheduled_color');
+
+              $(_row).addClass('scheduled_color');
+
           }
          
           if(!validate_coordinate(_data.lat, _data.lng)) {
             
             $(_row).addClass('sl-error-row');
+
             invalid_rows++;
           }
         },
@@ -1939,6 +2507,22 @@ var asl_engine = window['asl_engine'] || {};
               });
             }
           });
+
+
+
+          // Schedule Store
+          $("#tbl_stores_wrapper .dataTables_scrollHead thead select").each(function(i) {
+              
+              if (this.value != "") {
+
+                  aoData.push({
+                  "name": 'filter[' + $(this).attr('data-id') + ']',
+                  "value": this.value
+
+                });
+              }
+          });
+
           
           
           // Filter out the object with name "sColumns"
@@ -1955,7 +2539,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //  Show the pending stores
-      $('#btn-pending-stores').bind('click', function(e) {
+      $('#btn-pending-stores').on('click', function(e) {
 
         var $pending_btn = $(this);
 
@@ -1979,7 +2563,7 @@ var asl_engine = window['asl_engine'] || {};
       
 
       // Select all button
-      $('.table .select-all').bind('click', function(e) {
+      $('.table .select-all').on('click', function(e) {
 
         $('.asl-p-cont .table input').attr('checked', 'checked');
       });
@@ -2073,7 +2657,7 @@ var asl_engine = window['asl_engine'] || {};
         })
         .on('changeTime.asltimepicker', bulkTimeChangeEvent);
 
-        $('#asl-bulk-time-cp').bind('click', function(e) {
+        $('#asl-bulk-time-cp').on('click', function(e) {
           if (!$('#asl-bulk-edit-apply-open-hours').is(':checked')) {
             return;
           }
@@ -2417,7 +3001,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //Delete Selected Stores:: bulk
-      $('#btn-asl-delete-all').bind('click', function(e) {
+      $('#btn-asl-delete-all').on('click', function(e) {
 
         var $tmp_stores = $('.asl-p-cont .table input:checked');
 
@@ -2460,7 +3044,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //Change the Status
-      $('#btn-change-status').bind('click', function(e) {
+      $('#btn-change-status').on('click', function(e) {
 
         var $tmp_stores = $('.asl-p-cont .table input:checked');
 
@@ -2491,7 +3075,7 @@ var asl_engine = window['asl_engine'] || {};
 
 
       //Validate the Coordinates
-      $('#btn-validate-coords').bind('click', function(e) {
+      $('#btn-validate-coords').on('click', function(e) {
 
         var $btn = $(this);
 
@@ -2567,7 +3151,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
 
-      $("thead input").keyup(function(e) {
+      $("#tbl_stores_wrapper .dataTables_scrollHead thead .asl-grid-filter-row input").keyup(function(e) {
 
         if (e.keyCode == 13) {
           table.fnDraw();
@@ -2588,13 +3172,13 @@ var asl_engine = window['asl_engine'] || {};
       //the Show/hide columns
       $('#ddl-fs-cntrl').chosen({
         width: "100%",
-        placeholder_text_multiple: 'Select Columns',
-        no_results_text: 'No Columns'
+        placeholder_text_multiple: ASL_REMOTE.LANG.select_columns,
+        no_results_text: ASL_REMOTE.LANG.no_columns
       });
 
 
       //  Show/Hide the Columns
-      $('#sl-btn-sh').bind('click', function(e) {
+      $('#sl-btn-sh').on('click', function(e) {
 
         var sh_columns = $('#ddl-fs-cntrl').val();
         var $btn       = $(this);
@@ -2617,6 +3201,195 @@ var asl_engine = window['asl_engine'] || {};
       });
 
     },
+     /**
+     * [schedule_stores description]
+     * @return {[type]}                    [description]
+     */
+     schedule_stores: function() {
+
+       // Initialize start daterangepicker
+       $('#asl-sched-start-date').daterangepicker({
+           "singleDatePicker": true,
+           "timePicker": true,
+           "showDropdowns": true,
+           "autoApply": false,
+           "alwaysShowCalendars": true,
+           "opens": "center",
+           "drops": "auto",
+           "minDate": moment(),
+           "autoUpdateInput": false,
+            "locale": {"format": "DD/MM/YYYY h:mm","cancelLabel": 'Clear'},
+
+         });
+
+     // Start daterangepicker apply handler 
+       $('#asl-sched-start-date').on('apply.daterangepicker', function(ev, picker) {
+
+         $(this).val(picker.startDate.format("DD/MM/YYYY h:mm"));
+
+         var sdate = $("#asl-sched-start-date").val();
+
+         // Reinitialize end daterangepicker
+         $('#asl-sched-end-date').daterangepicker({
+             "singleDatePicker": true,
+             "timePicker": true,
+             "showDropdowns": true,
+             "autoApply": true,
+             "alwaysShowCalendars": true,
+             "opens": "center",
+             "drops": "auto",
+             "minDate": sdate,
+             "locale": {"format": "DD/MM/YYYY h:mm"},
+             "autoUpdateInput": false
+           });
+
+           $('#asl-sched-end-date').on('apply.daterangepicker', function(ev, picker) {
+
+             $(this).val(picker.startDate.format("DD/MM/YYYY h:mm"));
+         
+             });
+
+           });
+
+           // Start daterangepicker cancel handler 
+
+       $('#asl-sched-start-date').on('cancel.daterangepicker', function(ev, picker) {
+
+           $('#asl-sched-start-date').val('');
+
+           // Reinitialize end daterangepicker
+           $('#asl-sched-end-date').daterangepicker({
+               "singleDatePicker": true,
+               "timePicker": true,
+               "showDropdowns": true,
+               "autoApply": true,
+               "alwaysShowCalendars": true,
+               "opens": "center",
+               "drops": "auto",
+               "minDate": moment(),
+               "locale": {"format": "DD/MM/YYYY h:mm"},
+               "autoUpdateInput":false
+             });
+
+           });
+
+           // Reinitialize end daterangepicker
+            $('#asl-sched-end-date').daterangepicker({
+             "singleDatePicker": true,
+             "timePicker": true,
+             "showDropdowns": true,
+             "autoApply": true,
+             "alwaysShowCalendars": true,
+             "opens": "center",
+             "drops": "auto",
+             "minDate": moment(),
+             "locale": {"format": "DD/MM/YYYY h:mm"},
+             "autoUpdateInput": false
+           });
+
+         $('#asl-sched-end-date').on('apply.daterangepicker', function(ev, picker) {
+
+               $(this).val(picker.startDate.format("DD/MM/YYYY h:mm"));
+             
+         });
+
+
+       // =======================
+
+        // Get Current store id and pass into modal
+         $('#tbl_stores tbody').on('click', '.sl-schedule-store_id', function(e) {
+
+             var store_id = $(this).data('id');
+
+             // Unset all fields
+             $(".smodal-body #asl-sched-start-date").val('');
+             $(".smodal-body #asl-sched-end-date").val('');
+             $(".smodal-body #ddl-fs-date-switch").prop('checked', false); 
+
+             // Send store id on modal
+             $(".smodal-body #store_id").val( store_id );
+
+             // Ajax call for get start date and end date
+             ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=get_schedule_detail',{ store_id: store_id }, function(_response) {
+
+             if (_response.success) {
+
+               // Set modal start date and end date
+                $(".smodal-body #asl-sched-start-date").val( _response.store_schedule[0]['option_value'] );
+                $(".smodal-body #asl-sched-end-date").val( _response.store_schedule[1]['option_value'] );
+               }
+             }, 'json');
+
+
+             // Ajax call for disable switch
+             ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=edit_schedule_store_switch',{ store_id: store_id }, function(_response) {
+
+             if (_response.success) {
+
+               // Set modal switch value
+               var toggle =  (_response.store_schedule[0]['is_disabled'] == 1) ? 'true' : '';
+               $(".smodal-body #ddl-fs-date-switch").prop('checked', toggle); 
+
+               }
+             }, 'json');
+
+
+
+             });
+
+
+
+
+           // Schedule store
+           $('.btn-schedule').on('click', function(e) {
+
+             
+            var sdate    = $("#asl-sched-start-date").val(),
+                edate    = $("#asl-sched-end-date").val(),
+                store_id = $("#store_id").val(),
+                disable_switch   = ($("#ddl-fs-date-switch").is(':checked')) ? '1' : '0';
+
+
+            // Date validation atleat select one field.
+              
+              if (isEmpty(sdate) && isEmpty(edate)) {
+
+                  atoastr.error('Both field should be not empty please select at least one field.');
+                  return false;
+
+              }
+
+              // Start date cannot be greater than the end date
+              if (sdate > edate && !isEmpty(edate)) {
+
+                  atoastr.error('The start date cannot be greater than the end date. Please ensure that you have entered the correct dates and try again.');
+                  return false;
+
+              }   
+
+             var $btn       = $(this);
+
+             $btn.bootButton('loading');
+
+             ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=schedule_the_store", { store_id: store_id, sdate: sdate , edate : edate, disable_switch : disable_switch }, function(_response) {
+
+               $btn.bootButton('reset');
+
+               toastIt(_response);
+
+               if (_response.success) {
+
+                 $('#sl-schedule-store').smodal('hide');
+                 window.location.reload();
+               }
+
+             }, 'json');
+
+             
+           });
+
+
+       },
     /**
      * [customize_map description]
      * @param  {[type]} _asl_map_customize [description]
@@ -2695,7 +3468,9 @@ var asl_engine = window['asl_engine'] || {};
           bike_layer: $('#asl-bike_layer').prop('checked') ? 1 : 0,
           marker_animations: $('#asl-marker_animations').prop('checked') ? 1 : 0,
           map_controls: readMapControls(),
-          drawing: asl_drawing.get_data()
+          drawing: (asl_configs && asl_configs.map_vendor === 'maplibre')
+            ? (_asl_map_customize.drawing || {})
+            : asl_drawing.get_data()
         };
 
         var $buttons = $('#asl-save-map, .asl-save-map-secondary');
@@ -2726,6 +3501,17 @@ var asl_engine = window['asl_engine'] || {};
 
         if (drawingData.zoom && !isNaN(drawingData.zoom)) {
           map_object.map_instance.setZoom(parseInt(drawingData.zoom));
+        }
+
+        if (asl_configs && asl_configs.map_vendor === 'maplibre') {
+          $('#asl-trafic_layer, #asl-transit_layer, #asl-bike_layer, #asl-marker_animations')
+            .prop('checked', false)
+            .prop('disabled', true);
+          $('#sl-frm-kml, .asl-drawing-tools').hide();
+          applyMapControls();
+          isInitializing = false;
+          setDirty(false);
+          return;
         }
 
         asl_drawing.initialize(map_object.map_instance);
@@ -2906,6 +3692,16 @@ var asl_engine = window['asl_engine'] || {};
       });
     },
     /**
+     * [InfoBox_maker description]
+     * @param {[type]} _inbox_id [description]
+     */
+    InfoBox_maker: function(_inbox_id) {
+
+    },
+
+
+    // ===========================================================================================================================================
+    /**
      * [edit_store description]
      * @param  {[type]} _store [description]
      * @return {[type]}        [description]
@@ -2913,12 +3709,128 @@ var asl_engine = window['asl_engine'] || {};
     edit_store: function(_store) {
 
       this.add_store(true, _store);
+      
+      if(asl_configs.branches != '0')
+        this.branches_dt(_store);
     },
     /**
-     * [add_store description]
-     * @param {[type]} _is_edit [description]
-     * @param {[type]} _store   [description]
+     * [branches_dt Create the Branches DT]
+     * @return {[type]} [description]
      */
+    branches_dt: function(_store) {
+
+      var table          = null;
+      var parent_id      = _store.id;
+
+      var urlSearchParams = new URLSearchParams(window.location.search);
+      var params          = Object.fromEntries(urlSearchParams.entries());
+    
+
+      var columnDefs = [
+        {"targets": 0},
+        {"targets": 1 },
+        {"targets": 2, 
+        render: function (data, type, full, meta) {
+          return '<a href="'+ASL_Instance.manage_stores_url + full.id +'">' + data + "</a>";
+        }},
+        
+        {"targets": 3 },
+        {"targets": 4 },
+        {"targets": 5 },
+      ];
+
+      var invalid_rows  = 0;
+
+      var asInitVals = {};
+      table = $('#tbl_stores').dataTable({
+        "sPaginationType": "bootstrap",
+        "bProcessing": true,
+        "bFilter": false,
+        "bServerSide": true,
+        "scrollX": true,
+        "bAutoWidth": false,
+        "columnDefs": columnDefs,
+        "iDisplayLength": 10,
+        "sAjaxSource": ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=get_store_list_edit&parent_id="+parent_id,
+        "columns": [
+          { "data": "check" },
+          { "data": "id" },
+          { "data": "title" },
+          { "data": "state" },
+          { "data": "city" },
+          { "data": "postal_code" },
+        ],
+      "fnServerParams": function(aoData) {
+
+          $("#tbl_stores_wrapper .dataTables_scrollHead thead input").each(function(i) {
+
+            if (this.value != "") {
+              aoData.push({
+                "name": 'filter[' + $(this).attr('data-id') + ']',
+                "value": this.value
+
+              });
+            }
+
+          });
+
+           $("#tbl_stores_wrapper .dataTables_scrollHead thead select").each(function(i) {
+                  
+                  
+                if (this.value != "") {
+
+                    var attr = $("#tbl_stores_wrapper .dataTables_scrollHead #select_branch option:selected").attr('data-id');
+                    aoData.push({
+                    "name": 'select_filter',
+                    "value": this.value
+
+              });
+            }
+
+           });
+        },
+
+        "order": [[2, 'desc']]
+      });
+
+      // console.log(aoData);
+
+      // filter
+
+      $("thead input").keyup(function(e) {
+        if (e.keyCode == 13) {
+          table.fnDraw();
+        }
+      });
+
+
+      $("thead select").on('change',function(e) {
+          table.fnDraw();
+      });
+
+
+      // Crud Ajax function for branch
+      $('#tbl_stores tbody').on('click', '.custom-checkbox input', function(e) {
+
+        var toggle    = ($(this).is(':checked')) ? '1' : '0',
+            parent_id = _store.id,
+            store_id  = $(this).attr("data-id");
+        
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=add_store_into_branch', { parent_id: parent_id , store_id:store_id , toggle:toggle }, function(_response) {
+          toastIt(_response);
+          
+          if (!_response.success) {
+            
+            //  revert the check due to error
+            e.currentTarget.checked = false;
+          }
+
+        }, 'json');
+      });
+
+    },
+    // ===========================================================================================================================================
     /**
      * [add_store description]
      * @param {[type]} _is_edit [description]
@@ -3005,11 +3917,11 @@ var asl_engine = window['asl_engine'] || {};
         var $new_slot = $('<div class="form-group">\
                     <div class="input-group bootstrap-asltimepicker">\
                           <input type="text" class="form-control asltimepicker asl-start-time validate[required,funcCall[ASLmatchTime]]" placeholder="' + ASL_REMOTE.LANG.start_time + '"  value="'+open_time_tmpl+'">\
-                          <span class="input-group-append add-on"><span class="input-group-text"><svg width="20" height="18"><use xlink:href="#i-clock"></use></svg></span></span>\
+                          <span class="input-group-append add-on"><span class="input-group-text"><svg width="20" height="20"><use xlink:href="#i-clock"></use></svg></span></span>\
                         </div>\
                         <div class="input-append input-group bootstrap-asltimepicker">\
                           <input type="text" class="form-control asltimepicker asl-end-time validate[required]" placeholder="' + ASL_REMOTE.LANG.end_time + '" value="'+close_time_tmpl+'">\
-                          <span class="input-group-append add-on"><span class="input-group-text"><svg width="20" height="18"><use xlink:href="#i-clock"></use></svg></span></span>\
+                          <span class="input-group-append add-on"><span class="input-group-text"><svg width="20" height="20"><use xlink:href="#i-clock"></use></svg></span></span>\
                         </div>\
                         <span class="add-k-delete glyp-trash text-danger">\
                           <svg width="16" height="16"><use xlink:href="#i-trash"></use></svg>\
@@ -3041,7 +3953,7 @@ var asl_engine = window['asl_engine'] || {};
 
 
       //  Add the time Picker
-          $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
+      $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
         showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
         appendWidgetTo: '.asl-p-cont',
       })
@@ -3091,7 +4003,7 @@ var asl_engine = window['asl_engine'] || {};
 
 
       //  Copy the Monday time to rest of the days
-      $('#asl-time-cp').bind('click', function(e) {
+      $('#asl-time-cp').on('click', function(e) {
           var $monday    = $('.asl-p-cont .asl-time-details .asl-all-day-times').eq(0),
               $rest_days = $('.asl-p-cont .asl-time-details .asl-all-day-times:not(:first)');
 
@@ -3099,12 +4011,13 @@ var asl_engine = window['asl_engine'] || {};
           $rest_days.each(function(e) {
             var day_index = parseInt(e) + 1;
             $(this).html($monday.children().clone());
+            $(this).find('.asl-day-label').val('');
             $(this).find('.a-swith').find('label').attr('for', 'cmn-toggle-' + day_index);
             $(this).find('.a-swith').find('input').attr('id', 'cmn-toggle-' + day_index);
           });
         
           //  Add the Picker
-      $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
+          $('.asl-p-cont .asl-time-details .asltimepicker').asltimepicker({
             showMeridian: (asl_configs && asl_configs.time_format == '1') ? false : true,
             appendWidgetTo: '.asl-p-cont',
           })
@@ -3212,7 +4125,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       //  To get Lat/lng
-      $('#txt_city,#txt_state,#txt_postal_code').bind('blur', function(e) {
+      $('#txt_city,#txt_state,#txt_postal_code').on('blur', function(e) {
 
         if (!isEmpty($form[0].elements["data[city]"].value)) {
 
@@ -3226,11 +4139,13 @@ var asl_engine = window['asl_engine'] || {};
               q_address.push(address[i]);
           }
 
-          var _country = jQuery('#txt_country option:selected').text();
+          var $selected_country = jQuery('#txt_country option:selected'),
+              country_id = $selected_country.val(),
+              country_name = jQuery.trim($selected_country.text());
 
           //Add country if available
-          if (_country && _country != ASL_REMOTE.LANG.select_country) {
-            q_address.push(_country);
+          if (country_id && country_name) {
+            q_address.push(country_name);
           }
 
           address = q_address.join(', ');
@@ -3238,7 +4153,6 @@ var asl_engine = window['asl_engine'] || {};
           codeAddress(address, function(_geometry) {
 
             var s_location = [_geometry.location.lat(), _geometry.location.lng()];
-            var loc = new google.maps.LatLng(s_location[0], s_location[1]);
             map_object.map_marker.setPosition(_geometry.location);
             map.panTo(_geometry.location);
             map.setZoom(14);
@@ -3250,23 +4164,69 @@ var asl_engine = window['asl_engine'] || {};
 
       $form.find('.asl-rich-text-editor').each(function () {
         const id = $(this).attr('id');
-        if (id) {
-            tinymce.init({
-                selector: '#' + id,
-                height: 200,
-                menubar: false,
-                plugins: 'paste link lists',
-                media_buttons: true,
-                paste_as_text: true, // Paste as plain text
-                branding: false,
-                toolbar: 'bold italic underline | bullist numlist | link',
-                setup: function (editor) {
-                    editor.on('change', function () {
-                        editor.save(); // Sync content to textarea
-                    });
-                }
-            });
+        const hasWPEditor = window.wp && wp.editor && typeof wp.editor.initialize === 'function';
+
+        if (!id) {
+          return;
         }
+
+        const editorConfig = {
+          height: 200,
+          menubar: false,
+          plugins: 'paste link lists',
+          paste_as_text: true,
+          branding: false,
+          // Keep links exactly as entered (absolute or relative).
+          relative_urls: false,
+          remove_script_host: false,
+          convert_urls: false,
+          urlconverter_callback: function (url) {
+            return url;
+          },
+          toolbar: 'bold italic underline | bullist numlist | link',
+          setup: function (editor) {
+            editor.on('change input keyup', function () {
+              editor.save(); // Sync content to textarea
+            });
+          }
+        };
+
+        if (hasWPEditor) {
+          // Re-init safely if this form is opened multiple times.
+          if (typeof wp.editor.remove === 'function') {
+            wp.editor.remove(id);
+          } else if (window.tinymce && tinymce.get(id)) {
+            tinymce.get(id).remove();
+          }
+
+          wp.editor.initialize(id, {
+            tinymce: editorConfig,
+            quicktags: true,
+            mediaButtons: true
+          });
+
+          return;
+        }
+
+        // Fallback when WP editor APIs are unavailable.
+        if (window.tinymce && tinymce.get(id)) {
+          tinymce.get(id).remove();
+        }
+
+        tinymce.init({
+          selector: '#' + id,
+          height: editorConfig.height,
+          menubar: editorConfig.menubar,
+          plugins: editorConfig.plugins,
+          paste_as_text: editorConfig.paste_as_text,
+          branding: editorConfig.branding,
+          relative_urls: editorConfig.relative_urls,
+          remove_script_host: editorConfig.remove_script_host,
+          convert_urls: editorConfig.convert_urls,
+          urlconverter_callback: editorConfig.urlconverter_callback,
+          toolbar: editorConfig.toolbar,
+          setup: editorConfig.setup
+        });
       });
 
 
@@ -3277,7 +4237,7 @@ var asl_engine = window['asl_engine'] || {};
       };
 
       //  Click the Edit Coordinates
-      $('#lnk-edit-coord').bind('click', function(e) {
+      $('#lnk-edit-coord').on('click', function(e) {
 
         _coords.lat = $('#asl_txt_lat').val();
         _coords.lng = $('#asl_txt_lng').val();
@@ -3288,11 +4248,11 @@ var asl_engine = window['asl_engine'] || {};
 
       //  Change Event Coordinates
       var $coord = $('#asl_txt_lat,#asl_txt_lng');
-      $coord.bind('change', function(e) {
+      $coord.on('change', function(e) {
 
         if ($coord[0].value && $coord[1].value && !isNaN($coord[0].value) && !isNaN($coord[1].value)) {
 
-          var loc = new google.maps.LatLng(parseFloat($('#asl_txt_lat').val()), parseFloat($('#asl_txt_lng').val()));
+          var loc = {lat: parseFloat($('#asl_txt_lat').val()), lng: parseFloat($('#asl_txt_lng').val())};
           map_object.map_marker.setPosition(loc);
           map.panTo(loc);
         }
@@ -3333,6 +4293,37 @@ var asl_engine = window['asl_engine'] || {};
         return JSON.stringify(open_hours);
       }
 
+      function updateGalleryPreview($input) {
+        var url = $.trim($input.val());
+        var $control = $input.closest(".asl-gallery-field-control");
+        var $preview = $control.find(".asl-gallery-preview");
+        var $img = $preview.find("img");
+
+        if (url) {
+          $img.attr("src", url);
+          $preview.removeClass("is-empty");
+        } else {
+          $img.attr("src", "");
+          $preview.addClass("is-empty");
+        }
+      }
+
+      $(".asl-gallery-field").each(function() {
+        updateGalleryPreview($(this));
+      });
+
+      $form.on("input change", ".asl-gallery-field", function() {
+        updateGalleryPreview($(this));
+      });
+
+      $form.on("click", ".asl-gallery-clear", function(e) {
+        e.preventDefault();
+        var $control = $(this).closest(".asl-gallery-field-control");
+        var $input = $control.find(".asl-gallery-field");
+        $input.val("");
+        updateGalleryPreview($input);
+      });
+
       // Gallery button
       $(".asl-gallery-field-button").on("click", function(e) {
         e.preventDefault();
@@ -3347,10 +4338,11 @@ var asl_engine = window['asl_engine'] || {};
         }).on("select", function() {
             var attachment = mediaUploader.state().get("selection").first().toJSON();
             input.val(attachment.url);
+            updateGalleryPreview(input);
         }).open();
-    });
+      });
 
-      // Plugin-owned searchable picker avoids conflicts with global admin CSS.
+      // A plugin-owned picker avoids CSS conflicts with WordPress's editor modal.
       var activePageLinkInput = null,
           pageLinkSearchTimer = null;
 
@@ -3362,15 +4354,20 @@ var asl_engine = window['asl_engine'] || {};
       function loadPageLinkResults(search) {
         var $results = $(".asl-page-link-results");
         $results.html('<div class="asl-page-link-message">Searching&hellip;</div>');
+
         $.get(ASL_REMOTE.URL, {
-          action: "asl_search_internal_pages", nonce: ASL_REMOTE.nounce, search: search || ""
+          action: "asl_search_internal_pages",
+          nonce: ASL_REMOTE.nounce,
+          search: search || ""
         }).done(function(response) {
           var items = response && response.success && response.data ? response.data.items : [];
           $results.empty();
+
           if (!items || !items.length) {
             $results.html('<div class="asl-page-link-message">No matching pages found.</div>');
             return;
           }
+
           $.each(items, function(index, item) {
             var $button = $('<button type="button" class="asl-page-link-result"></button>');
             $button.append($("<strong></strong>").text(item.title || "(no title)"));
@@ -3385,11 +4382,23 @@ var asl_engine = window['asl_engine'] || {};
 
       $form.on("click", ".asl-page-link-button", function(e) {
         e.preventDefault();
+
         activePageLinkInput = document.getElementById($(this).data("target"));
-        if (!activePageLinkInput) return;
+        if (!activePageLinkInput) {
+          return;
+        }
+
         $("body").append(
-          '<div class="asl-page-link-dialog" role="dialog" aria-modal="true" aria-labelledby="asl-page-link-title"><div class="asl-page-link-backdrop"></div><div class="asl-page-link-panel"><div class="asl-page-link-header"><h2 id="asl-page-link-title">Select a page</h2><button type="button" class="asl-page-link-close" aria-label="Close">&times;</button></div><div class="asl-page-link-search"><label for="asl-page-link-search-input">Search pages and posts</label><input id="asl-page-link-search-input" type="search" autocomplete="off" placeholder="Start typing a page title&hellip;"></div><div class="asl-page-link-results"></div></div></div>'
+          '<div class="asl-page-link-dialog" role="dialog" aria-modal="true" aria-labelledby="asl-page-link-title">' +
+            '<div class="asl-page-link-backdrop"></div>' +
+            '<div class="asl-page-link-panel">' +
+              '<div class="asl-page-link-header"><h2 id="asl-page-link-title">Select a page</h2><button type="button" class="asl-page-link-close" aria-label="Close">&times;</button></div>' +
+              '<div class="asl-page-link-search"><label for="asl-page-link-search-input">Search pages and posts</label><input id="asl-page-link-search-input" type="search" autocomplete="off" placeholder="Start typing a page title&hellip;"></div>' +
+              '<div class="asl-page-link-results"></div>' +
+            '</div>' +
+          '</div>'
         );
+
         loadPageLinkResults("");
         $("#asl-page-link-search-input").trigger("focus");
       });
@@ -3399,6 +4408,7 @@ var asl_engine = window['asl_engine'] || {};
         clearTimeout(pageLinkSearchTimer);
         pageLinkSearchTimer = setTimeout(function() { loadPageLinkResults(search); }, 250);
       });
+
       $(document).on("click", ".asl-page-link-result", function() {
         if (activePageLinkInput) {
           activePageLinkInput.value = $(this).data("url");
@@ -3406,19 +4416,25 @@ var asl_engine = window['asl_engine'] || {};
         }
         closePageLinkPicker();
       });
+
       $(document).on("click", ".asl-page-link-close, .asl-page-link-backdrop", closePageLinkPicker);
+
       $(document).on("keydown", function(e) {
-        if (e.key === "Escape" && $(".asl-page-link-dialog").length) closePageLinkPicker();
+        if (e.key === "Escape" && $(".asl-page-link-dialog").length) {
+          closePageLinkPicker();
+        }
       });
+
       $form.on("click", ".asl-page-link-clear", function(e) {
         e.preventDefault();
         $("#" + $(this).data("target")).val("").trigger("change");
       });
 
+
     
       
       //  Add store button
-      $('#btn-asl-add').bind('click', function(e) {
+      $('#btn-asl-add').on('click', function(e) {
 
         if (!$form.validationEngine('validate')) return;
 
@@ -3484,7 +4500,7 @@ var asl_engine = window['asl_engine'] || {};
         $('#ddl-asl-logos').html(_HTML).ddslick({
           //data: ddData,
           imagePosition: "right",
-          selectText: "Select Logo",
+          selectText: ASL_REMOTE.LANG.select_logo,
           truncateDescription: true,
           defaultSelectedIndex: (_store) ? String(_store.logo_id) : null
         });
@@ -3516,7 +4532,7 @@ var asl_engine = window['asl_engine'] || {};
           $('#ddl-asl-markers').html(_HTML).ddslick({
             //data: ddData,
             imagePosition: "right",
-            selectText: "Select marker",
+            selectText: ASL_REMOTE.LANG.select_marker,
             truncateDescription: true,
             defaultSelectedIndex: (_store) ? String(_store.marker_id) : null
           });
@@ -3533,11 +4549,6 @@ var asl_engine = window['asl_engine'] || {};
      * @param  {[type]} _configs [description]
      * @return {[type]}          [description]
      */
-    /**
-     * [user_setting User Settings]
-     * @param  {[type]} _configs [description]
-     * @return {[type]}          [description]
-     */
     user_setting: function(_configs) {
 
       var $form = $('#frm-usersetting');
@@ -3545,7 +4556,30 @@ var asl_engine = window['asl_engine'] || {};
       var _keys = Object.keys(_configs);
 
 
-      var radio_fields = ['additional_info', 'distance_control', 'link_type', 'distance_unit', 'geo_button', 'time_format', 'week_hours', 'distance_control', 'single_cat_select', 'map_layout', 'infobox_layout', 'color_scheme', 'color_scheme_1', 'color_scheme_2', 'color_scheme_3', 'font_color_scheme', 'gdpr'];
+      /**
+       * [set_tmpl_image Current Image Template]
+       */
+      function set_tmpl_image() {
+
+        var _tmpl = document.getElementById('asl-template').value,
+          _lyout  = document.getElementById('asl-layout').value;
+
+        //  Category accordion
+        if(_lyout == '2')
+          _lyout = '1';
+
+        
+        var tmpl_name = (_tmpl == 'list' || _tmpl == 'list-2' || _tmpl == '4' || _tmpl == '5')? _tmpl: _tmpl + '-' + _lyout;
+        $(document.getElementById('asl-tmpl-img')).attr('src', ASL_Instance.plugin_url + 'admin/images/asl-tmpl-' + tmpl_name + '.png');
+
+        //  Hide the Layout control for the List Template
+        if(_tmpl == 'list' || _tmpl == '4')
+          $('.asl-p-cont .layout-section').addClass('hide');
+        else
+          $('.asl-p-cont .layout-section').removeClass('hide');
+      }
+
+      var radio_fields = ['additional_info', 'link_type', 'distance_unit', 'geo_button', 'time_format', 'week_hours', 'distance_control', 'single_cat_select', 'map_layout', 'infobox_layout', 'color_scheme', 'color_scheme_1', 'color_scheme_2', 'color_scheme_3', 'font_color_scheme','gdpr', 'tabs_layout', 'filter_ddl'];
 
       for (var i in _keys) {
 
@@ -3573,25 +4607,231 @@ var asl_engine = window['asl_engine'] || {};
         }
       }
 
+      // Present the two legacy search settings as one simple admin control.
+      // The hidden fields keep saved data and frontend/shortcode behavior compatible.
+      var $searchMode = $('#asl-search_mode'),
+          $searchProvider = $('#asl-search_provider'),
+          $searchType = $('#asl-search_type');
+
+      function getSearchMode(provider, type) {
+        provider = String(provider || 'automatic').toLowerCase();
+        type = String(type == null ? '0' : type);
+
+        if (type === '1' || type === '2') return 'automatic';
+        if (type === '3') return 'geocode_enter';
+        if (provider === 'disabled') return 'disabled';
+        if (provider === 'geoapify') return 'geoapify';
+        if (provider === 'mapbox') return 'mapbox';
+        if (provider === 'google') return type === '4' ? 'google_new' : 'google_legacy';
+        return type === '4' ? 'automatic' : 'google_legacy';
+      }
+
+      function setSearchSettings(mode) {
+        var settings = {
+          automatic: ['automatic', '4'],
+          google_new: ['google', '4'],
+          google_legacy: ['google', '0'],
+          geoapify: ['geoapify', '4'],
+          mapbox: ['mapbox', '4'],
+          geocode_enter: ['google', '3'],
+          disabled: ['disabled', '0']
+        }[mode] || ['automatic', '4'];
+
+        $searchProvider.val(settings[0]);
+        $searchType.val(settings[1]);
+      }
+
+      if ($searchMode.length) {
+        var initialSearchMode = getSearchMode($searchProvider.val(), $searchType.val());
+        $searchMode.val(initialSearchMode);
+        setSearchSettings(initialSearchMode);
+        $searchMode.on('change', function() {
+          setSearchSettings(this.value);
+          refreshMapProviderSettings();
+        });
+      }
+
+      // Keep provider credentials with the map settings and only show fields
+      // that apply to the selected map/search combination.
+      var savedTileProviderStyle = String(_configs.tile_provider_style || 'default');
+      var tileProviderStyles = {
+        geoapify: [['default', 'Default Provider Style'], ['osm-bright-smooth', 'Bright Smooth'], ['osm-carto', 'OSM Carto'], ['positron', 'Positron'], ['dark-matter', 'Dark Matter']],
+        mapbox: [['default', 'Default Provider Style'], ['streets-v12', 'Streets'], ['outdoors-v12', 'Outdoors'], ['light-v11', 'Light'], ['dark-v11', 'Dark'], ['satellite-v9', 'Satellite'], ['satellite-streets-v12', 'Satellite Streets']],
+        maptiler: [['default', 'Default Provider Style'], ['streets-v4', 'Streets'], ['basic-v2', 'Basic'], ['bright-v2', 'Bright'], ['outdoor-v2', 'Outdoor'], ['topo-v2', 'Topographic'], ['satellite', 'Satellite']]
+      };
+
+      function refreshTileProviderStyles(tileProvider) {
+        var $style = $('#asl-tile_provider_style'),
+            styles = tileProviderStyles[tileProvider] || [],
+            previousProvider = String($style.attr('data-provider') || ''),
+            selected = previousProvider === tileProvider ? String($style.val() || 'default') : savedTileProviderStyle;
+
+        if (!$style.length) return;
+        $style.empty();
+        $.each(styles, function(index, style) {
+          $('<option>').val(style[0]).text(style[1]).appendTo($style);
+        });
+        if (!$style.find('option').filter(function() { return this.value === selected; }).length) selected = 'default';
+        $style.val(selected).attr('data-provider', tileProvider);
+        savedTileProviderStyle = 'default';
+      }
+
+      function refreshMapProviderSettings() {
+        var mapVendor = String($('#asl-map_vendor').val() || 'google'),
+            tileProvider = String($('#asl-tile_provider').val() || 'geoapify'),
+            searchMode = String($searchMode.val() || 'automatic'),
+            usesMapLibre = mapVendor === 'maplibre',
+            automaticUsesGoogle = searchMode === 'automatic' && !usesMapLibre,
+            automaticUsesGeoapify = searchMode === 'automatic' && usesMapLibre,
+            usesGoogle = mapVendor === 'google' || automaticUsesGoogle || searchMode === 'google_new' || searchMode === 'google_legacy' || searchMode === 'geocode_enter',
+            usesGeoapify = (usesMapLibre && tileProvider === 'geoapify') || automaticUsesGeoapify || searchMode === 'geoapify',
+            usesMapbox = (usesMapLibre && tileProvider === 'mapbox') || searchMode === 'mapbox',
+            usesGenericTileKey = usesMapLibre && tileProvider === 'maptiler',
+            usesProviderStyles = usesMapLibre && !!tileProviderStyles[tileProvider],
+            usesCustomGoogleLayout = mapVendor === 'google' && $('input[name="data[map_layout]"]:checked').val() === '9';
+
+        refreshTileProviderStyles(tileProvider);
+        $('.asl-tile-provider-setting').toggle(usesMapLibre);
+        $('.asl-tile-provider-style-setting').toggle(usesProviderStyles);
+        $('.asl-osm-tile-help').toggle(usesMapLibre && tileProvider === 'osm');
+        $('.asl-maplibre-style-setting').toggle(usesMapLibre && tileProvider !== 'osm');
+        $('.asl-geoapify-key-setting').toggle(usesGeoapify);
+        $('.asl-mapbox-key-setting').toggle(usesMapbox);
+        $('.asl-tile-provider-key-setting').toggle(usesGenericTileKey);
+        $('.asl-google-key-setting').toggle(usesGoogle);
+        $('.asl-google-map-setting, .asl-google-advanced-marker-setting, #maps-tab .map_layout')
+          .toggleClass('asl-setting-hidden', mapVendor !== 'google');
+        $('.asl-map-custom-setting').toggleClass('asl-setting-hidden', !usesCustomGoogleLayout);
+        $('[data-map-settings-group="appearance"]').toggle(mapVendor === 'google' || (usesMapLibre && tileProvider !== 'osm'));
+        $('[data-map-settings-group="credentials"]').toggle(usesGoogle || usesGeoapify || usesMapbox || usesGenericTileKey);
+        $('[data-map-settings-group="google-style"]').toggle(mapVendor === 'google');
+        refreshMapVendorCards();
+      }
+
+      function refreshMapVendorCards() {
+        var selectedVendor = String($('#asl-map_vendor').val() || 'google');
+
+        $('.asl-map-vendor-card').each(function() {
+          var selected = this.getAttribute('data-map-vendor') === selectedVendor;
+          this.classList.toggle('is-selected', selected);
+          this.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      }
+
+      $('.asl-map-vendor-card').on('click', function() {
+        $('#asl-map_vendor').val(this.getAttribute('data-map-vendor')).trigger('change');
+      });
+
+      $('#asl-map_vendor, #asl-tile_provider, input[name="data[map_layout]"]').on('change', refreshMapProviderSettings);
+      refreshMapProviderSettings();
+
 
       ///Make layout Active
-      if($('#asl-template')[0]) {
+      $('.asl-p-cont .layout-box img').eq($('#asl-template')[0].selectedIndex).addClass('active');
 
-        $('.asl-p-cont .layout-box img').eq($('#asl-template')[0].selectedIndex).addClass('active');
+      $('#asl-template').on('change', function(e) {
 
-        $('#asl-template').bind('change', function(e) {
+        $('.asl-p-cont .layout-box img.active').removeClass('active');
+        $('.asl-p-cont .layout-box img').eq(this.selectedIndex).addClass('active');
+      });
 
-          $('.asl-p-cont .layout-box img.active').removeClass('active');
-          $('.asl-p-cont .layout-box img').eq(this.selectedIndex).addClass('active');
-        });
+      //  Filter_ddl
+      if(_configs.filter_ddl) {
+
+        $('#asl-filter_ddl').val(_configs.filter_ddl.split(','));
       }
 
       // Chosen for the fitler_ddl
       $('#asl-filter_ddl').chosen({
         width: "100%",
-        placeholder_text_multiple: 'Select Filters',
-        no_results_text: 'No Filter'
+        placeholder_text_multiple: ASL_REMOTE.LANG.select_filters,
+        no_results_text: ASL_REMOTE.LANG.no_filter
       });
+
+      // Store form fields ordering/visibility (multiple sections)
+      var $storeFields = $('.asl-store-form-fields'),
+          $storeFieldsInput = $('#asl-store-form-fields-input');
+
+      function refreshStoreFieldsInput() {
+        if (!$storeFields.length || !$storeFieldsInput.length) {
+          return;
+        }
+
+        var fields = [];
+
+        $storeFields.each(function() {
+          var $list = $(this),
+              section = $list.data('section');
+
+          $list.find('li').each(function() {
+            var $li = $(this);
+            var $toggle = $li.find('.asl-store-field-toggle');
+            var hasToggle = $toggle.length > 0;
+            var isEnabled = hasToggle ? ($toggle.is(':checked') ? 1 : 0) : 1; // default on when toggle is hidden/locked
+
+            fields.push({
+              key: $li.data('key'),
+              field: $li.data('field'),
+              label: $li.data('label'),
+              type: $li.data('type'),
+              section: section,
+              enabled: isEnabled
+            });
+          });
+        });
+
+        $storeFieldsInput.val(JSON.stringify(fields));
+      }
+
+      if ($storeFields.length) {
+
+        // Initialize toggle state from data attribute
+        $storeFields.find('li').each(function() {
+          var $li = $(this);
+          var enabled = $li.data('enabled');
+          if (enabled === 0 || enabled === '0') {
+            $li.find('.asl-store-field-toggle').prop('checked', false);
+          }
+        });
+
+        // Enable sorting when sortable is available
+        if ($.fn.sortable) {
+          $storeFields.sortable({
+            handle: '.asl-drag-handle',
+            connectWith: '.asl-store-form-fields',
+            update: refreshStoreFieldsInput
+          });
+        }
+
+        // Sync when toggles change
+        $storeFields.on('change', '.asl-store-field-toggle', refreshStoreFieldsInput);
+
+        refreshStoreFieldsInput();
+      }
+
+      // Bulk edit fields selection (global setting)
+      var $bulkEditFieldsInput = $('#asl-bulk-edit-fields-input');
+      var $bulkEditToggles = $('.asl-bulk-edit-field-toggle');
+
+      function refreshBulkEditFieldsInput() {
+        if (!$bulkEditFieldsInput.length || !$bulkEditToggles.length) {
+          return;
+        }
+
+        var selected_fields = [];
+        $bulkEditToggles.each(function() {
+          if ($(this).is(':checked')) {
+            selected_fields.push($(this).data('field'));
+          }
+        });
+
+        $bulkEditFieldsInput.val(JSON.stringify(selected_fields));
+      }
+
+      if ($bulkEditToggles.length) {
+        $bulkEditToggles.on('change', refreshBulkEditFieldsInput);
+        refreshBulkEditFieldsInput();
+      }
 
       // ---------------------------------------------------------------
       //  slug_attr_ddl
@@ -3609,8 +4849,8 @@ var asl_engine = window['asl_engine'] || {};
       // Chosen for the fitler_ddl_store
       $ddl_slug.chosen({
         width: "100%",
-        placeholder_text_multiple: 'Select Slugs',
-        no_results_text: 'No Filter'
+        placeholder_text_multiple: ASL_REMOTE.LANG.select_slugs,
+        no_results_text: ASL_REMOTE.LANG.no_filter
       });
 
       $ddl_slug.on('change', function(evt, params) {
@@ -3627,7 +4867,9 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       // ---------------------------------------------------------------
-      
+
+
+
       /////*Validation Engine*/////
       $form.validationEngine({
         binded: true,
@@ -3635,7 +4877,8 @@ var asl_engine = window['asl_engine'] || {};
       });
 
 
-      $('.btn-asl-user_setting').bind('click', function(e) {
+      //  Main save button
+      $('.btn-asl-user_setting').on('click', function(e) {
 
         if (!$form.validationEngine('validate')) return;
 
@@ -3651,7 +4894,6 @@ var asl_engine = window['asl_engine'] || {};
             category_marker: 0,
             distance_slider: 0,
             analytics: 0,
-            additional_info: 0,
             scroll_wheel: 0,
             target_blank: 0,
             user_center: 0,
@@ -3662,24 +4904,28 @@ var asl_engine = window['asl_engine'] || {};
             radius_circle: 0,
             remove_maps_script: 0,
             category_bound: 0,
-            gdpr: 0,
+            locale: 0,
             geo_marker: 0,
             sort_random: 0,
             and_filter: 0,
             fit_bound: 0,
             admin_notify: 0,
-            cluster: 0,
+            //cluster: 0,
             display_list: 0,
-            cat_in_grid: 0,
+            hide_search: 0,
             store_schema: 0,
             store_page_show_country: 0,
             hide_hours: 0,
             slug_link: 0,
             hide_logo: 0,
             direction_btn: 0,
+            zoom_btn: 0,
             additional_info: 0,
+            print_btn: 0,
+            address_ddl: 0,
+            store_schedule: 0,
             tran_lbl: 0,
-            print_btn: 0
+            wpfrm_store_notify: 0,
           }
         };
 
@@ -3688,18 +4934,39 @@ var asl_engine = window['asl_engine'] || {};
 
         all_data = $.extend(all_data, data);
 
+
         //  Save the custom Map
         all_data['map_style'] = document.getElementById('asl-map_layout_custom').value;
 
+        //  filter_ddl
+        var filter_ddl = $('#asl-filter_ddl').val();
+        all_data['data[filter_ddl]'] = (filter_ddl && filter_ddl.length)? filter_ddl.join(','): '';
+
+        // Store form fields ordering/visibility
+        all_data['store_form_fields'] = $('#asl-store-form-fields-input').val();
+        all_data['bulk_edit_fields'] = $('#asl-bulk-edit-fields-input').val();
+
         //  slug_attr_ddl
         all_data['slug_attr_ddl'] = (ddl_slug_values && ddl_slug_values.length)? ddl_slug_values.join(','): '';
+
 
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=save_setting', all_data, function(_response) {
 
           $btn.bootButton('reset');
 
           toastIt(_response);
-          
+
+        }, 'json');
+      });
+
+      //  Reset Slug button
+      $('#btn-asl-slug_reset').on('click', function(e) {
+        var $btn = $(this);
+        //  Send an AJAX Request
+        $btn.bootButton('loading');
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=reset_all_slugs', {}, function(_response) {
+          $btn.bootButton('reset');
+          toastIt(_response);
         }, 'json');
       });
 
@@ -3710,10 +4977,37 @@ var asl_engine = window['asl_engine'] || {};
       wp.codeEditor.initialize($('#sl-custom-template-textarea'), null);
 
       var $section_tmpl_select = $('#asl-customize-section'),
-          $template_select     = $('#asl-customize-template');
+          $template_select     = $('#asl-customize-template'),
+          $load_ctemp_btn      = $('#btn-asl-load_ctemp'),
+          $save_ctemp_btn      = $('#btn-asl-save_ctemp'),
+          $reset_ctemp_btn     = $('#btn-asl-reset_ctemp'),
+          loaded_template      = null,
+          loaded_section       = null;
 
+      function reset_customizer_loaded_state() {
+        loaded_template = null;
+        loaded_section  = null;
+        $save_ctemp_btn.prop('disabled', true);
+        $reset_ctemp_btn.prop('disabled', true);
+      }
+
+      function mark_customizer_loaded(template, section) {
+        loaded_template = template;
+        loaded_section  = section;
+        $save_ctemp_btn.prop('disabled', false);
+        $reset_ctemp_btn.prop('disabled', false);
+      }
+
+      function is_customizer_loaded(template, section) {
+        return loaded_template !== null && loaded_section !== null &&
+               loaded_template === template && loaded_section === section;
+      }
+
+      //  Disable save/reset until a template is loaded
+      reset_customizer_loaded_state();
+      
       //  Template List doesn't have Infobox
-      $template_select.bind('change', function(e) {
+      $template_select.on('change', function(e) {
 
         var customizer_options = ASL_Instance.tmpls[e.target.value];
           
@@ -3733,19 +5027,24 @@ var asl_engine = window['asl_engine'] || {};
             $section_tmpl_select.append($optionElement);
           });
         }
+
+        reset_customizer_loaded_state();
+      });
+
+      $section_tmpl_select.on('change', function(e) {
+        reset_customizer_loaded_state();
       });
 
       //  Load Template button Event
-      $('#btn-asl-load_ctemp').bind('click', function(e) {
+      $load_ctemp_btn.on('click', function(e) {
 
         var $btn = $(this);
 
         $btn.bootButton('loading');
 
-        var template = $('#asl-customize-template').val(),
+        var template    = $('#asl-customize-template').val(),
             section     = $('#asl-customize-section').val();
 
-            $('#btn-asl-save_ctemp').attr({'data-template-name':template , 'data-section':section});
 
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=load_custom_template', {template: template , section: section}, function(_response) {
 
@@ -3756,15 +5055,17 @@ var asl_engine = window['asl_engine'] || {};
           if (_response.success) {
 
             document.querySelector('.sl-custom-tpl-text-section .CodeMirror').CodeMirror.setValue(_response.html);
+            mark_customizer_loaded(template, section);
             return;
           }
 
+          reset_customizer_loaded_state();
 
         }, 'json');
       });
 
       // load Custom template
-      $('#btn-asl-save_ctemp').bind('click', function(e) {
+      $('#btn-asl-save_ctemp').on('click', function(e) {
 
         var $btn = $(this);
 
@@ -3782,6 +5083,12 @@ var asl_engine = window['asl_engine'] || {};
           return;
         }
 
+        if(!is_customizer_loaded(template, section)) {
+          atoastr.error('Please load template first');
+          $btn.bootButton('reset');
+          return;
+        }
+
         ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=save_custom_template', {template: template , section: section,html: html}, function(_response) {
 
           $btn.bootButton('reset');
@@ -3793,7 +5100,7 @@ var asl_engine = window['asl_engine'] || {};
 
 
       // Reset Custom template
-      $('#btn-asl-reset_ctemp').bind('click', function(e) {
+      $('#btn-asl-reset_ctemp').on('click', function(e) {
 
         var $btn = $(this);
 
@@ -3805,6 +5112,12 @@ var asl_engine = window['asl_engine'] || {};
         if(template == undefined || section == undefined){
 
           atoastr.error('Please load template');
+          $btn.bootButton('reset');
+          return;
+        }
+
+        if(!is_customizer_loaded(template, section)) {
+          atoastr.error('Please load template first');
           $btn.bootButton('reset');
           return;
         }
@@ -3821,31 +5134,35 @@ var asl_engine = window['asl_engine'] || {};
           }
         }, 'json');
       });
-      
 
       //  Save the save settings for the customizer
       $('.asl-tabs a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
-
-        console.log(e.relatedTarget.getAttribute('href'), `File: jscript.js, Line: 2432`, e.target.getAttribute('href'));
         
-        if(e.target.getAttribute('href') == '#sl-customizer' || e.target.getAttribute('href') == '#sl-pro') {
+        if(e.target.getAttribute('href') == '#sl-customizer' || e.target.getAttribute('href') == '#sl-labels') {
 
-          $('.btn-asl-user_setting').addClass('hide');
+          $('.asl-btn-setting-main').addClass('hide');
         }
-        else if(e.relatedTarget.getAttribute('href') == '#sl-customizer' || e.relatedTarget.getAttribute('href') == '#sl-pro') {
-          $('.btn-asl-user_setting').removeClass('hide');
+        else if(e.relatedTarget.getAttribute('href') == '#sl-customizer' || e.relatedTarget.getAttribute('href') == '#sl-labels') {
+          $('.asl-btn-setting-main').removeClass('hide');
         }
       });
+
+
 
       if (isEmpty(_configs['template']))
         _configs['template'] = '0';
 
-      //Show the option of right template
+      //  Show the option of right template
       $('.box_layout_' + _configs['template']).removeClass('hide');
 
+      $('.asl-p-cont #asl-layout').on('change', function(e) {
+
+        set_tmpl_image();
+
+      });
 
       //  Bind Change Template
-      $('.asl-p-cont #asl-template').bind('change', function(e) {
+      $('.asl-p-cont #asl-template').on('change', function(e) {
 
         var _value = this.value;
         $('.asl-p-cont .template-box').addClass('hide');
@@ -3855,23 +5172,7 @@ var asl_engine = window['asl_engine'] || {};
 
       });
 
-      // Hide the Map Styling Section when Google Advanced Marker dropdown is empty
-      var $legacy_map_section = $('#asl-map-legacy-section');
-
-      // Hide the map styling section if the advanced marker is set
-      function hide_legacy_map_section() {
-
-        if ($('#asl-advanced_marker').val() != '') {
-          $legacy_map_section.addClass('asl-adv-mkr-enabled');
-        }
-        else {
-          $legacy_map_section.removeClass('asl-adv-mkr-enabled');
-        }
-      }
-
-      $('#asl-advanced_marker').bind('change', hide_legacy_map_section);
-
-      hide_legacy_map_section();
+      set_tmpl_image();
 
       ////////////////////////////////////////
       // Code for the Additional attributes //
@@ -3882,7 +5183,14 @@ var asl_engine = window['asl_engine'] || {};
 
 
         var $new_slot = $('<tr class="asl-custom-field-row">\
-                            <td><div class="form-group mb-2"><input type="text" aria-label="Field Label" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div><div class="asl-field-choices d-none mb-2"><label class="small font-weight-bold">Choices</label><input type="text" placeholder="Example: Small, Medium, Large" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"><small class="form-text text-muted">Separate each choice with a comma.</small></div><details class="asl-field-advanced"><summary>Advanced settings</summary><div class="form-group mt-2 mb-2"><label class="small font-weight-bold">Internal Field Name</label><input type="text" data-auto-name="1" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"><small class="form-text text-muted">Generated automatically from the label.</small></div><div class="form-group mb-2"><label class="small font-weight-bold">CSS Class</label><input maxlength="50" type="text" class="asl-attr-class form-control"></div></details></td>\
+                            <td>\
+                              <div class="form-group mb-2"><input type="text" aria-label="Field Label" class="asl-attr-label form-control validate[required,funcCall[ASLValidateLabel]]"></div>\
+                              <div class="asl-field-choices d-none mb-2"><label class="small font-weight-bold">Choices</label><input type="text" placeholder="Example: Small, Medium, Large" class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]"><small class="form-text text-muted">Separate each choice with a comma.</small></div>\
+                              <details class="asl-field-advanced"><summary>Advanced settings</summary>\
+                                <div class="form-group mt-2 mb-2"><label class="small font-weight-bold">Internal Field Name</label><input type="text" data-auto-name="1" class="asl-attr-name form-control validate[required,funcCall[ASLValidateName]]"><small class="form-text text-muted">Generated automatically from the label.</small></div>\
+                                <div class="form-group mb-2"><label class="small font-weight-bold">CSS Class</label><input maxlength="50" type="text" class="asl-attr-class form-control"></div>\
+                              </details>\
+                            </td>\
                             <td><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="richtext">Rich Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option><option value="page_link">Internal Page Link</option></select></div></td>\
                             <td><div class="form-group"><select class="form-control asl-attr-section"><option value="other">Other Details tab</option><option value="address">Store Address tab</option></select><small class="form-text text-muted">Choose where this field appears when editing a store.</small></div></td>\
                             <td><div class="form-group-inner mt-2 d-flex align-items-center"><label class="switch" for="asl-cf-req-'+field_uniq_id+'"><input type="checkbox" value="1" class="asl-attr-require custom-control-input" id="asl-cf-req-'+field_uniq_id+'"><span class="slider round"></span></label><span class="asl-required-status ml-2">No</span></div></td>\
@@ -3895,7 +5203,6 @@ var asl_engine = window['asl_engine'] || {};
 
       //  Delete current field
       $('.asl-attr-manage tbody').on('click', '.add-k-delete', function(e) {
-
         var field_label = $(this).closest('tr').find('.asl-attr-label').val() || 'this field';
         if (window.confirm('Remove "' + field_label + '"? Existing store values for this field will no longer be available in the form.')) {
           $(this).closest('tr').remove();
@@ -3916,7 +5223,7 @@ var asl_engine = window['asl_engine'] || {};
           $choices_group.removeClass('d-none');
         }
         else {
-          $option_field.attr('readonly','true');
+          $option_field.attr('readonly', 'true');
           $option_field.val('');
           $choices_group.addClass('d-none');
         }
@@ -4029,6 +5336,61 @@ var asl_engine = window['asl_engine'] || {};
       };
 
 
+      /////////////////////////
+      /// The Cache Switches //
+      /////////////////////////
+
+      var $cache_form = $('#frm-asl-cache');
+
+
+      /**
+       * [update_cache description]
+       * @param  {[type]} _status [description]
+       * @param  {[type]} _lang   [description]
+       * @return {[type]}         [description]
+       */
+      function update_cache(_status, _lang, _callback) {
+
+        var cache_data = $cache_form.ASLSerializeObject();
+        
+        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=cache_status", {status: _status, 'asl-lang': _lang, 'content': cache_data, 'stype': 'cache'}, function(_response) {
+
+          toastIt(_response);
+
+          if(_callback) {
+            _callback(_response);
+          }
+
+        }, 'json');
+      }
+
+      //  Cache Switch Event
+      $cache_form.find('input[type=checkbox]').on('change', function(e) {
+
+        var chk_ctrl = e.target,
+            lang     = chk_ctrl.dataset.lang,
+            status   = (chk_ctrl.checked)? '1': '0';
+
+        update_cache(status, lang);
+      });
+
+      //  Cache Refresh Event
+      $cache_form.find('.sl-refresh-cache').on('click', function(e) {
+
+        var $btn     = $(this),
+            lang     = $btn.data('lang'),
+            status   = '1';
+            
+        $btn.bootButton('loading');
+
+        update_cache(status, lang, function(){
+
+          $btn.bootButton('reset');
+        });
+      });
+
+
+
       ///////////////////
       // The Map Modal //
       ///////////////////
@@ -4048,14 +5410,39 @@ var asl_engine = window['asl_engine'] || {};
 
 
       //  Add the click event to copy coordinates and Zoom
-      $('#asl-setting-set-coordinates').bind('click', function(e) {
+      $('#asl-setting-set-coordinates').on('click', function(e) {
 
           if(map_object.map_marker) {
 
+            var markerPosition = map_object.map_marker.getPosition(),
+                markerLat = (markerPosition && typeof markerPosition.lat === 'function') ? markerPosition.lat() : markerPosition.lat,
+                markerLng = (markerPosition && typeof markerPosition.lng === 'function') ? markerPosition.lng() : markerPosition.lng,
+                mapZoom = Number(map_object.map_instance.getZoom()),
+                $zoomSelect = $('#asl-zoom'),
+                selectedZoom = null,
+                selectedZoomDistance = Infinity;
+
+            // Map providers can return a fractional zoom, while the settings field
+            // contains whole-number options. Select the closest available option.
+            if (Number.isFinite(mapZoom)) {
+              $zoomSelect.find('option').each(function() {
+                var optionZoom = Number(this.value),
+                    optionDistance = Math.abs(optionZoom - mapZoom);
+
+                if (Number.isFinite(optionZoom) && optionDistance < selectedZoomDistance) {
+                  selectedZoom = this.value;
+                  selectedZoomDistance = optionDistance;
+                }
+              });
+            }
+
             //  set coordinates
-            $('#asl-default_lat').val(map_object.map_marker.getPosition().lat());
-            $('#asl-default_lng').val(map_object.map_marker.getPosition().lng());
-            $('#asl-zoom').val(map_object.map_instance.getZoom());
+            $('#asl-default_lat').val(markerLat);
+            $('#asl-default_lng').val(markerLng);
+
+            if (selectedZoom !== null) {
+              $zoomSelect.val(selectedZoom).trigger('change').trigger('chosen:updated');
+            }
 
             //  hide the modal
             $('#asl-map-modal').smodal('hide');
@@ -4065,26 +5452,40 @@ var asl_engine = window['asl_engine'] || {};
           }
       });
 
+      ////////////////////////////
+      //  Show/Hide the Columns //
+      ////////////////////////////
+      $('#sl-btn-sh').on('click', function(e) {
 
+        var sh_columns = $('#ddl-fs-cntrl').val();
+        var $btn       = $(this);
 
-      //  The Cache Button
-      var $asl_cache_btn    = $("#asl-cache-refresh"),
-          $asl_cache_status = $("#asl-fast-cache");
+        $btn.bootButton('loading');
+
+        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=change_options", {'content': sh_columns, 'stype': 'hidden'}, function(_response) {
+
+          $btn.bootButton('reset');
+
+          toastIt(_response);
+
+          if (_response.success) {
+
+            $('#sl-fields-sh').smodal('hide');
+            window.location.reload();
+          }
+
+        }, 'json');
+      });
 
 
       //  FAQ
-      $('#accordionfaqs .btn.btn-link').bind('click', function(e) {
+      $('#accordionfaqs .btn.btn-link').on('click', function(e) {
 
         var $faq_btn = $(this);
 
         $faq_btn.toggleClass('collapsed');
         $faq_btn.parent().parent().next().toggleClass('show');
       }); 
-
-      //  View Pro Options
-      $('.sl-pro-ctrls .pro-opt-switch').click(function() {
-        $('.sl-pro-ctrls').toggleClass('sl-show');
-      });
 
       // Lazy Load asl-wc videos
       $('#sl-wc video').each(function(i){
@@ -4102,12 +5503,12 @@ var asl_engine = window['asl_engine'] || {};
         video.load();
       });
 
-       ////////////////////////////
+      ////////////////////////////
       // Export/Import Settings //
       ////////////////////////////
 
       // Export Config Event
-      $('#asl-btn-export-config').bind('click', function(e){
+      $('#asl-btn-export-config').on('click', function(e){
 
         var $btn = $(this);
 
@@ -4150,7 +5551,7 @@ var asl_engine = window['asl_engine'] || {};
       });
 
       // Import Config Event
-      $('#asl-btn-import-config').bind('click', function(e){
+      $('#asl-btn-import-config').on('click', function(e){
 
         aswal({
           type: 'warning',
@@ -4230,7 +5631,7 @@ var asl_engine = window['asl_engine'] || {};
       ////////////////////////////////////
       //  Load UI Template button Event //
       ////////////////////////////////////
-      $loadBtn.bind('click', function(e) {
+      $loadBtn.on('click', function(e) {
 
         var $btn = $(this);
 
@@ -4266,7 +5667,7 @@ var asl_engine = window['asl_engine'] || {};
       //////////////////////
       // Save UI template //
       //////////////////////
-      $saveBtn.bind('click', function(e) {
+      $saveBtn.on('click', function(e) {
 
         var $btn      = $(this);
         var formData  = $form.ASLSerializeObject();
@@ -4293,7 +5694,7 @@ var asl_engine = window['asl_engine'] || {};
       ////////////////////////
       // Reset UI template  //
       ////////////////////////
-      $resetBtn.bind('click', function(e) {
+      $resetBtn.on('click', function(e) {
 
         var template = $(this).attr('data-template-name');
 
@@ -4393,138 +5794,222 @@ var asl_engine = window['asl_engine'] || {};
           $(this).parents('.color-row').find('.colorpicker').val(value);
       });
     },
-
     /**
      * [import_store description]
      * @return {[type]} [description]
      */
-        import_store: function() {
-    
-          /*Validate API Key*/
-          $('#btn-validate-key').bind('click', function(e) {
-    
-            var $this = $(this);
-    
-            $this.bootButton('loading');
-    
-            ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=validate_api_key', {}, function(_response) {
-    
-              $this.bootButton('reset');
-    
-              toastIt(_response);
-    
-            }, 'json');
-    
-          });
-    
-    
-          /*Fetch the Missing Coordinates*/
-          $('#btn-fetch-miss-coords').bind('click', function(e) {
-    
-            var $this = $(this);
-            $this.bootButton('loading');
-    
-            ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=fill_missing_coords', {}, function(_response) {
-    
-              $this.bootButton('reset');
-    
-              toastIt(_response);
-    
-              if (_response.success) {
-    
-                // making summary           
-                var warning_summary = "<ul>";
-    
-                for (var _s in _response.summary) {
-    
-                  warning_summary += "<li>" + _response.summary[_s] + "</li>";
-                }
-    
-                warning_summary += '</ul>';
-    
-                $('#message_complete').html("<div class='alert alert-info'>" + warning_summary + "</div>");
-                return;
+    import_store: function() {
+
+      //  Validate the Plugin
+      this._validate_page();
+
+      /*Validate API Key*/
+      $('#btn-validate-key').on('click', function(e) {
+
+        var $this = $(this);
+
+        $this.bootButton('loading');
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=validate_api_key', {}, function(_response) {
+
+          $this.bootButton('reset');
+
+          toastIt(_response);
+
+        }, 'json');
+
+      });
+
+
+      /*Fetch the Missing Coordinates*/
+      $('#btn-fetch-miss-coords').on('click', function(e) {
+
+        var $this = $(this);
+        $this.bootButton('loading');
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=fill_missing_coords', {}, function(_response) {
+
+          $this.bootButton('reset');
+
+          toastIt(_response);
+
+          if (_response.success) {
+
+            // making summary           
+            var warning_summary = "<ul>";
+
+            for (var _s in _response.summary) {
+
+              warning_summary += "<li>" + _response.summary[_s] + "</li>";
+            }
+
+            warning_summary += '</ul>';
+
+            $('#message_complete').html("<div class='alert alert-info'>" + warning_summary + "</div>");
+            return;
+          }
+
+
+        }, 'json');
+
+      });
+
+      /*Delete Stores*/
+      var _delete_all_stores = function() {
+
+        var $this = $('#asl-delete-stores');
+        $this.bootButton('loading');
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=delete_all_stores', {}, function(_response) {
+
+          $this.bootButton('reset');
+          toastIt(_response);
+        }, 'json');
+      };
+
+
+      /*Delete All stores*/
+      $('#asl-delete-stores').on('click', function(e) {
+
+        aswal({
+          title: ASL_REMOTE.LANG.truncate_stores,
+          text: ASL_REMOTE.LANG.truncate_stores_text,
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#dc3545",
+          confirmButtonText: ASL_REMOTE.LANG.delete_all
+        }).then(
+          function() {
+
+            _delete_all_stores();
+          }
+        );
+      });
+
+
+      //import store form xlsx file
+      $('.btn-asl-import_store').on('click', function(e) {
+
+        var $this = $(this);
+        $this.bootButton('loading');
+
+        var _params = {data_: $(this).attr('data-id'), duplicates: $('#sl-duplicates-data').val()};
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=import_store', _params, function(_response) {
+
+            $this.bootButton('reset');
+            
+            if (_response.summary) {
+
+              // making summary           
+              var warning_summary = "<ul>";
+
+              for (var _s in _response.summary) {
+
+                warning_summary += "<li>" + _response.summary[_s] + "</li>";
               }
-    
-    
-            }, 'json');
-    
-          });
-    
-          /*Delete Stores*/
-          var _delete_all_stores = function() {
-    
-            var $this = $('#asl-delete-stores');
-            $this.bootButton('loading');
-    
-            ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=delete_all_stores', {}, function(_response) {
-    
-              $this.bootButton('reset');
-              toastIt(_response);
-            }, 'json');
-          };
-    
-    
-          /*Delete All stores*/
-          $('#asl-delete-stores').bind('click', function(e) {
-    
-            aswal({
-              title: ASL_REMOTE.LANG.truncate_stores,
-              text: ASL_REMOTE.LANG.truncate_stores_text,
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#dc3545",
-              confirmButtonText: ASL_REMOTE.LANG.delete_all
-            }).then(
-              function() {
-    
-                _delete_all_stores();
+
+              warning_summary += '</ul>';
+
+              var _color = (_response.success && (_response.imported_rows || _response.stores_deleted)) ? 'success': 'error';
+
+              var import_message = _response.imported_rows + " Rows Import" + ((_response.error)? ('<br>'+ _response.error): '');
+
+              //  Stores Deleted
+              if(_response.stores_deleted) {
+                import_message += '<br> ' + _response.stores_deleted + ' Rows Deleted';
               }
-            );
+
+              atoastr[_color](import_message);
+              
+              if(warning_summary)
+                $('#message_complete').html("<div class='alert alert-warning'>" + warning_summary + "</div>");
+              
+              return;
+            }
+          },
+          'json',
+          function(_error) {
+
+            $this.bootButton('reset');
+            _error = (_error && _error.responseText) ? 'Error in import, contact us at support@agilelogix.com, ' + _error.responseText : 'Error in import, contact us at support@agilelogix.com';
+            atoastr['error'](_error);
+
           });
-  
-    
-          //delete import file
-          $('.btn-asl-delete_import_file').bind('click', function(e) {
-    
-    
-            ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=delete_import_file', { data_: $(this).attr('data-id') }, function(_response) {
-    
-              toastIt(_response);
-    
-              if (_response.success) {
-                window.location.replace(ASL_REMOTE.URL.replace('-ajax', '') + "?page=import-store-list");
-                return;
-              }
-            }, 'json');
-    
-          });
-    
-          //Remove the Duplicates
-          $('#asl-duplicate-remove').bind('click', function(e) {
-    
-            aswal({
-              title: "Remove Duplicates",
-              text: "Are you sure you want to all duplicate stores?",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#dc3545",
-              confirmButtonText: "Yes Remove"
-            }).then(function() {
-    
-              ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=remove_duplicates", {}, function(_response) {
-    
-                toastIt(_response);
-    
-              }, 'json');
-            });
-          });
-    
-      },
-     /**
-       * [labels description]
-       * @return {[type]} [description]
-       */
+
+      });
+
+      //delete import file
+      $('.btn-asl-delete_import_file').on('click', function(e) {
+
+
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=delete_import_file', { data_: $(this).attr('data-id') }, function(_response) {
+
+          toastIt(_response);
+
+          if (_response.success) {
+            window.location.replace(ASL_REMOTE.URL.replace('-ajax', '') + "?page=import-store-list");
+            return;
+          }
+        }, 'json');
+
+      });
+
+      //Remove the Duplicates
+      $('#asl-duplicate-remove').on('click', function(e) {
+
+        aswal({
+          title: ASL_REMOTE.LANG.remove_duplicates,
+          text: ASL_REMOTE.LANG.remove_duplicates_text,
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#dc3545",
+          confirmButtonText: ASL_REMOTE.LANG.yes_remove
+        }).then(function() {
+
+          ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=remove_duplicates", {}, function(_response) {
+
+            toastIt(_response);
+
+          }, 'json');
+        });
+      });
+
+      //export file
+
+
+      $('#export_store_file_').on('click', function(e) {
+
+        var with_logo = (document.getElementById('asl-logo-images').checked) ? 1 : 0,
+            with_id   = (document.getElementById('asl-export-ids').checked) ? 1 : 0 ;
+        
+        window.location.href = ASL_Instance.admin + '&logo_image=' + with_logo + '&with_id=' + with_id;
+      });
+
+      //upload import file
+      var url_to_upload = ASL_REMOTE.URL,
+          $form_upload  = $('#import_store_file');
+
+      app_engine.uploader($form_upload, url_to_upload + '?action=asl_ajax_handler&asl-nounce=' + ASL_REMOTE.nounce + '&sl-action=upload_store_import_file', function(_e, _data) {
+
+        var data = _data.result;
+
+        toastIt(data);
+
+        if (data.success) {
+
+          $('#import_store_file_emodel').smodal('hide');
+          $('#progress_bar_').hide();
+          $('#frm-upload-logo').find('input:text, input:file').val('');
+          window.location.replace(ASL_REMOTE.URL.replace('-ajax', '') + "?page=import-store-list");
+        }
+      });
+    },
+
+    /**
+    * [labels description]
+    * @return {[type]} [description]
+    */
     labels: function() {
 
       // Get all label elements
@@ -4593,6 +6078,54 @@ var asl_engine = window['asl_engine'] || {};
     }
   };
 
+  $(document).on('click', '#sl-btn-tmpl-backup', function() {
+    aswal({
+      title: ASL_REMOTE.LANG.backup_tmpl,
+      type: 'question',
+      html: '<p>' + ASL_REMOTE.LANG.backup_tmpl_msg + '</p><select class="custom-select" id="sl-tmpl-section-1"><option value="0">Template 0</option><option value="form">Store Form</option><option value="store">Store Detail</option><option value="search">Search Widget</option><option value="lead">Lead Form</option><option value="grid">Store Grid</option></select>',
+      showCancelButton: true,
+      confirmButtonText: ASL_REMOTE.LANG.backup,
+      preConfirm: function() {
+        return new Promise(function(resolve) {
+          aswal.showLoading();
+          ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=backup_tmpl', {template: $('#sl-tmpl-section-1').val()}, function(response) {
+            aswal.close();
+            toastIt(response);
+            resolve(response);
+            if (response.success) {
+              setTimeout(function() { window.location.reload(); }, 700);
+            }
+          }, 'json');
+        });
+      }
+    });
+  });
+
+  $(document).on('click', '#sl-btn-tmpl-remove', function() {
+    aswal({
+      title: ASL_REMOTE.LANG.remove_tmpl,
+      type: 'question',
+      html: '<p>' + ASL_REMOTE.LANG.remove_tmpl_msg + '</p><select class="custom-select" id="sl-tmpl-section-2"><option value="0">Template 0</option><option value="form">Store Form</option><option value="store">Store Detail</option><option value="search">Search Widget</option><option value="lead">Lead Form</option><option value="grid">Store Grid</option></select>',
+      showCancelButton: true,
+      confirmButtonText: ASL_REMOTE.LANG.remove,
+      preConfirm: function() {
+        return new Promise(function(resolve) {
+          aswal.showLoading();
+          ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&sl-action=remove_tmpl', {template: $('#sl-tmpl-section-2').val()}, function(response) {
+            aswal.close();
+            toastIt(response);
+            resolve(response);
+            if (response.success) {
+              setTimeout(function() { window.location.reload(); }, 700);
+            }
+          }, 'json');
+        });
+      }
+    });
+  });
+
+  //<p class="message alert alert-danger static" style="display: block;">Legal Location not found<button data-dismiss="alert" class="close" type="button"> ×</button><span class="block-arrow bottom"><span></span></span></p>
+  //if jquery is defined
   if ($)
     $('.asl-p-cont').append('<div class="loading site hide">Working ...</div><div class="asl-dumper dump-message"></div>');
 

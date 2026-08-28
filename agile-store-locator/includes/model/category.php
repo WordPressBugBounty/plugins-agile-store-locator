@@ -226,7 +226,9 @@ class Category {
             
             $category = (object) array(
                 'id' => $_result->id,
-                'name' => esc_attr($_result->name),
+                // Keep localized data as plain text. Escaping it as an HTML
+                // attribute here leaks entities such as "&amp;" into JS.
+                'name' => wp_specialchars_decode((string) $_result->name, ENT_QUOTES),
                 'icon' => $_result->icon,
                 'ordr' => $_result->ordr,
                 'children' => array() // Initialize an array to store child categories

@@ -37,32 +37,13 @@ class Deactivator {
     wp_clear_scheduled_hook( 'asl_import_files' );
 	}
 
-	/**
-	 * Load the survey assets only on the Plugins screen.
-	 *
-	 * @param string $hook_suffix Current admin page.
-	 */
 	public function enqueue_feedback_assets( $hook_suffix ) {
-
 		if ( 'plugins.php' !== $hook_suffix || ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
 
-		wp_enqueue_style(
-			'asl-deactivation-feedback',
-			ASL_URL_PATH . 'admin/css/deactivation-feedback.css',
-			array(),
-			ASL_CVERSION
-		);
-
-		wp_enqueue_script(
-			'asl-deactivation-feedback',
-			ASL_URL_PATH . 'admin/js/deactivation-feedback.js',
-			array( 'jquery' ),
-			ASL_CVERSION,
-			true
-		);
-
+		wp_enqueue_style( 'asl-deactivation-feedback', ASL_URL_PATH . 'admin/css/deactivation-feedback.css', array(), ASL_CVERSION );
+		wp_enqueue_script( 'asl-deactivation-feedback', ASL_URL_PATH . 'admin/js/deactivation-feedback.js', array( 'jquery' ), ASL_CVERSION, true );
 		wp_localize_script(
 			'asl-deactivation-feedback',
 			'ASL_DEACTIVATION_FEEDBACK',
@@ -75,11 +56,7 @@ class Deactivator {
 		);
 	}
 
-	/**
-	 * [feedback_box_html render the feedback box for the plugin]
-	 */
 	public function feedback_box_html() {
-
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
@@ -128,11 +105,7 @@ class Deactivator {
 		<?php
 	}
 
-	/**
-	 * Email explicitly submitted deactivation feedback to the support team.
-	 */
 	public function submit_feedback() {
-
 		check_ajax_referer( 'asl-deactivation-feedback', 'nonce' );
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
@@ -169,7 +142,6 @@ class Deactivator {
 		$recipient = apply_filters( 'asl_deactivation_feedback_email', 'feedback@agilelogix.com' );
 		wp_mail( sanitize_email( $recipient ), $subject, $message );
 
-		// Deactivation should never be held up by a mail configuration problem.
 		wp_send_json_success();
 	}
 

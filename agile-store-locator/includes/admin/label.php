@@ -46,9 +46,7 @@ class Label extends Base {
 
         //  Settings data
         $key     = $this->clean_input($_POST['_key']);
-        //$value   = $this->clean_input($_POST['value']);
         $value   = wp_unslash($this->clean_input($_POST['value']));
-
 
         // Check if key exist?
         $get_row = $wpdb->get_row( $wpdb->prepare("SELECT * FROM ".ASL_PREFIX."configs WHERE `type` = %s  AND `key` = %s", 'label' , $key ));

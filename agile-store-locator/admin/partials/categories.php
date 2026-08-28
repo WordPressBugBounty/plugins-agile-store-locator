@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="asl-p-cont asl-new-bg">
+<div class="asl-p-cont asl-new-bg asl-admin-grid-page asl-grid-categories">
     <div class="hide">
         <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="i-plus" viewBox="0 0 32 32" width="13" height="13" fill="none" stroke="currentcolor"
@@ -29,73 +29,66 @@
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                 <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
             </symbol>
+            <symbol id="asl-admin-icon-categories" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M4 8.5h9l2.5 3H28v14H4z" />
+                <path d="M4 11.5v-5h9l2 2h8" />
+            </symbol>
+            <symbol id="asl-admin-icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7" />
+            </symbol>
         </svg>
     </div>
     <div class="container sl-manage-cat-page">
         <div class="row asl-inner-cont">
             <div class="col-md-12">
-                <div class="card p-0 mb-4">
-                    <div class="card-title">
-                        <div>                            
-                            <h3>
-                                <?php echo esc_attr__('Manage Categories','asl_locator') ?><?php echo \AgileStoreLocator\Helper::getLangControl(); ?>
-                            </h3>
-                            <p class="card-text">
-                                <?php echo esc_attr__('Make categories and group stores.', 'asl_locator') ?>
-                            </p>
+                <div class="card p-0 mb-4 asl-grid-shell">
+                    <header class="asl-admin-page-header">
+                        <span class="asl-admin-page-header__icon" aria-hidden="true"><svg><use href="#asl-admin-icon-categories"></use></svg></span>
+                        <div class="asl-admin-page-header__copy">
+                            <h3><?php echo esc_html__('Manage Categories','asl_locator') ?></h3>
+                            <p><?php echo esc_html__('Make categories and group stores.', 'asl_locator') ?></p>
                         </div>
-                        <a target="_blank" class="btn btn-outline-light" href="https://agilestorelocator.com/wiki/manage-categories/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Guide', 'asl-wc') ?> 
-                            <i class="mr-2"><svg style="margin-bottom:2px;" width="14" height="14"><use xlink:href="#i-info"></use></svg></i>
-                        </a>  
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="">
+                        <div class="asl-admin-page-header__actions">
+                            <?php echo \AgileStoreLocator\Helper::getLangControl(); ?>
+                            <a target="_blank" rel="noopener noreferrer" class="asl-admin-page-header__guide" href="https://agilestorelocator.com/wiki/manage-categories/">
+                                <?php echo esc_html__('Guide', 'asl_locator') ?><svg aria-hidden="true"><use href="#asl-admin-icon-external"></use></svg>
+                            </a>
+                        </div>
+                    </header>
+                    <div class="card-body asl-grid-content">
                                     <?php if(!is_writable(ASL_UPLOAD_DIR.'svg')): ?>
                                     <h3 class="alert alert-danger" style="font-size: 14px">
                                     <?php echo esc_attr__('Directory is not writable, Category Image Upload will Fail, Make directory writable.','asl_locator') ?>:<br> 
                                     <?php echo ASL_UPLOAD_DIR.'svg' ?>
                                     </h3>
                                     <?php endif; ?>
-                                    <div class="row pb-3">
-                                        <div class="col-md-12 ">
-                                            <button type="button" id="btn-asl-delete-all"
-                                                class="btn btn-danger text-white mrg-r-10"><i><svg width="13"
-                                                        height="13">
-                                                        <use xlink:href="#i-trash"></use>
-                                                    </svg></i><?php echo esc_attr__('Delete Selected','asl_locator') ?></button>
-                                            <button type="button" id="btn-asl-new-c"
-                                                class="btn btn-success text-white"><i><svg style="margin-top:-3px;"  width="13" height="13">
-                                                        <use xlink:href="#i-plus"></use>
-                                                    </svg></i><?php echo esc_attr__('New Category','asl_locator') ?></button>
+
+                                    <div class="asl-grid-notice">
+                                        <span aria-hidden="true"><svg><use href="#i-info"></use></svg></span>
+                                        <p><?php echo esc_html__('Categories let you group stores and help visitors narrow their results.','asl_locator') ?></p>
+                                    </div>
+
+                                    <div class="asl-grid-toolbar">
+                                        <p><?php echo esc_html__('Use the filters below each column to find specific categories.','asl_locator') ?></p>
+                                        <div>
+                                            <button type="button" id="btn-asl-delete-all" class="btn asl-grid-btn asl-grid-btn--danger"><i><svg><use href="#i-trash"></use></svg></i><?php echo esc_html__('Delete Selected','asl_locator') ?></button>
+                                            <button type="button" id="btn-asl-new-c" class="btn asl-grid-btn asl-grid-btn--primary"><i><svg><use href="#i-plus"></use></svg></i><?php echo esc_html__('New Category','asl_locator') ?></button>
                                         </div>
                                     </div>
-                                    <!-- <div class="alert alert-info" role="alert">
-                                        <?php echo esc_attr__('Upload SVG File for Categories if you are using Template 2. To sort categories by the Order ID, please use shortcode attribute cat_sort="order", example: [ASL_STORELOCATOR cat_sort="ordr"]','asl_locator') ?>
-                                    </div> -->
-                                    <div class="table-responsive">
-                                        <table id="tbl_categories" class="table ">
+
+                                    <div class="asl-grid-table-card">
+                                      <div class="table-responsive asl-grid-table-scroll">
+                                        <table id="tbl_categories" class="table asl-grid-data-table">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col"><input type="text" class="form-control" data-id="id"
-                                                            disabled="disabled" style="opacity: 0"
-                                                            placeholder="<?php echo esc_attr__('Search ID','asl_locator') ?>" />
-                                                    </th>
-                                                    <th scope="col" ><input type="text" class="form-control"
-                                                            data-id="id"
-                                                            placeholder="<?php echo esc_attr__('Search ID','asl_locator') ?>" />
-                                                    </th>
-                                                    <th scope="col" class="sl-dt-wd-250"><input type="text" class="form-control"
-                                                            data-id="category_name"
-                                                            placeholder="<?php echo esc_attr__('Search Name','asl_locator') ?>" />
-                                                    </th>
-                                                    <th scope="col"><input type="text" class="form-control"
-                                                            data-id="ordr"
-                                                            placeholder="<?php echo esc_attr__('Order ID','asl_locator') ?>" />
-                                                    </th>
-                                                    <th scope="col"><input class="sl-dt-wd-100"style="opacity: 0"/></th>
-                                                    <th scope="col"><input class="sl-dt-wd-100"style="opacity: 0"/></th>
-                                                    <th scope="col">&nbsp;</th>
-                                                    <th scope="col">&nbsp;</th>
+                                                <tr class="asl-grid-filter-row">
+                                                    <th aria-hidden="true"></th>
+                                                    <th><label><?php echo esc_html__('Search ID','asl_locator') ?><input type="text" class="form-control" data-id="id" placeholder="<?php echo esc_attr__('Enter ID','asl_locator') ?>" /></label></th>
+                                                    <th><label><?php echo esc_html__('Search Name','asl_locator') ?><input type="text" class="form-control" data-id="category_name" placeholder="<?php echo esc_attr__('Enter name','asl_locator') ?>" /></label></th>
+                                                    <th><label><?php echo esc_html__('Search Parent','asl_locator') ?><input type="text" class="form-control" data-id="parent_id" placeholder="<?php echo esc_attr__('Enter parent ID','asl_locator') ?>" /></label></th>
+                                                    <th><label><?php echo esc_html__('Search Order','asl_locator') ?><input type="text" class="form-control" data-id="ordr" placeholder="<?php echo esc_attr__('Enter order ID','asl_locator') ?>" /></label></th>
+                                                    <th><label><?php echo esc_html__('Search Icon','asl_locator') ?><input type="text" class="form-control" data-id="icon" placeholder="<?php echo esc_attr__('Enter icon name','asl_locator') ?>" /></label></th>
+                                                    <th><label><?php echo esc_html__('Search Date','asl_locator') ?><input type="text" class="form-control" data-id="created_on" placeholder="<?php echo esc_attr__('Enter date','asl_locator') ?>" /></label></th>
+                                                    <th aria-hidden="true"></th>
                                                 </tr>
                                                 <tr>
                                                     <th scope="col"><a
@@ -119,9 +112,8 @@
                                             <tbody>
                                             </tbody>
                                         </table>
+                                      </div>
                                     </div>
-
-                        </div>
 
                         <div class="dump-message asl-dumper"></div>
                     </div>
@@ -160,13 +152,13 @@
                                 <input type="text" class="form-control validate[required]" name="data[category_name]"
                                     id="update_category_name">
                             </div>
-                            <div class="col-md-12 form-group mb-3">
+                            <div class="col-md-12 form-group mb-3 sl-complx">
                                 <label for="update_parent_id"
                                     class="control-label"><?php echo esc_attr__('Parent','asl_locator') ?></label>
                                 <select name="data[parent_id]" id="update_parent_id"
                                     class="form-control validate[required]"></select>
                             </div>
-                            <div class="col-md-12 form-group mb-3">
+                            <div class="col-md-12 form-group mb-3 sl-complx">
                                 <label for="update_category_ordr"
                                     class="control-label"><?php echo esc_attr__('Order','asl_locator') ?></label>
                                 <input type="number" class="form-control validate[required]" name="data[ordr]"
@@ -221,51 +213,55 @@
     </div>
     <!-- asl-cont end-->
 
-    <div class="smodal fade" id="asl-add-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="smodal fade asl-category-modal" id="asl-add-modal" role="dialog" aria-labelledby="asl-add-category-title" aria-hidden="true">
         <div class="smodal-dialog" role="document">
             <div class="smodal-content">
                 <form id="frm-addcategory" name="frm-addcategory">
                     <div class="smodal-header">
-                        <h5 class="smodal-title"><?php echo esc_attr__('Add New Category','asl_locator') ?></h5>
+                        <div class="asl-smodal-heading">
+                            <span class="asl-smodal-heading-icon dashicons dashicons-category" aria-hidden="true"></span>
+                            <div>
+                                <h5 class="smodal-title" id="asl-add-category-title"><?php echo esc_attr__('Add New Category','asl_locator') ?></h5>
+                                <p><?php echo esc_html__('Create a new category to organize your stores.', 'asl_locator'); ?></p>
+                            </div>
+                        </div>
                         <button type="button" class="close" data-bs-dismiss="smodal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="smodal-body">
-                        <div class="alert alert-primary mt-3 mb-3 d-flex align-items-center justify-content-between" role="alert">
-                            <span><?php echo esc_html__('Icon required to add with the category', 'asl_locator'); ?></span>
-                            <a href="<?php echo esc_url(ASL_UPLOAD_URL . 'icon/default.png'); ?>" 
-                            download 
-                            target="_blank" 
-                            class="badge bg-success text-decoration-none">
-                            <?php echo esc_html__('Download', 'asl_locator'); ?>
-                            </a>
+                        <div class="alert alert-primary asl-smodal-notice" role="alert">
+                            <span class="dashicons dashicons-info-outline" aria-hidden="true"></span>
+                            <div>
+                                <strong><?php echo esc_html__('Category icon is optional', 'asl_locator'); ?></strong>
+                                <span><?php echo esc_html__('The default icon will be used when none is uploaded.', 'asl_locator'); ?></span>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group mb-3">
-                                <label for="txt_name"
+                                <label for="add_category_name"
                                     class="control-label"><?php echo esc_attr__('Name','asl_locator') ?></label>
-                                <input type="text" class="form-control" class="form-control validate[required]"
-                                    name="data[category_name]">
+                                <input type="text" class="form-control validate[required]"
+                                    id="add_category_name" name="data[category_name]" placeholder="<?php echo esc_attr__('Enter category name', 'asl_locator'); ?>">
                             </div>
-                            <div class="col-md-12 form-group mb-3">
+                            <div class="col-md-12 form-group mb-3 sl-complx">
                                 <label for="parent_id"
                                     class="control-label"><?php echo esc_attr__('Parent','asl_locator') ?></label>
                                 <select name="data[parent_id]" id="parent_id" class="form-control"></select>
                             </div>
-                            <div class="col-md-12 form-group mb-3">
+                            <div class="col-md-12 form-group mb-3 sl-complx">
                                 <label for="add_category_ordr"
                                     class="control-label"><?php echo esc_attr__('Order','asl_locator') ?></label>
-                                <input type="number" class="form-control validate[required]" name="data[ordr]"
-                                    id="add_category_ordr">
+                                <input type="number" class="form-control" name="data[ordr]"
+                                    id="add_category_ordr" placeholder="<?php echo esc_attr__('Enter display order (optional)', 'asl_locator'); ?>">
                             </div>
                             <div class="col-md-12 form-group mb-3">
                                 <div class="input-group" id="drop-zone-1">
                                     <input type="file" class="form-control"
                                     name="files"
-                                    id="file-img-2" />
+                                    id="file-img-2" accept="image/png,image/jpeg,image/gif,image/svg+xml" />
                                     <span
-                                    class="input-group-text"><?php echo esc_attr__('Icon','asl_locator') ?></span>
+                                    class="input-group-text"><?php echo esc_attr__('Icon (Optional)','asl_locator') ?></span>
                                     <!-- <div class="input-group-prepend">
                                         style="width:98%;opacity:0;position:absolute;top:0;left:0" 
                                     </div>
@@ -291,11 +287,11 @@
                     <div class="smodal-footer">
                         <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-primary btn-start mrg-r-15" id="btn-asl-add-categories"
-                                    type="button"
-                                    data-loading-text="<?php echo esc_attr__('Submitting ...','asl_locator') ?>"><?php echo esc_attr__('Add Category','asl_locator') ?></button>
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="smodal"><?php echo esc_attr__('Cancel','asl_locator') ?></button>
+                                <button class="btn btn-primary btn-start" id="btn-asl-add-categories"
+                                    type="button"
+                                    data-loading-text="<?php echo esc_attr__('Submitting ...','asl_locator') ?>"><?php echo esc_attr__('Add Category','asl_locator') ?></button>
                             </div>
                         </div>
                     </div>

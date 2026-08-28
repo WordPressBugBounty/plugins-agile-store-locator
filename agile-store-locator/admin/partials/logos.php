@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="asl-p-cont asl-new-bg">
+<div class="asl-p-cont asl-new-bg asl-admin-grid-page asl-grid-logos">
 <div class="hide">
   <svg xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-plus" viewBox="0 0 32 32" width="13" height="13" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -24,50 +24,59 @@
                 <path d="M16 14 L16 23 M16 8 L16 10" />
                 <circle cx="16" cy="16" r="14" />
             </symbol>
+            <symbol id="asl-admin-icon-logo" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <rect x="4" y="5" width="24" height="22" rx="3" />
+                <circle cx="11" cy="12" r="2.5" />
+                <path d="m6 24 7-7 4 4 3-3 6 6" />
+            </symbol>
+            <symbol id="asl-admin-icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7" />
+            </symbol>
   </svg>
 </div>
   <div class="container sl-manage-logo-page">
     <div class="row asl-inner-cont">
       <div class="col-md-12">
-        <div class="card p-0 mb-4">
-          <div class="card-title">
-            <div>
-              <h3>
-                <?php echo esc_attr__('Manage Logos','asl_locator') ?>
-              </h3>
-              <p class="card-text">
-                <?php echo esc_attr__('Upload and manage store logos.','asl_locator') ?>
-              </p>
+        <div class="card p-0 mb-4 asl-grid-shell">
+          <header class="asl-admin-page-header">
+            <span class="asl-admin-page-header__icon" aria-hidden="true"><svg><use href="#asl-admin-icon-logo"></use></svg></span>
+            <div class="asl-admin-page-header__copy">
+              <h3><?php echo esc_html__('Manage Logos','asl_locator') ?></h3>
+              <p><?php echo esc_html__('Upload and manage store logos.','asl_locator') ?></p>
             </div>
-            <a target="_blank" class="btn btn-outline-light" href="https://agilestorelocator.com/wiki/manage-store-logos/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Guide', 'asl-wc') ?> 
-                            <i class="mr-2"><svg style="margin-bottom:2px;" width="14" height="14"><use xlink:href="#i-info"></use></svg></i>
-                        </a>
-                    </div>
-          <div class="card-body p-4">
+            <a target="_blank" rel="noopener noreferrer" class="asl-admin-page-header__guide" href="https://agilestorelocator.com/wiki/manage-store-logos/">
+              <?php echo esc_html__('Guide', 'asl_locator') ?><svg aria-hidden="true"><use href="#asl-admin-icon-external"></use></svg>
+            </a>
+          </header>
+          <div class="card-body asl-grid-content">
 
-            <div class="">
             <?php if(!is_writable(ASL_UPLOAD_DIR.'Logo')): ?>
             <h6  class="alert alert-danger" style="font-size: 14px"><?php echo ASL_UPLOAD_DIR.'Logo' ?> <= <?php echo esc_attr__('Directory is not writable, Logo Image upload will fail, make directory writable.','asl_locator') ?></h6>
             <?php endif; ?>
-            <div class="row pb-3">
-              <div class="col-md-12 ">
-                <button type="button" id="btn-asl-delete-all" class="btn btn-danger text-white mrg-r-10"><i><svg width="13" height="13"><use xlink:href="#i-trash"></use></svg></i><?php echo esc_attr__('Delete Selected','asl_locator') ?></button>
-                <button type="button" id="btn-asl-new-c" class="btn btn-success text-white mrg-r-10"><i><svg  style="margin-top:-3px;" width="13" height="13"><use xlink:href="#i-plus"></use></svg></i><?php echo esc_attr__('New Logo','asl_locator') ?></button>
+
+            <div class="asl-grid-notice">
+              <span aria-hidden="true"><svg><use href="#i-info"></use></svg></span>
+              <p><?php echo esc_html__('Logos help visitors recognize stores and brands in your locator.','asl_locator') ?></p>
+            </div>
+
+            <div class="asl-grid-toolbar">
+              <p><?php echo esc_html__('Use the filters below each column to find specific logos.','asl_locator') ?></p>
+              <div>
+                <button type="button" id="btn-asl-delete-all" class="btn asl-grid-btn asl-grid-btn--danger"><i><svg><use href="#i-trash"></use></svg></i><?php echo esc_html__('Delete Selected','asl_locator') ?></button>
+                <button type="button" id="btn-asl-new-c" class="btn asl-grid-btn asl-grid-btn--primary"><i><svg><use href="#i-plus"></use></svg></i><?php echo esc_html__('New Logo','asl_locator') ?></button>
               </div>
             </div>
-            <div class="table-responsive">
-              <table id="tbl_logos" class="table ">
+
+            <div class="asl-grid-table-card">
+              <div class="table-responsive asl-grid-table-scroll">
+              <table id="tbl_logos" class="table asl-grid-data-table">
                   <thead>
-                    <tr>
-                      <th align="center">
-                        <input type="text" class="form-control sml" data-id="id" disabled="disabled" style="opacity: 0"/>
-                      </th>
-                      <th align="center"><input type="text" class="form-control" data-id="id"  placeholder="<?php echo esc_attr__('Search ID','asl_locator') ?>"  /></th>
-                      <th align="center"><input type="text" class="form-control" data-id="name"  placeholder="<?php echo esc_attr__('Search Name','asl_locator') ?>"  /></th>
-                      <th align="center">
-                        <input type="text" class="form-control sml" data-id="id" disabled="disabled" style="opacity: 0"/>
-                      </th>
-                      <th align="center">&nbsp;</th>
+                    <tr class="asl-grid-filter-row">
+                      <th aria-hidden="true"></th>
+                      <th><label><?php echo esc_html__('Search ID','asl_locator') ?><input type="text" class="form-control" data-id="id" placeholder="<?php echo esc_attr__('Enter ID','asl_locator') ?>" /></label></th>
+                      <th><label><?php echo esc_html__('Search Name','asl_locator') ?><input type="text" class="form-control" data-id="name" placeholder="<?php echo esc_attr__('Enter name','asl_locator') ?>" /></label></th>
+                      <th><label><?php echo esc_html__('Search Image','asl_locator') ?><input type="text" class="form-control" data-id="path" placeholder="<?php echo esc_attr__('Enter image name','asl_locator') ?>" /></label></th>
+                      <th aria-hidden="true"></th>
                     </tr>
                     <tr>
                       <th align="center"><a class="select-all"><?php echo esc_attr__('Select All','asl_locator') ?></a></th>
@@ -80,7 +89,7 @@
                   <tbody>
                   </tbody>
               </table>
-            </div>
+              </div>
             </div>
 
             <div class="dump-message asl-dumper"></div>
@@ -150,12 +159,14 @@
 <!-- asl-cont end-->
 
 <!-- Add New -->
-<div class="smodal fade" id="asl-add-modal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="smodal fade asl-logo-upload-modal" id="asl-add-modal" role="dialog" aria-labelledby="asl-upload-logo-title" aria-hidden="true">
   <div class="smodal-dialog" role="document">
       <div class="smodal-content">
-        <form id="frm-addlogo" name="frm-addlogo">
+        <form id="frm-addlogo" name="frm-addlogo"
+          data-name-required="<?php echo esc_attr__('Please enter a logo name.', 'asl_locator'); ?>"
+          data-image-required="<?php echo esc_attr__('Please select a logo image before uploading.', 'asl_locator'); ?>">
         <div class="smodal-header">
-          <h5 class="smodal-title"><?php echo esc_attr__('Upload Logo','asl_locator') ?></h5>
+          <h5 class="smodal-title" id="asl-upload-logo-title"><?php echo esc_attr__('Upload Logo','asl_locator') ?></h5>
           <button type="button" class="close" data-bs-dismiss="smodal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -184,7 +195,7 @@
               </div>
             </div>
             <ul></ul>
-            <div class="col-12"><p id="message_upload" class="alert alert-warning hide"></p></div>
+            <div class="col-12"><p id="message_upload" class="alert alert-warning hide" role="alert" aria-live="polite"></p></div>
           </div>
         </div>
         <div class="smodal-footer">

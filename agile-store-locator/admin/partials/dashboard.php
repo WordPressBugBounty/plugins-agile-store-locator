@@ -1,6 +1,8 @@
 <?php
 /** Free plugin dashboard. @var array $all_configs @var array $all_stats */
 $asl_has_api       = !empty($all_configs['api_key']);
+$asl_map_vendor    = isset($all_configs['map_vendor']) ? strtolower((string) $all_configs['map_vendor']) : 'google';
+$asl_tile_provider = isset($all_configs['tile_provider']) ? strtolower((string) $all_configs['tile_provider']) : 'osm';
 $asl_is_easy       = \AgileStoreLocator\Helper::expertise_level();
 $asl_onboarding    = \AgileStoreLocator\Admin\Dashboard::get_onboarding_state((int) $all_stats['stores']);
 $asl_locator_setup = \AgileStoreLocator\Admin\Dashboard::get_locator_setup_state();
@@ -8,7 +10,25 @@ if ($asl_onboarding['add_to_website'] !== $asl_locator_setup['completed']) {
     \AgileStoreLocator\Admin\Dashboard::set_onboarding_step('add_to_website', $asl_locator_setup['completed']);
     $asl_onboarding['add_to_website'] = $asl_locator_setup['completed'];
 }
-$asl_maps_status   = $asl_onboarding['connect_google_maps'] ? 'connected' : ($asl_has_api ? 'needs-attention' : 'not-configured');
+$asl_maplibre_credentials = [
+    'osm'      => true,
+    'geoapify' => !empty($all_configs['geoapify_api_key']),
+    'mapbox'   => !empty($all_configs['mapbox_access_token']),
+    'maptiler' => !empty($all_configs['tile_provider_api_key']),
+    'custom'   => !empty($all_configs['maplibre_style_url']),
+];
+$asl_maplibre_ready = 'maplibre' === $asl_map_vendor
+    && !empty($asl_maplibre_credentials[$asl_tile_provider]);
+$asl_maps_ready = $asl_maplibre_ready
+    || ('google' === $asl_map_vendor && $asl_has_api && $asl_onboarding['connect_google_maps']);
+if ($asl_onboarding['connect_google_maps'] !== $asl_maps_ready) {
+    \AgileStoreLocator\Admin\Dashboard::set_onboarding_step('connect_google_maps', $asl_maps_ready);
+    $asl_onboarding['connect_google_maps'] = $asl_maps_ready;
+}
+$asl_maps_status = $asl_maps_ready
+    ? 'connected'
+    : (('google' === $asl_map_vendor && $asl_has_api) || 'maplibre' === $asl_map_vendor ? 'needs-attention' : 'not-configured');
+$asl_map_provider_name = 'maplibre' === $asl_map_vendor ? __('Free Maps', 'asl_locator') : __('Google Maps', 'asl_locator');
 $asl_completed     = count(array_filter($asl_onboarding));
 $asl_step_keys     = array_keys($asl_onboarding);
 $asl_current_step  = null;
@@ -28,7 +48,7 @@ $asl_page_url      = admin_url('post-new.php?post_type=page');
 $asl_locator_view_url = $asl_locator_setup['valid_page'] ? get_permalink($asl_locator_setup['page_id']) : '';
 $asl_upgrade_url   = defined('ASL_UPGRADE_URL') ? ASL_UPGRADE_URL : 'https://agilestorelocator.com/pricing/';
 $asl_docs_url      = 'https://agilestorelocator.com/wiki/';
-$asl_support_url   = 'https://wordpress.org/support/plugin/agile-store-locator/';
+$asl_support_url   = 'https://agilestorelocator.com/support/';
 ?>
 <div class="asl-dashboard">
   <svg class="asl-svg-sprite" aria-hidden="true">
@@ -49,23 +69,154 @@ $asl_support_url   = 'https://wordpress.org/support/plugin/agile-store-locator/'
     <symbol id="asl-i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5Z"/></symbol>
     <symbol id="asl-i-register" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="9" r="2.2"/><path d="M8.5 16c.4-2 1.6-3 3.5-3s3.1 1 3.5 3"/></symbol>
     <symbol id="asl-i-lead" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="10" r="2"/><path d="M8 16c.5-1.8 1.8-2.8 4-2.8s3.5 1 4 2.8M7 7h2"/></symbol>
+    <symbol id="asl-i-details" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h6M9 16h6"/></symbol>
+    <symbol id="asl-i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
     <symbol id="asl-i-analytics" viewBox="0 0 24 24"><path d="M4 20V11h3v9M10 20V6h3v14M16 20V3h3v17M2 20h20"/></symbol>
     <symbol id="asl-i-video" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3V9Z"/></symbol>
   </svg>
   <header class="asl-dash-head"><div><h1><?php esc_html_e('Welcome to Agile Store Locator', 'asl_locator'); ?> <span>👋</span></h1><p><?php esc_html_e('Manage your stores, customize your locator and help customers find you easily.', 'asl_locator'); ?></p></div><div class="asl-head-actions"><nav aria-label="<?php esc_attr_e('Dashboard links', 'asl_locator'); ?>"><a href="<?php echo esc_url($asl_docs_url); ?>" target="_blank"><svg><use href="#asl-i-book"/></svg><?php esc_html_e('Documentation', 'asl_locator'); ?></a><a href="<?php echo esc_url($asl_support_url); ?>" target="_blank"><svg><use href="#asl-i-help"/></svg><?php esc_html_e('Support', 'asl_locator'); ?></a></nav><div class="asl-level-switch"><span><?php esc_html_e('Easy', 'asl_locator'); ?></span><label><input id="asl-level-switch" type="checkbox" <?php checked(!$asl_is_easy); ?>><i></i><b class="screen-reader-text"><?php esc_html_e('Toggle Easy or Advanced level', 'asl_locator'); ?></b></label><span><?php esc_html_e('Advanced', 'asl_locator'); ?></span></div></div></header>
 
   <section class="asl-card asl-setup"><div class="asl-section-title"><h2><?php esc_html_e('Your Store Locator Setup', 'asl_locator'); ?></h2><span><?php echo esc_html(sprintf(__('%1$d of 4 completed', 'asl_locator'), $asl_completed)); ?></span></div><div class="asl-setup-grid">
-    <article class="asl-step asl-maps-step <?php echo $asl_onboarding['connect_google_maps'] ? 'is-done' : ($asl_current_step === 'connect_google_maps' ? 'is-current' : ''); ?>" data-maps-status="<?php echo esc_attr($asl_maps_status); ?>"><span class="asl-step-number"><?php echo $asl_onboarding['connect_google_maps'] ? '✓' : '1'; ?></span><div class="asl-step-icon mint"><svg><use href="#asl-i-map"/></svg></div><h3><?php echo $asl_onboarding['connect_google_maps'] ? esc_html__('Google Maps Connected', 'asl_locator') : esc_html__('1. Connect Google Maps', 'asl_locator'); ?></h3><p><?php esc_html_e('Add and verify your Google Maps API key.', 'asl_locator'); ?></p><span class="asl-step-status <?php echo esc_attr($asl_maps_status); ?>"><?php echo 'connected' === $asl_maps_status ? '✓ ' . esc_html__('Connected', 'asl_locator') : ('needs-attention' === $asl_maps_status ? '◉ ' . esc_html__('Needs attention', 'asl_locator') : '○ ' . esc_html__('Not configured', 'asl_locator')); ?></span><a class="asl-btn" href="#asl-google-maps-setup" data-bs-toggle="sl_offcanvas" role="button" aria-controls="asl-google-maps-setup"><?php echo $asl_onboarding['connect_google_maps'] ? esc_html__('Manage API Key', 'asl_locator') : esc_html__('Connect Google Maps', 'asl_locator'); ?></a></article>
+    <article class="asl-step asl-maps-step <?php echo $asl_maps_ready ? 'is-done' : ($asl_current_step === 'connect_google_maps' ? 'is-current' : ''); ?>" data-maps-status="<?php echo esc_attr($asl_maps_status); ?>"><span class="asl-step-number"><?php echo $asl_maps_ready ? '✓' : '1'; ?></span><div class="asl-step-icon mint"><svg><use href="#asl-i-map"/></svg></div><h3><?php echo $asl_maps_ready ? esc_html(sprintf(__('%s Ready', 'asl_locator'), $asl_map_provider_name)) : esc_html__('1. Set Up Your Map', 'asl_locator'); ?></h3><p><?php echo $asl_maps_ready ? esc_html(sprintf(__('Your locator uses %s.', 'asl_locator'), $asl_map_provider_name)) : esc_html__('Choose the map service used by your store locator.', 'asl_locator'); ?></p><span class="asl-step-status <?php echo esc_attr($asl_maps_status); ?>"><?php echo 'connected' === $asl_maps_status ? '✓ ' . esc_html__('Ready', 'asl_locator') : ('needs-attention' === $asl_maps_status ? '◉ ' . esc_html__('Needs attention', 'asl_locator') : '○ ' . esc_html__('Not configured', 'asl_locator')); ?></span><a class="asl-btn" href="#asl-map-setup" data-bs-toggle="sl_offcanvas" role="button" aria-controls="asl-map-setup"><?php echo $asl_maps_ready ? esc_html__('Manage Map', 'asl_locator') : esc_html__('Set Up Map', 'asl_locator'); ?></a></article>
     <article class="asl-step <?php echo $asl_onboarding['add_stores'] ? 'is-done' : ($asl_current_step === 'add_stores' ? 'is-current' : ''); ?>"><span class="asl-step-number"><?php echo $asl_onboarding['add_stores'] ? '✓' : '2'; ?></span><div class="asl-step-icon mint"><svg><use href="#asl-i-store"/></svg></div><h3><?php esc_html_e('2. Add Your First Store', 'asl_locator'); ?></h3><p><?php esc_html_e('Add at least one store to show on the map.', 'asl_locator'); ?></p><a class="asl-btn" href="<?php echo esc_url($asl_add_url); ?>"><?php esc_html_e('Add New Store', 'asl_locator'); ?></a></article>
     <article class="asl-step <?php echo $asl_onboarding['add_to_website'] ? 'is-done' : ($asl_locator_setup['missing_page'] ? 'is-attention' : ($asl_current_step === 'add_to_website' ? 'is-current' : '')); ?>"><span class="asl-step-number"><?php echo $asl_onboarding['add_to_website'] ? '✓' : ($asl_locator_setup['missing_page'] ? '⚠' : '3'); ?></span><div class="asl-step-icon gray"><svg><use href="#asl-i-code"/></svg></div><?php if ($asl_locator_setup['missing_page'] && !$asl_locator_setup['manual']) : ?><h3><?php esc_html_e('Locator Page Not Found', 'asl_locator'); ?></h3><p><?php esc_html_e('The page connected to your store locator is no longer available.', 'asl_locator'); ?></p><a class="asl-btn" href="#asl-create-locator" data-bs-toggle="sl_offcanvas" role="button" aria-controls="asl-create-locator"><?php esc_html_e('Add to Website', 'asl_locator'); ?></a><?php elseif ($asl_locator_setup['valid_page']) : ?><h3><?php esc_html_e('3. Added to Your Website', 'asl_locator'); ?></h3><p><?php esc_html_e('Your Store Locator page is ready.', 'asl_locator'); ?></p><a class="asl-btn" href="<?php echo esc_url($asl_locator_view_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('View Locator', 'asl_locator'); ?></a><?php elseif ($asl_locator_setup['manual']) : ?><h3><?php esc_html_e('3. Added to Your Website', 'asl_locator'); ?></h3><p><?php esc_html_e('Your locator has been added to your website.', 'asl_locator'); ?></p><a class="asl-btn" href="#asl-create-locator" data-bs-toggle="sl_offcanvas" role="button" aria-controls="asl-create-locator"><?php esc_html_e('Manage Setup', 'asl_locator'); ?></a><?php else : ?><h3><?php esc_html_e('3. Add to Your Website', 'asl_locator'); ?></h3><p><?php esc_html_e('Create a page for your store locator or add it manually.', 'asl_locator'); ?></p><a class="asl-btn" href="#asl-create-locator" data-bs-toggle="sl_offcanvas" role="button" aria-controls="asl-create-locator"><?php esc_html_e('Add to Website', 'asl_locator'); ?></a><?php endif; ?></article>
     <article class="asl-step <?php echo $asl_onboarding['customize_locator'] ? 'is-done' : ($asl_current_step === 'customize_locator' ? 'is-current' : ''); ?>"><span class="asl-step-number"><?php echo $asl_onboarding['customize_locator'] ? '✓' : '4'; ?></span><div class="asl-step-icon blue"><svg><use href="#asl-i-brush"/></svg></div><h3><?php esc_html_e('4. Customize Locator', 'asl_locator'); ?></h3><p><?php esc_html_e('Personalize the locator colors to match your website.', 'asl_locator'); ?></p><a class="asl-btn" href="<?php echo esc_url($asl_customize_url); ?>"><?php esc_html_e('Customize Colors', 'asl_locator'); ?></a></article>
   </div><div class="asl-tip"><span>i</span><?php esc_html_e('Tip: Complete all steps to make your store locator live and help customers find you.', 'asl_locator'); ?></div></section>
 
-  <section class="asl-stats"><article class="stat-blue"><div><svg><use href="#asl-i-store"/></svg></div><strong><?php echo esc_html($all_stats['stores']); ?></strong><span><?php esc_html_e('Stores', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_manage_url); ?>"><?php esc_html_e('Manage Stores', 'asl_locator'); ?> →</a></article><article class="stat-green"><div><svg><use href="#asl-i-folder"/></svg></div><strong><?php echo esc_html($all_stats['categories']); ?></strong><span><?php esc_html_e('Categories', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_category_url); ?>"><?php esc_html_e('Manage Categories', 'asl_locator'); ?> →</a></article><article class="stat-purple"><div><svg><use href="#asl-i-pin"/></svg></div><strong><?php echo esc_html($all_stats['markers']); ?></strong><span><?php esc_html_e('Markers', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_markers_url); ?>"><?php esc_html_e('Manage Markers', 'asl_locator'); ?> →</a></article><article class="stat-orange"><div><svg><use href="#asl-i-search"/></svg></div><strong><?php echo esc_html($all_stats['searches']); ?>+</strong><span><?php esc_html_e('Searches', 'asl_locator'); ?><small><?php esc_html_e('This Month', 'asl_locator'); ?></small></span><a href="#asl-analytics"><?php esc_html_e('View Analytics', 'asl_locator'); ?> →</a></article></section>
+  <section class="asl-stats"><article class="stat-blue"><div><svg><use href="#asl-i-store"/></svg></div><strong><?php echo esc_html($all_stats['stores']); ?></strong><span><?php esc_html_e('Stores', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_manage_url); ?>"><?php esc_html_e('Manage Stores', 'asl_locator'); ?> →</a></article><article class="stat-green"><div><svg><use href="#asl-i-folder"/></svg></div><strong><?php echo esc_html($all_stats['categories']); ?></strong><span><?php esc_html_e('Categories', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_category_url); ?>"><?php esc_html_e('Manage Categories', 'asl_locator'); ?> →</a></article><article class="stat-purple"><div><svg><use href="#asl-i-pin"/></svg></div><strong><?php echo esc_html($all_stats['markers']); ?></strong><span><?php esc_html_e('Markers', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_markers_url); ?>"><?php esc_html_e('Manage Markers', 'asl_locator'); ?> →</a></article><article class="stat-orange asl-activity-stat"><div><svg><use href="#asl-i-search"/></svg></div><strong class="asl-activity-counts"><span><b><?php echo esc_html($all_stats['searches']); ?></b><small><?php esc_html_e('Searches', 'asl_locator'); ?></small></span><i aria-hidden="true"></i><span><b><?php echo esc_html($all_stats['clicks']); ?></b><small><?php esc_html_e('Interactions', 'asl_locator'); ?></small></span></strong><span class="asl-activity-period"><?php esc_html_e('This Month', 'asl_locator'); ?></span><a href="#asl-analytics"><?php esc_html_e('View Analytics', 'asl_locator'); ?> →</a></article></section>
 
   <section class="asl-card asl-quick"><h2><?php esc_html_e('Quick Actions', 'asl_locator'); ?></h2><div class="asl-quick-grid"><a href="<?php echo esc_url($asl_add_url); ?>"><i class="blue">+</i><span><b><?php esc_html_e('Add New Store', 'asl_locator'); ?></b><?php esc_html_e('Add a new store to your locator.', 'asl_locator'); ?></span></a><a href="<?php echo esc_url($asl_manage_url); ?>"><i class="teal"><svg><use href="#asl-i-list"/></svg></i><span><b><?php esc_html_e('Manage Stores', 'asl_locator'); ?></b><?php esc_html_e('View, edit or delete your stores.', 'asl_locator'); ?></span></a><a href="<?php echo esc_url($asl_customize_url); ?>"><i class="purple"><svg><use href="#asl-i-brush"/></svg></i><span><b><?php esc_html_e('Customize Locator', 'asl_locator'); ?></b><?php esc_html_e('Change layout, map and design.', 'asl_locator'); ?></span></a><a href="<?php echo esc_url($asl_page_url); ?>"><i class="orange"><svg><use href="#asl-i-external"/></svg></i><span><b><?php esc_html_e('View Locator', 'asl_locator'); ?></b><?php esc_html_e('Preview your store locator on site.', 'asl_locator'); ?></span></a></div></section>
 
-  <section class="asl-card asl-analytics" id="asl-analytics"><div class="asl-section-title"><h2><?php esc_html_e('Analytics Overview', 'asl_locator'); ?></h2><a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank"><?php esc_html_e('View Full Analytics', 'asl_locator'); ?> →</a></div><div class="asl-analytics-content" aria-hidden="true"><div class="asl-chart"><b><?php esc_html_e('Searches (Last 7 Days)', 'asl_locator'); ?></b><svg viewBox="0 0 650 205" preserveAspectRatio="none"><g class="grid"><path d="M30 20H640M30 65H640M30 110H640M30 155H640M30 200H640"/></g><path class="area" d="M30 160 130 90 230 42 330 125 430 50 525 65 625 140V200H30Z"/><path class="line" d="M30 160 130 90 230 42 330 125 430 50 525 65 625 140"/><g class="dots"><circle cx="30" cy="160" r="4"/><circle cx="130" cy="90" r="4"/><circle cx="230" cy="42" r="4"/><circle cx="330" cy="125" r="4"/><circle cx="430" cy="50" r="4"/><circle cx="525" cy="65" r="4"/><circle cx="625" cy="140" r="4"/></g></svg><div class="asl-days"><span>May 8</span><span>May 9</span><span>May 10</span><span>May 11</span><span>May 12</span><span>May 13</span><span>May 14</span></div></div><div class="asl-top-locations"><b><?php esc_html_e('Top Searched Locations', 'asl_locator'); ?></b><ol><li><span>New York, NY</span><em>32</em></li><li><span>Los Angeles, CA</span><em>28</em></li><li><span>Chicago, IL</span><em>19</em></li><li><span>Houston, TX</span><em>14</em></li><li><span>Miami, FL</span><em>11</em></li></ol></div></div><div class="asl-pro-lock"><svg><use href="#asl-i-lock"/></svg><strong><?php esc_html_e('Analytics is a Pro feature', 'asl_locator'); ?></strong><span><?php esc_html_e('Upgrade to unlock detailed store performance insights.', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank"><?php esc_html_e('Upgrade to Pro', 'asl_locator'); ?></a></div></section>
+  <?php if (false) : // Pro analytics dashboard is not rendered in the Free edition. ?>
+  <section class="asl-card asl-pro-analytics asl-p-cont asl-new-bg asl-main-dashboard" id="asl-analytics">
+    <div class="asl-analytics-sec">
+      <div class="asl-pro-analytics__header">
+        <div>
+          <span class="asl-pro-analytics__eyebrow"><?php esc_html_e('Performance', 'asl_locator'); ?></span>
+          <h2><?php esc_html_e('Analytics Overview', 'asl_locator'); ?></h2>
+          <p><?php esc_html_e('See how customers find and interact with your stores during the selected period.', 'asl_locator'); ?></p>
+        </div>
+        <div class="asl-pro-analytics__controls">
+          <label for="sl-datetimepicker"><?php esc_html_e('Date range', 'asl_locator'); ?></label>
+          <div class="asl-pro-analytics__date">
+            <span class="dashicons dashicons-calendar-alt" aria-hidden="true"></span>
+            <input type="text" id="sl-datetimepicker" class="form-control" aria-label="<?php esc_attr_e('Analytics date range', 'asl_locator'); ?>">
+          </div>
+          <button type="button" title="<?php esc_attr_e('Export Analytics', 'asl_locator'); ?>" id="sl-btn-export-stats" class="btn btn-outline-primary asl-pro-analytics__export">
+            <span class="dashicons dashicons-download" aria-hidden="true"></span>
+            <?php esc_html_e('Export', 'asl_locator'); ?>
+          </button>
+        </div>
+      </div>
+      <div class="tab-content" id="asl-tabs">
+        <div class="tab-pane active asl-dashboard-section asl-pro-analytics__chart" id="asl-chart">
+          <div class="asl-pro-analytics__card-title">
+            <div><span class="dashicons dashicons-chart-line" aria-hidden="true"></span><h3><?php esc_html_e('Searches & Interactions', 'asl_locator'); ?></h3></div>
+            <small><?php esc_html_e('Activity over time', 'asl_locator'); ?></small>
+          </div>
+          <div class="canvas-holder">
+            <canvas id="asl_search_canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="tab-pane active asl-dashboard-section" id="asl-views">
+          <select id="asl-search-len" class="d-none" aria-hidden="true">
+            <option value="5" selected>5</option>
+            <option value="0"><?php echo esc_attr__('ALL','asl_locator') ?></option>
+          </select>
+         <div class="row">
+           <div class="col-md-6">
+            <div class="asl-table-box asl-analytics-card">
+              <div class="asl-analytics-card-heading">
+                <div class="asl-analytics-card-title">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.1 12s3.6-6 9.9-6 9.9 6 9.9 6-3.6 6-9.9 6-9.9-6-9.9-6Zm9.9 3.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/></svg>
+                  <h3><?php echo esc_html__('Most Viewed Stores','asl_locator') ?></h3>
+                </div>
+                <button type="button" class="btn asl-view-all"><?php echo esc_html__('View All','asl_locator') ?></button>
+              </div>
+              <div class="asl-list-header">
+                <div class="row">
+                  <div class="col-7">
+                    <div class="list-items">
+                      <?php echo esc_attr__('Store','asl_locator') ?>
+                    </div>
+                  </div>
+                  <div class="col-2 text-right">
+                    <div class="list-items">
+                      <button type="button" class="asl-sort-button is-active" data-list="stores" data-sort="views" data-direction="desc" aria-sort="descending">
+                        <?php echo esc_html__('Views','asl_locator') ?><span class="asl-sort-indicator" aria-hidden="true">&#9660;</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-3 text-right">
+                    <div class="list-items">
+                      <button type="button" class="asl-sort-button" data-list="stores" data-sort="change" data-direction="desc" aria-sort="none">
+                        <?php echo esc_html__('Change','asl_locator') ?><span class="asl-sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ul class="list-group" id="asl-stores-views">
+              </ul>
+            </div>
+           </div>
+           <div class="col-md-6"> 
+            <div class="asl-table-box asl-analytics-card">
+              <div class="asl-analytics-card-heading">
+                <div class="asl-analytics-card-title">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.6A2.6 2.6 0 1 1 12 6a2.6 2.6 0 0 1 0 5.6Z"/></svg>
+                  <h3><?php echo esc_html__('Top Search Locations','asl_locator') ?></h3>
+                </div>
+                <button type="button" class="btn asl-view-all"><?php echo esc_html__('View All','asl_locator') ?></button>
+              </div>
+              <div class="asl-list-header">
+                <div class="row">
+                  <div class="col-7">
+                    <div class="list-items">
+                      <?php echo esc_attr__('Location','asl_locator') ?>
+                    </div>
+                  </div>
+                  <div class="col-2 text-right">
+                    <div class="list-items">
+                      <button type="button" class="asl-sort-button is-active" data-list="searches" data-sort="views" data-direction="desc" aria-sort="descending">
+                        <?php echo esc_html__('Searches','asl_locator') ?><span class="asl-sort-indicator" aria-hidden="true">&#9660;</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-3 text-right">
+                    <div class="list-items">
+                      <button type="button" class="asl-sort-button" data-list="searches" data-sort="change" data-direction="desc" aria-sort="none">
+                        <?php echo esc_html__('Change','asl_locator') ?><span class="asl-sort-indicator" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ul class="list-group" id="asl-searches-views">
+              </ul>
+            </div>
+           </div>
+         </div>
+
+        </div>
+      </div> 
+    </div>
+  </section>
+
+  <section class="asl-card asl-more-features" aria-labelledby="asl-more-features-title">
+    <div class="asl-more-features__heading"><h2 id="asl-more-features-title"><?php esc_html_e('Explore More Features', 'asl_locator'); ?></h2><p><?php esc_html_e('Get more from your store locator with these powerful tools.', 'asl_locator'); ?></p></div>
+    <div class="asl-more-features__grid">
+      <article class="asl-feature-card feature-import"><i><svg><use href="#asl-i-file-export"/></svg></i><div><h3><?php esc_html_e('Import / Export', 'asl_locator'); ?></h3><p><?php esc_html_e('Import stores in bulk or export your location data with ease.', 'asl_locator'); ?></p><a href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Manage', 'asl_locator'); ?> <span>→</span></a></div></article>
+      <article class="asl-feature-card feature-search"><i><svg><use href="#asl-i-search"/></svg></i><div><h3><?php esc_html_e('Search Widget', 'asl_locator'); ?></h3><p><?php esc_html_e('Add a powerful location search box anywhere on your site.', 'asl_locator'); ?></p><a href="https://agilestorelocator.com/wiki/address-search-widget/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Configure', 'asl_locator'); ?> <span>→</span></a></div></article>
+      <article class="asl-feature-card feature-register"><i><svg><use href="#asl-i-register"/></svg></i><div><h3><?php esc_html_e('Store Registration Form', 'asl_locator'); ?></h3><p><?php esc_html_e('Allow businesses to submit new store locations from the frontend.', 'asl_locator'); ?></p><a href="https://agilestorelocator.com/wiki/store-registration-form/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Configure', 'asl_locator'); ?> <span>→</span></a></div></article>
+      <article class="asl-feature-card feature-details"><i><svg><use href="#asl-i-details"/></svg></i><div><h3><?php esc_html_e('Store Detail Page', 'asl_locator'); ?></h3><p><?php esc_html_e('Create dedicated pages with complete information for each location.', 'asl_locator'); ?></p><a href="https://agilestorelocator.com/wiki/store-details-page/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Manage', 'asl_locator'); ?> <span>→</span></a></div></article>
+      <article class="asl-feature-card feature-lead"><i><svg><use href="#asl-i-mail"/></svg></i><div><h3><?php esc_html_e('Lead Contact Form', 'asl_locator'); ?></h3><p><?php esc_html_e('Capture inquiries and route leads to the appropriate store automatically.', 'asl_locator'); ?></p><a href="https://agilestorelocator.com/wiki/integrating-wpforms-with-agile-store-locator/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Configure', 'asl_locator'); ?> <span>→</span></a></div></article>
+    </div>
+  </section>
+  <?php endif; ?>
+
+  <section class="asl-card asl-analytics" id="asl-analytics"><div class="asl-section-title"><h2><?php esc_html_e('Analytics Overview', 'asl_locator'); ?></h2><a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('View Full Analytics', 'asl_locator'); ?> →</a></div><div class="asl-analytics-content" aria-hidden="true"><div class="asl-chart"><b><?php esc_html_e('Searches (Last 7 Days)', 'asl_locator'); ?></b><svg viewBox="0 0 650 205" preserveAspectRatio="none"><g class="grid"><path d="M30 20H640M30 65H640M30 110H640M30 155H640M30 200H640"/></g><path class="area" d="M30 160 130 90 230 42 330 125 430 50 525 65 625 140V200H30Z"/><path class="line" d="M30 160 130 90 230 42 330 125 430 50 525 65 625 140"/><g class="dots"><circle cx="30" cy="160" r="4"/><circle cx="130" cy="90" r="4"/><circle cx="230" cy="42" r="4"/><circle cx="330" cy="125" r="4"/><circle cx="430" cy="50" r="4"/><circle cx="525" cy="65" r="4"/><circle cx="625" cy="140" r="4"/></g></svg><div class="asl-days"><span>May 8</span><span>May 9</span><span>May 10</span><span>May 11</span><span>May 12</span><span>May 13</span><span>May 14</span></div></div><div class="asl-top-locations"><b><?php esc_html_e('Top Searched Locations', 'asl_locator'); ?></b><ol><li><span>New York, NY</span><em>32</em></li><li><span>Los Angeles, CA</span><em>28</em></li><li><span>Chicago, IL</span><em>19</em></li><li><span>Houston, TX</span><em>14</em></li><li><span>Miami, FL</span><em>11</em></li></ol></div></div><div class="asl-pro-lock"><svg><use href="#asl-i-lock"/></svg><strong><?php esc_html_e('Analytics is a Pro feature', 'asl_locator'); ?></strong><span><?php esc_html_e('Upgrade to unlock detailed store performance insights.', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to Pro', 'asl_locator'); ?></a></div></section>
 
   <section class="asl-upgrade">
     <div class="asl-upgrade-art"><div class="map-road one"></div><div class="map-road two"></div><span class="pin one">●</span><span class="pin two">●</span><b><svg><use href="#asl-i-lock"/></svg></b></div>
@@ -78,12 +229,22 @@ $asl_support_url   = 'https://wordpress.org/support/plugin/agile-store-locator/'
         <span class="blue"><svg><use href="#asl-i-lead"/></svg><?php esc_html_e('Lead Forms', 'asl_locator'); ?></span>
         <span class="blue"><svg><use href="#asl-i-analytics"/></svg><?php esc_html_e('Analytics & Reports', 'asl_locator'); ?></span>
       </div>
-      <div class="asl-upgrade-actions"><a class="primary" href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank"><?php esc_html_e('Upgrade to Pro', 'asl_locator'); ?></a><a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank"><?php esc_html_e('Compare Plans', 'asl_locator'); ?> →</a></div>
+      <div class="asl-upgrade-actions"><a class="primary" href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to Pro', 'asl_locator'); ?></a><a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Compare Plans', 'asl_locator'); ?> →</a></div>
     </div>
   </section>
 
   <section class="asl-bottom-grid">
-    <article class="asl-card"><h2><?php esc_html_e('Basic System Info', 'asl_locator'); ?></h2><dl><div><dt><?php esc_html_e('Plugin Version', 'asl_locator'); ?></dt><dd><?php echo esc_html(ASL_CVERSION); ?></dd></div><div><dt><?php esc_html_e('Google Maps API', 'asl_locator'); ?></dt><dd class="<?php echo esc_attr('connected' === $asl_maps_status ? 'connected' : ('needs-attention' === $asl_maps_status ? 'attention' : 'missing')); ?>"><?php echo 'connected' === $asl_maps_status ? '● ' . esc_html__('Connected', 'asl_locator') : ('needs-attention' === $asl_maps_status ? '● ' . esc_html__('Needs attention', 'asl_locator') : '● ' . esc_html__('Not configured', 'asl_locator')); ?></dd></div><div><dt><?php esc_html_e('PHP Version', 'asl_locator'); ?></dt><dd><?php echo esc_html(phpversion()); ?></dd></div><div><dt><?php esc_html_e('WordPress Version', 'asl_locator'); ?></dt><dd><?php echo esc_html(get_bloginfo('version')); ?></dd></div><div><dt><?php esc_html_e('Memory Limit', 'asl_locator'); ?></dt><dd><?php echo esc_html(ini_get('memory_limit')); ?></dd></div></dl><a class="asl-card-link" href="<?php echo esc_url(admin_url('site-health.php')); ?>"><?php esc_html_e('System Status', 'asl_locator'); ?> →</a></article>
+    <article class="asl-card asl-system-info">
+      <h2><?php esc_html_e('Basic System Info', 'asl_locator'); ?></h2>
+      <dl>
+        <div><dt><?php esc_html_e('Plugin Version', 'asl_locator'); ?></dt><dd><?php echo esc_html(ASL_CVERSION); ?></dd></div>
+        <div><dt><?php esc_html_e('Google Maps API', 'asl_locator'); ?></dt><dd class="<?php echo esc_attr('connected' === $asl_maps_status ? 'connected' : ('needs-attention' === $asl_maps_status ? 'attention' : 'missing')); ?>"><?php echo 'connected' === $asl_maps_status ? '● ' . esc_html__('Connected', 'asl_locator') : ('needs-attention' === $asl_maps_status ? '● ' . esc_html__('Needs attention', 'asl_locator') : '● ' . esc_html__('Not configured', 'asl_locator')); ?></dd></div>
+        <div><dt><?php esc_html_e('PHP Version', 'asl_locator'); ?></dt><dd><?php echo esc_html(phpversion()); ?></dd></div>
+        <div><dt><?php esc_html_e('WordPress Version', 'asl_locator'); ?></dt><dd><?php echo esc_html(get_bloginfo('version')); ?></dd></div>
+        <div><dt><?php esc_html_e('Memory Limit', 'asl_locator'); ?></dt><dd><?php echo esc_html(ini_get('memory_limit')); ?></dd></div>
+      </dl>
+      <a class="asl-card-link" href="<?php echo esc_url(admin_url('site-health.php')); ?>"><?php esc_html_e('System Status', 'asl_locator'); ?> →</a>
+    </article>
     <article class="asl-card asl-resources"><h2><?php esc_html_e('Help & Resources', 'asl_locator'); ?></h2><ul>
       <li class="resource-docs"><span><i><svg><use href="#asl-i-book"/></svg></i><?php esc_html_e('Documentation', 'asl_locator'); ?></span><a href="<?php echo esc_url($asl_docs_url); ?>" target="_blank"><?php esc_html_e('View Docs', 'asl_locator'); ?> →</a></li>
       <li class="resource-video"><span><i><svg><use href="#asl-i-video"/></svg></i><?php esc_html_e('Video Tutorials', 'asl_locator'); ?></span><a href="https://www.youtube.com/@agilelogix" target="_blank"><?php esc_html_e('Watch Now', 'asl_locator'); ?> →</a></li>
@@ -91,41 +252,37 @@ $asl_support_url   = 'https://wordpress.org/support/plugin/agile-store-locator/'
     </ul><div class="asl-help"><span><b>i</b><?php esc_html_e("Need help? We're here for you!", 'asl_locator'); ?><small><?php esc_html_e('Contact our support team anytime.', 'asl_locator'); ?></small></span><a href="<?php echo esc_url($asl_support_url); ?>" target="_blank"><?php esc_html_e('Get Support', 'asl_locator'); ?></a></div></article>
     <article class="asl-card asl-shortcode" id="asl-shortcode"><h2><?php esc_html_e('Store Locator Shortcode', 'asl_locator'); ?></h2><p><?php esc_html_e('Add your locator anywhere using the shortcode below.', 'asl_locator'); ?></p><div><code>[ASL_STORELOCATOR]</code><button type="button" class="asl-copy-shortcode" data-copy-label="<?php esc_attr_e('Copy shortcode', 'asl_locator'); ?>" aria-label="<?php esc_attr_e('Copy shortcode', 'asl_locator'); ?>"><svg><use href="#asl-i-copy"/></svg></button></div><p><?php esc_html_e('Works with WordPress, Elementor, and other page builders.', 'asl_locator'); ?></p><a class="asl-shortcode-guide" href="<?php echo esc_url($asl_docs_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Shortcode Guide', 'asl_locator'); ?> →</a></article>
   </section>
-
-  <section class="asl-rating" id="asl-rating" aria-labelledby="asl-rating-title">
-    <div class="asl-rating-mark" aria-hidden="true"><span>★</span><i>✦</i><i>✦</i><i>✦</i></div>
-    <div class="asl-rating-copy">
-      <div class="asl-rating-stars" aria-hidden="true">★ ★ ★ ★ ★</div>
-      <h2 id="asl-rating-title"><?php esc_html_e('Enjoying Agile Store Locator?', 'asl_locator'); ?></h2>
-      <p><?php esc_html_e("If Agile Store Locator is helping you and your customers find locations easily, we'd appreciate a quick review on WordPress.org.", 'asl_locator'); ?></p>
-    </div>
-    <div class="asl-rating-actions">
-      <div>
-        <a class="asl-rating-review" href="https://wordpress.org/support/plugin/agile-store-locator/reviews/#new-post" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Leave a Review', 'asl_locator'); ?> <span aria-hidden="true">→</span><svg aria-hidden="true"><use href="#asl-i-external"/></svg></a>
-        <button type="button" data-rating-action="later"><?php esc_html_e('Maybe Later', 'asl_locator'); ?></button>
-        <button type="button" data-rating-action="reviewed"><?php esc_html_e('Already Reviewed', 'asl_locator'); ?></button>
-      </div>
-      <p><span aria-hidden="true">♢</span><?php esc_html_e('It only takes a minute and it means a lot to us. Thank you!', 'asl_locator'); ?></p>
-    </div>
-  </section>
 </div>
 
 <div class="asl-p-cont asl-maps-setup-shell">
-  <aside class="sl_offcanvas sl_offcanvas-end" tabindex="-1" id="asl-google-maps-setup" aria-labelledby="asl-google-maps-setup-label">
+  <aside class="sl_offcanvas sl_offcanvas-end" tabindex="-1" id="asl-map-setup" aria-labelledby="asl-map-setup-label">
     <div class="sl_offcanvas-header asl-maps-setup-head">
-      <div class="asl-maps-setup-title"><i><svg><use href="#asl-i-map"/></svg></i><div><h5 id="asl-google-maps-setup-label">Connect Google Maps</h5><p>Add and verify your Maps JavaScript API key.</p></div></div>
-      <button type="button" class="btn-close" data-bs-dismiss="sl_offcanvas" aria-label="Close"></button>
+      <div class="asl-maps-setup-title"><i><svg><use href="#asl-i-map"/></svg></i><div><h5 id="asl-map-setup-label"><?php esc_html_e('Set Up Your Map', 'asl_locator'); ?></h5><p><?php esc_html_e('Choose the map service used by your store locator.', 'asl_locator'); ?></p></div></div>
+      <button type="button" class="btn-close" data-bs-dismiss="sl_offcanvas" aria-label="<?php esc_attr_e('Close', 'asl_locator'); ?>"></button>
     </div>
     <div class="sl_offcanvas-body asl-maps-setup-body">
-      <div class="asl-maps-state is-<?php echo esc_attr($asl_maps_status); ?>"><i></i><div><strong><?php echo 'connected' === $asl_maps_status ? 'Google Maps is connected' : ('needs-attention' === $asl_maps_status ? 'Your API key needs attention' : 'Google Maps is not configured'); ?></strong><span><?php echo 'connected' === $asl_maps_status ? 'Your saved key passed the Maps JavaScript API check.' : ('needs-attention' === $asl_maps_status ? 'A key is saved, but it has not passed validation.' : 'Add an API key to enable maps in your store locator.'); ?></span></div></div>
+      <div class="asl-maps-state is-<?php echo esc_attr($asl_maps_status); ?>"><i></i><div><strong><?php echo $asl_maps_ready ? esc_html(sprintf(__('%s is ready', 'asl_locator'), $asl_map_provider_name)) : esc_html__('Your map needs setup', 'asl_locator'); ?></strong><span><?php echo $asl_maps_ready ? esc_html__('Your selected map service is ready for the store locator.', 'asl_locator') : esc_html__('Select one of the simple options below to continue.', 'asl_locator'); ?></span></div></div>
       <div class="asl-maps-feedback" id="asl-maps-feedback" role="status" aria-live="polite"></div>
-      <div class="asl-create-field asl-maps-key-field"><label for="asl-dashboard-maps-key">Google Maps API key</label><div class="asl-maps-key-control"><input type="password" id="asl-dashboard-maps-key" class="form-control" value="<?php echo esc_attr($all_configs['api_key']); ?>" placeholder="Paste your Google Maps API key"><button type="button" id="asl-toggle-maps-key" aria-label="Show API key">Show</button></div><small>The key must allow Maps JavaScript API requests from this website.</small></div>
-      <div class="asl-maps-requirements"><h6>Before you connect</h6><ul><li><b>1</b>Enable the Maps JavaScript API in Google Cloud</li><li><b>2</b>Add this website to the key’s HTTP referrer restrictions</li><li><b>3</b>Make sure billing is enabled for the Google Cloud project</li></ul></div>
-      <a class="asl-maps-guide" href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/" target="_blank"><svg><use href="#asl-i-book"/></svg>View Google Maps setup guide →</a>
-      <div class="asl-maps-video"><div class="asl-maps-video-head"><h6>Video tutorial</h6><a href="https://www.youtube.com/watch?v=gJWVJsUOasg" target="_blank">Watch on YouTube →</a></div><div class="asl-maps-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/gJWVJsUOasg" title="How to configure a Google Maps API key" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div></div>
+      <fieldset class="asl-map-provider-choices">
+        <legend><?php esc_html_e('Choose a map service', 'asl_locator'); ?></legend>
+        <label class="asl-map-provider-choice"><span class="asl-map-provider-heading d-flex align-items-center"><input class="form-check-input" type="radio" name="asl-dashboard-map-provider" value="google" <?php checked('google', $asl_map_vendor); ?>><strong><?php esc_html_e('Google Maps', 'asl_locator'); ?></strong></span><small><?php esc_html_e('Use Google Maps with your API key.', 'asl_locator'); ?></small><i aria-hidden="true">✓</i></label>
+        <label class="asl-map-provider-choice"><span class="asl-map-provider-heading d-flex align-items-center"><input class="form-check-input" type="radio" name="asl-dashboard-map-provider" value="maplibre" <?php checked('maplibre', $asl_map_vendor); ?>><strong><?php esc_html_e('Free Maps (MapLibre)', 'asl_locator'); ?></strong></span><small><?php esc_html_e('Start with OpenStreetMap. No map API key required.', 'asl_locator'); ?></small><i aria-hidden="true">✓</i></label>
+      </fieldset>
+      <div class="asl-dashboard-provider-panel mt-3" data-map-provider-panel="google">
+        <div class="asl-create-field asl-maps-key-field"><label for="asl-dashboard-maps-key"><?php esc_html_e('Google Maps API key', 'asl_locator'); ?></label><div class="asl-maps-key-control"><input type="password" id="asl-dashboard-maps-key" class="form-control" value="<?php echo esc_attr($all_configs['api_key']); ?>" placeholder="<?php esc_attr_e('Paste your Google Maps API key', 'asl_locator'); ?>"><button type="button" id="asl-toggle-maps-key" aria-label="<?php esc_attr_e('Show API key', 'asl_locator'); ?>"><?php esc_html_e('Show', 'asl_locator'); ?></button></div><small><?php esc_html_e('The key must allow Maps JavaScript API requests from this website.', 'asl_locator'); ?></small></div>
+        <a class="asl-maps-guide" href="https://agilestorelocator.com/blog/enable-google-maps-api-agile-store-locator-plugin/" target="_blank" rel="noopener noreferrer"><svg><use href="#asl-i-book"/></svg><?php esc_html_e('Google Maps setup guide', 'asl_locator'); ?> →</a>
+        <div class="asl-maps-video">
+          <div class="asl-maps-video-head"><h6><?php esc_html_e('Video tutorial', 'asl_locator'); ?></h6><a href="https://www.youtube.com/watch?v=gJWVJsUOasg" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Watch on YouTube', 'asl_locator'); ?> →</a></div>
+          <div class="asl-maps-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/gJWVJsUOasg" title="<?php esc_attr_e('How to configure a Google Maps API key', 'asl_locator'); ?>" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+        </div>
+      </div>
+      <div class="asl-dashboard-provider-panel" data-map-provider-panel="maplibre">
+        <div class="asl-maplibre-summary"><strong><?php esc_html_e('Simple free setup', 'asl_locator'); ?></strong><p><?php esc_html_e('MapLibre will use OpenStreetMap tiles so you can get started without a map API key.', 'asl_locator'); ?></p></div>
+        <a class="asl-maps-guide" href="<?php echo esc_url($asl_settings_url); ?>"><svg><use href="#asl-i-map"/></svg><?php esc_html_e('Configure another MapLibre provider in ASL Settings', 'asl_locator'); ?> →</a>
+      </div>
       <div id="asl-maps-validation-canvas" class="asl-maps-validation-canvas" aria-hidden="true"></div>
     </div>
-    <div class="asl-maps-setup-footer"><button type="button" class="btn asl-create-cancel" data-bs-dismiss="sl_offcanvas">Cancel</button><button type="button" class="btn asl-maps-verify" id="asl-maps-verify">Save &amp; Verify</button></div>
+    <div class="asl-maps-setup-footer"><button type="button" class="btn asl-create-cancel" data-bs-dismiss="sl_offcanvas"><?php esc_html_e('Cancel', 'asl_locator'); ?></button><button type="button" class="btn asl-maps-verify" id="asl-maps-verify"><?php esc_html_e('Save and Verify', 'asl_locator'); ?></button></div>
   </aside>
 </div>
 
@@ -182,43 +339,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var mapsVerifyButton = document.querySelector('#asl-maps-verify');
   var mapsFeedback = document.querySelector('#asl-maps-feedback');
   var mapsKeyToggle = document.querySelector('#asl-toggle-maps-key');
-  var ratingPanel = document.querySelector('#asl-rating');
+  var mapProviderFields = document.querySelectorAll('input[name="asl-dashboard-map-provider"]');
+  var mapProviderPanels = document.querySelectorAll('[data-map-provider-panel]');
   var ajaxUrl = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
   var nonce = '<?php echo esc_js(wp_create_nonce('asl-nounce')); ?>';
-
-  if (ratingPanel) {
-    var ratingStorageKey = 'asl_dashboard_rating_prompt';
-    var ratingState = null;
-
-    try {
-      ratingState = JSON.parse(window.localStorage.getItem(ratingStorageKey));
-    } catch (error) {
-      ratingState = null;
-    }
-
-    if (ratingState && ('reviewed' === ratingState.action || ('later' === ratingState.action && ratingState.until > Date.now()))) {
-      ratingPanel.hidden = true;
-    }
-
-    ratingPanel.querySelectorAll('[data-rating-action]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var action = button.getAttribute('data-rating-action');
-        var state = {action: action};
-
-        if ('later' === action) {
-          state.until = Date.now() + (7 * 24 * 60 * 60 * 1000);
-        }
-
-        try {
-          window.localStorage.setItem(ratingStorageKey, JSON.stringify(state));
-        } catch (error) {
-          // The prompt can still be dismissed for this page view when storage is unavailable.
-        }
-
-        ratingPanel.hidden = true;
-      });
-    });
-  }
 
   function aslPost(data) {
     data.action = 'asl_ajax_handler';
@@ -330,6 +454,26 @@ document.addEventListener('DOMContentLoaded', function () {
     return Promise.resolve();
   }
 
+  function selectedMapProvider() {
+    var selected = document.querySelector('input[name="asl-dashboard-map-provider"]:checked');
+    return selected ? selected.value : 'google';
+  }
+
+  function updateMapProviderSetup() {
+    var provider = selectedMapProvider();
+    mapProviderFields.forEach(function (field) {
+      field.closest('.asl-map-provider-choice').classList.toggle('is-selected', field.checked);
+    });
+    mapProviderPanels.forEach(function (panel) {
+      panel.hidden = panel.getAttribute('data-map-provider-panel') !== provider;
+    });
+    if (mapsVerifyButton) {
+      mapsVerifyButton.textContent = provider === 'maplibre'
+        ? '<?php echo esc_js(__('Use Free Maps', 'asl_locator')); ?>'
+        : '<?php echo esc_js(__('Save and Verify', 'asl_locator')); ?>';
+    }
+  }
+
   copyButtons.forEach(function (copyButton) {
     copyButton.addEventListener('click', function () {
       var originalContent = copyButton.innerHTML;
@@ -406,48 +550,59 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  mapProviderFields.forEach(function (field) {
+    field.addEventListener('change', updateMapProviderSetup);
+  });
+  updateMapProviderSetup();
+
   if (mapsVerifyButton && mapsKeyField && mapsFeedback) {
     mapsVerifyButton.addEventListener('click', function () {
+      var provider = selectedMapProvider();
       var apiKey = mapsKeyField.value.trim();
       mapsFeedback.className = 'asl-maps-feedback';
       mapsFeedback.textContent = '';
 
-      if (!apiKey) {
+      if (provider === 'google' && !apiKey) {
         mapsFeedback.classList.add('is-error');
-        mapsFeedback.textContent = 'Please enter a Google Maps API key.';
+        mapsFeedback.textContent = '<?php echo esc_js(__('Please enter a Google Maps API key.', 'asl_locator')); ?>';
         mapsKeyField.focus();
         return;
       }
 
       mapsVerifyButton.disabled = true;
-      mapsVerifyButton.textContent = 'Saving…';
+      mapsVerifyButton.textContent = '<?php echo esc_js(__('Saving…', 'asl_locator')); ?>';
       aslPost({
         'sl-action': 'save_setting',
-        dashboard_google_maps_setup: '1',
+        dashboard_map_provider_setup: '1',
+        map_provider: provider,
         'data[api_key]': apiKey
       }).then(function (response) {
-        if (!response.success) throw new Error(response.error || response.msg || 'Unable to save the API key.');
-        mapsVerifyButton.textContent = 'Verifying…';
+        if (!response.success) throw new Error(response.error || response.msg || '<?php echo esc_js(__('Unable to save the map provider.', 'asl_locator')); ?>');
+        if (provider === 'maplibre') return null;
+        mapsVerifyButton.textContent = '<?php echo esc_js(__('Verifying…', 'asl_locator')); ?>';
         mapsFeedback.classList.add('is-loading');
-        mapsFeedback.textContent = 'Testing the Maps JavaScript API configuration…';
+        mapsFeedback.textContent = '<?php echo esc_js(__('Testing the Maps JavaScript API configuration…', 'asl_locator')); ?>';
         return validateMapsJavaScriptKey(apiKey);
       }).then(function () {
+        if (provider === 'maplibre') return null;
         return aslPost({
           'sl-action': 'save_onboarding_step',
           step: 'connect_google_maps',
           completed: '1'
         });
       }).then(function (response) {
-        if (!response.success) throw new Error(response.error || 'Unable to save the connected state.');
+        if (provider === 'google' && (!response || !response.success)) throw new Error((response && response.error) || '<?php echo esc_js(__('Unable to save the connected state.', 'asl_locator')); ?>');
         mapsFeedback.className = 'asl-maps-feedback is-success';
-        mapsFeedback.textContent = 'Google Maps connected successfully.';
-        mapsVerifyButton.textContent = 'Connected ✓';
+        mapsFeedback.textContent = provider === 'maplibre'
+          ? '<?php echo esc_js(__('Free Maps enabled successfully.', 'asl_locator')); ?>'
+          : '<?php echo esc_js(__('Google Maps connected successfully.', 'asl_locator')); ?>';
+        mapsVerifyButton.textContent = '<?php echo esc_js(__('Ready ✓', 'asl_locator')); ?>';
         setTimeout(function () { window.location.reload(); }, 900);
       }).catch(function (error) {
         mapsFeedback.className = 'asl-maps-feedback is-error';
-        mapsFeedback.textContent = error.message || 'Google Maps could not be verified.';
+        mapsFeedback.textContent = error.message || '<?php echo esc_js(__('The map service could not be configured.', 'asl_locator')); ?>';
         mapsVerifyButton.disabled = false;
-        mapsVerifyButton.textContent = 'Save & Verify';
+        updateMapProviderSetup();
       });
     });
   }

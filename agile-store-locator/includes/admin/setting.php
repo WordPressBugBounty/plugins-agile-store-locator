@@ -12,7 +12,7 @@ use AgileStoreLocator\Admin\Base;
  * The settings manager including UI, templates, cache etc functionality of the plugin.
  *
  * @link       https://agilestorelocator.com
- * @since      1.4.3
+ * @since      4.7.32
  *
  * @package    AgileStoreLocator
  * @subpackage AgileStoreLocator/Admin/Setting
@@ -110,22 +110,18 @@ class Setting extends Base
      * [save_setting save ASL Setting]
      * @return [type] [description]
      */
-    public function save_setting()
-    {
-        global $wpdb;
+  public function save_setting()
+  {
+      global $wpdb;
 
-        // Focused dashboard onboarding request: save only the browser Maps API key.
-        if (isset($_POST['dashboard_google_maps_setup']) && '1' === sanitize_text_field(wp_unslash($_POST['dashboard_google_maps_setup']))) {
-            return $this->save_dashboard_google_maps_key();
-        }
+      if (isset($_POST['dashboard_map_provider_setup']) && '1' === sanitize_text_field(wp_unslash($_POST['dashboard_map_provider_setup']))) {
+          return $this->save_dashboard_map_provider();
+      }
 
         $response  = new \stdclass();
 
         //  Settings data
         $data_     = isset($_POST['data']) ? stripslashes_deep($_POST['data']) : [];
-        $previous_api_key = array_key_exists('api_key', $data_)
-            ? (string) $wpdb->get_var("SELECT `value` FROM " . ASL_PREFIX . "configs WHERE `key` = 'api_key'")
-            : null;
 
         //  Custom Map Style
         $custom_map_style = isset($_POST['map_style']) ? wp_unslash($_POST['map_style']) : '';
@@ -164,16 +160,33 @@ class Setting extends Base
 
         //  Loop over the setting items
         foreach ($keys as $key) {
-            $wpdb->update(
+            $updated = $wpdb->update(
                 ASL_PREFIX . 'configs',
                 ['value' => $data_[$key]],
                 ['key'   => $key]
             );
+
+            if (0 === $updated && in_array($key, ['map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'search_provider', 'geoapify_api_key', 'mapbox_access_token', 'hide_search'], true)) {
+                $exists = $wpdb->get_var($wpdb->prepare(
+                    'SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s',
+                    $key
+                ));
+
+                if (!$exists) {
+                    $wpdb->insert(ASL_PREFIX . 'configs', [
+                        'key'   => $key,
+                        'value' => $data_[$key],
+                    ]);
+                }
+            }
         }
 
-        // A changed browser key must pass validation again before Step 1 is complete.
-        if (null !== $previous_api_key && $previous_api_key !== (string) $data_['api_key']) {
-            Dashboard::set_onboarding_step('connect_google_maps', false);
+        //  register/de-register the schedule post jobs
+        if (isset($data_['store_schedule'])) {
+            $schedule_status = ($data_['store_schedule'] == '1') ? true : false;
+
+            //  Either enable or disable the job
+            \AgileStoreLocator\Admin\Schedule::schedule_stores_job($schedule_status);
         }
 
         //  Custom Map Style
@@ -235,44 +248,59 @@ class Setting extends Base
     }
 
     /**
-     * Save the browser Google Maps API key from the focused dashboard setup.
-     * Validation happens in the browser so referrer-restricted keys are tested
-     * in the context where the Maps JavaScript API will actually run.
+     * Save the simple map-provider choice from dashboard onboarding.
      */
-    private function save_dashboard_google_maps_key()
+    private function save_dashboard_map_provider()
     {
         global $wpdb;
 
-        $api_key = isset($_POST['data']['api_key'])
-            ? sanitize_text_field(wp_unslash($_POST['data']['api_key']))
-            : '';
+        $provider = isset($_POST['map_provider']) ? sanitize_key(wp_unslash($_POST['map_provider'])) : '';
+        $api_key = isset($_POST['data']['api_key']) ? sanitize_text_field(wp_unslash($_POST['data']['api_key'])) : '';
 
-        if ('' === $api_key) {
-            return $this->send_response([
-                'success' => false,
-                'error'   => esc_attr__('Please enter a Google Maps API key.', 'asl_locator'),
-            ]);
+        if (!in_array($provider, ['google', 'maplibre'], true)) {
+            return $this->send_response(['success' => false, 'error' => esc_attr__('Please select a valid map provider.', 'asl_locator')]);
         }
 
-        $updated = $wpdb->update(
-            ASL_PREFIX . 'configs',
-            ['value' => $api_key],
-            ['key' => 'api_key']
-        );
-
-        if (false === $updated) {
-            return $this->send_response([
-                'success' => false,
-                'error'   => esc_attr__('Unable to save the Google Maps API key.', 'asl_locator'),
-            ]);
+        if ('google' === $provider && '' === $api_key) {
+            return $this->send_response(['success' => false, 'error' => esc_attr__('Please enter a Google Maps API key.', 'asl_locator')]);
         }
 
-        // Saving a key never proves it works. Validation must set this true.
-        Dashboard::set_onboarding_step('connect_google_maps', false);
+        $config_values = ['map_vendor' => $provider];
+
+        if ('google' === $provider) {
+            $config_values['api_key'] = $api_key;
+        } else {
+            $config_values['tile_provider'] = 'osm';
+            $config_values['tile_provider_style'] = 'default';
+            $config_values['maplibre_style_url'] = '';
+        }
+
+        foreach ($config_values as $key => $value) {
+            $updated = $wpdb->update(ASL_PREFIX . 'configs', ['value' => $value], ['key' => $key]);
+
+            if (false === $updated) {
+                return $this->send_response(['success' => false, 'error' => esc_attr__('Unable to save the map provider.', 'asl_locator')]);
+            }
+
+            if (0 === $updated) {
+                $exists = $wpdb->get_var($wpdb->prepare(
+                    'SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s',
+                    $key
+                ));
+
+                if (!$exists && false === $wpdb->insert(ASL_PREFIX . 'configs', ['key' => $key, 'value' => $value])) {
+                    return $this->send_response(['success' => false, 'error' => esc_attr__('Unable to save the map provider.', 'asl_locator')]);
+                }
+            }
+        }
+
+        Dashboard::set_onboarding_step('connect_google_maps', 'maplibre' === $provider);
 
         return $this->send_response([
             'success' => true,
-            'msg'     => esc_attr__('Google Maps API key saved. Verifying configuration…', 'asl_locator'),
+            'msg'     => 'maplibre' === $provider
+                ? esc_attr__('Free Maps enabled.', 'asl_locator')
+                : esc_attr__('Google Maps API key saved. Verifying configuration…', 'asl_locator'),
         ]);
     }
 
@@ -447,6 +475,19 @@ class Setting extends Base
             }
         }
 
+        // CASE 2: cards-templates
+        elseif ($template === 'cards-templates') {
+
+            $view_file_path = $this->get_custom_template_file_path($template, $section, true);
+
+            if ($view_file_path) {
+                $html = file_get_contents($view_file_path);
+            }
+            else {
+                $response->error = esc_html__('Template file not found or invalid.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
 
         if (!empty($html)) {
             $response->html    = $html; // allow raw HTML from trusted editor
@@ -622,11 +663,31 @@ class Setting extends Base
             return false;
         }
 
+        if ($template === 'cards-templates') {
+            $filename = sanitize_file_name($section) . '.php';
+
+            if ($allow_theme_override) {
+                $theme_file = locate_template([$filename]);
+
+                if ($theme_file && $this->is_path_within_allowed_bases($theme_file, [get_stylesheet_directory(), get_template_directory()])) {
+                    return realpath($theme_file);
+                }
+            }
+
+            $view_file_path = ASL_PLUGIN_PATH . 'public/partials/' . $filename;
+
+            return $this->is_path_within_allowed_bases($view_file_path, [ASL_PLUGIN_PATH . 'public/partials']) ? realpath($view_file_path) : false;
+        }
+
         $view_file_path = \AgileStoreLocator\Helper::get_customizer_file_path($template, $section);
         $allowed_bases  = [ASL_PLUGIN_PATH . 'public/views'];
 
         if (defined('WP_PLUGIN_DIR')) {
             $allowed_bases[] = WP_PLUGIN_DIR;
+        }
+
+        if (defined('WPMU_PLUGIN_DIR')) {
+            $allowed_bases[] = WPMU_PLUGIN_DIR;
         }
 
         $allowed_bases = apply_filters('asl_customizer_allowed_view_base_paths', $allowed_bases, $template, $section, $view_file_path);
@@ -661,69 +722,6 @@ class Setting extends Base
     }
 
     /**
-     * [add_cards_shortcode_presets Save Shortcode Presets]
-     * @return [type] [description]
-     */
-    public function cards_shortcode_presets()
-    {
-        $response          = new \stdclass();
-        $response->success = false;
-        $db_action         = $_POST['db_action'];
-        $shortcode_preset  = $_POST['shortcode'];
-
-        // Retrive Shortcodes from DB
-        $cards_shortcode_presets = \AgileStoreLocator\Helper::get_setting('cards_shortcode_presets', 'cards_shortcode_presets');
-        $cards_shortcode_presets = $cards_shortcode_presets ? maybe_unserialize($cards_shortcode_presets) : [];
-
-        $target_key      = array_search($shortcode_preset, $cards_shortcode_presets);
-        $shortcode_exist = $target_key !== false ? true : false;
-
-        switch ($db_action) {
-            case 'add':
-                $cards_shortcode_presets[] = $shortcode_preset;
-                $succss_msg                = 'Shortcode Presets have been Successfully Saved!';
-                break;
-
-            case 'edit':
-                if ($shortcode_exist) {
-                    $cards_shortcode_presets[$target_key] = $_POST['updated_shortcode'];
-                    $succss_msg                           = 'Shortcode Presets have been Successfully Updated!';
-                } else {
-                    $cards_shortcode_presets[] = $_POST['updated_shortcode'];
-                    $succss_msg                = 'Shortcode have not been found to edit!, added instead';
-                    // return $response;
-                }
-                break;
-
-            case 'delete':
-                if ($shortcode_exist) {
-                    unset($cards_shortcode_presets[$target_key]);
-                    $succss_msg = 'Shortcode Presets have been Successfully Deleted!';
-                } else {
-                    $succss_msg    = 'Shortcode have not been found!';
-                    $response->msg = esc_attr__($succss_msg, 'asl_locator');
-                    return $response;
-                }
-                break;
-        }
-
-        // Remove Duplicate Items from Array
-        $cards_shortcode_presets = array_unique($cards_shortcode_presets);
-        // Reset Index Keys
-        $cards_shortcode_presets = array_values($cards_shortcode_presets);
-
-        $db_response = \AgileStoreLocator\Helper::set_setting(maybe_serialize($cards_shortcode_presets), 'cards_shortcode_presets', 'cards_shortcode_presets');
-
-        if ($db_response) {
-            $response->data    = $cards_shortcode_presets[$target_key];
-            $response->success = true;
-            $response->msg     = esc_attr__($succss_msg, 'asl_locator');
-        }
-
-        return $response;
-    }
-
-    /**
      * [load_ui_settings Load ASL Custom Template]
      * @return [type] [description]
      */
@@ -755,6 +753,141 @@ class Setting extends Base
                 'list-sub-title'    => '',
                 'highlighted'       => ''
             ],
+            'template-1' => [
+                'primary'           => 'clr-primary',
+                'secondary'         => '',
+                'header'            => 'clr-copy',
+                'header-color'      => '',
+                'infobox-color'     => '',
+                'infobox-bg'        => '',
+                'infobox-a'         => 'clr-copy',
+                'search-btn-color'  => '',
+                'search-btn-bg'     => 'clr-copy',
+                'action-btn-color'  => '',
+                'action-btn-bg'     => 'clr-copy',
+                'color'             => '',
+                'list-bg'           => '',
+                'list-title'        => 'clr-copy',
+                'list-sub-title'    => '',
+                'highlighted'       => ''
+            ],
+            'template-2' => [
+                'primary'                => 'clr-primary',
+                'header'                 => 'clr-copy',
+                'header-color'           => '',
+                'infobox-color'          => '',
+                'infobox-bg'             => '',
+                'infobox-a'              => 'clr-copy',
+                'action-btn-color'       => '',
+                'action-btn-bg'          => 'clr-copy',
+                'color'                  => '',
+                'list-bg'                => '',
+                'list-title'             => 'clr-copy',
+                'list-sub-title'         => '',
+                'highlighted'            => '',
+                'highlighted-list-color' => 'clr-copy'
+            ],
+            'template-3' => [
+                'primary'                 => 'clr-primary',
+                'infobox-color'           => '',
+                'infobox-bg'              => '',
+                'infobox-a'               => 'clr-copy',
+                'action-btn-color'        => '',
+                'action-btn-bg'           => 'clr-copy',
+                'color'                   => '',
+                'list-bg'                 => '',
+                'list-title'              => '',
+                'list-sub-title'          => '',
+                'highlighted'             => ''
+            ],
+            'template-4'  => [
+                'primary'           => 'clr-primary',
+                'header'            => '',
+                'header-color'      => '',
+                'infobox-color'     => '',
+                'infobox-bg'        => '',
+                'infobox-a'         => 'clr-copy',
+                'action-btn-color'  => '',
+                'action-btn-bg'     => 'clr-copy',
+                'color'             => '',
+                'list-bg'           => '',
+                'list-title'        => '',
+                'list-sub-title'    => '',
+                'highlighted'       => ''
+            ],
+            'template-5'  => [
+                'primary'           => 'clr-primary',
+                'header'            => '',
+                'marker-color'      => 'clr-copy',
+                'header-color'      => '',
+                'head-sub-title'    => '',
+                'infobox-color'     => '',
+                'infobox-bg'        => '',
+                'infobox-a'         => 'clr-copy',
+                'action-btn-color'  => '',
+                'action-btn-bg'     => 'clr-copy',
+                'color'             => '',
+                'list-bg'           => '',
+                'list-title'        => '',
+                'list-sub-title'    => '',
+                'highlighted'       => ''
+            ],
+            'template-6'  => [
+                // 'primary'           => 'clr-primary',
+                // 'header'            => '',
+                // 'marker-color'      => 'clr-copy',
+                // 'header-color'      => '',
+                // 'head-sub-title'    => '',
+                // 'infobox-color'     => '',
+                // 'infobox-bg'        => '',
+                // 'infobox-a'         => 'clr-copy',
+                // 'action-btn-color'  => '',
+                // 'action-btn-bg'     => 'clr-copy',
+                // 'color'             => '',
+                // 'list-bg'           => '',
+                // 'list-title'        => '',
+                // 'list-sub-title'    => '',
+                // 'highlighted'       => ''
+                'primary'                   => 'clr-primary', 
+                'list-panel-bg'             => 'light-90',  
+                'btn-bg-color'              => 'clr-copy',  
+                'btn-color'                 => '',  
+                'heading-color'             => 'clr-copy',  
+                'input-color'               => '',  
+                'color'                     => 'clr-copy',  
+                'state-btn-color'           => 'clr-copy',  
+                'state-btn-bg-color'        => '',  
+                'state-active-btn-color'    => '',  
+                'state-active-btn-bg-color' => 'clr-copy',  
+                'state-label-shadow-color'  => 'clr-copy',  
+                'state-label-color'         => '',  
+                'list-bg'                   => '',  
+                'highlighted'               => '',  
+                'list-title'                => 'clr-copy',  
+                'list-order-btn-color'      => '',  
+                'list-order-btn-bg-color'   => 'clr-copy',  
+                'list-font-color'           => 'clr-copy',  
+                'action-btn-bg'             => 'clr-copy',  
+                'action-btn-color'          => '',  
+            ],
+            'template-list' => [
+                'primary'                 => 'clr-primary',
+                'action-btn-color'        => '',
+                'action-btn-bg'           => 'clr-copy',
+                'color'                   => '',
+                'list-bg'                 => '',
+                'list-title'              => ''
+            ],
+            'template-list-2' => [
+                'primary'           => 'clr-primary',
+                'panel-background'   => '',
+                'card-background'   => '',
+                'action-btn-color'  => '',
+                'action-btn-bg'     => 'clr-copy',
+                'color'             => '',
+                'list-bg'           => '',
+                'list-title'        => ''
+            ],
             'template-wc'  => [
                 'primary'                => 'clr-primary',
                 'button-color'           => '',
@@ -781,6 +914,34 @@ class Setting extends Base
         $tmpl_0_header_color    = '#32373c';
         $tmpl_0_highlighted     = '#F7F7F7';
 
+        $tmpl_1_primary         = '#000000';
+        $tmpl_1_secondary       = '#EF5A28';
+        $tmpl_1_title_color     = '#32373c';
+        $tmpl_1_sub_title_color = '#6a6a6a';
+        $tmpl_1_list_color      = '#555d66';
+        $tmpl_1_header_bg       = $tmpl_1_primary;
+        $tmpl_1_highlighted     = '#F7F7F7';
+
+        $tmpl_2_primary         = '#cb2800';
+        $tmpl_2_secondary       = '#cb2800';
+        $tmpl_2_title_color     = '#32373c';
+        $tmpl_2_sub_title_color = '#6a6a6a';
+        $tmpl_2_list_color      = '#555d66';
+        $tmpl_2_header_bg       = '#F7F7F7';
+        $tmpl_2_highlighted     = '#F7F7F7';
+
+        $tmpl_3_primary         = '#cb2800';
+        $tmpl_3_title_color     = '#32373c';
+        $tmpl_3_sub_title_color = '#6a6a6a';
+        $tmpl_3_list_color      = '#555d66';
+        $tmpl_3_header_bg       = '#F7F7F7';
+        $tmpl_3_highlighted     = '#F7F7F7';
+
+        $tmpl_6_header_bg       = '#fff6ec';
+        $tmpl_6_primary         = '#002e5f';
+        $tmpl_6_input_color     = '#ffffff';
+        
+
 
         //  the default colors that will load with the customizer
         $default_colors = [
@@ -803,6 +964,147 @@ class Setting extends Base
                 'highlighted'            => $tmpl_0_highlighted,
                 'highlighted-list-color' => $tmpl_0_primary
             ],
+            'template-1' => [
+                'primary'                => $tmpl_1_primary,
+                'secondary'              => $tmpl_1_secondary,
+                'header'                 => $tmpl_1_header_bg,
+                'header-color'           => $tmpl_1_list_color,
+                'infobox-color'          => $tmpl_1_list_color,
+                'infobox-bg'             => $white,
+                'infobox-a'              => $tmpl_1_primary,
+                'search-btn-color'       => $white,
+                'search-btn-bg'          => $tmpl_1_primary,
+                'action-btn-color'       => $white,
+                'action-btn-bg'          => $tmpl_1_primary,
+                'color'                  => $tmpl_1_list_color,
+                'list-bg'                => $white,
+                'list-title'             => $tmpl_1_title_color,
+                'list-sub-title'         => $tmpl_1_sub_title_color,
+                'highlighted'            => $tmpl_1_highlighted,
+                'highlighted-list-color' => $tmpl_1_primary
+            ],
+            'template-2' => [
+                'primary'                => $tmpl_2_primary,
+                'header'                 => $tmpl_2_header_bg,
+                'header-color'           => $tmpl_2_list_color,
+                'infobox-color'          => $tmpl_2_list_color,
+                'infobox-bg'             => $white,
+                'infobox-a'              => $tmpl_2_primary,
+                'action-btn-color'       => $white,
+                'action-btn-bg'          => $tmpl_2_primary,
+                'color'                  => $tmpl_2_list_color,
+                'list-bg'                => $white,
+                'list-title'             => $tmpl_2_title_color,
+                'list-sub-title'         => $tmpl_2_sub_title_color,
+                'highlighted'            => $tmpl_2_highlighted,
+                'highlighted-list-color' => $tmpl_2_primary
+            ],
+            'template-3'  => [
+                'primary'                => $tmpl_3_primary,
+                'header'                 => $tmpl_3_header_bg,
+                'header-color'           => $tmpl_3_primary,
+                'infobox-color'          => $tmpl_0_list_color,
+                'infobox-bg'             => $white,
+                'infobox-a'              => $tmpl_3_primary,
+                'action-btn-color'       => $white,
+                'action-btn-bg'          => $tmpl_3_primary,
+                'color'                  => $tmpl_3_list_color,
+                'list-bg'                => $white,
+                'list-title'             => $tmpl_3_title_color,
+                'list-sub-title'         => $tmpl_3_sub_title_color,
+                'highlighted'            => $tmpl_3_highlighted,
+                'highlighted-list-color' => $tmpl_3_primary
+            ],
+            'template-4'  => [
+                'primary'                => $tmpl_0_primary,
+                'header'                 => $tmpl_0_header_bg,
+                'header-color'           => $tmpl_0_header_color,
+                'infobox-color'          => $tmpl_0_list_color,
+                'infobox-bg'             => $white,
+                'infobox-a'              => $tmpl_0_primary,
+                'action-btn-color'       => $white,
+                'action-btn-bg'          => $tmpl_0_primary,
+                'color'                  => $tmpl_0_list_color,
+                'list-bg'                => $white,
+                'list-title'             => $tmpl_0_title_color,
+                'list-sub-title'         => $tmpl_0_sub_title_color,
+                'highlighted'            => $tmpl_0_highlighted,
+                'highlighted-list-color' => $tmpl_0_primary
+            ],
+            'template-5'  => [
+                'primary'                => $tmpl_0_primary,
+                'header'                 => $white,
+                'marker-color'           => $tmpl_0_primary,
+                'head-sub-title'         => $tmpl_0_list_color,
+                'infobox-color'          => $tmpl_0_list_color,
+                'infobox-bg'             => $white,
+                'infobox-a'              => $tmpl_0_primary,
+                'action-btn-color'       => $white,
+                'action-btn-bg'          => $tmpl_0_primary,
+                'color'                  => $tmpl_0_list_color,
+                'list-bg'                => $white,
+                'list-title'             => $tmpl_0_title_color,
+                'highlighted'            => $tmpl_0_highlighted,
+                'highlighted-list-color' => $tmpl_0_primary
+            ],
+            'template-6'  => [
+                // 'primary'                => $tmpl_6_primary,
+                // 'header'                 => $tmpl_6_header_bg,
+                // 'marker-color'           => $tmpl_6_primary,
+                // 'btn-bg-color'           => $tmpl_6_btn_bg_color,
+                // 'head-sub-title'         => $tmpl_6_list_color,
+                // 'infobox-color'          => $tmpl_6_list_color,
+                // 'infobox-bg'             => $white,
+                // 'infobox-a'              => $tmpl_6_primary,
+                // 'action-btn-color'       => $white,
+                // 'action-btn-bg'          => $tmpl_6_primary,
+                // 'color'                  => $tmpl_6_list_color,
+                // 'list-bg'                => $white,
+                // 'list-title'             => $tmpl_6_title_color,
+                // 'highlighted'            => $tmpl_6_highlighted,
+                // 'highlighted-list-color' => $tmpl_6_primary
+                'primary'                   => $tmpl_6_primary,
+                'list-panel-bg'             => $tmpl_6_header_bg,
+                'btn-bg-color'              => $tmpl_6_primary,
+                'btn-color'                 => $white,
+                'heading-color'             => $tmpl_6_primary,
+                'input-color'               => $tmpl_6_input_color,
+                'color'                     => $tmpl_6_primary,
+                'state-btn-color'           => $tmpl_6_primary,
+                'state-btn-bg-color'        => $white,
+                'state-active-btn-color'    => $white,
+                'state-active-btn-bg-color' => $tmpl_6_primary,
+                'state-label-shadow-color'  => $tmpl_6_primary,
+                'state-label-color'         => $white,
+                'list-bg'                   => $white,
+                'highlighted'               => $light_gray,
+                'list-title'                => $tmpl_6_primary,
+                'list-order-btn-color'      => $white,
+                'list-order-btn-bg-color'   => $tmpl_6_primary,
+                'list-font-color'           => $tmpl_6_primary,
+                'action-btn-bg'             => $tmpl_6_primary,
+                'action-btn-color'          => $white,
+            ],
+            'template-list'  => [
+                'primary'           => $tmpl_3_primary,
+                'action-btn-color'  => $white,
+                'action-btn-bg'     => $tmpl_3_primary,
+                'color'             => $tmpl_3_list_color,
+                'list-bg'           => $white,
+                'list-title'        => $tmpl_3_title_color,
+                'highlighted'       => $tmpl_3_highlighted
+            ],
+            'template-list-2'  => [
+                'primary'           => $tmpl_3_primary,
+                'panel-background'  =>  '#f8f9fb', 
+                'card-background'   => $white,
+                'action-btn-color'  => $white,
+                'action-btn-bg'     => $tmpl_3_primary,
+                'color'             => $tmpl_3_list_color,
+                'list-bg'           => $white,
+                'list-title'        => $tmpl_3_title_color,
+                'highlighted'       => $tmpl_3_highlighted
+            ],
             'template-wc'  => [
                 'primary'                => $tmpl_0_primary,
                 'button-color'           => $white,
@@ -822,7 +1124,72 @@ class Setting extends Base
                 'font-size'     => 13,
                 'btn-size'      => 14,
                 'label-size'    => 16,
+                'input-size'    => 16,
+                'radius-size'   => 6
+            ],
+            'template-1'  => [
+                'title-size'        => 18,
+                'sub-title-size'    => 15,
+                'font-size'     => 13,
+                'btn-size'      => 14,
+                'label-size'    => 16,
                 'input-size'    => 16
+            ],
+            'template-2'  => [
+                'title-size'  => 16,
+                'font-size'   => 13,
+                'btn-size'    => 14,
+                'label-size'    => 16,
+                'input-size'    => 16
+            ],
+            'template-3'  => [
+                'title-size'  => 15,
+                'font-size'   => 13,
+                'btn-size'    => 14,
+                'label-size'    => 16,
+                'input-size'    => 16
+            ],
+            'template-4'  => [
+                'heading-size'   => 20,
+                'font-size'   => 13,
+                'title-size'  => 15,
+                'btn-size'    => 14,
+                'label-size'  => 16,
+                'input-size'  => 16
+            ],
+            'template-5'  => [
+                'heading-size'      => 40,
+                'heading-sub-size'  => 22,
+                'font-size'         => 15,
+                'title-size'        => 22,
+                'btn-size'          => 15,
+                'input-size'        => 16,
+                'list-title-size'   => 22,
+                'tag-size'          => 13,
+                'small-size'        => 13
+            ],
+            'template-6'  => [
+                'heading-size'         => 30, 
+                'state-btn-size'       => 16, 
+                'state-label-size'     => 20, 
+                'title-size'           => 22,
+                'font-size'            => 15,
+                'action-btn-size'      => 15,
+                'btn-size'             => 15, 
+                'tag-size'             => 13, 
+                'small-size'           => 13, 
+            ],
+            'template-list'  => [
+                'font-size'        => 13,
+                'title-size'       => 18,
+                'list-title-size'  => 18,
+                'btn-size'         => 13
+            ],
+            'template-list-2'  => [
+                'font-size'        => 13,
+                'title-size'       => 18,
+                'list-title-size'  => 18,
+                'btn-size'         => 13
             ],
             'template-wc'  => [
                 'font-size'         => 13,
@@ -837,6 +1204,7 @@ class Setting extends Base
             'heading-sub-size'  => 'Heading Para Font',
             'label-size'        => 'Label Font',
             'input-size'        => 'Input Font',
+            'radius-size'     => 'Border Radius',
             'tag-size'          => 'Category Tags Font',
             'small-size'        => 'Description Font',
             'font-size'         => 'Content Font',
@@ -917,16 +1285,14 @@ class Setting extends Base
 
         $data     = json_encode($data_);
 
-        $saved = \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
+      $saved = \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
 
-        if (false === $saved) {
-            $response->error = esc_attr__('Unable to save the template settings.', 'asl_locator');
+      if (false === $saved) {
+          $response->error = esc_attr__('Unable to save the template settings.', 'asl_locator');
+          return $this->send_response($response);
+      }
 
-            return $this->send_response($response);
-        }
-
-        // Completing the Color Customizer save finishes the final onboarding step.
-        Dashboard::set_onboarding_step('customize_locator', true);
+      Dashboard::set_onboarding_step('customize_locator', true);
 
         $response->msg     = esc_attr__('Template updated', 'asl_locator');
         $response->success = true;

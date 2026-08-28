@@ -1,0 +1,33 @@
+.asl-more-features {
+  padding: 20px 12px 16px;
+  margin: 25px 0;
+}
+.asl-more-features__heading { padding: 0 4px 10px; }
+.asl-more-features__heading h2 { margin: 0 0 3px; font-size: 17px; line-height: 1.25; font-weight: 750; }
+.asl-more-features__heading p { margin: 0; color: #526075; font-size: 12px; }
+.asl-more-features__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.asl-feature-card { min-width: 0; min-height: 154px; padding: 13px 10px; display: flex; align-items: flex-start; gap: 10px; border: 1px solid #e3e9f0; border-radius: 9px; box-shadow: 0 2px 7px rgba(23, 43, 77, .035); }
+.asl-feature-card > i { flex: 0 0 44px; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 10px; }
+.asl-feature-card > i svg { width: 27px; height: 27px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.asl-feature-card > div { min-width: 0; min-height: 126px; display: flex; flex-direction: column; align-items: flex-start; }
+.asl-feature-card h3 { margin: 1px 0 8px; color: #111827; font-size: 12px; line-height: 1.35; font-weight: 750; }
+.asl-feature-card p { margin: 0 0 8px; color: #3f4b5f; font-size: 10.5px; line-height: 1.55; }
+.asl-feature-card a { margin-top: auto; padding: 6px 10px; color: currentColor; background: #fff; border: 1px solid #dce4ee; border-radius: 5px; box-shadow: 0 1px 2px rgba(0, 0, 0, .03); font-size: 11px; font-weight: 650; }
+.asl-feature-card a span { margin-left: 5px; }
+.feature-import { color: #16aa64; }
+.feature-import > i { background: #e9f9f0; }
+.feature-search { color: #075ee3; }
+.feature-search > i { background: #edf4ff; }
+.feature-register { color: #7c3de0; }
+.feature-register > i { background: #f3edff; }
+.feature-details { color: #f06414; }
+.feature-details > i { background: #fff0e8; }
+.feature-lead { color: #0ca7b6; }
+.feature-lead > i { background: #e7f8fa; }
+
+@media (max-width: 1100px) {
+  .asl-more-features__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 782px) {
+  .asl-more-features__grid { grid-template-columns: 1fr; }
+}

@@ -11,6 +11,9 @@ defined('ABSPATH') || exit;
  */
 class ASLRankMath implements Provider
 {
+    private static $store = null;
+    private static $store_resolved = false;
+
     /**
      * [get_asl_slug Get the asl slug]
      * @return [type] [description]
@@ -112,16 +115,64 @@ class ASLRankMath implements Provider
      */
     public static function update_page_title_by_store_slug($title)
     {
-        $store_uri = get_query_var('sl-store', false);
+        $store = self::get_store();
 
-        if ($store_uri) {
-            $store_details = \AgileStoreLocator\Model\Store::get_store_id_via_slug();
+        return $store && !empty($store->title)
+            ? sanitize_text_field($store->title)
+            : $title;
+    }
 
-            if ($store_details) {
-                $title = $title . $store_details->title;
+    /**
+     * Replace the detail page description with the store description.
+     */
+    public static function update_page_description_by_store_slug($description)
+    {
+        $store = self::get_store();
+
+        if (!$store) {
+            return $description;
+        }
+
+        $store_description = !empty($store->description)
+            ? $store->description
+            : (!empty($store->description_2) ? $store->description_2 : '');
+
+        if (!$store_description) {
+            return '';
+        }
+
+        $store_description = html_entity_decode(
+            $store_description,
+            ENT_QUOTES,
+            get_bloginfo('charset') ?: 'UTF-8'
+        );
+
+        return trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($store_description, true)));
+    }
+
+    /**
+     * Return the store detail URL for Open Graph metadata.
+     */
+    public static function update_opengraph_url_by_store_slug($url)
+    {
+        return self::get_store()
+            ? \AgileStoreLocator\Schema\Slug::update_canonical_tag($url)
+            : $url;
+    }
+
+    /**
+     * Resolve the current store once per request.
+     */
+    private static function get_store()
+    {
+        if (!self::$store_resolved) {
+            self::$store_resolved = true;
+
+            if (get_query_var('sl-store', false)) {
+                self::$store = \AgileStoreLocator\Model\Store::get_store_id_via_slug();
             }
         }
 
-        return $title;
+        return self::$store;
     }
 }

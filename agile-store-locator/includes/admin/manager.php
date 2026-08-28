@@ -27,9 +27,12 @@ use AgileStoreLocator\Admin\Base;
  */
 class Manager extends Base {
 
-  /** Search published public content for the Internal Page Link field. */
+  /**
+   * Search published, publicly queryable content for the Internal Page Link field.
+   */
   public function search_internal_pages() {
     check_ajax_referer('asl-nounce', 'nonce');
+
     if (!current_user_can('edit_posts')) {
       wp_send_json_error(['message' => esc_html__('You are not allowed to search pages.', 'asl_locator')], 403);
     }
@@ -37,24 +40,34 @@ class Manager extends Base {
     $search = isset($_GET['search']) ? sanitize_text_field(wp_unslash($_GET['search'])) : '';
     $post_types = get_post_types(['public' => true, 'show_ui' => true], 'names');
     unset($post_types['attachment']);
+
     $query = new \WP_Query([
-      'post_type' => array_values($post_types), 'post_status' => 'publish', 'posts_per_page' => 20,
-      's' => $search, 'orderby' => $search === '' ? 'date' : 'relevance', 'order' => 'DESC',
-      'no_found_rows' => true, 'ignore_sticky_posts' => true,
-      'update_post_meta_cache' => false, 'update_post_term_cache' => false,
+      'post_type'              => array_values($post_types),
+      'post_status'            => 'publish',
+      'posts_per_page'         => 20,
+      's'                      => $search,
+      'orderby'                => $search === '' ? 'date' : 'relevance',
+      'order'                  => 'DESC',
+      'no_found_rows'          => true,
+      'ignore_sticky_posts'    => true,
+      'update_post_meta_cache' => false,
+      'update_post_term_cache' => false,
     ]);
 
     $items = [];
     foreach ($query->posts as $post) {
       $url = get_permalink($post);
-      if (!$url) continue;
-      $post_type = get_post_type_object($post->post_type);
+      if (!$url) {
+        continue;
+      }
+
       $items[] = [
         'title' => html_entity_decode(get_the_title($post), ENT_QUOTES, get_bloginfo('charset')),
-        'type' => $post_type ? $post_type->labels->singular_name : $post->post_type,
-        'url' => wp_make_link_relative($url),
+        'type'  => get_post_type_object($post->post_type)->labels->singular_name ?? $post->post_type,
+        'url'   => wp_make_link_relative($url),
       ];
     }
+
     wp_send_json_success(['items' => $items]);
   }
 
@@ -100,12 +113,13 @@ class Manager extends Base {
    */
   public function __construct( $AgileStoreLocator, $version ) {
 
-
     $this->AgileStoreLocator = $AgileStoreLocator;
     $this->version           = function_exists('wp_get_environment_type') && wp_get_environment_type() == 'development' ? time(): $version;
-    
+
+
     parent::__construct();
 
+    
     //  Not for the activation
     if(!isset($_REQUEST['action']) || $_REQUEST['action'] != 'activate') {
 
@@ -113,7 +127,10 @@ class Manager extends Base {
       $this->load_config = \AgileStoreLocator\Helper::get_configs(['rewrite_slug', 'rewrite_id', 'cf7_hook']);
 
       //  Pretty URL for the Store Locator
-      add_action('init', array($this,'rewrite_slug'));
+      add_action('init', array($this,'rewrite_slug') );
+      
+      //  Run the scheduling job
+      \AgileStoreLocator\Admin\Schedule::init();
     }
     
     // Whitelist the Variable 
@@ -125,8 +142,10 @@ class Manager extends Base {
     // Generate shortcode popup 
     add_action('admin_head', array($this,'shortcode_gen_popup'));
 
-    // shortcode registration
-    add_action('plugins_loaded', array($this,'shortcode_registration'));
+    // Shortcode registration can translate WPBakery labels, so run it after i18n is ready.
+    add_action('init', array($this,'shortcode_registration'));
+
+    
   }
 
   /**
@@ -155,18 +174,51 @@ class Manager extends Base {
       return;
     }
 
-    wp_enqueue_style( $this->AgileStoreLocator, ASL_URL_PATH . 'admin/css/bootstrap.min.css', array(), $this->version, 'all' );//$this->version
+    $asl_bootstrap_css_path = ASL_PLUGIN_PATH . 'admin/css/bootstrap.min.css';
+    $asl_bootstrap_css_ver  = file_exists($asl_bootstrap_css_path) ? filemtime($asl_bootstrap_css_path) : $this->version;
+    wp_enqueue_style( $this->AgileStoreLocator, ASL_URL_PATH . 'admin/css/bootstrap.min.css', array(), $asl_bootstrap_css_ver, 'all' );
+
     wp_enqueue_style( 'asl_chosen_plugin', ASL_URL_PATH . 'admin/css/chosen.min.css', array(), $this->version, 'all' );
+    $asl_admin_css_path = ASL_PLUGIN_PATH . 'admin/css/style.css';
+    $asl_admin_css_ver  = file_exists($asl_admin_css_path) ? filemtime($asl_admin_css_path) : $this->version;
+    wp_enqueue_style( 'asl_locator', ASL_URL_PATH . 'admin/css/style.css', array(), $asl_admin_css_ver, 'all' );
+    if (\AgileStoreLocator\Helper::expertise_level()) {
+      wp_add_inline_style( 'asl_locator', '.sl-complx { display: none !important; }' );
+    }
+    $asl_sweetalert_css_path = ASL_PLUGIN_PATH . 'admin/css/sweetalert-ui.css';
+    $asl_sweetalert_css_ver  = file_exists($asl_sweetalert_css_path) ? filemtime($asl_sweetalert_css_path) : $this->version;
+    wp_enqueue_style( 'asl_sweetalert_ui', ASL_URL_PATH . 'admin/css/sweetalert-ui.css', array('asl_locator'), $asl_sweetalert_css_ver, 'all' );
+    wp_enqueue_style( 'asl_cards', ASL_URL_PATH . 'admin/css/asl-cards.css', array(), $this->version, 'all' );
+    wp_enqueue_style( 'asl_cards_public', ASL_URL_PATH . 'public/css/cards/cards.css', array(), $this->version, 'all' );
+    wp_enqueue_style( 'fontello', ASL_URL_PATH . 'public/css/icons/fontello.css', array(), $this->version, 'all' );
+    wp_enqueue_style( 'asl_datatable2', ASL_URL_PATH . 'admin/datatable/media/css/jquery.dataTables.min.css', array(), $this->version, 'all' );
+    wp_enqueue_style( 'asl_datetimepicker', ASL_URL_PATH . 'admin/css/daterangepicker.css', array(), $this->version, 'all' );
+
+    $asl_grid_pages = array(
+      'manage-agile-store',
+      'manage-store-markers',
+      'manage-store-logos',
+      'manage-asl-categories',
+      'manage-asl-attributes',
+      'create-agile-store',
+      'edit-agile-store',
+      'asl-settings',
+      'import-store-list',
+      'customize-map',
+    );
+
+    if (in_array($asl_page, $asl_grid_pages, true)) {
+      $asl_grid_css_path = ASL_PLUGIN_PATH . 'admin/css/admin-grid.css';
+      $asl_grid_css_ver  = file_exists($asl_grid_css_path) ? filemtime($asl_grid_css_path) : $this->version;
+      wp_enqueue_style( 'asl_admin_grid', ASL_URL_PATH . 'admin/css/admin-grid.css', array('asl_locator', 'asl_datatable2'), $asl_grid_css_ver, 'all' );
+    }
 
     if ('agile-dashboard' === $asl_page) {
-      wp_enqueue_style( 'asl_dashboard', ASL_URL_PATH . 'admin/css/dashboard.css', array($this->AgileStoreLocator), $this->version, 'all' );
+      wp_enqueue_style( 'asl_dashboard', ASL_URL_PATH . 'admin/css/dashboard.css', array($this->AgileStoreLocator, 'asl_locator'), $this->version, 'all' );
       wp_enqueue_style( 'asl_dashboard_palette', ASL_URL_PATH . 'admin/css/dashboard-palette.css', array('asl_dashboard'), $this->version, 'all' );
+      wp_enqueue_style( 'asl_dashboard_features', ASL_URL_PATH . 'admin/css/dashboard-features.css', array('asl_dashboard'), $this->version, 'all' );
     }
-    else {
-      wp_enqueue_style( 'asl_locator', ASL_URL_PATH . 'admin/css/style.css', array(), $this->version, 'all' );
-    }
-    wp_enqueue_style( 'asl_datatable2', ASL_URL_PATH . 'admin/datatable/media/css/jquery.dataTables.css', array(), $this->version, 'all' );
-    wp_enqueue_style( 'asl_datetimepicker', ASL_URL_PATH . 'admin/css/daterangepicker.css', array(), $this->version, 'all' );
+
   }
 
   /**
@@ -180,12 +232,15 @@ class Manager extends Base {
     wp_register_script( 'asl-bootstrap', ASL_URL_PATH . 'admin/js/bootstrap.min.js', array('jquery'), $this->version, false );
 
     //  Store locator libraries
-    wp_register_script( $this->AgileStoreLocator.'-lib', ASL_URL_PATH . 'admin/js/libs.min.js', array('jquery'), $this->version, false );    
-    
+    wp_register_script( $this->AgileStoreLocator.'-lib', ASL_URL_PATH . 'admin/js/libs.min.js', array('jquery'), $this->version, false );
+
     //  Shortcode
     wp_register_script( $this->AgileStoreLocator.'-shortcode', ASL_URL_PATH . 'admin/js/shortcode.js', array('jquery'), $this->version, false );    
 
-    //  Chosen library
+    //  Sviper library
+    wp_register_script( $this->AgileStoreLocator.'-sviper', ASL_URL_PATH . 'admin/js/sviper.js', array('jquery'), $this->version, false );
+
+    //  CHosen library
     wp_register_script( $this->AgileStoreLocator.'-choosen', ASL_URL_PATH . 'admin/js/chosen.proto.min.js', array('jquery'), $this->version, false );
       
     //  Datatable
@@ -194,17 +249,25 @@ class Manager extends Base {
     //  Uploader
     wp_register_script( $this->AgileStoreLocator.'-upload', ASL_URL_PATH . 'admin/js/jquery.fileupload.min.js', array('jquery', 'jquery-ui-core'), $this->version, false );
 
+    //  jscript
+    $asl_jscript_path = ASL_PLUGIN_PATH . 'admin/js/jscript.js';
+    $asl_jscript_ver  = file_exists($asl_jscript_path) ? filemtime($asl_jscript_path) : $this->version;
+    wp_register_script( $this->AgileStoreLocator.'-jscript', ASL_URL_PATH . 'admin/js/jscript.js', array('jquery'), $asl_jscript_ver, false );
+    wp_register_script( $this->AgileStoreLocator.'-common-map', ASL_URL_PATH . 'public/js/asl-common-map.js', array(), $this->version, false );
+    wp_register_script( $this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/js/maplibre-gl.js', array(), $this->version, false );
+    wp_register_style( $this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/css/maplibre-gl.css', array(), $this->version );
+    wp_register_style( $this->AgileStoreLocator.'-maplibre-asl', ASL_URL_PATH . 'public/css/asl-maplibre.css', array($this->AgileStoreLocator.'-maplibre'), $this->version );
+    wp_register_style( $this->AgileStoreLocator.'-autocomplete', ASL_URL_PATH . 'public/css/asl-autocomplete.css', array(), $this->version );
+
     //  drawing
-    wp_register_script( $this->AgileStoreLocator.'-draw', ASL_URL_PATH . 'admin/js/drawing.js', array('jquery'), $this->version, true );
+    wp_register_script( $this->AgileStoreLocator.'-draw', ASL_URL_PATH . 'admin/js/drawing.js', array('jquery'), $this->version, false );
 
     //  Datetimepicker
     wp_register_script( $this->AgileStoreLocator.'-datetimepicker', ASL_URL_PATH . 'admin/js/datetimepicker.min.js', array('jquery'), $this->version, false );
+    wp_register_script( $this->AgileStoreLocator.'-daterangepicker', ASL_URL_PATH . 'admin/js/unminified/daterangepicker.js', array('jquery'), $this->version, false );
     
     //  Dashboard
     wp_register_script( $this->AgileStoreLocator.'-dashboard', ASL_URL_PATH . 'admin/js/dashboard.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datetimepicker'), $this->version, false );
-
-    //  jscript
-    wp_register_script( $this->AgileStoreLocator.'-jscript', ASL_URL_PATH . 'admin/js/jscript.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datatable', $this->AgileStoreLocator.'-draw'), $this->version, true );
 
     // UI Customizer
     wp_register_script( $this->AgileStoreLocator.'-ui-customizer', ASL_URL_PATH . 'admin/js/ui-customizer.js', array('jquery'), $this->version, true );
@@ -226,8 +289,11 @@ class Manager extends Base {
       'warn_question'     => esc_attr__('Are you sure you want to ','asl_locator'),
       'delete_it'     => esc_attr__('Delete it!','asl_locator'),
       'duplicate_it'  => esc_attr__('Duplicate it!','asl_locator'),
+      'create'        => esc_attr__('Create','asl_locator'),
+      'create_it'     => esc_attr__('Create it!','asl_locator'),
+      'add_new_question' => esc_attr__('Do you want to add new %s?','asl_locator'),
       'backup_tmpl'   => esc_attr__('Backup Template','asl_locator'),
-      'backup_tmpl_msg'   => esc_attr__('Are you sure to backup Template into theme root directory?','asl_locator'),
+      'backup_tmpl_msg'   => esc_attr__('Backup of templates is not need if you haven\'t customize the template via plugin editor, are you sure to backup Template into theme root directory?','asl_locator'),
       'backup'            => esc_attr__('Backup','asl_locator'),
       'remove_tmpl'       => esc_attr__('Remove Template','asl_locator'),
       'remove_tmpl_msg'   => esc_attr__('Are you sure to remove Template from the theme root directory?','asl_locator'),
@@ -236,14 +302,29 @@ class Manager extends Base {
       'delete_markers'  => esc_attr__('Delete Markers','asl_locator'),
       'delete_logo'     => esc_attr__('Delete Logo','asl_locator'),
       'delete_logos'    => esc_attr__('Delete Selected Logos','asl_locator'),
-      'select_special'  => esc_attr__('Select Special','asl_locator'),
-      'select_brand'  => esc_attr__('Select Brand','asl_locator'),
+      'select_special'  => asl_esc_lbl('select') . ' ' . asl_esc_lbl('special'),
+      'select_brand'    => asl_esc_lbl('select') . ' ' . asl_esc_lbl('brand'),
+      'brand'         => asl_esc_lbl('brand'),
+      'special'       => asl_esc_lbl('special'),
       'delete_store'  => esc_attr__('Delete Store','asl_locator'),
       'delete_stores'  => esc_attr__('Delete Stores','asl_locator'),
       'duplicate_stores'  => esc_attr__('Duplicate Selected Store','asl_locator'),
       'start_time'        => esc_attr__('Start Time','asl_locator'),
       'select_logo'       => esc_attr__('Select Logo','asl_locator'),
+      'no_logo'           => esc_attr__('No Logo','asl_locator'),
+      'select_columns'    => esc_attr__('Select Columns','asl_locator'),
+      'no_columns'        => esc_attr__('No Columns','asl_locator'),
+      'select_filters'    => esc_attr__('Select Filters','asl_locator'),
+      'no_filter'         => esc_attr__('No Filter','asl_locator'),
+      'select_slugs'      => esc_attr__('Select Slugs','asl_locator'),
+      'search_options'    => esc_attr__('Search...','asl_locator'),
+      'no_options_found'  => esc_attr__('No options found','asl_locator'),
+      'none'              => esc_attr__('None','asl_locator'),
+      'use_image'         => esc_attr__('Use Image','asl_locator'),
       'select_marker'     => esc_attr__('Select Marker','asl_locator'),
+      'remove_duplicates' => esc_attr__('Remove Duplicates','asl_locator'),
+      'remove_duplicates_text' => esc_attr__('Are you sure you want to remove all duplicate stores?','asl_locator'),
+      'yes_remove'        => esc_attr__('Yes, Remove','asl_locator'),
       'end_time'          => esc_attr__('End Time','asl_locator'),
       'select_country'    => esc_attr__('Select Country','asl_locator'),
       'delete_all_stores' => esc_attr__('DELETE ALL STORES','asl_locator'),
@@ -252,31 +333,46 @@ class Manager extends Base {
       'invalid_file_error'    => esc_attr__('Invalid File, Accepts JPG, PNG, GIF or SVG.','asl_locator'),
       'error_try_again'       => esc_attr__('Error Occured, Please try Again.','asl_locator'),
       'delete_all'            => esc_attr__('DELETE ALL','asl_locator'),
-      'pur_title'             => esc_attr__('PLEASE VALIDATE PURCHASE CODE!','asl_locator'),
-      'pur_text'              => __('Thank you for purchasing <b>Store Locator for WordPress</b> Plugin, kindly enter your purchase code to unlock the page. <a target="_blank" href="https://agilestorelocator.com/wiki/store-locator-purchase-code/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version">How to Get Your Purchase Code</a>.','asl_locator'),
-      'api_key_missing'       => __('Error! Search and Map will not work due to missing API Key','asl_locator'),
-      'warn_save_setting'     => __('Save Settings to apply the changes','asl_locator'),
-      'close'                 => __('Close','asl_locator'),
-      'copy'                  => __('Copy','asl_locator'),
-      'import'                => __('Import','asl_locator'),
-      'import_config'         => __('Import Configuration & Settings','asl_locator'),
-      'paste_config_ph'       => __('Paste Configuration JSON','asl_locator'),
-      'import_config_warn'    => __('Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!','asl_locator'),
+      'api_key_missing'       => esc_attr__('Error! Search and Map will not work due to missing API Key','asl_locator'),
+      'warn_save_setting'     => esc_attr__('Save Settings to apply the changes','asl_locator'),
+      'close'                 => esc_attr__('Close','asl_locator'),
+      'copy'                  => esc_attr__('Copy','asl_locator'),
+      'import'                => esc_attr__('Import','asl_locator'),
+      'import_config'         => esc_attr__('Import Configuration & Settings','asl_locator'),
+      'paste_config_ph'       => esc_attr__('Paste Configuration JSON','asl_locator'),
+      'import_config_warn'    => esc_attr__('Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!','asl_locator'),
       'export_config'         => esc_attr__('Export Configuration','asl_locator'),
       'required_field'        => esc_attr__('Please correct the error in field','asl_locator'),
       'select_media'          => esc_attr__('Select or Upload Media', 'asl_locator'),
-      'use_media'             => esc_attr__('Use this media', 'asl_locator'),
       'enabled'               => esc_attr__('Enabled', 'asl_locator'),
-      'disabled'              => esc_attr__('Disabled', 'asl_locator')
+      'disabled'              => esc_attr__('Disabled', 'asl_locator'),
+      'no_store_views'        => esc_attr__('No Store Views!', 'asl_locator'),
+      'no_search_results'     => esc_attr__('No Search Results!', 'asl_locator')
     );
 
     wp_enqueue_script( 'asl-bootstrap');
     
-    wp_enqueue_script($this->AgileStoreLocator.'-lib');
+    wp_enqueue_script( $this->AgileStoreLocator.'-lib');
+
+    $admin_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
+    if (in_array($admin_page, ['create-agile-store', 'edit-agile-store', 'customize-map', 'asl-settings'], true)) {
+      wp_enqueue_script($this->AgileStoreLocator.'-common-map');
+      wp_enqueue_style($this->AgileStoreLocator.'-autocomplete');
+      $map_vendor = \AgileStoreLocator\Helper::get_configs('map_vendor');
+      if ('maplibre' === strtolower((string) $map_vendor)) {
+        wp_enqueue_style($this->AgileStoreLocator.'-maplibre');
+        wp_enqueue_style($this->AgileStoreLocator.'-maplibre-asl');
+        wp_enqueue_script($this->AgileStoreLocator.'-maplibre');
+      }
+    }
+
     
     //  These scripts are not need on other pages
     if($all_scripts) {
+      wp_enqueue_script( $this->AgileStoreLocator.'-datetimepicker2');
+      wp_enqueue_script( $this->AgileStoreLocator.'-daterangepicker');
       wp_enqueue_script( $this->AgileStoreLocator.'-choosen');
+      wp_enqueue_script( $this->AgileStoreLocator.'-sviper');
       wp_enqueue_script( $this->AgileStoreLocator.'-datatable');
       wp_enqueue_script( $this->AgileStoreLocator.'-upload');
     }
@@ -288,28 +384,58 @@ class Manager extends Base {
       case 'dashboard':
         
         $tag = 'dashboard';
+
         wp_enqueue_script( $this->AgileStoreLocator.'-dashboard');
-      break;
+
+        break;
+
+
+      case 'cards':
+        
+        $tag = 'cards';
+
+        wp_enqueue_script( $this->AgileStoreLocator.'-sviper' );
+        wp_enqueue_script( $this->AgileStoreLocator.'-jscript');
+
+        break;
+
 
       case 'shortcode':
         
         $tag = 'shortcode';
         wp_enqueue_script( $this->AgileStoreLocator.'-shortcode');
       break;
+      
 
       default:
-        
+      
+        // Core sortable for drag/drop field ordering (WP bundled)
+        wp_enqueue_script('jquery-ui-sortable');
         wp_enqueue_script( $this->AgileStoreLocator.'-draw');
         wp_enqueue_script( $this->AgileStoreLocator.'-jscript');
 
         break;
     }
     
-    // Plugin Validation
-    $this->localize_scripts( $this->AgileStoreLocator.'-'.$tag, 'ASL_REMOTE',  array('nounce' => wp_create_nonce('asl-nounce'), 'Com' => get_option('asl-compatible'),  'sl_lang' => $this->lang,  'LANG' => $langs, 'URL' => admin_url( 'admin-ajax.php' ), 'home_url' => home_url('/')));
+    $attribute_brands = array_values(\AgileStoreLocator\Model\Attribute::get_all_by_id('brands', $this->lang));
+
+    $this->localize_scripts( $this->AgileStoreLocator.'-'.$tag, 'ASL_REMOTE',  array('nounce' => wp_create_nonce('asl-nounce'), 'sl_lang' => $this->lang, 'LANG' => $langs, 'URL' => admin_url( 'admin-ajax.php' ), 'home_url' => home_url('/'), 'logo' => ASL_URL_PATH.'/admin/images/example-logo.png', 'attribute_brands' => $attribute_brands));
     
     //  Inject script with inline_script
     //wp_add_inline_script( $this->AgileStoreLocator.'-'.$tag, $this->get_local_script_data(), 'before');
+  }
+
+
+  /**
+   * [approve_via_email Approve the store via email link]
+   * @return [type] [description]
+   */
+  public function approve_via_email() {
+
+    $store_id    = isset($_REQUEST['sl-store'])? intval($_REQUEST['sl-store']): null;
+    $verify_code = isset($_REQUEST['sl-verify'])? sanitize_text_field($_REQUEST['sl-verify']): null;
+
+    return Store::verify_store_link($store_id, $verify_code);
   }
 
 
@@ -318,11 +444,15 @@ class Manager extends Base {
   //////////Page Methods //
   /////////////////////////
 
+
   /**
-   * [admin_manage_brands Manage Attribute Page]
+   * [admin_manage_attributes Manage Attribute Page]
    * @return [type] [description]
    */
-  public function page_manage_attribute() {
+  public function page_manage_attributes() {
+
+    // Ensure the specials-to-brand relationship exists for upgraded installations.
+    Activator::add_special_brand_id();
 
     // add scripts
     $this->_enqueue_scripts();
@@ -331,37 +461,22 @@ class Manager extends Base {
   }
 
   /**
-   * [admin_manage_specials Manage Attribute Page]
-   * @return [type] [description]
-   */
-  public function page_manage_specials() {
-
-    // add scripts
-    $this->_enqueue_scripts();
-
-    include ASL_PLUGIN_PATH.'admin/partials/attribute_special.php';
-  }
-  
-  /**
    * [admin_ui_customizer ASL Settings Page]
    * @return [type] [description]
    */
   public function page_ui_customizer() {
-
-    $handle = $this->AgileStoreLocator.'-ui-customizer';
-    wp_enqueue_script($handle);
-    $this->localize_scripts($handle, 'ASL_CUSTOMIZER', array(
-      'nonce'    => wp_create_nonce('asl-nounce'),
-      'ajaxUrl'  => admin_url('admin-ajax.php'),
-      'settings' => admin_url('admin.php?page=asl-settings'),
-      'strings'  => array(
-        'loadFirst' => esc_html__('Load a template first.', 'asl_locator'),
-        'loading'   => esc_html__('Loading template...', 'asl_locator'),
-        'saving'    => esc_html__('Saving settings...', 'asl_locator'),
-        'saved'     => esc_html__('Your customizer settings were saved.', 'asl_locator'),
-        'resetting' => esc_html__('Resetting template...', 'asl_locator'),
-        'confirm'   => esc_html__('Reset this template to its default colors and font sizes?', 'asl_locator'),
-        'error'     => esc_html__('Something went wrong. Please try again.', 'asl_locator'),
+    wp_enqueue_script($this->AgileStoreLocator.'-ui-customizer');
+    wp_localize_script($this->AgileStoreLocator.'-ui-customizer', 'ASL_CUSTOMIZER', array(
+      'ajaxUrl' => admin_url('admin-ajax.php'),
+      'nonce'   => wp_create_nonce('asl-nounce'),
+      'strings' => array(
+        'loading'    => esc_html__('Loading…', 'asl_locator'),
+        'saving'     => esc_html__('Saving…', 'asl_locator'),
+        'saved'      => esc_html__('Settings saved successfully.', 'asl_locator'),
+        'resetting'  => esc_html__('Resetting…', 'asl_locator'),
+        'confirm'    => esc_html__('Reset this template to its default settings?', 'asl_locator'),
+        'loadFirst'  => esc_html__('Load a template before saving.', 'asl_locator'),
+        'error'      => esc_html__('Something went wrong. Please try again.', 'asl_locator'),
       ),
     ));
 
@@ -399,7 +514,7 @@ class Manager extends Base {
 
 
     global $wpdb;
-    
+      
     $store_id = isset($_REQUEST['store_id'])? intval($_REQUEST['store_id']): 0;
 
     if(!$store_id) {
@@ -425,11 +540,10 @@ class Manager extends Base {
     $lang      = $store->lang;
 
     $countries  = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."countries ORDER BY `country`");
-    $logos     = $wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name");
+
+    $logos     = $this->prepare_logo_dropdown_rows($wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name"));
     $markers   = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
     $category  = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang'");
-    $brands    = [];
-    $specials  = [];
 
     //  Custom Fields
     $fields       = $this->_get_custom_fields();
@@ -438,7 +552,8 @@ class Manager extends Base {
     $other_custom_fields   = $field_sections['other'];
     $custom_data  = (isset($store->custom) && $store->custom)? json_decode($store->custom, true): []; 
 
-    $all_configs = \AgileStoreLocator\Helper::get_configs(['api_key', 'time_format', 'branches']);
+
+    $all_configs = \AgileStoreLocator\Helper::get_configs(['api_key', 'time_format', 'branches', 'map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'geoapify_api_key', 'mapbox_access_token', 'search_provider', 'country_restrict', 'map_type', 'zoom', 'minzoom', 'maxzoom']);
 
     include ASL_PLUGIN_PATH.'admin/partials/edit_store.php';    
   }
@@ -460,8 +575,9 @@ class Manager extends Base {
     // For textarea
     wp_enqueue_editor(); // Required for TinyMCE
 
+
     //api key
-    $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key' || `key` = 'time_format' || `key` = 'default_lat' || `key` = 'default_lng'";
+    $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` IN ('api_key', 'time_format', 'default_lat', 'default_lng', 'map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'geoapify_api_key', 'mapbox_access_token', 'search_provider', 'country_restrict', 'map_type', 'zoom', 'minzoom', 'maxzoom')";
     $all_configs_result = $wpdb->get_results($sql);
 
 
@@ -474,13 +590,10 @@ class Manager extends Base {
     //  Current store lang
     $lang       = $this->lang;
 
-    $logos      = $wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name");
+    $logos      = $this->prepare_logo_dropdown_rows($wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name"));
     $markers    = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
-
     $category   = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang';");
-    $countries  = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."countries");
-    $brands     = [];
-    $specials   = [];
+    $countries  = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."countries ORDER BY `country`");
 
     $fields = $this->_get_custom_fields();
     $field_sections = $this->_partition_custom_fields($fields);
@@ -496,7 +609,8 @@ class Manager extends Base {
    * @return [type] [description]
    */
   public function page_dashboard() {
-    wp_enqueue_script('asl-bootstrap');
+
+    $this->_enqueue_scripts(false, 'dashboard');
 
     global $wpdb;
 
@@ -516,8 +630,19 @@ class Manager extends Base {
     $temp = $wpdb->get_results( "SELECT count(*) as c FROM ".ASL_PREFIX."categories");;
     $all_stats['categories'] = $temp[0]->c;
 
-    $temp = $wpdb->get_results( "SELECT count(*) as c FROM ".ASL_PREFIX."stores_view");;
+    $month_start = current_time('Y-m-01 00:00:00');
+
+    $temp = $wpdb->get_results($wpdb->prepare(
+      "SELECT count(*) as c FROM ".ASL_PREFIX."stores_view WHERE is_search = 1 AND created_on >= %s",
+      $month_start
+    ));
     $all_stats['searches'] = $temp[0]->c;
+
+    $temp = $wpdb->get_results($wpdb->prepare(
+      "SELECT count(*) as c FROM ".ASL_PREFIX."stores_view WHERE is_search = 0 AND created_on >= %s",
+      $month_start
+    ));
+    $all_stats['clicks'] = $temp[0]->c;
 
 
     include ASL_PLUGIN_PATH.'admin/partials/dashboard.php';    
@@ -536,6 +661,21 @@ class Manager extends Base {
     include ASL_PLUGIN_PATH.'admin/partials/categories.php';
   }
 
+
+  /**
+   * [page_manage_cards Manage Grid]
+   * @return [type] [description]
+   */
+  public function page_manage_cards() {
+
+    $this->_enqueue_scripts(false, 'cards');
+
+    // Load the external CSS file for the Cards
+    wp_enqueue_style( 'asl_cards', ASL_URL_PATH . 'public/css/cards/cards.css', array(), $this->version, 'all' );
+
+    include ASL_PLUGIN_PATH.'admin/partials/manage-cards.php';
+  }
+  
   /**
    * [admin_store_markers Manage Markers]
    * @return [type] [description]
@@ -561,7 +701,6 @@ class Manager extends Base {
     include ASL_PLUGIN_PATH.'admin/partials/logos.php';
   }
   
-    
   /**
    * [admin_manage_store Manage Stores]
    * @return [type] [description]
@@ -634,26 +773,15 @@ class Manager extends Base {
    * @return [type] [description]
    */
   public function page_import_stores() {
-
     $this->_enqueue_scripts();
 
-    //Check if ziparhive is installed
     global $wpdb;
 
-    //Get the API KEY
-    $sql      = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'server_key'";
-    $configs_result = $wpdb->get_results($sql);
-
-    $api_key    = '';
-
-    if(isset($configs_result[0]) && $configs_result[0]->value) {
-        $api_key = $configs_result[0]->value;
-    } 
-    else 
-      $api_key = esc_attr__('Google API Key is Missing','asl_locator');
-
-    // Count the total number of stores
-    $all_stats = \AgileStoreLocator\Model\Store::get_coordinate_stats();
+    $configs_result = $wpdb->get_results("SELECT `key`,`value` FROM " . ASL_PREFIX . "configs WHERE `key` = 'server_key'");
+    $api_key        = isset($configs_result[0]) && $configs_result[0]->value
+      ? $configs_result[0]->value
+      : esc_attr__('Google API Key is Missing', 'asl_locator');
+    $all_stats      = \AgileStoreLocator\Model\Store::get_coordinate_stats();
 
     include ASL_PLUGIN_PATH.'admin/partials/import_store.php';
   }
@@ -673,6 +801,17 @@ class Manager extends Base {
       'default_lng',
       'zoom',
       'map_type',
+      'map_vendor',
+      'tile_provider',
+      'tile_provider_style',
+      'tile_provider_api_key',
+      'maplibre_style_url',
+      'geoapify_api_key',
+      'mapbox_access_token',
+      'search_provider',
+      'country_restrict',
+      'minzoom',
+      'maxzoom',
       'cameracontrol',
       'zoomcontrol',
       'streetviewcontrol',
@@ -682,16 +821,28 @@ class Manager extends Base {
     $config_list = \AgileStoreLocator\Helper::get_configs($customizer_config_keys);
 
     $all_configs = [
-      'api_key'     => isset($config_list['api_key']) ? $config_list['api_key'] : '',
-      'default_lat' => isset($config_list['default_lat']) ? $config_list['default_lat'] : '-33.947128',
-      'default_lng' => isset($config_list['default_lng']) ? $config_list['default_lng'] : '25.591169',
-      'zoom'        => isset($config_list['zoom']) ? $config_list['zoom'] : '5',
-      'map_type'    => isset($config_list['map_type']) ? $config_list['map_type'] : 'roadmap',
+      'api_key'    => isset($config_list['api_key']) ? $config_list['api_key'] : '',
+      'default_lat'=> isset($config_list['default_lat']) ? $config_list['default_lat'] : '-33.947128',
+      'default_lng'=> isset($config_list['default_lng']) ? $config_list['default_lng'] : '25.591169',
+      'zoom'       => isset($config_list['zoom']) ? $config_list['zoom'] : '5',
+      'map_type'   => isset($config_list['map_type']) ? $config_list['map_type'] : 'roadmap',
+      'map_vendor' => isset($config_list['map_vendor']) ? $config_list['map_vendor'] : 'google',
+      'tile_provider' => isset($config_list['tile_provider']) ? $config_list['tile_provider'] : 'geoapify',
+      'tile_provider_style' => isset($config_list['tile_provider_style']) ? $config_list['tile_provider_style'] : 'default',
+      'tile_provider_api_key' => isset($config_list['tile_provider_api_key']) ? $config_list['tile_provider_api_key'] : '',
+      'maplibre_style_url' => isset($config_list['maplibre_style_url']) ? $config_list['maplibre_style_url'] : '',
+      'geoapify_api_key' => isset($config_list['geoapify_api_key']) ? $config_list['geoapify_api_key'] : '',
+      'mapbox_access_token' => isset($config_list['mapbox_access_token']) ? $config_list['mapbox_access_token'] : '',
+      'search_provider' => isset($config_list['search_provider']) ? $config_list['search_provider'] : 'automatic',
+      'country_restrict' => isset($config_list['country_restrict']) ? $config_list['country_restrict'] : '',
+      'minzoom' => isset($config_list['minzoom']) ? $config_list['minzoom'] : '',
+      'maxzoom' => isset($config_list['maxzoom']) ? $config_list['maxzoom'] : '',
     ];
 
-    $map_customize_json = \AgileStoreLocator\Helper::get_setting('map', 'map_customize');
-    $map_customize_json = $map_customize_json ? $map_customize_json : '{}';
-    $map_customize      = json_decode($map_customize_json, true);
+
+    $map_customize_json   = \AgileStoreLocator\Helper::get_setting('map', 'map_customize');
+    $map_customize_json   = $map_customize_json ? $map_customize_json : '{}';
+    $map_customize        = json_decode($map_customize_json, true);
 
     if (!is_array($map_customize)) {
       $map_customize = [];
@@ -704,7 +855,7 @@ class Manager extends Base {
       } elseif (isset($config_list[$control_key])) {
         $map_control_defaults[$control_key] = in_array(strtolower((string) $config_list[$control_key]), ['1', 'true'], true);
       } else {
-        $map_control_defaults[$control_key] = in_array($control_key, ['zoomcontrol', 'fullscreencontrol'], true);
+        $map_control_defaults[$control_key] = $control_key !== 'cameracontrol';
       }
     }
 
@@ -721,6 +872,7 @@ class Manager extends Base {
         $kml_files[] = $file_details;
       }
     }
+
 
     //add_action( 'init', 'my_theme_add_editor_styles' );
     include ASL_PLUGIN_PATH.'admin/partials/customize_map.php';
@@ -788,7 +940,7 @@ class Manager extends Base {
     global $wpdb;
 
     $ASL_PREFIX = ASL_PREFIX;
-    $query      = "SELECT s.`id`, `title`,  `description`, `street`,  `city`,  `state`, `postal_code`, `lat`,`lng`,`phone`,  `fax`,`email`,`website`,`logo_id`,`marker_id`,`description_2`,`open_hours`, `ordr`,`brand`, `custom`, `slug` FROM {$ASL_PREFIX}stores as s";
+    $query      = "SELECT s.`id`, `title`,  `description`, `street`,  `city`,  `state`, `postal_code`, `lat`,`lng`,`phone`,  `fax`,`email`,`website`,`logo_id`,`marker_id`,`description_2`,`open_hours`, `ordr`, `custom`, `slug` FROM {$ASL_PREFIX}stores as s";
 
     $all_results = $wpdb->get_results($query);
     
@@ -798,7 +950,9 @@ class Manager extends Base {
     foreach ($all_results as $store ) {
       
       $a_store = (Array) $store;
-      $slug    = \AgileStoreLocator\Helper::slugify($a_store);
+
+      // Prevent dublication of slug (update function)
+      $slug    = \AgileStoreLocator\Schema\Slug::slugify($a_store, null);
 
       //update into stores table
       $wpdb->update($ASL_PREFIX."stores", array('slug' => $slug),array('id' => $a_store['id']));
@@ -816,9 +970,15 @@ class Manager extends Base {
      
     $this->_enqueue_scripts();
 
+     //  Current store lang
+    $lang       = $this->lang;
+
     // CodeMirror Enqueue
     if(function_exists('wp_enqueue_code_editor'))
-      wp_enqueue_code_editor(array('type' => 'text/html'));
+      wp_enqueue_code_editor(array(
+        'type' => 'php'
+      )
+    );
 
     global $wpdb;
 
@@ -838,6 +998,10 @@ class Manager extends Base {
     ///////////////////////////////////////
 
     \AgileStoreLocator\Activator::validate_configs();
+
+
+    //  Languages Label fix
+    \AgileStoreLocator\Activator::fix_trans_labels();
 
     
     $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs";
@@ -865,7 +1029,7 @@ class Manager extends Base {
     $countries        = $wpdb->get_results("SELECT country,iso_code_2  as code FROM ".ASL_PREFIX."countries");
     
     $custom_map_style = \AgileStoreLocator\Helper::sanitize_custom_map_style(\AgileStoreLocator\Helper::get_setting('map_style', 'map_style'));
-    
+
     //  Possible values for the slug
     $slug_attr = array('title' => esc_attr__('Title','asl_locator') , 'city' => esc_attr__('City','asl_locator'), 'postal_code' => esc_attr__('Post Code','asl_locator'), 'state' => esc_attr__('State','asl_locator'), 'description' => esc_attr__('Description', 'asl_locator'), 'lang' => esc_attr__('Lang', 'asl_locator'));
 
@@ -885,6 +1049,7 @@ class Manager extends Base {
 
     }
 
+    
     //  Slug for the Store Details
     if(isset($all_configs['slug_attr_ddl']) && $all_configs['slug_attr_ddl']) {
 
@@ -899,9 +1064,54 @@ class Manager extends Base {
       }
     }
 
+    // Store form controls ordering/visibility
+    $store_form_controls_setting = \AgileStoreLocator\Helper::get_setting('store_form_controls');
+    $store_form_controls = [];
+
+    $ddl_controls = \AgileStoreLocator\Model\Attribute::get_controls();
+    $store_form_controls_map = [];
+
+    if ($store_form_controls_setting) {
+      $decoded_controls = json_decode($store_form_controls_setting, true);
+
+      if (is_array($decoded_controls)) {
+        foreach ($decoded_controls as $control_item) {
+          if (!isset($control_item['field'])) {
+            continue;
+          }
+          $store_form_controls_map[$control_item['field']] = $control_item;
+        }
+      }
+    }
+
+    foreach ($ddl_controls as $ddl_control) {
+      $field_key = $ddl_control['field'];
+
+      if (isset($store_form_controls_map[$field_key])) {
+        $store_form_controls[] = $store_form_controls_map[$field_key];
+        unset($store_form_controls_map[$field_key]);
+      } else {
+        $store_form_controls[] = [
+          'field'   => $ddl_control['field'],
+          'label'   => $ddl_control['label'],
+          'enabled' => 1
+        ];
+      }
+    }
+
+    // Add any remaining custom controls that are not in the default list
+    if (!empty($store_form_controls_map)) {
+      foreach ($store_form_controls_map as $remaining_control) {
+        $store_form_controls[] = $remaining_control;
+      }
+    }
+
+    // Store form fields (core + dropdown + custom)
+    $store_form_field_manager = new \AgileStoreLocator\Form\StoreFormFields($ddl_controls, $fields);
+    $store_form_fields = $store_form_field_manager->get_fields();
+
     include ASL_PLUGIN_PATH.'admin/partials/user_setting.php';
   }
-
 
 
   /**
@@ -947,7 +1157,7 @@ class Manager extends Base {
     if ($post) {
       if($post->post_type == 'page' )
       {
-        echo '<a href="#" id="sl-shortcode-insert" data-toggle="smodal" data-target="#insert-sl-shortcode" class="button">'.__('Add Store Locator Shortcode','asl_locator').'</a>';
+        echo '<a href="#" id="sl-shortcode-insert" data-bs-toggle="smodal" data-bs-target="#insert-sl-shortcode" class="button">'.__('Add Store Locator Shortcode','asl_locator').'</a>';
       }
     }
   }
@@ -962,7 +1172,7 @@ class Manager extends Base {
     global $post;
 
     if ($post) {
-        
+      
       if($post->post_type == 'page') {
 
         // Add scripts
@@ -972,7 +1182,6 @@ class Manager extends Base {
         include ASL_PLUGIN_PATH.'admin/partials/shortcode-popup-html.php';
       }
     }
-
   }
 
 
@@ -1024,14 +1233,18 @@ class Manager extends Base {
     // For Elementor Shortcode
     //  Add the Elementor
     if ( class_exists( '\Elementor\Plugin' ) ) {
-      
-      $ele_addons  = new \AgileStoreLocator\Vendors\Elementor\Addon( $this->AgileStoreLocator, $this->version );
+      $ele_addons = new \AgileStoreLocator\Vendors\Elementor\Addon( $this->AgileStoreLocator, $this->version );
+    }
+
+    // For WPBakery Shortcode
+    if(function_exists('vc_map') && defined('WPB_VC_VERSION')) {
+      $vc_addons  = new \AgileStoreLocator\Vendors\WPBakery\Addon( $this->AgileStoreLocator, $this->version );
     }
 
     //  Initialize the third party hooks to create association
     \AgileStoreLocator\Helper::third_party_hooks($this->load_config);
-        
   }
+
 
   /**
    * [add_action_link render the settings button for the plugin]
@@ -1047,14 +1260,14 @@ class Manager extends Base {
     $settings_link = '<a href="' . esc_url( $settings_url ) . '" >' . __( 'Settings', 'asl_locator' ) . '</a>';
     array_unshift( $links, $settings_link );    
 
-
-    $docs_url = 'https://agilestorelocator.com/';
-    $docs_link = '<a href="' . esc_url( $docs_url ) . '" style="color:green;font-weight:bold;" target="__blank">' . __( 'Go Pro', 'asl_locator' ) . '</a>';
+    $docs_url = 'https://agilestorelocator.com/wiki/';
+    $docs_link = '<a href="' . esc_url( $docs_url ) . '" target="__blank">' . __( 'Docs', 'asl_locator' ) . '</a>';
     array_push( $links, $docs_link );
 
     return $links;
 
   }
+
 
 
   /**
@@ -1068,9 +1281,10 @@ class Manager extends Base {
 
     //$this->scripts_data[] = [$variable, $data]; 
 
-    //  Since version 1.4.2
+    //  Since version 4.10.7
     wp_localize_script( $script_name, $variable, $data );
   }
+
 
   /**
    * Escape logo dropdown data before embedding it into admin JavaScript.
@@ -1100,7 +1314,7 @@ class Manager extends Base {
 
     foreach ($this->scripts_data as $script_data) {
         
-      $scripts .= 'var '.$script_data[0].' = '.(($script_data[1] && !empty($script_data[1]))?json_encode($script_data[1]): "''").';';
+      $scripts .= 'var '.$script_data[0].' = '.(($script_data[1] && !empty($script_data[1]))?wp_json_encode($script_data[1]): "''").';';
     }
 
     //  With script tags

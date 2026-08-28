@@ -10,14 +10,6 @@
     <div class="asl-template-select"><span class="dashicons dashicons-layout" aria-hidden="true"></span>
       <select id="asl-ui-template" name="ui-template">
                              <option value="template-0"><?php echo esc_attr__('Template','asl_locator') ?> 0</option>
-                             <option disabled value="template-1"><?php echo esc_attr__('Template','asl_locator') ?> 1</option>
-                             <option disabled value="template-2"><?php echo esc_attr__('Template','asl_locator') ?> 2</option>
-                             <option disabled value="template-3"><?php echo esc_attr__('Template','asl_locator') ?> 3</option>
-                             <option disabled value="template-4"><?php echo esc_attr__('Template','asl_locator') ?> 4</option>
-                             <option disabled value="template-5"><?php echo esc_attr__('Template','asl_locator') ?> 5</option>
-                             <option disabled value="template-6"><?php echo esc_attr__('Template','asl_locator') ?> 6</option>
-                             <option disabled value="template-list"><?php echo esc_attr__('Template List','asl_locator') ?></option>
-                             <option disabled value="template-list-2"><?php echo esc_attr__('Template List 2','asl_locator') ?></option>
                              <?php if(defined ( 'ASL_WC_VERSION' )):?>
                               <option value="template-wc"><?php echo esc_attr__('WC Addon','asl_locator') ?></option>
                              <?php endif; ?>

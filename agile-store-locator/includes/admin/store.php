@@ -64,8 +64,10 @@ class Store extends Base
 
         $asl_prefix = ASL_PREFIX;
 
+        /* 
         error_reporting(E_ALL);
-        ini_set('display_errors', '1');
+        ini_set('display_errors', '1'); 
+        */
 
         $added_custom_fields = \AgileStoreLocator\Helper::get_setting('fields');
         $added_custom_fields = $added_custom_fields ? $added_custom_fields : '{}';
@@ -242,8 +244,8 @@ class Store extends Base
 
         //  When schedule is enable, add the meta join
         if ($store_schedule) {
-            $sql .= ' LEFT JOIN ' . ASL_PREFIX . 'stores_meta ON ' . ASL_PREFIX . 'stores.id = ' . ASL_PREFIX . 'stores_meta.store_id';
-            $sqlCount .= ' LEFT JOIN ' . ASL_PREFIX . 'stores_meta ON ' . ASL_PREFIX . 'stores.id = ' . ASL_PREFIX . 'stores_meta.store_id';
+            $sql        .= ' LEFT JOIN ' . ASL_PREFIX . 'stores_meta ON ' . ASL_PREFIX . 'stores.id = ' . ASL_PREFIX . 'stores_meta.store_id';
+            $sqlCount   .= ' LEFT JOIN ' . ASL_PREFIX . 'stores_meta ON ' . ASL_PREFIX . 'stores.id = ' . ASL_PREFIX . 'stores_meta.store_id';
         }
 
         /*
@@ -301,15 +303,32 @@ class Store extends Base
 
             $edit_url = 'admin.php?page=edit-agile-store&store_id=' . $row->id;
 
+            // When Scheduling is enabled
+            if ($store_schedule && $store_schedule == '1') {
+                // Check store is schedule or not
+                $get_schedule_store = \AgileStoreLocator\Model\Meta::get_schedule_store($row->id);
 
-            $row->scheduled = '';
+                if (!empty($get_schedule_store)) {
+                    $row->is_scheduled = '1';
+                }
+
+                $row->scheduled = '<div class="edit-options">
+             <a title="Schedule" data-bs-target="#sl-schedule-store" class="sl-schedule-store_id" data-bs-toggle="smodal" data-id="' . $row->id . '">
+             <svg width="14" height="14">
+             <use xlink:href="#i-clock"></use>
+             </svg>
+             </a>
+           </div>';
+            } else {
+                $row->scheduled = 'Store schedule option if off';
+            }
 
             //  Action Row
             $row->action = '<div class="edit-options">
-                <a class="row-cpy" title="Duplicate" data-id="' . $row->id . '"><svg width="14" height="14"><use xlink:href="#i-clipboard"></use></svg></a>
-                <a class="row-edit" href="' . $edit_url . '"><svg width="14" height="14"><use xlink:href="#i-edit"></use></svg></a>
-                <a title="Delete" data-id="' . $row->id . '" class="glyphicon-trash"><svg width="14" height="14"><use xlink:href="#i-trash"></use></svg></a>
-                </div>';
+                    <a class="row-cpy" title="Duplicate" data-id="' . $row->id . '"><svg width="14" height="14"><use xlink:href="#i-clipboard"></use></svg></a>
+                    <a class="row-edit" href="' . $edit_url . '"><svg width="14" height="14"><use xlink:href="#i-edit"></use></svg></a>
+                    <a title="Delete" data-id="' . $row->id . '" class="glyphicon-trash"><svg width="14" height="14"><use xlink:href="#i-trash"></use></svg></a>
+                    </div>';
 
             //  Show a approve button
             if (isset($row->pending) && $row->pending == '1') {
@@ -333,6 +352,7 @@ class Store extends Base
                     $aRow->{$field->name} = '';
                 }
             }
+            
 
             //  Get the categories
             if ($aRow->categories) {
@@ -736,7 +756,7 @@ class Store extends Base
         return $this->send_response($response);
     }
 
-        /**
+    /**
      * [bulk_update_store_attributes Bulk update store attributes]
      * @return [type] [description]
      */

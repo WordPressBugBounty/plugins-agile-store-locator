@@ -5,6 +5,7 @@ namespace AgileStoreLocator;
 use AgileStoreLocator\Loader;
 use AgileStoreLocator\Admin\Manager;
 use AgileStoreLocator\Frontend\Request;
+use AgileStoreLocator\Frontend\Analytics as FrontendAnalytics;
 use AgileStoreLocator\Frontend\App;
 
 /**
@@ -36,7 +37,6 @@ use AgileStoreLocator\Frontend\App;
  */
 class Plugin {
 
-	
 	/**
 	 * The current version of the plugin.
 	 *
@@ -74,6 +74,9 @@ class Plugin {
 	 */
 	protected $public_request;
 
+	/** @var FrontendAnalytics */
+	protected $frontend_analytics;
+
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
@@ -92,7 +95,6 @@ class Plugin {
 	 * @var      string    $AgileStoreLocator    The string used to uniquely identify this plugin.
 	 */
 	protected $AgileStoreLocator;
-
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -119,10 +121,20 @@ class Plugin {
 
 		//	FRONTEND Request
 		$this->public_request = new Request();
+		$this->frontend_analytics = new FrontendAnalytics();
+
+		add_action('init', [FrontendAnalytics::class, 'maybe_upgrade_schema']);
 		
 		add_action('wp_ajax_asl_load_stores', array($this->public_request, 'load_stores'));	
 		add_action('wp_ajax_nopriv_asl_load_stores', array($this->public_request, 'load_stores'));
+
+		add_action('wp_ajax_asl_search_log', array($this->frontend_analytics, 'capture'));
+		add_action('wp_ajax_nopriv_asl_search_log', array($this->frontend_analytics, 'capture'));
+
+		add_action('wp_ajax_asl_approve_store', array($this->plugin_admin, 'approve_via_email'));	
+		add_action('wp_ajax_nopriv_asl_approve_store', array($this->plugin_admin, 'approve_via_email'));
 		add_action('wp_ajax_asl_search_internal_pages', array($this->plugin_admin, 'search_internal_pages'));
+
 
 		if (is_admin())
 			$this->define_admin_hooks();
@@ -130,32 +142,22 @@ class Plugin {
 			$this->define_public_hooks();
 
 
-		//	Remove Google Maps scripts
-		if(get_option('asl-remove_maps_script') == '1') {
-
-			add_filter('script_loader_tag', array($this, 'removeGoogleMapsTag'), 9999999, 3);
-		}
+		add_filter('script_loader_tag', array($this, 'filter_maps_script_tag'), 9999999, 3);
 
 		//	Feeds
 		add_action( 'init', array($this, 'add_stores_feed') );
 
-		//	Add the crons
-		$this->all_cron_jobs();
+		// Canonical URL
+		add_filter( 'get_canonical_url', [\AgileStoreLocator\Schema\Slug::class, 'update_canonical_tag'] );
+
+		// Store details page<title>
+		add_filter( 'document_title_parts', [\AgileStoreLocator\Schema\Slug::class, 'update_title_by_store_slug'] );
+
+		// Store details Meta Description
+		add_action( 'wp_head', [\AgileStoreLocator\Schema\Slug::class, 'add_meta_description_by_store_slug'] );
+
 	}
 
-
-	/**
-	 * [all_cron_jobs All the cronjob of the Store locator]
-	 * @return [type] [description]
-	 */
-	private function all_cron_jobs() {
-
-		//	Add the Cron job action for import
-    $this->loader->add_action( 'asl_import_cron', \AgileStoreLocator\Cron\StoreCron::class, 'execute_the_cron');
-
-		//	Add the cron job action for lead
-    $this->loader->add_action( 'asl_lead_cron', \AgileStoreLocator\Cron\LeadCron::class, 'execute_the_cron');
-	}
 
 	/**
 	 * [add_stores_feed Add the Stores Feed, URL/?feed=stores-feed]
@@ -173,19 +175,29 @@ class Plugin {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	public function removeGoogleMapsTag($tag, $handle, $src)
+	public function filter_maps_script_tag($tag, $handle, $src)
 	{
-	
-		if(preg_match('/maps\.google/i', $src))
-		{
-			if($handle != 'asl_google_maps')
-				return '';
+		
+		if(get_option('asl-remove_maps_script') == '1') {
+			
+			if(preg_match('/maps\.google/i', $src)) {
+				
+				if($handle != 'asl_google_maps')
+					return '';
+			}
 		}
+
+		/*
+		if($handle == 'asl_google_maps') {
+			return str_replace(' src', ' async src', $tag);
+		}
+		*/
 
 		return $tag;
 	}
 
 
+	
 	/**
 	 * [generateFeeds Generate the Feeds]
 	 * @param  string $output [description]
@@ -244,15 +256,16 @@ class Plugin {
 		$plugin_i18n = new \AgileStoreLocator\i18n();
 		$plugin_i18n->set_domain( $this->get_AgileStoreLocator() );
 
-		//$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
-		add_action( 'plugins_loaded', array($this, 'load_plugin_textdomain') );
-		//$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
+		//$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
+		add_action( 'init', array($this, 'load_plugin_textdomain'), 0 );
 	}
 
-	public function load_plugin_textdomain() {
 
+	/**
+	 * [load_plugin_textdomain Load the language files]
+	 * @return [type] [description]
+	 */
+	public function load_plugin_textdomain() {
 
 		$domain 				= 'asl_locator';
 		$admin_domain 	= 'asl_locator';
@@ -260,21 +273,10 @@ class Plugin {
 
 		$mo_file  			= WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . get_locale() . '.mo';
 		$mo_admin_file  = WP_LANG_DIR . '/' . $admin_domain . '/' . $admin_domain . '-' . get_locale() . '.mo';
-
-		//	$mo_file, /wp-content/languages/asl_locator/asl_locator-en_US.mo
 		
 		//Plugin Frontend
 		load_textdomain( $domain, $mo_file ); 
 		load_plugin_textdomain( $domain, false, ASL_BASE_PATH . '/languages/');
-
-
-		//Load the Admin Language File
-		/*if (is_admin()) {
-			
-			load_textdomain( $admin_domain, $mo_admin_file ); 
-			load_plugin_textdomain( $admin_domain, false, ASL_BASE_PATH . '/languages/');
-		}*/
-
 	}
 
 	/**
@@ -313,10 +315,9 @@ class Plugin {
 	 */
 	public function add_admin_menu() {
 		
-		//delete_posts, edit_pages, add_users
 		//activate_plugins
 		if (current_user_can(ASL_PERMISSION)) {
-				
+
 			$level_mode = \AgileStoreLocator\Helper::expertise_level();
 			
 			$svg = 'dashicons-location';
@@ -324,25 +325,25 @@ class Plugin {
 			add_submenu_page( 'asl-plugin', esc_attr__('Dashboard','asl_locator'), esc_attr__('Dashboard','asl_locator'), ASL_PERMISSION, 'agile-dashboard', array($this->plugin_admin,'page_dashboard'));
 			add_submenu_page( 'asl-plugin', esc_attr__('Create New Store','asl_locator'), esc_attr__('Add New Store','asl_locator'), ASL_PERMISSION, 'create-agile-store', array($this->plugin_admin,'page_add_new_store'));
 			add_submenu_page( 'asl-plugin', esc_attr__('Manage Stores','asl_locator'), esc_attr__('Manage Stores','asl_locator'), ASL_PERMISSION, 'manage-agile-store', array($this->plugin_admin,'page_manage_store'));
-			add_submenu_page( 'asl-plugin', esc_attr__('Manage Categories','asl_locator'), esc_attr__('Categories','asl_locator'), ASL_PERMISSION, 'manage-asl-categories', array($this->plugin_admin,'page_manage_categories'));
-			add_submenu_page( 'asl-plugin', esc_attr__('Manage Markers','asl_locator'), esc_attr__('Manage Markers','asl_locator'), ASL_PERMISSION, 'manage-store-markers', array($this->plugin_admin,'page_store_markers'));
-			add_submenu_page( 'asl-plugin', esc_attr__('Manage Logos','asl_locator'), esc_attr__('Logos','asl_locator'), ASL_PERMISSION, 'manage-store-logos', array($this->plugin_admin,'page_store_logos'));
-
-			//	ASL WC is not active?
-			if(!defined('ASL_WC_PLUGIN')) {
+			add_submenu_page( 'asl-plugin', esc_attr__('Manage Categories','asl_locator'), esc_attr__('Manage Categories','asl_locator'), ASL_PERMISSION, 'manage-asl-categories', array($this->plugin_admin,'page_manage_categories'));
+			//add_submenu_page( 'asl-plugin', esc_attr__('Manage Cards','asl_locator'), esc_attr__('Manage Cards','asl_locator'), ASL_PERMISSION, 'manage-asl-cards', array($this->plugin_admin,'page_manage_cards'));
+			
+			if(!$level_mode) {
 				
-				if(!$level_mode) {
-				}
+	    		add_submenu_page( 'asl-plugin', esc_attr__('Manage Attributes','asl_locator'), esc_attr__('Manage Attributes','asl_locator'), ASL_PERMISSION, 'manage-asl-attributes', array($this->plugin_admin, 'page_manage_attributes'));
 
 			}
-			add_submenu_page( 'asl-plugin', esc_attr__('Import/Export Stores','asl_locator'), esc_attr__('Import/Export (Pro)','asl_locator'), ASL_PERMISSION, 'import-store-list', array($this->plugin_admin,'page_import_stores'));
-			add_submenu_page( 'asl-plugin', esc_attr__('Customize Map','asl_locator'), esc_attr__('Customize Map','asl_locator'), ASL_PERMISSION, 'customize-map', array($this->plugin_admin,'page_customize_map'));
-			
 
+			add_submenu_page( 'asl-plugin', esc_attr__('Manage Markers','asl_locator'), esc_attr__('Manage Markers','asl_locator'), ASL_PERMISSION, 'manage-store-markers', array($this->plugin_admin,'page_store_markers'));
+			add_submenu_page( 'asl-plugin', esc_attr__('Manage Logos','asl_locator'), esc_attr__('Manage Logos','asl_locator'), ASL_PERMISSION, 'manage-store-logos', array($this->plugin_admin,'page_store_logos'));
+			
+			if(!$level_mode) {
+				add_submenu_page( 'asl-plugin', esc_attr__('Customize Map','asl_locator'), esc_attr__('Customize Map','asl_locator'), ASL_PERMISSION, 'customize-map', array($this->plugin_admin,'page_customize_map'));
+			}
+			
+			add_submenu_page( 'asl-plugin', esc_attr__('Import/Export Stores','asl_locator'), esc_attr__('Import/Export Stores','asl_locator'), ASL_PERMISSION, 'import-store-list', array($this->plugin_admin,'page_import_stores'));
 			add_submenu_page( 'asl-plugin', esc_attr__('ASL Settings','asl_locator'), esc_attr__('ASL Settings','asl_locator'), ASL_PERMISSION, 'asl-settings', array($this->plugin_admin,'page_user_settings'));
 			add_submenu_page( 'options-writing.php', esc_attr__('Agile Store Locator UI Customizer','asl_locator'), esc_attr__('Agile Store Locator UI Customizer','asl_locator'), ASL_PERMISSION, 'sl-ui-customizer', array($this->plugin_admin, 'page_ui_customizer'));
-			add_submenu_page( 'options-writing.php', esc_attr__('Leads Manager','asl_locator'), esc_attr__('Leads Manager','asl_locator'), ASL_PERMISSION, 'sl-lead-manager', array($this->plugin_admin, 'page_lead_manager'));
-
 			add_submenu_page('asl-plugin-edit', esc_attr__('Edit Store','asl_locator'), esc_attr__('Edit Store','asl_locator'), ASL_PERMISSION, 'edit-agile-store', array($this->plugin_admin,'page_edit_store'));
 			remove_submenu_page( "asl-plugin", "asl-plugin" );
 			remove_submenu_page( "asl-plugin", "asl-plugin-edit" );
@@ -362,8 +363,11 @@ class Plugin {
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'register_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'maybe_enqueue_public_styles', 20 );
 
-    add_shortcode( 'ASL_STORELOCATOR', array($this->plugin_public, 'frontendStoreLocator'));	
-    add_shortcode( 'ASL_STORE', array($this->plugin_public, 'storePage'));
+		//	29-Jan-2022 Registered through Public file
+		//$this->loader->add_action( 'wp_enqueue_scripts', $this->plugin_public, 'register_scripts' );
+
+		add_shortcode( 'ASL_STORELOCATOR', array($this->plugin_public, 'frontendStoreLocator'));	
+		add_shortcode( 'ASL_STORE', array($this->plugin_public, 'storePage'));
 	}
 
 	/**

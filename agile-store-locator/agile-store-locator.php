@@ -7,11 +7,12 @@
  *
  * Plugin Name:       Agile Store Locator
  * Plugin URI:        https://agilestorelocator.com
- * Description:       Agile Store Locator is a Premium Store Finder Plugin designed to offer you immediate access to all the best stores in your local area. It enables you to find the very best stores and their location thanks to the power of Google Maps.
- * Version:           1.7.3
+ * Description:       Agile Store Locator is a WordPress store finder with free OpenStreetMap and MapLibre maps, native Google Maps, and SEO-friendly location pages.
+ * Version:           1.8.0
  * Author:            AGILELOGIX
  * Author URI:        https://agilestorelocator.com/
- * License:           Copyrights 2026
+ * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       asl_locator
  * Domain Path:       /languages/
  */
@@ -32,11 +33,11 @@ if ( !class_exists( 'ASL_Store_locator' ) ) {
      */          
     function __construct() {
                                 
-        $this->define_constants();
-        $this->includes();
+      $this->define_constants();
+      $this->includes();
 
-        register_activation_hook( __FILE__, array( $this, 'activate') );
-        register_deactivation_hook( __FILE__, array( $this, 'deactivate') );
+      register_activation_hook( __FILE__, array( $this, 'activate') );
+      register_deactivation_hook( __FILE__, array( $this, 'deactivate') );
     }
     
     /**
@@ -55,19 +56,20 @@ if ( !class_exists( 'ASL_Store_locator' ) ) {
       define( 'ASL_URL_PATH', plugin_dir_url( __FILE__ ) );
       define( 'ASL_PLUGIN_PATH', plugin_dir_path(__FILE__) );
       define( 'ASL_BASE_PATH', dirname( plugin_basename( __FILE__ ) ) );
-      define( 'ASL_UPGRADE_URL', 'https://agilestorelocator.com/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link' );
       define( 'ASL_PREFIX', $wpdb->prefix."asl_" );
-      define( 'ASL_CVERSION', "1.7.3" );
+      define( 'ASL_CVERSION', "1.8.0" );
       define( 'ASL_UPLOAD_DIR', $upload_dir['basedir'].'/'.ASL_PLUGIN.'/' );
       define( 'ASL_UPLOAD_URL', $upload_dir['baseurl'].'/'.ASL_PLUGIN.'/' );
       //define( 'ASL_DEBUG', true );
+      //
+      define('ASL_AUTHOR_TITLE', 'AgileLogix');
 
       //  User Permission, // delete_posts, edit_pages, add_users
       if (!defined( 'ASL_PERMISSION' ) ) {
         define('ASL_PERMISSION', 'administrator');
       }
     }
-
+    
     /**
      * Include the required files.
      *
@@ -77,8 +79,7 @@ if ( !class_exists( 'ASL_Store_locator' ) ) {
     public function includes() {
 
       require_once ASL_PLUGIN_PATH . 'includes/plugin.php';
-  
-              
+      
       $asl_core = new \AgileStoreLocator\Plugin();
       $asl_core->run();
     }
@@ -104,25 +105,25 @@ if ( !class_exists( 'ASL_Store_locator' ) ) {
     }
   }
 
+  
+  /**
+   * Should not redeclare 
+   */
+  if(!function_exists('asl_esc_lbl')) {
+
+
+    /**
+     * [asl_get_lbl description]
+     * @param  [type] $key   [description]
+     * @return [type]        [description]
+     */
+    function asl_esc_lbl($key) {
+        
+      // lbl_ prefix added since version 4.9.8 due to conflicts
+
+      return \AgileStoreLocator\Model\Label::get_label('lbl_'.$key);
+    }
+  }
 
   $asl_instance = new ASL_Store_locator();
-}
-
-
-
-/**
- * Should not redeclare 
- */
-if(!function_exists('asl_esc_lbl')) {
-
-
-  /**
-   * [asl_get_lbl description]
-   * @param  [type] $key   [description]
-   * @return [type]        [description]
-   */
-  function asl_esc_lbl($key) {
-  
-    return \AgileStoreLocator\Model\Label::get_label('lbl_'.$key);
-  }
 }

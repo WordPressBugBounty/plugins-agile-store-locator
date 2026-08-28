@@ -2,13 +2,13 @@
 <div class="dump-message asl-dumper"></div>
 <div class="row" id="message_complete">
 </div>
-	<h3>InfoBox Maker</h3>
+	<h3><?php echo esc_attr__('InfoBox Maker','asl_locator') ?></h3>
     <form class="form-horizontal" id="frm-Info-box" method="POST" onsubmit="return false;">
     <div class="dump-message"></div>
 	<div class="well">
 		<div class="row">
             <div class="form-group col-xs-4 pd-0">
-                <label for="txt_country" class="col-sm-3 control-label">InfoBox</label>
+                <label for="txt_country" class="col-sm-3 control-label"><?php echo esc_attr__('InfoBox','asl_locator') ?></label>
                 <div class="col-sm-9 pd-0">
                     <select class="form-control" style="width:100%;" id="asl-infobox" name="asl-infobox">
                         <option value="1">Theme 0</option>
@@ -23,7 +23,7 @@
 	</div>
     <div class="">
         <div class="col-xs-12 pd-0 form-group btn-group">
-            <button type="button" id="asl-save-infobox" class="pull-right btn btn-primary">Update InfoBox</button>
+            <button type="button" id="asl-save-infobox" class="pull-right btn btn-primary"><?php echo esc_attr__('Update InfoBox','asl_locator') ?></button>
         </div>
     </div>
     </form>

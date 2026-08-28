@@ -49,8 +49,8 @@ class Addon {
     public function widgets_registered() {
 
         \Elementor\Plugin::instance()->widgets_manager->register(new StoreLocator());
-        //\Elementor\Plugin::instance()->widgets_manager->register(new StoreCards());
-        //\Elementor\Plugin::instance()->widgets_manager->register(new SearchWidget());
+        \Elementor\Plugin::instance()->widgets_manager->register(new StoreCards());
+        \Elementor\Plugin::instance()->widgets_manager->register(new SearchWidget());
         \Elementor\Plugin::instance()->widgets_manager->register(new StoreDetail());
     }
 

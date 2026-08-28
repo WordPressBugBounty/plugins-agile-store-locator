@@ -235,12 +235,12 @@ class GoogleMap extends Base {
 
     //  When the file is uploaded successfully
     if(isset($kml_upload['success']) && $kml_upload['success']) {
-
+      
       return $this->send_response(['msg' => esc_attr__("KML File uploaded successfully.",'asl_locator'), 'success' => true]);
     }
     else
       return $this->send_response(['error' => $kml_upload['error']]);
-
+    
     die;
   }
 

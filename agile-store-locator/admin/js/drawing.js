@@ -54,7 +54,7 @@ var asl_drawing = {};
         that.setMode(that.activeMode === mode ? null : mode);
       });
 
-      $('.asl-customize-map .color_scheme input').off('.aslDrawing').on('change.aslDrawing', function() {
+      $('.asl-p-cont .color_scheme input').off('.aslDrawing').on('change.aslDrawing', function() {
         that.selectColor(this.value);
         that.setSelectedShapeColor(this.value);
         that.notifyChange();
@@ -448,7 +448,7 @@ var asl_drawing = {};
 
       var color = shape.get('strokeColor') || defaultColor;
       this.selectedColor = color;
-      $('.asl-customize-map .color_scheme input').filter(function() {
+      $('.asl-p-cont .color_scheme input').filter(function() {
         return this.value.toLowerCase() === color.toLowerCase();
       }).prop('checked', true);
 

@@ -1,0 +1,49 @@
+.asl-place-results {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  left: 0;
+  line-height: 1.4;
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  position: absolute;
+  right: 0;
+  width: 100%;
+  z-index: 10000;
+}
+
+.asl-place-item,
+.asl-place-loading,
+.asl-place-no-results,
+.asl-place-error {
+  padding: 8px 16px;
+}
+
+.asl-place-item {
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.asl-place-item:hover,
+.asl-place-item.asl-place-active {
+  background: #eee;
+}
+
+.asl-place-item:not(:last-child) {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.asl-place-no-results {
+  color: #70757a;
+  font-style: italic;
+}
+
+.asl-place-error {
+  background: #fff3f3;
+  border-left: 3px solid #dc3545;
+  color: #dc3545;
+}

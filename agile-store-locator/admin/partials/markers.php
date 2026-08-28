@@ -1,5 +1,5 @@
 <!-- Container -->
-<div class="asl-p-cont asl-new-bg">
+<div class="asl-p-cont asl-new-bg asl-admin-grid-page asl-grid-markers">
 <div class="hide">
   <svg xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-plus" viewBox="0 0 32 32" width="13" height="13" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
@@ -7,7 +7,7 @@
         <path d="M16 2 L16 30 M2 16 L30 16" />
     </symbol>
      <symbol id="i-trash" viewBox="0 0 32 32" fill="none" stroke="currentcolor" stroke-linecap="round"
-                stroke-linejoin="round" stroke-width="2">
+                stroke-linejoin="round" stroke-width="2">>
                 <title><?php echo esc_attr__('Trash','asl_locator') ?></title>
                 <path
                     d="M28 6 L6 6 8 30 24 30 26 6 4 6 M16 12 L16 24 M21 12 L20 24 M11 12 L12 24 M12 6 L13 2 19 2 20 6" />
@@ -23,48 +23,60 @@
                 <path d="M16 14 L16 23 M16 8 L16 10" />
                 <circle cx="16" cy="16" r="14" />
             </symbol>
+            <symbol id="asl-admin-icon-marker" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M16 29s10-9.2 10-17A10 10 0 1 0 6 12c0 7.8 10 17 10 17Z" />
+                <circle cx="16" cy="12" r="3.5" />
+            </symbol>
+            <symbol id="asl-admin-icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7" />
+            </symbol>
   </svg>
 </div>
   <div class="container sl-manage-marker-page">
     <div class="row asl-inner-cont">
       <div class="col-md-12">
-        <div class="card p-0 mb-4">
-          <div class="card-title">
-            <div>
-              <h3>
-                <?php echo esc_attr__('Manage Markers','asl_locator') ?>
-              </h3>
-              <p class="card-text">
-                <?php echo esc_attr__('Change and manage map icons.','asl_locator') ?>
-              </p>
+        <div class="card p-0 mb-4 asl-grid-shell">
+          <header class="asl-admin-page-header">
+            <span class="asl-admin-page-header__icon" aria-hidden="true"><svg><use href="#asl-admin-icon-marker"></use></svg></span>
+            <div class="asl-admin-page-header__copy">
+              <h3><?php echo esc_html__('Manage Markers','asl_locator') ?></h3>
+              <p><?php echo esc_html__('Create, customize and manage map markers for your store locator.','asl_locator') ?></p>
             </div>
-            <a target="_blank" class="btn btn-outline-light" href="https://agilestorelocator.com/wiki/manage-markers/"><?php echo esc_attr__('Guide', 'asl_locator') ?>
-                            <i class="mr-2"><svg style="margin-bottom:2px;" width="14" height="14"><use xlink:href="#i-info"></use></svg></i>
-                        </a>
-          </div>
-          <div class="card-body p-4">
+            <a target="_blank" rel="noopener noreferrer" class="asl-admin-page-header__guide" href="https://agilestorelocator.com/wiki/manage-markers/">
+              <?php echo esc_html__('Guide', 'asl_locator') ?><svg aria-hidden="true"><use href="#asl-admin-icon-external"></use></svg>
+            </a>
+          </header>
+          <div class="card-body asl-grid-content">
 
-          <div class="">
           <?php if(!is_writable(ASL_UPLOAD_DIR.'icon')): ?>
             <h6  class="alert alert-danger" style="font-size: 14px"><?php echo ASL_UPLOAD_DIR.'icon' ?> <= <?php echo esc_attr__('Directory is not writable, marker image upload will fail, make directory writable.','asl_locator') ?></h6>
           <?php endif; ?>
-            <div class="row pb-3">
-              <div class="col-md-12">
-                <a target="_blank" href="https://agilestorelocator.com/marker-generator-tool/" class="btn btn-primary mrg-r-10"><?php echo esc_attr__('Generate Tool','asl_locator') ?></a>
-                <button type="button" id="btn-asl-delete-all" class="btn btn-danger text-white mrg-r-10"><i><svg width="13" height="13"><use xlink:href="#i-trash"></use></svg></i><?php echo esc_attr__('Delete Selected','asl_locator') ?></button>
-                <button type="button" id="btn-asl-new-c" class="btn btn-success text-white mrg-r-10"><i><svg style="margin-top:-3px;" width="13" height="13"><use xlink:href="#i-plus"></use></svg></i><?php echo esc_attr__('New Marker','asl_locator') ?></button>
+            <div class="asl-grid-notice">
+              <span aria-hidden="true"><svg><use href="#i-info"></use></svg></span>
+              <p><?php echo esc_html__('Markers help your visitors identify different store types on the map.','asl_locator') ?></p>
+              <a target="_blank" rel="noopener noreferrer" href="https://agilestorelocator.com/marker-generator-tool/">
+                <svg aria-hidden="true"><use href="#asl-admin-icon-external"></use></svg><?php echo esc_html__('Generate Marker','asl_locator') ?>
+              </a>
+            </div>
+
+            <div class="asl-grid-toolbar">
+              <p><?php echo esc_html__('Use the filters below each column to find specific markers.','asl_locator') ?></p>
+              <div>
+                <button type="button" id="btn-asl-delete-all" class="btn asl-grid-btn asl-grid-btn--danger"><i><svg><use href="#i-trash"></use></svg></i><?php echo esc_html__('Delete Selected','asl_locator') ?></button>
+                <button type="button" id="btn-asl-new-c" class="btn asl-grid-btn asl-grid-btn--primary"><i><svg><use href="#i-plus"></use></svg></i><?php echo esc_html__('Add New Marker','asl_locator') ?></button>
               </div>
             </div>
-            <div class="col-sm-12">
-              <div class="table-responsive">
-                <table id="tbl_markers" class=" table ">
+
+            <div class="asl-grid-table-card">
+              <div class="table-responsive asl-grid-table-scroll">
+                <table id="tbl_markers" class="table asl-grid-data-table">
                     <thead>
-                      <tr>
-                        <th align="center"><input type="text" class="form-control sml" data-id="id"  disabled="disabled" style="opacity: 0"/></th>
-                        <th align="center"><input class="form-control" type="text" data-id="id"  placeholder="<?php echo esc_attr__('Search ID','asl_locator') ?>"  /></th>
-                        <th align="center"><input class="form-control" type="text" data-id="marker_name"  placeholder="<?php echo esc_attr__('Search Name','asl_locator') ?>"  /></th>
-                        <th align="center">&nbsp;</th>
-                        <th align="center">&nbsp;</th>
+                      <tr class="asl-grid-filter-row">
+                        <th aria-hidden="true"></th>
+                        <th><label><?php echo esc_html__('Search ID','asl_locator') ?><input class="form-control" type="text" data-id="id" placeholder="<?php echo esc_attr__('Enter ID','asl_locator') ?>" /></label></th>
+                        <th><label><?php echo esc_html__('Search Name','asl_locator') ?><input class="form-control" type="text" data-id="marker_name" placeholder="<?php echo esc_attr__('Enter name','asl_locator') ?>" /></label></th>
+                        <th><label><?php echo esc_html__('Search Icon','asl_locator') ?><input class="form-control" type="text" data-id="icon" placeholder="<?php echo esc_attr__('Enter icon name','asl_locator') ?>" /></label></th>
+                        <th aria-hidden="true"></th>
                       </tr>
                       <tr>
                         <th align="center"><a class="select-all"><?php echo esc_attr__('Select All','asl_locator') ?></a></th>
@@ -79,10 +91,7 @@
                 </table>
               </div>
             </div>
-
-            </div>
-
-            <div class="dump-message asl-dumper"></div>
+          	<div class="dump-message asl-dumper"></div>
           </div>
         </div>
       </div>
@@ -115,7 +124,7 @@
              <button type="button" class="btn btn-secondary" id="change_image"><?php echo esc_attr__('Change','asl_locator') ?></button>
           </div>
 
-          <div class="col-md-12 form-group mb-3" style="display:none" id="updatemarker_editimage">
+          <div class="col-md-12 form-group mb-3" style="display:none" id="updatemarker_editimage">                  
             <div class="input-group" id="drop-zone">
               <input type="file" accept=".jpg,.png,.jpeg,.gif,.JPG,.svg" class="form-control" name="files" id="file-logo-1" />
               <span class="input-group-text"><?php echo esc_attr__('Icon','asl_locator') ?></span>
@@ -163,7 +172,7 @@
               <input type="text" id="txt_marker-name" name="data[marker_name]" class="form-control">
           </div>
           <div class="col-md-12 form-group mb-3" id="drop-zone-2">
-
+            
              <div class="input-group">
                <input name="files" type="file" class="form-control" accept=".jpg,.png,.jpeg,.gif,.JPG,.svg" id="file-logo-2">
                <span class="input-group-text"><?php echo esc_attr__('Icon','asl_locator') ?></span>

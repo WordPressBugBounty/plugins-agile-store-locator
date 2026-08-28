@@ -1,20 +1,30 @@
-<?php 
-  
-  $asl_wc_ad_url = 'https://agilelogix.com/product/multi-store-addons-for-woocommerce/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=multi-store-addon';
+<?php
+$asl_wc_ad_url = 'https://agilelogix.com/product/multi-store-addons-for-woocommerce/?utm_source=WordPress&utm_medium=Banner&utm_campaign=WP.org&utm_term=ASL&utm_content=';
 ?>
-<div id="sl-wc" class="tab-pane">
+<div id="sl-wc" class="tab-pane asl-wc-promo">
   <div class="col-12">
     <div class="p-0 mb-4">
       <div class="card-body">
-        <div class="top-title text-center mb-3">
-          <b><?php echo esc_attr__('Are you using WooCommerce? Great, try our WooCommerce extension that is compatible with this free version of the Agile Store Locator.','asl_locator') ?></b>
-        </div>
-        <div class="row">
-          <div class="col-md-12 mb-3 text-center">
-            <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="btn btn-xl btn-success btn-asl-upgrade">WooCommerce Extension</a>
+        <section class="asl-wc-hero">
+          <span class="asl-wc-hero__icon" aria-hidden="true"><span class="dashicons dashicons-cart"></span></span>
+          <div class="asl-wc-hero__copy">
+            <span class="asl-wc-hero__eyebrow"><?php echo esc_html__('WooCommerce Integration', 'asl_locator'); ?></span>
+            <h2><?php echo esc_html__('Turn every store into a connected sales location', 'asl_locator'); ?></h2>
+            <p><?php echo esc_html__('Add store selection, local pickup, location-based inventory, and distance-rate shipping to your WooCommerce experience.', 'asl_locator'); ?></p>
           </div>
+          <a target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($asl_wc_ad_url); ?>" class="btn asl-wc-cta">
+            <span><?php echo esc_html__('Explore Extension — $69', 'asl_locator'); ?></span>
+            <span class="dashicons dashicons-arrow-right-alt" aria-hidden="true"></span>
+          </a>
+        </section>
+        <div class="asl-wc-section-heading">
+          <div>
+            <h3><?php echo esc_html__('Everything you need for multi-store selling', 'asl_locator'); ?></h3>
+            <p><?php echo esc_html__('Preview the customer-facing tools included with the WooCommerce extension.', 'asl_locator'); ?></p>
+          </div>
+          <span><?php echo esc_html__('6 features', 'asl_locator'); ?></span>
         </div>
-        <div class="row">
+        <div class="row g-4 asl-wc-feature-grid">
           <div class="pro-item col-lg-6">
             <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="pro-item__link">
               <div class="pro-item__content">
@@ -119,16 +129,25 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 mb-3 text-center">
-            <a target="_blank" href="<?php echo $asl_wc_ad_url; ?>" class="btn btn-xl btn-success btn-asl-upgrade">WooCommerce Extension</a>
+          <div class="col-md-12 text-center">
+            <div class="asl-wc-footer-cta">
+              <div>
+                <strong><?php echo esc_html__('Ready to connect WooCommerce with your stores?', 'asl_locator'); ?></strong>
+                <span><?php echo esc_html__('Give customers a faster, location-aware shopping experience.', 'asl_locator'); ?></span>
+              </div>
+              <a target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($asl_wc_ad_url); ?>" class="btn asl-wc-cta">
+                <?php echo esc_html__('Get WooCommerce Extension', 'asl_locator'); ?>
+                <span class="dashicons dashicons-external" aria-hidden="true"></span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>  
-    <div class="mb-4">
+    <div class="mb-4 asl-wc-banner">
       <div class="row">
         <div class="col-md-12 justify-content-md-center text-center">
-          <a href="<?php echo $asl_wc_ad_url; ?>" target="_blank" class="figure">
+          <a href="<?php echo esc_url($asl_wc_ad_url . '&ref=wordpress.org'); ?>" target="_blank" rel="noopener noreferrer" class="figure">
             <img src="<?php echo ASL_URL_PATH ?>admin/images/asl-wc-addon.png" alt="Agile Stores Addons for WooCommerce" class="figure-img img-fluid rounded">
           </a>
         </div>

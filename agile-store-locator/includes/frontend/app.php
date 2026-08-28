@@ -2,14 +2,14 @@
 
 namespace AgileStoreLocator\Frontend;
 
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     exit; // Exit if accessed directly.
 }
 
 /**
  * The public-facing functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
+ * Define the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
  * @package    AgileStoreLocator
@@ -61,22 +61,6 @@ class App
      */
     private $allowed_templates = ['0'];
 
-
-    /**
-     * Initialize the class and set its properties.
-     *
-     * @since    1.0.0
-     * @param      string    $AgileStoreLocator       The name of the plugin.
-     * @param      string    $version    The version of this plugin.
-     */
-    public function __construct($AgileStoreLocator, $version)
-    {
-        $this->AgileStoreLocator = $AgileStoreLocator;
-        $this->version           = function_exists('wp_get_environment_type') && wp_get_environment_type() == 'development' ? time() : $version;
-
-        $this->script_name = '';
-    }
-
     /**
      * Validate and normalize template value.
      */
@@ -87,6 +71,28 @@ class App
         return in_array($template, $this->allowed_templates, true) ? $template : '0';
     }
 
+    /**
+     * Initialize the class and set its properties.
+     *
+     * @since    1.0.0
+     * @param      string    $AgileStoreLocator       The name of the plugin.
+     * @param      string    $version    The version of this plugin.
+     */
+    public function __construct($AgileStoreLocator, $version)
+    {
+
+        $this->AgileStoreLocator = $AgileStoreLocator;
+        $this->version           = function_exists('wp_get_environment_type') && wp_get_environment_type() == 'development' ? time() : $version;
+
+        $this->script_name = '';
+
+        //  Match & redirect
+        if (isset($_GET['sl-addr']) && $_GET['sl-addr']) {
+
+            $sanitize_text = esc_attr($_GET['sl-addr']);
+            //$this->have_matching_address($sanitize_text);
+        }
+    }
 
     /**
      * [register_styles Load the very basic style]
@@ -104,8 +110,11 @@ class App
             $this->AgileStoreLocator . '-sl-icons'    => $base_url . 'icons/fontello.css',
             $this->AgileStoreLocator . '-sl-bootstrap'=> $base_url . 'sl-bootstrap.css',
             $this->AgileStoreLocator . '-tmpl-0'      => $base_url . 'tmpl-0/tmpl-0.css',
+            $this->AgileStoreLocator . '-form'        => $base_url . 'asl-form.css',
+            $this->AgileStoreLocator . '-lead'        => $base_url . 'asl-lead-form.css',
             $this->AgileStoreLocator . '-page'        => $base_url . 'store-page.css',
-            $this->AgileStoreLocator . '-sl-cards'    => $base_url . 'cards/cards.css'            
+            $this->AgileStoreLocator . '-sl-cards'    => $base_url . 'cards/cards.css',
+            $this->AgileStoreLocator . '-asl-search'  => $base_url . 'asl_search.css',
         ];
 
         foreach ($styles as $handle => $path) {
@@ -136,19 +145,9 @@ class App
             $this->enqueue_styles($template);
         }
 
-        // Other shortcodes
-        $shortcode_styles = [
-            'ASL_CARDS'     => 'cards',
-            'ASL_SEARCH'    => 'search',
-            'ASL_STORE'     => 'page',
-            'ASL_FORM'      => 'form',
-            'ASL_LEADFORM'  => 'lead',
-        ];
-
-        foreach ($shortcode_styles as $tag => $template) {
-            if (has_shortcode($content, $tag)) {
-                $this->enqueue_styles($template);
-            }
+        // Store detail pages are the only additional shortcode in Free.
+        if (has_shortcode($content, 'ASL_STORE')) {
+            $this->enqueue_styles('page');
         }
     }
 
@@ -193,10 +192,11 @@ class App
      */
     private function get_public_config()
     {
+
         global $wpdb;
 
-        //	Fetch All Configs
-        $configs = $wpdb->get_results('SELECT * FROM ' . ASL_PREFIX . "configs WHERE (`key` NOT IN ('server_key', 'notify_email') OR `key` IS NULL) AND (`type` NOT IN ('label', 'priv') OR `type` IS NULL);");
+        //  Fetch All Configs
+        $configs = $wpdb->get_results('SELECT * FROM '.ASL_PREFIX."configs WHERE (`key` NOT IN ('server_key', 'notify_email') OR `key` IS NULL) AND (`type` NOT IN ('label', 'priv') OR `type` IS NULL);");
 
         $all_configs = [];
 
@@ -213,38 +213,67 @@ class App
      */
     public function register_scripts()
     {
+
         // ASL libraries
-        wp_register_script($this->AgileStoreLocator . '-lib', ASL_URL_PATH . 'public/js/asl_libs.min.js', ['jquery'], $this->version, true);
+        wp_register_script($this->AgileStoreLocator.'-lib', ASL_URL_PATH . 'public/js/asl_libs.min.js', ['jquery'], $this->version, true);
 
-        //	New cluster library
-        wp_register_script($this->AgileStoreLocator . '-cluster', ASL_URL_PATH . 'public/js/asl_cluster.min.js', ['jquery', $this->AgileStoreLocator . '-lib'], $this->version, true);
+        wp_register_style($this->AgileStoreLocator.'-autocomplete', ASL_URL_PATH . 'public/css/asl-autocomplete.css', [], $this->version);
+        wp_register_script($this->AgileStoreLocator.'-autocomplete', ASL_URL_PATH . 'public/js/asl-autocomplete.js', [], $this->version, true);
 
-        //	Default Script
-        wp_register_script($this->AgileStoreLocator . '-script', ASL_URL_PATH . 'public/js/site_script.js', ['jquery'], $this->version, true);
+        wp_register_style($this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/css/maplibre-gl.css', [], $this->version);
+        wp_register_style($this->AgileStoreLocator.'-maplibre-asl', ASL_URL_PATH . 'public/css/asl-maplibre.css', [$this->AgileStoreLocator.'-maplibre'], $this->version);
+        wp_register_script($this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/js/maplibre-gl.js', [], $this->version, true);
+        wp_register_script($this->AgileStoreLocator.'-common-map', ASL_URL_PATH . 'public/js/asl-common-map.js', [], $this->version, true);
+        
+        //  New cluster library
+        wp_register_script($this->AgileStoreLocator.'-cluster', ASL_URL_PATH . 'public/js/asl_cluster.min.js', ['jquery', $this->AgileStoreLocator.'-lib'], $this->version, true);
 
-        //	Store Detail page
-        wp_register_script($this->AgileStoreLocator . '-tmpl-detail', ASL_URL_PATH . 'public/js/sl_detail.js', ['jquery'], $this->version, true);
+        //  Search Widget
+        wp_register_script(
+            $this->AgileStoreLocator.'-search',
+            ASL_URL_PATH . 'public/js/asl_search.js',
+            ['jquery', $this->AgileStoreLocator.'-autocomplete', $this->AgileStoreLocator.'-common-map'],
+            $this->version,
+            true
+        );
 
-        //	Cards
-        wp_register_script($this->AgileStoreLocator . '-cards', ASL_URL_PATH . 'public/js/asl-cards.js', ['jquery'], $this->version, true);
+        //  Form
+        wp_register_script($this->AgileStoreLocator.'-form-libs', ASL_URL_PATH . 'public/js/sl-form-libs.js', ['jquery'], $this->version, true);
 
-        //	Sviper Slider
-        wp_register_script($this->AgileStoreLocator . '-sviper', ASL_URL_PATH . 'public/js/sviper.js', ['jquery'], $this->version, true);
+        //  Default Script
+        wp_register_script($this->AgileStoreLocator.'-script', ASL_URL_PATH . 'public/js/site_script.js', ['jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-autocomplete'], $this->version, true);
+        wp_register_script($this->AgileStoreLocator.'-script-maplibre', ASL_URL_PATH . 'public/js/site_maplibre_script.js', ['jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-autocomplete'], $this->version, true);
 
-        //	Match Height
-        wp_register_script($this->AgileStoreLocator . '-match-height', ASL_URL_PATH . 'public/js/jquery.match-height-min.js', ['jquery'], $this->version, true);
+        //  Store Detail page
+        wp_register_script($this->AgileStoreLocator.'-tmpl-detail', ASL_URL_PATH . 'public/js/sl_detail.js', ['jquery', 'masonry', 'imagesloaded'], $this->version, true);
+
+        //  Store Form
+        wp_register_script($this->AgileStoreLocator.'-form', ASL_URL_PATH . 'public/js/asl-form.js', ['jquery'], $this->version, true);
+
+        //  Lead Form
+        wp_register_script($this->AgileStoreLocator.'-lead', ASL_URL_PATH . 'public/js/asl-lead-form.js', ['jquery'], $this->version, true);
+
+        //  Cards
+        wp_register_script($this->AgileStoreLocator.'-cards', ASL_URL_PATH . 'public/js/asl-cards.js', ['jquery'], $this->version, true);
+
+        //  Sviper Slider
+        wp_register_script($this->AgileStoreLocator.'-sviper', ASL_URL_PATH . 'public/js/sviper.js', ['jquery'], $this->version, true);
+
+        //  Match Height
+        wp_register_script($this->AgileStoreLocator.'-match-height', ASL_URL_PATH . 'public/js/jquery.match-height-min.js', ['jquery'], $this->version, true);
     }
 
     /**
-     * [register_google_maps Register the Google Maps]
-     * @return [type] [description]
-     */
+    * [register_google_maps Register the Google Maps]
+    * @return [type] [description]
+    */
     public function register_google_maps($atts = [])
     {
+
         global $wpdb;
 
         // Query the database for the required configurations
-        $sql     = 'SELECT `key`,`value` FROM ' . ASL_PREFIX . "configs WHERE `key` IN ('api_key', 'map_language', 'map_region', 'advanced_marker') ORDER BY id ASC;";
+        $sql = 'SELECT `key`,`value` FROM '.ASL_PREFIX."configs WHERE `key` IN ('api_key', 'map_language', 'map_region', 'advanced_marker') ORDER BY id ASC;";
         $results = $wpdb->get_results($sql);
 
         // Convert the results into an associative array using the 'key' as the array key
@@ -253,7 +282,7 @@ class App
             $configs[$result->key] = $result->value;
         }
 
-        $map_url = '//maps.googleapis.com/maps/api/js?libraries=places,drawing';
+        $map_url = '//maps.googleapis.com/maps/api/js?libraries=places';
 
         // Advanced Markers
         if ((isset($atts['advanced_marker']) && $atts['advanced_marker'] == '1') || !empty($configs['advanced_marker'])) {
@@ -274,11 +303,11 @@ class App
         if (!(defined('BORLABS_COOKIE_VERSION') && version_compare(BORLABS_COOKIE_VERSION, '3', '>'))) {
         }
 
-        // Since version 1.5
+        // Since version 4.11
         //$map_url .= '&loading=async';
 
         // Add the callback function
-        $map_cb_func = isset($atts['lib_callback']) ? $atts['lib_callback'] : 'asl_init_callback'; //asl_init_map,asl_init_locator,asl_init_callback
+        $map_cb_func = isset($atts['lib_callback']) ? $atts['lib_callback'] : 'asl_init_callback';//asl_init_map,asl_init_locator
         $map_url .= '&callback=' . $map_cb_func;
 
         // Set the map language
@@ -311,42 +340,94 @@ class App
      */
     public function enqueue_scripts($type = '', $atts = [])
     {
-        //	Register Before Enqueue
+
+        //  Register Before Enqueue
         $this->register_scripts();
 
-        //	enqueue the libs
+        //  enqueue the libs
         //if ($type != 'wc') {wp_enqueue_script($this->AgileStoreLocator.'-lib');}
 
         // Run always
-        wp_enqueue_script($this->AgileStoreLocator . '-lib');
+        wp_enqueue_script($this->AgileStoreLocator.'-lib');        
+        wp_enqueue_style($this->AgileStoreLocator.'-autocomplete');
+        wp_enqueue_script($this->AgileStoreLocator.'-autocomplete');
 
-		$this->register_google_maps($atts);
+        $map_vendor = isset($atts['map_vendor']) ? strtolower((string) $atts['map_vendor']) : 'google';
+        $site_script_handle = $this->AgileStoreLocator . ('maplibre' === $map_vendor ? '-script-maplibre' : '-script');
+        $uses_common_map = in_array($type, ['form', 'detail', 'search'], true);
 
-        //	We only want the Google Maps
+        if ($uses_common_map) {
+            wp_enqueue_script($this->AgileStoreLocator.'-common-map');
+        }
+
+        if ('maplibre' === $map_vendor) {
+            wp_enqueue_style($this->AgileStoreLocator.'-maplibre');
+            wp_enqueue_style($this->AgileStoreLocator.'-maplibre-asl');
+            wp_enqueue_script($this->AgileStoreLocator.'-maplibre');
+        }
+
+        //  Register the Google Maps
+        $search_provider = isset($atts['search_provider']) ? strtolower((string) $atts['search_provider']) : 'automatic';
+        $search_type = isset($atts['search_type']) ? (string) $atts['search_type'] : '0';
+        $google_search_selected = (
+            in_array($search_provider, ['google', 'google_new', 'google_legacy'], true)
+            || (
+                in_array($search_provider, ['automatic', 'auto'], true)
+                && (
+                    in_array($search_type, ['0', '3'], true)
+                    || ('4' === $search_type && 'google' === $map_vendor)
+                )
+            )
+        );
+        $needs_google = ('google' === $map_vendor) || $google_search_selected;
+
+        if ($needs_google) {
+            $this->register_google_maps($atts);
+        }
+
+
+        //  We only want the Google Maps
         if ($type == 'wc') {
             return;
         }
 
+        // Load other scripts
         switch ($type) {
+
+            case 'search':
+
+                wp_enqueue_script($this->AgileStoreLocator.'-search');
+                break;
+
+            case 'form':
+
+                wp_enqueue_script($this->AgileStoreLocator.'-form');
+                break;
+
+            case 'lead':
+
+                wp_enqueue_script($this->AgileStoreLocator.'-form-libs');
+                wp_enqueue_script($this->AgileStoreLocator.'-lead');
+                break;
+
             case 'detail':
 
-                wp_enqueue_script($this->AgileStoreLocator . '-tmpl-detail');
+                wp_enqueue_script($this->AgileStoreLocator.'-tmpl-detail');
                 break;
 
             case 'cards':
 
-                wp_enqueue_script($this->AgileStoreLocator . '-sviper');
-                wp_enqueue_script($this->AgileStoreLocator . '-match-height');
-                wp_enqueue_script($this->AgileStoreLocator . '-cards');
+                wp_enqueue_script($this->AgileStoreLocator.'-sviper');
+                wp_enqueue_script($this->AgileStoreLocator.'-match-height');
+                wp_enqueue_script($this->AgileStoreLocator.'-cards');
                 break;
 
             default:
 
-                wp_enqueue_script($this->AgileStoreLocator . '-script');
+                wp_enqueue_script($site_script_handle);
                 // wp_enqueue_script( $this->AgileStoreLocator.'-sviper');
                 break;
         }
-
     }
 
     /**
@@ -378,6 +459,20 @@ class App
         }
 
         switch ($template) {
+
+            case 'form':
+
+                //  Add the CSS for the Template 3
+                wp_enqueue_style($this->AgileStoreLocator.'-form');
+
+                break;
+
+            case 'lead':
+
+                wp_enqueue_style($this->AgileStoreLocator.'-lead');
+
+                break;
+
             case 'page':
 
                 //  Add the CSS for the Template 3
@@ -392,10 +487,17 @@ class App
 
                 break;
 
-            case '0':
+            case 'search':
+
+                //  Add the CSS for the asl_search
+                wp_enqueue_style($this->AgileStoreLocator.'-asl-search');
+                break;
+
             default:
-                //  Default locator template
+
+                //  Add the CSS for the Template 0
                 wp_enqueue_style($this->AgileStoreLocator.'-tmpl-0');
+                //wp_enqueue_style( $this->AgileStoreLocator.'-list',  'http://192.168.100.6:8080/main.scss/custom.css', array(), $this->version, $media );
                 break;
         }
     }
@@ -406,11 +508,462 @@ class App
      */
     public function initBorlabsCookies()
     {
+
         if (function_exists('BorlabsCookieHelper')) {
+
             $borlabs = new \AgileStoreLocator\Vendors\Borlabs();
 
             $borlabs->initialize();
         }
+    }
+
+    /**
+     * [searchBox Display the Search box for the Store locator Shortcode :: ASL_SEARCH]
+     * @param  [type] $atts [description]
+     * @return [type]       [description]
+     */
+    public function searchBox($atts)
+    {
+
+        global $wpdb;
+
+        $controls = \AgileStoreLocator\Model\Attribute::get_controls();
+
+        //Load the Style
+        $this->enqueue_styles('search');
+
+        if (!$atts) {
+            $atts = [];
+        }
+
+        //  Fetch All Configs
+        $all_configs = $this->get_public_config();
+        // echo "<pre>";
+        // print_r($atts);
+
+        //  Language
+        $lang   =  (isset($all_configs['locale']) && $all_configs['locale'] == '1') ? get_locale() : '';
+
+        //  Lang override by attribute
+        if (isset($atts['lang']) && strlen($atts['lang'] <= 13)) {
+            $lang = $atts['lang'];
+        }
+
+        //  en_US is default
+        if ($lang == 'en' || $lang == 'en_US') {
+            $lang = '';
+        }
+
+        //  Clean the language code
+        $lang        = esc_sql($lang);
+
+        $lang_code = ($lang == '') ? 'en_US' : $lang;
+
+        //Load the Scripts
+        // Use the saved provider settings unless the shortcode overrides them.
+        $this->enqueue_scripts('search', array_merge($all_configs, $atts));
+
+        $all_configs['URL']                 = ASL_UPLOAD_URL;
+        $all_configs['PLUGIN_URL']  = ASL_URL_PATH;
+
+        $all_configs = shortcode_atts($all_configs, $atts);
+
+        //add the missing attributes into settings
+        $all_configs = array_merge($all_configs, $atts);
+
+        //ADD The missing parameters
+        $default_options = [
+            'show_categories' => '1'
+        ];
+
+        $all_configs  = array_merge($default_options, $all_configs);
+
+        //  filter all the attribute values, escape values
+        foreach ($all_configs as $config_key => $config_value) {
+            $all_configs[$config_key] = esc_attr($config_value);
+        }
+
+        //  Get the categories
+        $all_categories = [];
+
+        $results = \AgileStoreLocator\Model\Category::get_categories($lang, 'name', null, false);
+
+        foreach ($results as $_result) {
+
+            //  Add in the List
+            $all_categories[$_result->id] = $_result;
+        }
+
+        //For Translation
+        $words = [
+            'detail'            => asl_esc_lbl('website'),
+            'select_option'     => asl_esc_lbl('select_option'),
+            'all_selected'      => asl_esc_lbl('all_selected'),
+            'search'            => asl_esc_lbl('search'),
+            'none'              => asl_esc_lbl('none'),
+            'all_categories'    => asl_esc_lbl('all_categories'),
+            'none_selected'     => asl_esc_lbl('none_selected'),
+            'selected'          => asl_esc_lbl('selected'),
+            'current_location'  => asl_esc_lbl('current_location'),
+            'select_category'   => asl_esc_lbl('select_category'),
+            'brand'             => asl_esc_lbl('brand'),
+            'special'           => asl_esc_lbl('special'),
+            'region'            => asl_esc_lbl('region'),
+            'geo'               => asl_esc_lbl('geo'),
+            'category'          => asl_esc_lbl('category')
+        ];
+
+        $all_configs['words']     = $words;
+
+        //  apply the filter, ticket #6933
+        $all_configs['words']     = apply_filters('asl_filter_search_widget_words', $words);
+
+        ob_start();
+
+        $template_file = 'asl-search.php';
+
+        //  Additional Attributes
+        $filter_ddl_temp   = (isset($all_configs['filter_ddl']) && $all_configs['filter_ddl']) ? $all_configs['filter_ddl'] : null;
+        $filter_ddl              = [];
+
+        if ($filter_ddl_temp) {
+
+            $filter_ddl_temp = explode(',', $filter_ddl_temp);
+
+            $control_keys = array_keys($controls);
+
+            foreach ($filter_ddl_temp as $filter_dd_key) {
+                $this_key = array_search($filter_dd_key, array_column($controls, 'field'));
+                $filter_ddl[$filter_dd_key] = $controls[$control_keys[$this_key]]['field'];
+            }
+        }
+
+        ////////////////////////
+        // Get the Attributes //
+        ////////////////////////
+        $all_attributes = \AgileStoreLocator\Model\Attribute::get_all_attributes_list($lang, $atts);
+
+        //Customization of Template
+        if ($template_file) {
+
+            if ($theme_file   = locate_template([ $template_file ])) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = ASL_PLUGIN_PATH.'public/partials/'.$template_file;
+            }
+
+            include $template_path;
+        }
+
+        $sl_output = ob_get_contents();
+
+        ob_end_clean();
+
+        $title_nonce = wp_create_nonce('asl_remote_nonce');
+
+        $this->localize_scripts($this->AgileStoreLocator.'-search', 'ASL_SEARCH', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => $title_nonce
+        ]);
+
+        $this->localize_scripts($this->AgileStoreLocator.'-search', 'asl_attributes', $all_attributes);
+        $this->localize_scripts($this->AgileStoreLocator.'-search', 'asl_search_configuration', $all_configs);
+        $this->localize_scripts($this->AgileStoreLocator.'-search', 'asl_search_categories', $all_categories);
+
+        //  Inject script with inline_script
+        //wp_add_inline_script( $this->AgileStoreLocator.'-search', $this->get_local_script_data(), 'before');
+
+        return $sl_output;
+    }
+
+    /**
+     * [storeForm Frontend Store Form]
+     * @param  [type] $attr [description]
+     * @return [type]       [description]
+     */
+    public function storeForm($atts)
+    {
+
+        global $wpdb;
+
+        //  Fetch All Configs
+        $all_configs = $this->get_public_config();
+
+        //  Language
+        $lang   =  (isset($all_configs['locale']) && $all_configs['locale'] == '1') ? get_locale() : '';
+
+        //  en_US is default
+        if ($lang == 'en' || $lang == 'en_US') {
+            $lang = '';
+        }
+
+        //  Clean the language code
+        $lang   = esc_sql($lang);
+
+        //  filter all the attribute values, escape values
+        foreach ($all_configs as $config_key => $config_value) {
+            $all_configs[$config_key] = esc_attr($config_value);
+        }
+
+        //  for the localization script
+        $this->script_name = '-form';
+
+        // Call the recaptcha if exist!
+        if (method_exists('\WPCaptcha_Functions', 'login_enqueue_scripts')) {
+            \WPCaptcha_Functions::login_enqueue_scripts();
+        }
+
+        //Load the Style
+        $this->enqueue_styles('form');
+
+        $markers    = $wpdb->get_results('SELECT * FROM '.ASL_PREFIX.'markers');
+        $countries  = $wpdb->get_results('SELECT id, country FROM '.ASL_PREFIX.'countries ORDER BY `country`');
+        
+
+        $ddl_controls = \AgileStoreLocator\Model\Attribute::get_controls();
+        
+        $all_ddl_controls = [];
+        $controls_by_field = [];
+
+        //  Loop over the controls
+        foreach ($ddl_controls as $control_key => $ddl_control) {
+
+            $controls_by_field[$ddl_control['field']] = $ddl_control;
+            $all_ddl_controls['all_'.$ddl_control['field']]     = \AgileStoreLocator\Model\Attribute::get_list($control_key, $lang);
+        }
+
+
+        //  to keep backward compatibility
+        extract($all_ddl_controls);
+
+        // Get the Categories
+        $all_categories = [];
+        $results                = \AgileStoreLocator\Model\Category::get_categories($lang);
+
+        foreach ($results as $_result) {
+            $all_categories[$_result->id] = $_result;
+        }
+
+        //  The Upload Directory
+        $all_configs['URL']                 = ASL_UPLOAD_URL;
+        $all_configs['PLUGIN_URL']  = ASL_URL_PATH;
+        $all_configs['map']                 = '1';
+
+        if (!$atts) {
+
+            $atts = [];
+        }
+
+        $all_configs = shortcode_atts($all_configs, $atts);
+
+        //add the missing attributes into settings
+        $all_configs = array_merge($all_configs, $atts);
+
+        // Load the map/search assets after shortcode overrides are applied.
+        $this->enqueue_scripts('form', $all_configs);
+
+        //  unregister the Google Maps
+        /*
+        if($all_configs['map'] == '0') {
+            wp_deregister_script('asl_google_maps');
+        }
+        */
+
+        //For Translation
+        $words = [
+            'detail'                => asl_esc_lbl('website'),
+            'none_selected' => asl_esc_lbl('none_selected'),
+            'fill_form'         => asl_esc_lbl('fill_form'),
+            'selected'          => asl_esc_lbl('selected'),
+            'current_location'  => asl_esc_lbl('current_location'),
+            'select_category'   => asl_esc_lbl('select_category')
+        ];
+
+        $all_configs['words']     = $words;
+
+        //  Attribute dropdowns to show on the form (all controls)
+        //  Use control keys to keep consistency with saved layout (e.g., dropdown:brands)
+        $dropdown_controls_for_form = $ddl_controls;
+
+        // Remove controls that have no options (empty attribute lists)
+        foreach ($dropdown_controls_for_form as $filter_ddl_field => $control) {
+            $options_key = 'all_'.$control['field'];
+            if (!isset($all_ddl_controls[$options_key]) || empty($all_ddl_controls[$options_key])) {
+                unset($dropdown_controls_for_form[$filter_ddl_field]);
+            }
+        }
+
+        //  Custom fields
+        $fields = \AgileStoreLocator\Helper::get_custom_fields();
+
+        // Store form fields manager (core, dropdowns, custom)
+        $store_form_field_manager = new \AgileStoreLocator\Form\StoreFormFields($dropdown_controls_for_form, $fields);
+        $store_form_fields        = $store_form_field_manager->get_fields();
+
+        // Enabled dropdown options
+        $form_dropdown_options = [];
+        foreach ($store_form_field_manager->get_enabled_dropdown_fields() as $dropdown_field) {
+            $options_key = 'all_'.$dropdown_field;
+            if (isset($all_ddl_controls[$options_key])) {
+                $form_dropdown_options[$dropdown_field] = $all_ddl_controls[$options_key];
+            }
+        }
+
+        // Enabled custom fields
+        $fields = $store_form_field_manager->get_enabled_custom_fields();
+
+        /**
+         * Render the form
+         */
+
+        //  apply filter to make the changes in the store form config
+        $all_configs     = apply_filters('asl_filter_store_form', $all_configs);
+
+        $default_required_fields = ['title', 'description', 'city', 'state', 'postal_code', 'country'];
+        $required_fields         = $default_required_fields;
+
+        if (!empty($all_configs['required_fields'])) {
+            $required_fields = is_array($all_configs['required_fields'])
+                ? $all_configs['required_fields']
+                : explode(',', $all_configs['required_fields']);
+        }
+
+        $enabled_field_names = array_map(function ($field) {
+            return isset($field['field']) ? sanitize_key($field['field']) : '';
+        }, $store_form_field_manager->get_enabled_fields());
+
+        $required_fields = array_values(array_filter(array_unique(array_map('sanitize_key', array_map('trim', $required_fields)))));
+        $required_fields = array_values(array_intersect($required_fields, $enabled_field_names));
+        $required_fields = $required_fields ?: $default_required_fields;
+        $required_fields = apply_filters('asl_filter_form_required_fields', $required_fields, $all_configs);
+        $required_fields = is_array($required_fields) ? $required_fields : explode(',', $required_fields);
+        $required_fields = array_values(array_filter(array_unique(array_map('sanitize_key', array_map('trim', $required_fields)))));
+        $required_fields = array_values(array_intersect($required_fields, $enabled_field_names));
+
+        $all_configs['required_fields'] = $required_fields;
+
+        ob_start();
+
+        //  Template file
+        $template_file = 'asl-store-form.php';
+
+        //Customization of Template
+        if ($template_file) {
+
+            if ($theme_file   = locate_template([ $template_file ])) {
+                $template_path = $theme_file;
+            } else {
+                $template_path = ASL_PLUGIN_PATH.'public/partials/'.$template_file;
+            }
+
+            include $template_path;
+        }
+
+        $sl_output = ob_get_contents();
+
+        ob_end_clean();
+
+        $title_nonce = wp_create_nonce('asl_store_form_nonce');
+
+        $this->localize_scripts($this->AgileStoreLocator.'-form', 'ASL_FORM', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'vkey'    => $title_nonce,
+            'required_fields' => $required_fields,
+        ]);
+
+        $this->localize_scripts($this->AgileStoreLocator.'-form', 'asl_form_configuration', $all_configs);
+
+        //  Inject script with inline_script
+        //wp_add_inline_script( $this->AgileStoreLocator.'-form', $this->get_local_script_data(), 'before');
+
+        return $sl_output;
+    }
+
+    /**
+     * [leadForm Lead Store Form]
+     * @param  [type] $attr [description]
+     * @return [type]       [description]
+     */
+    public function leadForm($atts)
+    {
+
+        global $wpdb;
+
+        //  for the localization script
+        $this->script_name = '-lead';
+
+        //Load the Scripts
+        $this->enqueue_scripts('lead');
+
+        //Load the Style
+        $this->enqueue_styles('lead');
+
+        $all_configs = [
+            'radius' => 25
+        ];
+
+        //  The Upload Directory
+        $all_configs['URL']                 = ASL_UPLOAD_URL;
+        $all_configs['PLUGIN_URL']  = ASL_URL_PATH;
+
+        if (!$atts) {
+
+            $atts = [];
+        }
+
+        $all_configs = shortcode_atts($all_configs, $atts);
+
+        //add the missing attributes into settings
+        $all_configs = array_merge($all_configs, $atts);
+
+        //  filter all the attribute values, escape values
+        foreach ($all_configs as $config_key => $config_value) {
+            $all_configs[$config_key] = esc_attr($config_value);
+        }
+
+        //For Translation
+        $words = [
+            'detail'    => asl_esc_lbl('website'),
+            'fill_form' => asl_esc_lbl('fill_form')
+        ];
+
+        $all_configs['words']     = $words;
+
+        /**
+         * Render the form
+         */
+
+        ob_start();
+
+        //  Template file
+        $template_file = 'asl-lead-form.php';
+
+        // Check for Local Version
+        if ($theme_file   = locate_template([ $template_file ])) {
+            $template_path = $theme_file;
+        } else {
+            $template_path = 'partials/'.$template_file;
+        }
+
+        include ASL_PLUGIN_PATH.'public/'.$template_path;
+
+        $sl_output = ob_get_contents();
+
+        ob_end_clean();
+
+        $title_nonce = wp_create_nonce('asl_store_form_nonce');
+
+        $this->localize_scripts($this->AgileStoreLocator.'-lead', 'ASL_FORM', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'vkey'    => $title_nonce,
+        ]);
+
+        $this->localize_scripts($this->AgileStoreLocator.'-lead', 'asl_lead_configuration', $all_configs);
+
+        //  Inject script with inline_script
+        //wp_add_inline_script( $this->AgileStoreLocator.'-lead', $this->get_local_script_data(), 'before');
+
+        return $sl_output;
     }
 
     /**
@@ -420,7 +973,7 @@ class App
      */
     public function head_content($content)
     {
-        echo wp_kses_post($content);
+        echo $content;
     }
 
     /**
@@ -430,6 +983,7 @@ class App
      */
     public function storePage($atts)
     {
+
         global $wpdb;
 
         $this->enqueue_styles('page');
@@ -439,27 +993,29 @@ class App
         }
 
         /////////////////////////
-        ///	Store Id Attribute //
+        /// Store Id Attribute //
         /////////////////////////
 
         // Try to get from the attributes
         $where_clause = 's.`id` = %d';
-        $q_param 		   = null;
+        $q_param          = null;
 
-        //	Get value by attribute
-        $q_param 		= isset($atts['sl-store']) ? intval($atts['sl-store']) : null;
+        //  Get value by attribute
+        $q_param        = isset($atts['sl-store']) ? intval($atts['sl-store']) : null;
 
-        //	Get value by the $_GET
+        //  Get value by the $_GET
         if (!$q_param) {
             $q_param   = (isset($_GET['sl-store']) && $_GET['sl-store']) ? $_GET['sl-store'] : null;
         }
 
-        //	Check for the slug when store id is missing
+        //  Check for the slug when store id is missing
         if (!$q_param) {
-            //	For the Slug
+
+            //  For the Slug
             $q_param   = get_query_var('sl-store');
 
             if ($q_param) {
+
                 // Clear the Slug for SQL injection
                 //$q_param = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $q_param), '-'));
                 $q_param = sanitize_title($q_param);
@@ -467,39 +1023,48 @@ class App
 
                 $where_clause = 's.`slug` = %s';
             }
+            else {
+
+                // If $q_param is missing, trigger a custom action
+                do_action('asl_store_details_missing_param');
+            }
+            
         }
 
         if ($q_param) {
+
             $ASL_PREFIX = ASL_PREFIX;
 
             // ddl_fields in the query
             $ddl_fields_str = \AgileStoreLocator\Model\Attribute::sql_query_fields();
 
-            //	Run the main query
+            //  Run the main query
             $query   = "SELECT s.`id`, `title`,  `description`, `street`,  `city`,  `state`, `postal_code`, `country`, `lat`,`lng`,`phone`,  `fax`,`email`,`website`,`logo_id`,{$ASL_PREFIX}storelogos.`path`,`marker_id`,`description_2`,`open_hours`, `ordr`,$ddl_fields_str, `custom`,
-					group_concat(category_id) as categories, lang FROM {$ASL_PREFIX}stores as s 
-					LEFT JOIN {$ASL_PREFIX}storelogos ON logo_id = {$ASL_PREFIX}storelogos.id
-					LEFT JOIN {$ASL_PREFIX}stores_categories ON s.`id` = {$ASL_PREFIX}stores_categories.store_id
-					WHERE {$where_clause}";
+                    group_concat(category_id) as categories, lang FROM {$ASL_PREFIX}stores as s 
+                    LEFT JOIN {$ASL_PREFIX}storelogos ON logo_id = {$ASL_PREFIX}storelogos.id
+                    LEFT JOIN {$ASL_PREFIX}stores_categories ON s.`id` = {$ASL_PREFIX}stores_categories.store_id
+                    WHERE {$where_clause}";
 
             $results  = $wpdb->get_results($wpdb->prepare($query, [$q_param]));
 
-            //	Only for the correct record
+            //  Only for the correct record
             if ($results && isset($results[0]) && $results[0]->id) {
-                //	Template file
+
+                //  Template file
                 $template_file = 'asl-store-page.php';
 
-                //	Clean the store
+                //  Clean the store
                 $store_data    =  \AgileStoreLocator\Helper::sanitize_store($results[0]);
 
-                //	Get the Country
-                $country = $wpdb->get_results('SELECT country FROM ' . ASL_PREFIX . 'countries WHERE id = ' . $store_data->country);
+                //  Get the Country
+                $country = $wpdb->get_results('SELECT country FROM '.ASL_PREFIX.'countries WHERE id = '.$store_data->country);
 
                 $store_data->country = ($country && isset($country[0])) ? esc_attr__($country[0]->country, 'asl_locator') : '';
 
-                $custom_fields  = \AgileStoreLocator\Helper::get_custom_fields();
-                $gallery_fields = [];
-                $gallery_images = [];
+                // Custom fields pick the gallery
+                $custom_fields   = \AgileStoreLocator\Helper::get_custom_fields();
+                $gallery_fields  = [];
+                $gallery_images  = [];
 
                 if ($custom_fields && is_array($custom_fields)) {
                     foreach ($custom_fields as $field) {
@@ -509,8 +1074,9 @@ class App
                     }
                 }
 
-                //	Custom Field
+                //  Custom Field
                 if (isset($store_data->custom) && $store_data->custom) {
+
                     $custom_values = json_decode($store_data->custom, true);
 
                     if ($custom_values && is_array($custom_values) && count($custom_values) > 0) {
@@ -537,16 +1103,16 @@ class App
                 $gallery_images = array_values(array_filter(array_map('esc_url', $gallery_images)));
                 $store_data->gallery_images = $gallery_images;
 
-                $store_data->description  	 = wpautop($store_data->description);
+                $store_data->description    = wpautop($store_data->description);
                 $store_data->description_2  = wpautop($store_data->description_2);
 
-                //	Make the address
-                $locality            = trim(implode(', ', array_filter([$store_data->city, $store_data->state, $store_data->postal_code, $store_data->country])), ', ');
-                $address             = [$store_data->street, $locality];
+                //  Make the address
+                $locality = trim(implode(', ', array_filter([$store_data->city, $store_data->state, $store_data->postal_code, $store_data->country])), ', ');
+                $address  = [$store_data->street, $locality];
                 $store_data->address = (trim(implode(', ', $address)));
 
-                //	All the configuration
-                $all_configs 		= \AgileStoreLocator\Helper::get_configs(['store_schema', 'store_page_show_country', 'store_page_address_format', 'zoom', 'map_layout', 'week_hours', 'hide_hours', 'additional_info', 'show_categories', 'gdpr']);
+                //  All the configuration
+                $all_configs        = \AgileStoreLocator\Helper::get_configs(['store_schema', 'store_page_show_country', 'store_page_address_format', 'zoom', 'map_layout', 'week_hours', 'hide_hours', 'additional_info', 'show_categories', 'gdpr', 'map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'geoapify_api_key', 'mapbox_access_token', 'map_type', 'search_provider', 'country_restrict', 'minzoom', 'maxzoom']);
 
                 $show_country = ! isset($all_configs['store_page_show_country'])
                     || $all_configs['store_page_show_country'] !== '0';
@@ -586,18 +1152,21 @@ class App
                     $all_configs
                 );
 
-                //	To display only one parameter
+                //  To display only one parameter
                 if (isset($atts['field'])) {
+
                     $display_column = $atts['field'];
 
-                    //	Return as field
+                    //  Return as field
                     if ($display_column == 'categories') {
-                        //	filter the numbers
+
+                        //  filter the numbers
                         $categories = \AgileStoreLocator\Model\Category::get_categories($store_data->lang, 'category_name', $store_data->categories);
 
                         $store_categories = [];
 
                         if ($categories) {
+
                             foreach ($categories as $b) {
                                 $store_categories[] = esc_attr($b->category_name);
                             }
@@ -606,33 +1175,38 @@ class App
                         return implode(', ', $store_categories);
                     }
 
-                    //	render the open hours
+                    //  render the open hours
                     if ($display_column == 'open_hours') {
-                        //	Show the closed or not?
-                        $show_close_label 			= (isset($atts['closed_label']) && $atts['closed_label'] == '1') ? true : false;
 
-                        //	Open hours
+
+                        $all_configs = $this->_prepare_detail_configs($all_configs, $store_data, $atts);
+
+                        //  Show the closed or not?
+                        $show_close_label           = (isset($atts['closed_label']) && $atts['closed_label'] == '1') ? true : false;
+
+                        //  Open hours
                         $store_data->open_hours = \AgileStoreLocator\Helper::openHours($store_data, $all_configs['week_hours'], $show_close_label);
                     }
 
-                    //	Return the map only
+                    //  Return the map only
                     if ($display_column == 'map') {
+
                         $all_configs = $this->_prepare_detail_configs($all_configs, $store_data, $atts);
 
                         $map_html = '
-						<section class="asl-cont asl-store-pg" data-config=\'' . wp_json_encode($all_configs) . '\'>
-						    <div class="sl-container">
-						        <div class="sl-row">
-						            <div class="pol-lg-12">
-						                <div class="asl-detail-map"></div>
-						            </div>
-						        </div>
-						    </div>
-						</section>
-						';
+                        <section class="asl-cont asl-store-pg" data-config=\''.json_encode($all_configs).'\'>
+                            <div class="sl-container">
+                                <div class="sl-row">
+                                    <div class="pol-lg-12">
+                                        <div class="asl-detail-map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        ';
 
                         //Load the Scripts
-                        $this->enqueue_scripts('detail', $atts);
+                        $this->enqueue_scripts('detail', $all_configs);
 
                         return $map_html;
                     }
@@ -643,7 +1217,7 @@ class App
                 }
 
                 //Load the Scripts
-                $this->enqueue_scripts('detail', $atts);
+                $this->enqueue_scripts('detail', $all_configs);
 
                 ////////////////////
                 ///Get Categories //
@@ -651,19 +1225,21 @@ class App
                 $store_categories = null;
 
                 if (isset($store_data->categories) && $store_data->categories) {
-                    //	filter the numbers
+
+                    //  filter the numbers
                     $categories = \AgileStoreLocator\Model\Category::get_categories($store_data->lang, 'category_name', $store_data->categories);
 
                     if ($categories) {
+
                         foreach ($categories as $b) {
                             $store_categories[] = esc_attr($b->category_name);
                         }
 
-                        //	Fill the categories for Schema
+                        //  Fill the categories for Schema
                         $store_data->all_categories = $store_categories;
 
-                        //	Keep the full instance
-                        $store_data->categories 	= $categories;
+                        //  Keep the full instance
+                        $store_data->categories     = $categories;
                     }
                 }
 
@@ -671,42 +1247,74 @@ class App
                 ///Get the Attribute Names //
                 /////////////////////////////
 
-                //	Open hours
+                $ddl_controls  = \AgileStoreLocator\Model\Attribute::get_controls();
+
+                $all_ddl_names = [];
+
+                //  Loop over the controls
+                foreach ($ddl_controls as $control_key => $ddl_control) {
+
+                    $ctrl_field = $ddl_control['field'];
+
+                    if (isset($store_data->$ctrl_field) && $store_data->$ctrl_field) {
+
+                        $ctrl_field_values = explode(',', $store_data->$ctrl_field);
+
+                        $names = \AgileStoreLocator\Model\Attribute::get_names_by_ids($control_key, $ctrl_field_values);
+
+                        $all_ddl_names['store_'.$ctrl_field]  = implode(', ', $names);
+                    } else {
+                        $all_ddl_names['store_'.$ctrl_field] = null;
+                    }
+
+                }
+
+                //  make them variables, for backward compatibility
+                extract($all_ddl_names);
+
+                //  Open hours
                 $store_data->hours = $store_data->open_hours;
 
-                //	Map will appear or not?
-                $store_data->map 	= (isset($atts['map']) && $atts['map'] == '0') ? false : true;
+                //  Map will appear or not?
+                $store_data->map    = (isset($atts['map']) && $atts['map'] == '0') ? false : true;
 
-                //	Show the closed or not?
-                $show_close_label 			= (isset($atts['closed_label']) && $atts['closed_label'] == '1') ? true : false;
+                //  Show the closed or not?
+                $show_close_label           = (isset($atts['closed_label']) && $atts['closed_label'] == '1') ? true : false;
 
                 // Always show individual days on the full store page.
                 $all_configs['week_hours'] = '1';
 
-                //	Open hours
+                //  Open hours
                 $store_data->open_hours = ($all_configs['hide_hours'] != '1') ? \AgileStoreLocator\Helper::openHours($store_data, $all_configs['week_hours'], $show_close_label) : '';
 
-                //	When we have a map!
+                //  When we have a map!
                 if ($store_data->map) {
+
                     $all_configs = $this->_prepare_detail_configs($all_configs, $store_data, $atts);
                 } else {
-                    unset($all_configs['zoom'], $all_configs['map_layout'], $all_configs['week_hours'], $all_configs['URL'], $all_configs['PLUGIN_URL']);
+
+                    unset($all_configs['zoom']);
+                    unset($all_configs['map_layout']);
+                    unset($all_configs['week_hours']);
+                    unset($all_configs['URL']);
+                    unset($all_configs['PLUGIN_URL']);
                 }
 
                 //  apply filter to make the store detail accessible
                 $store_data     = apply_filters('asl_filter_store_detail', $store_data);
 
-                //	Generate the Google Schema
-                $google_schema 	= ($all_configs['store_schema'] == '1') ? \AgileStoreLocator\Helper::googleSchema($store_data) : '';
+                //  Generate the Google Schema
+                $google_schema  = ($all_configs['store_schema'] == '1') ? \AgileStoreLocator\Helper::googleSchema($store_data) : '';
 
                 ob_start();
 
                 // Check for Local Version
                 if ($template_file) {
-                    if ($theme_file   = locate_template([$template_file])) {
+
+                    if ($theme_file   = locate_template([ $template_file ])) {
                         $template_path = $theme_file;
                     } else {
-                        $template_path = ASL_PLUGIN_PATH . 'public/partials/' . $template_file;
+                        $template_path = ASL_PLUGIN_PATH.'public/partials/'.$template_file;
                     }
 
                     include $template_path;
@@ -732,6 +1340,7 @@ class App
      */
     private function _prepare_detail_configs($all_configs, $store_data, $atts)
     {
+
         // Set default latitude and longitude based on store data
         $all_configs['default_lat'] = $store_data->lat;
         $all_configs['default_lng'] = $store_data->lng;
@@ -749,12 +1358,11 @@ class App
 
         // Get the JSON for the Map layout and other configurations
         $all_configs['map_layout'] = $this->_map_layout($all_configs['map_layout']);
-        
-        $all_configs['icon'] 			= \AgileStoreLocator\Helper::getMarkerPath($store_data->marker_id);
+        $all_configs['icon']             = \AgileStoreLocator\Helper::getMarkerPath($store_data->marker_id);
 
-        $all_configs['URL'] 			= ASL_UPLOAD_URL;
-        $all_configs['PLUGIN_URL'] 		= ASL_URL_PATH;
-        $all_configs['store_title'] 	= $store_data->title;
+        $all_configs['URL']                     = ASL_UPLOAD_URL;
+        $all_configs['PLUGIN_URL']      = ASL_URL_PATH;
+        $all_configs['store_title']     = $store_data->title;
 
         return $all_configs;
     }
@@ -766,7 +1374,8 @@ class App
      */
     public function storeCards($atts)
     {
-        //	Enqueue the CSS of it
+
+        //  Enqueue the CSS of it
         $this->script_name = '-cards';
 
         //Load the Scripts
@@ -775,6 +1384,9 @@ class App
         //Load the Style
         $this->enqueue_styles('cards');
 
+        $anchor_target = \AgileStoreLocator\Helper::get_configs('target_blank');
+        $anchor_target = $anchor_target ? $anchor_target : '_self';
+
         if (!$atts) {
             $atts = [];
         }
@@ -782,10 +1394,19 @@ class App
         // Add Sviper Script if slider attribute is enabled
         $slider_enabled = false;
         if (isset($atts['slider']) && $atts['slider']) {
+
             $slider_enabled = true;
         }
 
-        // Limit of the Grid
+        // Get heading tag for store title
+        $heading_tag            = 'h2';
+
+        if (isset($atts['heading_tag']) && $atts['heading_tag']) {
+
+            $heading_tag = esc_attr($atts['heading_tag']);
+        }
+
+        // Limit of the Card
         $limit       = isset($atts['limit']) ? intval($atts['limit']) : 10;
         $offset      = isset($atts['offset']) ? intval($atts['offset']) : 0;
         $hide_fields = isset($atts['hide_fields']) ? esc_attr($atts['hide_fields']) : '';
@@ -795,14 +1416,14 @@ class App
             $atts['city'] = $atts['cities'];
         }
 
-        //	Get the stores
+        //  Get the stores
         $stores = \AgileStoreLocator\Model\Store::get_stores($atts, $limit, $offset, null, false);
 
-        //	Grid Template file
-        $template_file = isset($atts['template']) ? "asl-cards-{$atts['template']}.php" : 'asl-cards-template-01.php';
+        //  Card Template file
+        $card_layout = isset($atts['card']) ? $atts['card'] : 'card-01';
 
-        //	Get the config
-        $all_configs 	= \AgileStoreLocator\Helper::get_configs(['rewrite_slug', 'week_hours']);
+        //  Get the config
+        $all_configs    = \AgileStoreLocator\Helper::get_configs(['rewrite_slug', 'week_hours']);
 
         if (isset($all_configs['rewrite_slug']) && $all_configs['rewrite_slug']) {
             $store_base_url = \AgileStoreLocator\Schema\Slug::get_store_base_url();
@@ -813,80 +1434,117 @@ class App
         }
 
         $all_configs['URL']         = ASL_UPLOAD_URL;
-        $all_configs['PLUGIN_URL'] 	= ASL_URL_PATH;
+        $all_configs['PLUGIN_URL']  = ASL_URL_PATH;
 
         // Check for Local Version
-        if ($template_file) {
-            if ($theme_file   = locate_template([$template_file])) {
-                $template_path = $theme_file;
+
+        // $template_wrapper_file = "asl-cards-wrapper.php";
+        $template_wrapper_path  = ASL_PLUGIN_PATH . 'public/partials/asl-cards-wrapper.php';
+
+        $card_partial_file          = "asl-$card_layout.php";
+
+        $average_rating                 = esc_attr__('Average Rating', 'asl_locator');
+
+        if ($card_partial_file) {
+
+            if ($theme_file   = locate_template([ $card_partial_file ])) {
+                $card_partial_path = $theme_file;
             } else {
-                $template_path = ASL_PLUGIN_PATH . 'public/partials/' . $template_file;
+                $card_partial_path = ASL_PLUGIN_PATH . 'public/partials/'.$card_partial_file;
             }
 
             $sl_output = '<section class="asl-cont asl-store-grid sl-opacity-1">
-											<div class="sl-container">
-												<div class="sl-row">';
+                                            <div class="sl-container">
+                                                <div class="sl-row">';
 
-            // Add the loop to the stores
+            // Filter stores data for Stores Output Object
             foreach ($stores as $store_data) {
-                //	Make Address
+
+                //  Make Address
                 $locality = trim(implode(', ', array_filter([$store_data->city, $store_data->state, $store_data->postal_code, $store_data->country])), ', ');
                 $address  = [$store_data->street, $locality];
 
-                $custom = isset($store_data->custom) && $store_data->custom ? json_decode($store_data->custom) : [];
+                // Rating (Used in Tmpl)
+                $store_data->rating = '';
 
-                // Rating
-                if (isset($custom->rating) && json_last_error() === JSON_ERROR_NONE) {
-                    $store_data->rating = $custom->rating;
+                //  Custom field
+                if (isset($store_data->custom) && $store_data->custom) {
+
+                    $custom_fields = json_decode($store_data->custom, true);
+
+                    if ($custom_fields && is_array($custom_fields) && count($custom_fields) > 0) {
+
+                        foreach ($custom_fields as $custom_key => $custom_value) {
+
+                            $store_data->$custom_key = esc_attr($custom_value);
+                        }
+                    }
                 }
 
                 // Complete Store Address
                 $store_data->address = (trim(implode(', ', $address)));
 
-                //	URL of the page
-                $store_data->url     =  $all_configs['rewrite_slug'] . '/' . $store_data->slug;
+                //  URL of the page
+                $store_data->url     =  $store_data->slug ? \AgileStoreLocator\Schema\Slug::build_store_detail_url($store_data->slug) : '';
 
-                $direction_path 		 = urlencode($store_data->address);
+                $direction_path          = urlencode($store_data->address);
 
-                //	Direction via Coordinates
+                //  Direction via Coordinates
                 if (isset($atts['coords_direction'])) {
-                    $direction_path = $store_data->lat . ',' . $store_data->lng;
+
+                    $direction_path = $store_data->lat.','.$store_data->lng;
                     $direction_path = urlencode(trim($direction_path));
                 }
 
-                //	Direction URL
-                $store_data->direction = 'https://www.google.com/maps/dir/?api=1&destination=' . $direction_path;
+                //  Direction URL
+                $store_data->direction = 'https://www.google.com/maps/dir/?api=1&destination='.$direction_path;
 
                 // Hide the fields that are turned OFF
                 foreach ($hide_fields as $hide_field) {
-                    //	Hide the address
+
+                    //  Hide the address
                     if ($hide_field == 'address') {
-                        unset($store_data->address, $store_data->street, $store_data->city, $store_data->state, $store_data->postal_code);
+
+                        unset($store_data->address);
+                        unset($store_data->street);
+                        unset($store_data->city);
+                        unset($store_data->state);
+                        unset($store_data->postal_code);
+
+                        $store_data->address = '';
                     } elseif ($hide_field == 'logo') {
+
                         unset($store_data->path);
+                        $store_data->path = '';
                     } else {
-                        unset($store_data->$hide_field);
+                        $store_data->$hide_field = '';
                     }
                 }
+
+                if (isset($store_data->path) && $store_data->path) {
+                    $store_data->path = ASL_UPLOAD_URL.'Logo/'.$store_data->path;
+                }
+
+                $store_data->title_phone_email = ($store_data->title || $store_data->phone || $store_data->email) ? true : false;
 
                 $stores_filtered[] = $store_data;
             }
 
             ob_start();
 
-            include $template_path;
+            include $template_wrapper_path;
 
             // get the stream
             $sl_output .= ob_get_contents();
 
             ob_end_clean();
 
-            //	When there are no stores
+            //  When there are no stores
             if (count($stores) < 1) {
-                $sl_output .= '<p class="text-center w-100 alert-warning alert sl-grid-no-stores">' . esc_attr__('Sorry! there are no stores found!', 'asl_locator') . '</p>';
+                $sl_output .= '<p class="text-center w-100 alert-warning alert sl-grid-no-stores">'.esc_attr__('Sorry! there are no stores found!', 'asl_locator').'</p>';
             }
 
-            //	Closing div
+            //  Closing div
             $sl_output .= '</div></div></section>';
         }
 
@@ -900,84 +1558,127 @@ class App
      */
     public function frontendStoreLocator($atts)
     {
+
         global $wpdb, $post;
 
-        //	instance can run only one time
+        //  instance can run only one time
         if ($this->single_run) {
             //return '<p><b>Store Locator instance is already loaded and running on the page, only one instance of store locator can be added on a single page.</b></p>';
         }
 
-        //	first instance executed
+        //  first instance executed
         $this->single_run = true;
 
         $all_configs = $this->get_public_config();
 
-        //	The Upload Directory
-        $all_configs['URL'] 				    = ASL_UPLOAD_URL;
-        $all_configs['PLUGIN_URL'] 	= ASL_URL_PATH;
-        $all_configs['site_lang'] 	 = get_locale();
+        //  The Upload Directory
+        $all_configs['URL']                 = ASL_UPLOAD_URL;
+        $all_configs['PLUGIN_URL']  = ASL_URL_PATH;
+        $all_configs['site_lang']   = get_locale();
 
-        //	Language
+        //  Language
         $lang   =  (isset($all_configs['locale']) && $all_configs['locale'] == '1') ? get_locale() : '';
 
         if (!$atts) {
             $atts = [];
         } else {
-            //	apply filter to change the attributes
+
+            //  apply filter to change the attributes
             $atts     = apply_filters('asl_filter_locator_attrs', $atts);
         }
 
-        //	Lang override by attribute
-        if (isset($atts['lang']) && strlen($atts['lang'] <= 13)) {
+        // Normalize template early if provided via shortcode
+        if (isset($atts['template'])) {
+            $atts['template'] = $this->sanitize_template($atts['template']);
+        }
+
+        //  Lang override by attribute
+        if (isset($atts['lang']) && strlen($atts['lang']) <= 13) {
             $lang = $atts['lang'];
         }
 
-        //	en_US is default
+        //  en_US is default
         if ($lang == 'en' || $lang == 'en_US') {
             $lang = '';
         }
 
-        //	Clean the language code
+        //  Clean the language code
         if ($lang) {
-            $lang   	  = esc_sql($lang);
+            $lang         = esc_sql($lang);
         }
 
-        $lang_code 		= ($lang == '') ? 'en_US' : $lang;
+        $lang_code      = ($lang == '') ? 'en_US' : $lang;
 
-        //	Merge the shortcodes
+        //  Merge the shortcodes
         $all_configs  = shortcode_atts($all_configs, $atts);
 
-        //	Add the missing attributes into settings
+        //  Add the missing attributes into settings
         $all_configs  = array_merge($all_configs, $atts);
 
-        //	Check the template to load
-        $all_configs['template'] = $template = '0';
-
-        //	Language code in config, latest
+        //  Language code in config, latest
         if ($lang) {
             $all_configs['lang'] = $lang_code;
         }
 
-        //	Check the template to load
-        $template = (isset($all_configs['template'])) ? $all_configs['template'] : '0';
+        //   Change the settings progamatically
+        $all_configs = apply_filters('asl_filter_locator_init', $all_configs);
 
-        //	Load the secondary cluster library
-        if ($template != 'list' && $all_configs['cluster'] == '2') {
-            wp_enqueue_script($this->AgileStoreLocator . '-cluster');
+        //  Keep the local language vars synced with programmatic changes.
+        if (isset($all_configs['lang']) && strlen($all_configs['lang']) <= 13) {
+
+            $lang = $all_configs['lang'];
+
+            if ($lang == 'en' || $lang == 'en_US') {
+                $lang = '';
+            }
+
+            if ($lang) {
+                $lang = esc_sql($lang);
+            }
+
+            $lang_code = ($lang == '') ? 'en_US' : $lang;
         }
 
-        //Load the Scripts
-        $this->enqueue_scripts($template, $atts);
+        //  Change the API key programatically
+        $all_configs['api_key'] = apply_filters('asl_filter_api_key', $all_configs['api_key']);
 
-        //	for the localization script
-        $this->script_name = ($template == '3' || $template == '4' || $template == 'list') ? '-tmpl-' . $template : '-script';
+        //  Check the template to load
+        $template = isset($atts['template'])
+            ? $atts['template']
+            : (isset($all_configs['template']) ? $all_configs['template'] : $this->get_default_template());
+
+        //  Must be a valid template
+        $template                            = $this->sanitize_template($template);
+        $all_configs['template'] = $template;
+
+        //  Load the secondary cluster library
+        if (strpos($template, 'list') === false && $all_configs['cluster'] == '2') {
+
+            wp_enqueue_script($this->AgileStoreLocator.'-cluster');
+        }
+
+        // Load the Scripts
+        $script_atts = $atts;
+        $script_atts['map_vendor'] = isset($all_configs['map_vendor']) ? $all_configs['map_vendor'] : 'google';
+        $script_atts['search_provider'] = isset($all_configs['search_provider']) ? $all_configs['search_provider'] : 'automatic';
+        $this->enqueue_scripts($template, $script_atts);
+
+        //  for the localization script
+        $this->script_name = '-script';
+
+        // MapLibre uses provider-specific runtime handles. Localized variables
+        // must be attached to the handle that WordPress actually enqueues.
+        if ('maplibre' === strtolower((string) $script_atts['map_vendor'])) {
+            $this->script_name = '-script-maplibre';
+        }
 
         //Load the Style
         $this->enqueue_styles($template);
 
-        //	If the GDPR is enabled, dequeue the Google Maps
+        //  If the GDPR is enabled, dequeue the Google Maps
         if (isset($all_configs['gdpr']) && $all_configs['gdpr'] != '0' && strpos($template, 'list') === false) {
-            //	For the new Borlabs, Plugin GDPR will be disabled
+
+            //  For the new Borlabs, Plugin GDPR will be disabled
             if (defined('BORLABS_COOKIE_VERSION') && version_compare(BORLABS_COOKIE_VERSION, '3', '>') && $all_configs['gdpr'] == '2') {
                 $all_configs['gdpr'] = '0';
             } else {
@@ -987,7 +1688,7 @@ class App
 
         $category_clause = '';
 
-        //	select category
+        //  select category
         if (isset($atts['select_category'])) {
             $all_configs['select_category'] = $atts['select_category'];
         }
@@ -998,17 +1699,20 @@ class App
 
         $filter_ddls = \AgileStoreLocator\Model\Attribute::get_fields();
 
-        //	the category filter
+        //  the category filter
         $filter_ddls[] = 'category';
 
-        //	the sub-category filter
+        //  the sub-category filter
         $filter_ddls[] = 'sub_category';
 
         foreach ($filter_ddls as $attr_key) {
-            $attr_name = 'sl-' . $attr_key;
+
+            $attr_name = 'sl-'.$attr_key;
             if (isset($_GET[$attr_name]) && $_GET[$attr_name]) {
+
                 if (preg_match('/^[0-9,]+$/', $_GET[$attr_name])) {
-                    $all_configs['select_' . $attr_key] = $_GET[$attr_name];
+
+                    $all_configs['select_'.$attr_key] = $_GET[$attr_name];
                 }
             }
         }
@@ -1016,30 +1720,37 @@ class App
         ////////////////////////////
         // Add the address filter //
         ////////////////////////////
-        $address_filters = ['state', 'city', 'postal_code'];
+        $address_filters = ['state', 'city', 'postal_code', 'country'];
 
         foreach ($address_filters as $addr_filter) {
+
             if (isset($atts[$addr_filter]) && $atts[$addr_filter]) {
+
                 $all_configs[$addr_filter] = $atts[$addr_filter];
-            } elseif (isset($_GET['sl-' . $addr_filter]) && $_GET['sl-' . $addr_filter]) {
-                $all_configs[$addr_filter] = strip_tags($_GET['sl-' . $addr_filter]);
+            } elseif (isset($_GET['sl-'.$addr_filter]) && $_GET['sl-'.$addr_filter]) {
+
+                $all_configs[$addr_filter] = strip_tags($_GET['sl-'.$addr_filter]);
             }
         }
 
         if (isset($_GET['sl-addr']) && $_GET['sl-addr']) {
+
             //$all_configs['default-addr'] = \str_replace( strip_tags($_GET['sl-addr']), "\"", "");
             $all_configs['default-addr'] = esc_attr($_GET['sl-addr']);
         } elseif (isset($atts['sl-addr'])) {
+
             $all_configs['default-addr'] = $atts['sl-addr'];
-            $all_configs['req_coords']   = true;
+            $all_configs['req_coords'] = true;
         }
 
         if (isset($_GET['lat']) && $_GET['lng']) {
+
             $all_configs['default_lat'] = $_GET['lat'];
             $all_configs['default_lng'] = $_GET['lng'];
         }
-        //	Get the Coordinates
+        //  Get the Coordinates
         elseif (isset($all_configs['default-addr']) && $all_configs['default-addr']) {
+
             $all_configs['req_coords'] = true;
         }
 
@@ -1047,8 +1758,9 @@ class App
         ////////The Redirect Attribute ENDING //
         ////////////////////////////////////////
 
-        //	Only show Valid Categories
+        //  Only show Valid Categories
         if (isset($atts['category'])) {
+
             $all_configs['category'] = $atts['category'];
 
             $load_categories = explode(',', $all_configs['category']);
@@ -1056,45 +1768,84 @@ class App
             $the_categories  = [];
 
             foreach ($load_categories as $_c) {
-                if (is_numeric($_c)) {
+
+                if (ctype_digit(strval($_c))) {
+
                     $the_categories[] = $_c;
                 }
             }
 
-            $the_categories          = implode(',', $the_categories);
-            $category_clause         = ' AND id IN (' . $the_categories . ')';
+            $the_categories = implode(',', $the_categories);
+
+            if ($the_categories) {
+                $category_clause = ' id IN ('.$the_categories.')';
+            }
+
             $all_configs['category'] = $the_categories;
         }
 
-        //	Min and Max zoom
+        //  Exclude Categories
+        if (isset($atts['exclude_categories'])) {
+
+            $all_configs['exclude_categories'] = $atts['exclude_categories'];
+
+            $load_categories = explode(',', $all_configs['exclude_categories']);
+
+            $excluded_categories = [];
+
+            foreach ($load_categories as $_c) {
+
+                if (ctype_digit(strval($_c))) {
+
+                    $excluded_categories[] = $_c;
+                }
+            }
+
+            $excluded_categories = implode(',', $excluded_categories);
+
+            if ($excluded_categories) {
+                $category_clause .= ($category_clause ? ' AND' : '').' id NOT IN ('.$excluded_categories.')';
+            }
+
+            $all_configs['exclude_categories'] = $excluded_categories;
+        }
+
+        //  Min and Max zoom
         if (isset($atts['maxZoom']) || isset($atts['maxzoom'])) {
+
             $all_configs['maxzoom'] = isset($atts['maxZoom']) ? $atts['maxZoom'] : $atts['maxzoom'];
         }
 
         if (isset($atts['minZoom']) || isset($atts['minzoom'])) {
+
             $all_configs['minzoom'] = isset($atts['minZoom']) ? $atts['minZoom'] : $atts['minzoom'];
         }
 
-        //	For limited markers
+        //  For limited markers
         if (isset($atts['stores'])) {
+
             $all_configs['stores'] = $atts['stores'];
         }
 
-        //	Search 2, Template 0
-        if (!isset($atts['search_2'])) {
+        //  Search 2, Template 0
+        if (!isset($atts['search_2']) && !isset($all_configs['search_2'])) {
+
             $all_configs['search_2'] = false;
         }
 
-        //	Mobile stores limit
+        //  Mobile stores limit
         if (isset($atts['mobile_stores_limit']) && is_numeric($atts['mobile_stores_limit'])) {
+
             $all_configs['mobile_stores_limit'] = $atts['mobile_stores_limit'];
         }
 
-        //	For a fixed radius
+        //  For a fixed radius
         if (isset($atts['fixed_radius']) && is_numeric($atts['fixed_radius'])) {
+
             $all_configs['fixed_radius'] = $atts['fixed_radius'];
         }
 
+        //echo '<hr>Before: '. esc_html($all_configs['rewrite_slug']) .'<hr>';
         if (isset($all_configs['rewrite_slug']) && $all_configs['rewrite_slug']) {
             
             $store_base_url = \AgileStoreLocator\Schema\Slug::get_store_base_url();
@@ -1103,108 +1854,132 @@ class App
                 $all_configs['rewrite_slug'] = $store_base_url;
             }
         }
+        //echo '<hr>After: '. esc_html($all_configs['rewrite_slug']) .'<hr>';
 
         //ADD The missing parameters
         $default_options = [
-            'debug'              => '0',
-            'pickup'             => '0',
-            'ship_from'          => '0',
-            'cluster'            => '1',
-            'prompt_location'    => '2',
-            'map_type'           => 'roadmap',
-            'distance_unit'      => 'Miles',
-            'zoom'               => '9',
-            'show_categories'    => '1',
-            'additional_info'    => '1',
-            'distance_slider'    => '1',
-            'layout'             => '0',
-            'default_lat'        => '-33.947128',
-            'default_lng'        => '25.591169',
-            'map_layout'         => '0',
-            'infobox_layout'     => '0',
-            'advance_filter'     => '1',
-            'color_scheme'       => '0',
-            'time_switch'        => '0',
-            'category_marker'    => '0',
-            'load_all'           => '1',
-            'head_title'         => 'Number Of Shops',
-            'font_color_scheme'  => '1',
-            'template'           => '0',
-            'color_scheme_1'     => '0',
-            'api_key'            => '',
-            'display_list'       => '1',
-            'full_width'         => '0',
-            'time_format'        => '0',
-            'category_title'     => 'Category',
-            'no_item_text'       => 'No Item Found',
-            'zoom_li'            => '13',
-            'single_cat_select'  => '0',
-            'country_restrict'   => '',
+            'debug' => '0',
+            'pickup' => '0',
+            'ship_from' => '0',
+            'cluster' => '1',
+            'prompt_location' => '2',
+            'map_type' => 'roadmap',
+            'distance_unit' => 'Miles',
+            'zoom' => '9',
+            'show_categories' => '1',
+            'additional_info' => '1',
+            'distance_slider' => '1',
+            'layout' => '0',
+            'default_lat' => '-33.947128',
+            'default_lng' => '25.591169',
+            'map_layout' => '0',
+            'infobox_layout' => '0',
+            'advance_filter' => '1',
+            'color_scheme' => '0',
+            'time_switch' => '0',
+            'category_marker' => '0',
+            'load_all' => '1',
+            'head_title' => 'Number Of Shops',
+            'font_color_scheme' => '1',
+            'template' => '0',
+            'color_scheme_1' => '0',
+            'api_key' => '',
+            'map_vendor' => 'google',
+            'tile_provider' => 'geoapify',
+            'tile_provider_style' => 'default',
+            'tile_provider_api_key' => '',
+            'maplibre_style_url' => '',
+            'search_provider' => 'automatic',
+            'geoapify_api_key' => '',
+            'mapbox_access_token' => '',
+            'display_list' => '1',
+            'hide_search' => '0',
+            'full_width' => '0',
+            'time_format' => '0',
+            'category_title' => 'Category',
+            'no_item_text' => 'No Item Found',
+            'zoom_li' => '13',
+            'single_cat_select' => '0',
+            'country_restrict' => '',
             'google_search_type' => '',
-            'color_scheme_2'     => '0',
-            'analytics'          => '0',
-            'sort_by_bound'      => '0',
-            'scroll_wheel'       => '0',
-            'mobile_optimize' 	  => null,
-            'mobile_load_bound'  => null,
-            'search_type'        => '0',
-            'search_destin'      => '0',
-            'full_height'        => '',
-            'map_language'       => '',
-            'map_region'         => '',
-            'sort_by'            => '',
-            'distance_control'   => '0',
-            'dropdown_range'     => '20,40,60,80,*100',
-            'target_blank'       => '1',
-            'fit_bound'          => '1',
-            'info_y_offset'      => '',
-            'cat_sort'           => 'name_',
-            'direction_btn'      => '1',
-            'print_btn'          => '1',
-            'tabs_layout'        => false,
-            'filter_ddl'         => '',
-            'branches'           => '0',
-            'store_schedule'     => '0'
+            'color_scheme_2' => '0',
+            'analytics' => '0',
+            'sort_by_bound' => '0',
+            'scroll_wheel' => '0',
+            'mobile_optimize'   => null,
+            'mobile_load_bound' => null,
+            'search_type' => '0',
+            'search_destin' => '0',
+            'full_height' => '',
+            'map_language' => '',
+            'map_region' => '',
+            'sort_by' => '',
+            'distance_control' => '0',
+            'dropdown_range' => '20,40,60,80,*100',
+            'target_blank' => '1',
+            'fit_bound' => '1',
+            'info_y_offset' => '',
+            'cat_sort' => 'name_',
+            'direction_btn' => '1',
+            'print_btn' => '1',
+            'tabs_layout' => false,
+            'filter_ddl' => '',
+            'brand_special_cascade' => '0',
+            'branches' => '0',
+            'store_schedule' => '0'
         ];
 
         $all_configs  = array_merge($default_options, $all_configs);
 
-        //	3 Labels Option
-        $all_configs['head_title']  		  = asl_esc_lbl('head_title');
+        //  3 Labels Option
+        $all_configs['head_title']          = asl_esc_lbl('head_title');
         $all_configs['category_title']  = asl_esc_lbl('category_title');
-        $all_configs['no_item_text']  	 = asl_esc_lbl('no_item_text');
+        $all_configs['no_item_text']    = asl_esc_lbl('no_item_text');
 
         if ($all_configs['sort_by'] == 'distance') {
+
             $all_configs['sort_by'] = '';
         }
 
         if (isset($atts['user_center'])) {
+
             $all_configs['user_center'] = $atts['user_center'];
         }
 
-        //	filter all the attribute values, escape values
+        //  filter all the attribute values, escape values
         foreach ($all_configs as $config_key => $config_value) {
             $all_configs[$config_key] = esc_attr($config_value);
         }
 
         // KML Files
         if (isset($atts['kml']) && $atts['kml'] == '1') {
-            //	Get the KML files
+
+            //  Get the KML files
             $kml_files = \AgileStoreLocator\Helper::get_kml_files();
 
             if ($kml_files && !empty($kml_files)) {
+
                 $all_configs['kml_files'] = $kml_files;
                 //$all_configs['kml_files'] = implode(',', $kml_files);
             }
         }
 
-        //	Filter for the config
+        //  Filter for the config
         $all_configs    = apply_filters('asl_filter_locator_config', $all_configs);
+
+        // Allow exact address searches to use developer-provided coordinates.
+        $search_coordinates = \AgileStoreLocator\Helper::sanitize_search_coordinates(
+            apply_filters('asl_filter_search_coordinates', [])
+        );
+
+        if ($search_coordinates) {
+            $all_configs['search_coordinates'] = $search_coordinates;
+        }
 
         // Get the categories
         list($all_categories, $has_child_categories) = \AgileStoreLocator\Model\Category::get_app_categories($lang, $category_clause);
 
-        //	Has child categories or not?
+        //  Has child categories or not?
         $all_configs['has_child_categories'] = $has_child_categories;
 
         ////////////////////////
@@ -1212,7 +1987,7 @@ class App
         ////////////////////////
         $all_attributes = \AgileStoreLocator\Model\Attribute::get_all_attributes_list($lang, $atts);
 
-        //	Must be an array
+        //  Must be an array
         if (!$all_attributes || empty($all_attributes)) {
             $all_attributes = [];
         }
@@ -1221,27 +1996,28 @@ class App
         // Get the Markers //
         /////////////////////
         $all_markers = [];
-        $results     = $wpdb->get_results('SELECT id, marker_name as name,icon FROM ' . ASL_PREFIX . 'markers');
+        $results         = $wpdb->get_results('SELECT id, marker_name as name,icon FROM '.ASL_PREFIX.'markers');
 
         foreach ($results as $_result) {
             $all_markers[$_result->id] = $_result;
         }
 
-        //	Get the active Marker
-        $active_marker = $wpdb->get_results('SELECT icon FROM ' . ASL_PREFIX . "markers WHERE marker_name = 'Active' ORDER BY id DESC LIMIT 1");
+        //  Get the active Marker
+        $active_marker = $wpdb->get_results('SELECT icon FROM '.ASL_PREFIX."markers WHERE marker_name = 'Active' ORDER BY id DESC LIMIT 1");
 
         if ($active_marker && $active_marker[0]) {
             $all_configs['active_marker'] = $active_marker[0]->icon;
         }
 
-        //	Override with shortcode
+        //  Override with shortcode
         if (isset($atts['active_marker'])) {
+
             $all_configs['active_marker'] = $atts['active_marker'];
         }
 
-        //	Get the JSON for the Map layout
+        //  Get the JSON for the Map layout
         $all_configs['map_layout'] = $this->_map_layout($all_configs['map_layout']);
-        
+
         //Load the map customization
         $map_customize = \AgileStoreLocator\Helper::get_setting('map', 'map_customize');
         $map_customize = $map_customize ? $map_customize : '[]';
@@ -1258,89 +2034,93 @@ class App
 
         //For Translation
         $words = [
-            'label_country' 	    => asl_esc_lbl('label_country'),
-            'label_state' 		     => asl_esc_lbl('label_state'),
-            'label_city' 		      => asl_esc_lbl('label_city'),
-            'ph_countries' 		    => asl_esc_lbl('ph_countries'),
-            'ph_states' 		       => asl_esc_lbl('ph_states'),
-            'ph_cities' 		       => asl_esc_lbl('ph_cities'),
-            'pickup' 			         => asl_esc_lbl('pickup'),
-            'ship_from' 		       => asl_esc_lbl('ship_from'),
-            'direction' 		       => asl_esc_lbl('direction'),
-            'zoom' 				          => asl_esc_lbl('zoom_label'),
-            'detail' 			         => asl_esc_lbl('website'),
-            'select_option' 	    => asl_esc_lbl('select_option'),
-            'search' 			         => asl_esc_lbl('search'),
-            'all_selected' 		    => asl_esc_lbl('all_selected'),
-            'none' 				          => asl_esc_lbl('none'),
-            'all_categories'			  => asl_esc_lbl('all_categories'),
-            'all_sub_categories'	=> asl_esc_lbl('all_sub_categories'),
-            'all_brand'			       => asl_esc_lbl('all_brand'),
-            'all_special'		      => asl_esc_lbl('all_special'),
-            'all_additional'				 => asl_esc_lbl('all_additional'),
-            'all_additional_2'			=> asl_esc_lbl('all_additional_2'),
-            'none_selected' 	    => asl_esc_lbl('none_selected'),
-            'reset_map' 		       => asl_esc_lbl('reset_map'),
-            'reload_map' 		      => asl_esc_lbl('reload_map'),
-            'selected' 			       => asl_esc_lbl('selected'),
-            'current_location'   => asl_esc_lbl('current_location'),
-            'your_cur_loc' 		    => asl_esc_lbl('your_cur_loc'),
+            'label_country'     => asl_esc_lbl('label_country'),
+            'label_state'       => asl_esc_lbl('label_state'),
+            'label_city'        => asl_esc_lbl('label_city'),
+            'ph_countries'      => asl_esc_lbl('ph_countries'),
+            'ph_states'         => asl_esc_lbl('ph_states'),
+            'ph_cities'         => asl_esc_lbl('ph_cities'),
+            'pickup'            => asl_esc_lbl('pickup'),
+            'ship_from'         => asl_esc_lbl('ship_from'),
+            'direction'         => asl_esc_lbl('direction'),
+            'zoom'              => asl_esc_lbl('zoom_label'),
+            'detail'            => asl_esc_lbl('website'),
+            'select_option'     => asl_esc_lbl('select_option'),
+            'search'            => asl_esc_lbl('search'),
+            'all_selected'      => asl_esc_lbl('all_selected'),
+            'none'              => asl_esc_lbl('none'),
+            'all_categories'            => asl_esc_lbl('all_categories'),
+            'all_sub_categories'    => asl_esc_lbl('all_sub_categories'),
+            'all_brand'         => asl_esc_lbl('all_brand'),
+            'all_special'       => asl_esc_lbl('all_special'),
+            'all_additional'                => asl_esc_lbl('all_additional'),
+            'all_additional_2'          => asl_esc_lbl('all_additional_2'),
+            'none_selected'     => asl_esc_lbl('none_selected'),
+            'reset_map'         => asl_esc_lbl('reset_map'),
+            'reload_map'        => asl_esc_lbl('reload_map'),
+            'selected'          => asl_esc_lbl('selected'),
+            'current_location'  => asl_esc_lbl('current_location'),
+            'your_cur_loc'      => asl_esc_lbl('your_cur_loc'),
 
             /*Template words*/
-            'Miles' 	 		       => asl_esc_lbl('miles'),
-            'Km' 	 	 		        => asl_esc_lbl('km'),
-            'phone' 	 		       => asl_esc_lbl('phone'),
-            'fax' 		 		        => asl_esc_lbl('fax'),
-            'directions' 		    => asl_esc_lbl('app_directions'),
-            'distance' 	 		    => asl_esc_lbl('distance_title'),
-            'read_more'  		    => asl_esc_lbl('read_more'),
-            'hide_more'  		    => asl_esc_lbl('hide_more'),
-            'select_distance' 	=> asl_esc_lbl('select_distance'),
-            'none_distance'  	 => asl_esc_lbl('none'),
-            'cur_dir'  			     => asl_esc_lbl('cur_dir'),
-            'radius_circle' 	  => asl_esc_lbl('radius_circle'),
+            'Miles'             => asl_esc_lbl('miles'),
+            'Km'                => asl_esc_lbl('km'),
+            'phone'             => asl_esc_lbl('phone'),
+            'fax'               => asl_esc_lbl('fax'),
+            'directions'        => asl_esc_lbl('app_directions'),
+            'distance'          => asl_esc_lbl('distance_title'),
+            'read_more'         => asl_esc_lbl('read_more'),
+            'hide_more'         => asl_esc_lbl('hide_more'),
+            'select_distance'   => asl_esc_lbl('select_distance'),
+            'none_distance'     => asl_esc_lbl('none'),
+            'cur_dir'           => asl_esc_lbl('cur_dir'),
+            'radius_circle'     => asl_esc_lbl('radius_circle'),
 
-            //	Tmpl-3
-            'back_to_store' 	   => asl_esc_lbl('back_to_store'),
-            'categories_title' 	=> asl_esc_lbl('all_categories'),
-            'categories_tab' 	  => asl_esc_lbl('categories_tab'),
-            'distance_title' 	  => asl_esc_lbl('distance_title'),
-            'distance_tab' 		   => asl_esc_lbl('distance_tab'),
-            'geo_location_error'=> asl_esc_lbl('geo_location_error'),
-            'no_found_head' 	   => asl_esc_lbl('no_found_head'),
-            'select_category' 	 => asl_esc_lbl('select_category'),
-            'brand'				         => asl_esc_lbl('brand'),
-            'special'			        => asl_esc_lbl('special'),
-            'region'			         => asl_esc_lbl('region'),
-            'category'			       => asl_esc_lbl('category'),
-            'within'			         => asl_esc_lbl('within'),
-            'clear'				         => asl_esc_lbl('clear_label'),
-            'country'			        => asl_esc_lbl('country'),
-            'state'				         => asl_esc_lbl('state'),
-            'in'							         => asl_esc_lbl('in'),
-            'desc_title'			     => asl_esc_lbl('desc_title'),
-            'add_desc_title'	   => asl_esc_lbl('add_desc_title'),
-            'am'					           => asl_esc_lbl('am'),
-            'pm'					           => asl_esc_lbl('pm'),
-            'closed'			         => asl_esc_lbl('closed'),
-            'opened'			         => asl_esc_lbl('opened'),
-            'perform_search'	   => asl_esc_lbl('perform_search')
+            //  Tmpl-3
+            'back_to_store'     => asl_esc_lbl('back_to_store'),
+            'categories_title'  => asl_esc_lbl('all_categories'),
+            'categories_tab'    => asl_esc_lbl('categories_tab'),
+            'distance_title'    => asl_esc_lbl('distance_title'),
+            'distance_tab'      => asl_esc_lbl('distance_tab'),
+            'geo_location_error' => asl_esc_lbl('geo_location_error'),
+            'no_found_head'     => asl_esc_lbl('no_found_head'),
+            'select_category'   => asl_esc_lbl('select_category'),
+            'brand'             => asl_esc_lbl('brand'),
+            'special'           => asl_esc_lbl('special'),
+            'region'            => asl_esc_lbl('region'),
+            'category'          => asl_esc_lbl('category'),
+            'within'            => asl_esc_lbl('within'),
+            'clear'             => asl_esc_lbl('clear_label'),
+            'country'           => asl_esc_lbl('country'),
+            'state'             => asl_esc_lbl('state'),
+            'in'                            => asl_esc_lbl('in'),
+            'desc_title'            => asl_esc_lbl('desc_title'),
+            'add_desc_title'    => asl_esc_lbl('add_desc_title'),
+            'am'                    => asl_esc_lbl('am'),
+            'pm'                    => asl_esc_lbl('pm'),
+            'closed'            => asl_esc_lbl('closed'),
+            'opened'            => asl_esc_lbl('opened'),
+            'dir_btn_title'     => asl_esc_lbl('dir_btn_title'),
+            'no_search_item'    => asl_esc_lbl('no_search_item'),
+            'perform_search'    => asl_esc_lbl('perform_search'),
+            'search_provider_missing' => esc_attr__('Address search is unavailable because no geocoding provider is configured.', 'asl_locator')
         ];
 
-        $all_configs['words'] 	  = $words;
+        $all_configs['words']     = $words;
 
-        //	apply filter to change the locator words, ticket #6933
+        //  apply filter to change the locator words, ticket #6933
         $all_configs['words']     = apply_filters('asl_filter_locator_words', $words);
 
         $all_configs['version']   = $this->version;
-        $all_configs['days']   	  = ['sun'=> asl_esc_lbl('sun'), 'mon'=> asl_esc_lbl('mon'), 'tue'=> asl_esc_lbl('tue'), 'wed'=> asl_esc_lbl('wed'), 'thu'=> asl_esc_lbl('thu'), 'fri'=> asl_esc_lbl('fri'), 'sat'=> asl_esc_lbl('sat')];
+        $all_configs['days']      = ['sun' => asl_esc_lbl('sun'), 'mon' => asl_esc_lbl('mon'), 'tue' => asl_esc_lbl('tue'), 'wed' => asl_esc_lbl('wed'),'thu' => asl_esc_lbl('thu'), 'fri' => asl_esc_lbl('fri'), 'sat' => asl_esc_lbl('sat')];
 
-        //	Additional Attributes
+        //  Additional Attributes
         $filter_ddl_temp   = (isset($all_configs['filter_ddl']) && $all_configs['filter_ddl']) ? $all_configs['filter_ddl'] : null;
-        $filter_ddl 			    = [];
+        $filter_ddl              = [];
 
         if ($filter_ddl_temp) {
-            //	Get all the controls
+
+            //  Get all the controls
             $controls = \AgileStoreLocator\Model\Attribute::get_controls();
 
             $filter_ddl_temp = explode(',', $filter_ddl_temp);
@@ -1353,29 +2133,43 @@ class App
             }
         }
 
-        //	SHOW/Hide Custom CSS
+        //  SHOW/Hide Custom CSS
         $css_code = '';
 
-        //	Code codes for the CSS
+        //  Code codes for the CSS
         $css_code .= \AgileStoreLocator\Helper::generate_tmpl_css($all_configs['template']);
 
-        //	Hide the direction button
+        //  Hide the direction button
         if ($all_configs['direction_btn'] == '0') {
             $css_code .= '.asl-cont .sl-direction,.asl-cont .s-direction, .asl-buttons .directions {display: none !important;}';
         }
 
-        //	Hide the direction button
+        //  Hide the direction button
         if (isset($all_configs['zoom_btn']) && $all_configs['zoom_btn'] == '0') {
             $css_code .= '.asl-buttons .zoomhere {display: none !important;}';
         }
 
-        //	Hide the Print button
+        //  Hide the Print button
         if (isset($all_configs['print_btn']) && $all_configs['print_btn'] == '0') {
             $css_code .= '.asl-p-cont .asl-print-btn,.asl-cont .asl-print-btn {display: none !important;}';
         }
 
-        //	Only show stores when marker is clicked
-        if ($all_configs['template'] != 'list' && $all_configs['first_load'] == '7') {
+        //  Hide the search controls and remove the space reserved above the list.
+        if (isset($all_configs['hide_search']) && $all_configs['hide_search'] == '1') {
+            if ($all_configs['template'] == '0' && $all_configs['advance_filter'] == '1') {
+                $css_code .= '#asl-storelocator.asl-cont .asl-wrapper .Filter_section .search_filter {display: none;}';
+            }
+
+            $css_code .= '#asl-storelocator.asl-p-cont .Filter_section,#asl-storelocator.asl-cont .Filter_section .search_filter,#asl-storelocator.asl-cont .sl-main-row .asl-panel .search_filter,#asl-storelocator.asl-cont.asl-template-3 .sl-filter-sec {display: none !important;}';
+            $css_code .= '#asl-storelocator.asl-cont .sl-main-row .asl-panel .asl-panel-inner {top: 0 !important;}';
+
+            //if ($all_configs['template'] == '2') {}
+            $css_code .= '.asl-cont .search_filter,#asl-storelocator.asl-cont.asl-template-5 .asl-addr-search {display: none !important;}';
+        }
+
+        //  Only show stores when marker is clicked
+        if (strpos($all_configs['template'], 'list') === false && $all_configs['first_load'] == '7') {
+
             $all_configs['first_load'] = '1';
             $css_code .= '.asl-p-cont .sl-item,.asl-cont .sl-item {display: none !important;}.asl-p-cont .sl-item.highlighted,.asl-cont .sl-item.highlighted {display: flex !important;}';
         }
@@ -1390,15 +2184,16 @@ class App
             $cache_settings = [];
         }
 
-        //	When enabled
+        //  When enabled
         if (isset($cache_settings[$lang_code]) && $cache_settings[$lang_code] == '1') {
-            $all_configs['cache'] 		  = '1';
-            $all_configs['cache_ver'] = $cache_settings[$lang_code . '-ver'];
+
+            $all_configs['cache']       = '1';
+            $all_configs['cache_ver'] = $cache_settings[$lang_code.'-ver'];
         } else {
-            $all_configs['cache'] 		= null;
+            $all_configs['cache']       = null;
         }
 
-        //	disable the cache
+        //  disable the cache
         if (isset($atts['cache']) && $atts['cache'] == '0') {
             $all_configs['cache'] = null;
         }
@@ -1407,85 +2202,19 @@ class App
 
         $template_file = null;
 
-        switch ($all_configs['template']) {
-            case '4':
-
-                if ($all_configs['color_scheme_3'] < 0 && $all_configs['color_scheme_3'] > 9) {
-                    $all_configs['color_scheme_3'] = 0;
-                }
-
-                $template_file = 'template-frontend-4.php';
-                break;
-
-            case '3':
-
-                if ($all_configs['color_scheme_3'] < 0 && $all_configs['color_scheme_3'] > 9) {
-                    $all_configs['color_scheme_3'] = 0;
-                }
-
-                $template_file = 'template-frontend-3.php';
-                break;
-
-            case '2':
-                if ($all_configs['color_scheme_2'] < 0 && $all_configs['color_scheme_2'] > 9) {
-                    $all_configs['color_scheme_2'] = 0;
-                }
-
-                $template_file = 'template-frontend-2.php';
-                break;
-
-            case '1':
-                if ($all_configs['color_scheme_1'] < 0 && $all_configs['color_scheme_1'] > 9) {
-                    $all_configs['color_scheme_1'] = 0;
-                }
-
-                $template_file = 'template-frontend-1.php';
-                break;
-
-            case 'list':
-
-                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
-                    $all_configs['color_scheme'] = 0;
-                }
-
-                $atts['no_script'] = 0;
-                $template_file 		  = 'template-frontend-list.php';
-
-                break;
-
-            case 'deal':
-                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
-                    $all_configs['color_scheme'] = 0;
-                }
-
-                $template_file = 'template-frontend-deal.php';
-                break;
-
-            case 'realestate':
-                if ($all_configs['color_scheme_2'] < 0 && $all_configs['color_scheme_2'] > 9) {
-                    $all_configs['color_scheme_2'] = 0;
-                }
-
-                $template_file = 'template-frontend-realestate.php';
-                break;
-
-            default:
-
-                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
-                    $all_configs['color_scheme'] = 0;
-                }
-
-                $template_file = 'template-frontend-0.php';
-
-                break;
+        if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+            $all_configs['color_scheme'] = 0;
         }
+
+        $template_file = 'template-frontend-0.php';
 
         // Customization of Template file
         if ($template_file) {
-            if ($theme_file   = locate_template([$template_file])) {
+
+            if ($theme_file   = locate_template([ $template_file ])) {
                 $template_path = $theme_file;
             } else {
-                $template_path = ASL_PLUGIN_PATH . 'public/partials/' . $template_file;
+                $template_path = ASL_PLUGIN_PATH.'public/partials/'.$template_file;
             }
 
             include $template_path;
@@ -1497,37 +2226,45 @@ class App
 
         $title_nonce = wp_create_nonce('asl_remote_nonce');
 
-        //	Get the template infobox & infobar
+        //  Get the template infobox & infobar
         $asl_tmpls = \AgileStoreLocator\Helper::get_template_views($all_configs);
 
-        //	Save the templates
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'asl_tmpls', $asl_tmpls);
+        //  Save the templates
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_tmpls', $asl_tmpls);
 
-        //	Inject the template
+        //  Inject the template
         //wp_add_inline_script($this->AgileStoreLocator.'-lib', $this->get_local_script_data(), 'before');
 
-        //	Start Localizing again
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'ASL_REMOTE', [
-            'ajax_url'      => admin_url('admin-ajax.php'),
-            'nonce'         => $title_nonce,
-            'default_lang' 	=> get_locale(),
-            'lang'			=> $lang
+        //  Start Localizing again
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'ASL_REMOTE', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce'    => $title_nonce,
+            'default_lang'  => get_locale(),
+            'lang'                  => $lang
         ]);
 
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'asl_configuration', $all_configs);
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'asl_categories', $all_categories);
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'asl_attributes', $all_attributes);
+        //  Since version 4.9.15
+        $all_categories   = apply_filters('asl_filter_locator_categories', $all_categories);
 
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, 'asl_markers', $all_markers);
-        $this->localize_scripts($this->AgileStoreLocator . $this->script_name, '_asl_map_customize', (($map_customize) ? [$map_customize] : []));
+        // since version 4.10.15
+        $all_attributes   = apply_filters('asl_filter_locator_attributes', $all_attributes);
 
-        //	Inject script with inline_script
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_configuration', $all_configs);
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_categories', $all_categories);
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_attributes', $all_attributes);
+
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_markers', $all_markers);
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, '_asl_map_customize', (($map_customize) ? [$map_customize] : []));
+
+        /*
+        //  Inject script with inline_script
         //wp_add_inline_script( $this->AgileStoreLocator.$this->script_name, $this->get_local_script_data(), 'before');
 
-        //	For some reason, if the configuration is not loading up
-        if (isset($all_configs['load_vars'])) {
-            $sl_output = $sl_output . $this->get_local_script_data(true);
+        //  For some reason, if the configuration is not loading up
+        if(isset($all_configs['load_vars'])) {
+            $sl_output = $sl_output.$this->get_local_script_data(true);
         }
+        */
 
         return $sl_output;
     }
@@ -1539,10 +2276,12 @@ class App
      */
     private function _map_layout($layout_code)
     {
+
         global $wpdb;
 
         /// Get the map configuration
         switch ($layout_code) {
+
             //
             case '-1':
                 return '[]';
@@ -1612,25 +2351,131 @@ class App
         return '[]';
     }
 
-
     /**
      * [have_matching_address Get all the matching from the description_2 zipcodes]
      * @param  [type] $zip_code [description]
      * @return [type]           [description]
      */
-    private function have_matching_address($zip_code)
+    public function have_matching_address($zip_code)
     {
+
         global $wpdb;
 
-        $zip_code 			= sanitize_text_field($zip_code);
+        $zip_code           = sanitize_text_field($zip_code);
 
-        $selected_store = \AgileStoreLocator\Helper::get_store(null, "s.description_2 LIKE '%" . $wpdb->esc_like($zip_code) . "%'");
+        $selected_store = \AgileStoreLocator\Helper::get_store(null, "s.description_2 LIKE '%".$wpdb->esc_like($zip_code) ."%'");
 
         // When we have a store perform redirection
         if ($selected_store && $selected_store->website) {
-            header('Location:' . $selected_store->website);
+
+            header('Location:'.$selected_store->website);
             die;
         }
+    }
+
+    /**
+       * Overrides the default list and map column configurations based on user-provided attributes.
+       *
+       * @param  array $attrs The user-provided attributes (e.g., md="5,7" lg="4,8").
+       * @param  array &$list_column Reference to the default list column array to be modified.
+       * @param  array &$map_column  Reference to the default map column array to be modified.
+       */
+    private function overrideColumnConfigs($attrs, &$list_column, &$map_column)
+    {
+
+        // Handle the 'md' attribute
+        if (isset($attrs['md']) && !empty($attrs['md'])) {
+            $sizes = explode(',', $attrs['md']);
+            $list_column['md'] = (int)$sizes[0];
+            $map_column['md'] = isset($sizes[1]) ? (int)$sizes[1] : 12 - $list_column['md'];
+
+            // If one column is full-width, set the other to full-width as well
+            if ($list_column['md'] == 12 || $map_column['md'] == 12) {
+
+                $list_column['md'] = 12;
+                $map_column['md']  = 12;
+            }
+        }
+
+        // Handle the 'lg' attribute
+        if (isset($attrs['lg']) && !empty($attrs['lg'])) {
+            $sizes = explode(',', $attrs['lg']);
+            $list_column['lg'] = (int)$sizes[0];
+            $map_column['lg'] = isset($sizes[1]) ? (int)$sizes[1] : 12 - $list_column['lg'];
+
+            // If one column is full-width, set the other to full-width as well
+            if ($list_column['lg'] == 12 || $map_column['lg'] == 12) {
+
+                $list_column['lg'] = 12;
+                $map_column['lg'] = 12;
+            }
+        }
+
+        // Handle the 'xl' attribute
+        if (isset($attrs['xl']) && !empty($attrs['xl'])) {
+            $sizes = explode(',', $attrs['xl']);
+            $list_column['xl'] = (int)$sizes[0];
+            $map_column['xl'] = isset($sizes[1]) ? (int)$sizes[1] : 12 - $list_column['xl'];
+
+            // If one column is full-width, set the other to full-width as well
+            if ($list_column['xl'] == 12 || $map_column['xl'] == 12) {
+
+                $list_column['xl'] = 12;
+                $map_column['xl'] = 12;
+            }
+        }
+    }
+
+    /**
+     * [createColClasses description]
+     * @param  [type] $md_cols [description]
+     * @param  [type] $lg_cols [description]
+     * @return [type]          [description]
+     */
+    private function createColClasses($list_column, $map_column)
+    {
+
+        $list_classes = '';
+        $map_classes = '';
+
+        // Iterate over breakpoints
+        foreach ($list_column as $breakpoint => $list_size) {
+            $map_size = isset($map_column[$breakpoint]) ? $map_column[$breakpoint] : 0;
+
+            // Ensure the sum equals 12, or handle full-width cases
+            if ($list_size === 12 && $map_size === 12) {
+                // Both columns are full-width
+                $list_classes .= "pol-{$breakpoint}-12 ";
+                $map_classes .= "pol-{$breakpoint}-12 ";
+            } elseif ($list_size > 0 && $map_size > 0) {
+                // Normal case where both have values
+                $total_size = $list_size + $map_size;
+                if ($total_size > 12) {
+                    $map_size = 12 - $list_size; // Adjust map size to ensure total is 12
+                } elseif ($total_size < 12) {
+                    $map_size += (12 - $total_size); // Add the difference to map size
+                }
+                $list_classes .= "pol-{$breakpoint}-{$list_size} ";
+                $map_classes .= "pol-{$breakpoint}-{$map_size} ";
+            } elseif ($list_size > 0) {
+                // List column has size, map is zero
+                $list_classes .= "pol-{$breakpoint}-{$list_size} ";
+            } elseif ($map_size > 0) {
+                // Map column has size, list is zero
+                $map_classes .= "pol-{$breakpoint}-{$map_size} ";
+            }
+        }
+
+        // Handle breakpoints that are in $map_column but not in $list_column
+        foreach ($map_column as $breakpoint => $map_size) {
+            if (!isset($list_column[$breakpoint]) && $map_size > 0) {
+                // Build the classes
+                $map_classes .= "pol-{$breakpoint}-{$map_size} ";
+            }
+        }
+
+        // Return both strings as an array
+        return [trim($list_classes), trim($map_classes)];
     }
 
     /**
@@ -1640,11 +2485,12 @@ class App
      * @param  [type] $data        [description]
      * @return [type]              [description]
      */
-    private function localize_scripts($script_name, $variable, $data)
+    public function localize_scripts($script_name, $variable, $data)
     {
+
         //$this->scripts_data[] = [$variable, $data];
 
-        //	Since version 1.4.2
+        //  Since version 4.10.7
         wp_localize_script($script_name, $variable, $data);
     }
 
@@ -1652,20 +2498,23 @@ class App
      * [get_local_script_data Render the scripts data]
      * @return [type] [description]
      */
-    private function get_local_script_data($with_tags = false)
+    public function get_local_script_data($with_tags = false)
     {
+
         $scripts = '';
 
         foreach ($this->scripts_data as $script_data) {
-            $scripts .= 'var ' . $script_data[0] . ' = ' . (($script_data[1] && !empty($script_data[1])) ? wp_json_encode($script_data[1]) : "''") . ';';
+
+            $scripts .= 'var '.$script_data[0].' = '.(($script_data[1] && !empty($script_data[1])) ? wp_json_encode($script_data[1]) : "''").';';
         }
 
-        //	With script tags
+        //  With script tags
         if ($with_tags) {
-            $scripts = "<script type='text/javascript' id='agile-store-locator-script-js'>" . $scripts . '</script>';
+
+            $scripts = "<script type='text/javascript' id='agile-store-locator-script-js'>".$scripts.'</script>';
         }
 
-        //	Clear it
+        //  Clear it
         $this->scripts_data = [];
 
         return $scripts;

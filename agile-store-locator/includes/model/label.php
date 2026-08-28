@@ -66,6 +66,7 @@ class Label {
         'select_option'     => esc_attr__('Select Option','asl_locator'),
         'time_switch_label' => esc_attr__('Opened Stores','asl_locator'),
         'search'            => esc_attr__('Search','asl_locator'),
+        'select'            => esc_attr__('Select','asl_locator'),
         'all_selected'      => esc_attr__('All selected','asl_locator'),
         'none'              => esc_attr__('None','asl_locator'),
         'all_categories'    => esc_attr__('All Categories','asl_locator'),
@@ -98,6 +99,7 @@ class Label {
         'reset'             => esc_attr__('Reset','asl_locator'),
         'reload_map'        => esc_attr__('Scan Area','asl_locator'),
         'your_cur_loc'      => esc_attr__('Your Current Location','asl_locator'),
+        'find_a_store_near_you'      => esc_attr__('Find a Store Near You','asl_locator'),
         /*Template words*/
         'miles'             => esc_attr__('Miles','asl_locator'),
         'km'                => esc_attr__('Km','asl_locator'),

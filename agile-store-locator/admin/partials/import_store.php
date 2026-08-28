@@ -10,8 +10,9 @@ if($level_mode == '1'): ?>
 }
 </style>
 <?php endif; ?>
+<?php $asl_upgrade_url = defined('ASL_UPGRADE_URL') ? ASL_UPGRADE_URL : 'https://agilestorelocator.com/pricing/'; ?>
 <!-- Container -->
-<div class="asl-p-cont asl-new-bg">
+<div class="asl-p-cont asl-new-bg asl-admin-header-page asl-import-export-page">
     <div class="hide">
         <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="i-export" viewBox="0 0 32 32" width="18" height="18" fill="none" stroke="currentcolor"
@@ -89,26 +90,40 @@ if($level_mode == '1'): ?>
                 <path d="M16 13H8"></path>
                 <path d="M16 17H8"></path>
             </symbol>
+            <symbol id="asl-admin-icon-import-export" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 5h18v22H7zM11 11h10M11 16h10M11 21h6" />
+                <path d="M4 9l3-3 3 3M22 23l3 3 3-3" />
+            </symbol>
+            <symbol id="asl-admin-icon-external" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <path d="M14 4h6v6M20 4l-9 9M20 13v7H4V4h7" />
+            </symbol>
 
         </svg>
     </div>
     <div class="container sl-import-store-page">
         <div class="row asl-inner-cont">
-            <div class="col-md-12  ">
+            <div class="col-md-12">
                 <!-- <div class="col-md-12 asl-lock-box"> -->
-                <div class="card p-0 mb-4 ">
-                    <div class="card-title">
-                        <div>
-                            <h3>
-                                <?php echo esc_attr__('Import Stores (Pro Version)') ?>
-                            </h3>
-                            <p class="card-text">
-                            <?php echo esc_attr__('Import many stores at once with CSV file with geocoding API.', 'asl_locator') ?>
-                            </p>
+                <div class="card p-0 mb-4 asl-grid-shell">
+                    <header class="asl-admin-page-header">
+                        <span class="asl-admin-page-header__icon" aria-hidden="true">
+                            <svg><use href="#asl-admin-icon-import-export"></use></svg>
+                        </span>
+                        <div class="asl-admin-page-header__copy">
+                            <h3><?php echo esc_html__('Import Stores (Pro Version)', 'asl_locator') ?></h3>
+                            <p><?php echo esc_html__('Import many stores at once with CSV file with geocoding API.', 'asl_locator') ?></p>
                         </div>
-
-                    </div>
-                    <div class="card-body">
+                        <div class="asl-admin-page-header__actions">
+                            <a target="_blank" rel="noopener noreferrer" class="asl-admin-page-header__guide"
+                                href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/">
+                                <?php echo esc_html__('Guide', 'asl_locator') ?>
+                                <svg aria-hidden="true"><use href="#asl-admin-icon-external"></use></svg>
+                            </a>
+                        </div>
+                    </header>
+                    <div class="card-body asl-import-content">
                         <div class="dump-message asl-dumper"></div>
                         <div id="message_complete"></div>
 
@@ -118,40 +133,38 @@ if($level_mode == '1'): ?>
 
                         <!-- Server environment checks -->
                         <div class="row g-3 mb-3">
-                            <?php if ( ! extension_loaded('mbstring') ) : ?>
-                            <div class="col-12">
-                                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-start"
-                                    role="alert">
-                                    <div class="me-2">
-                                        <strong><?php echo esc_html__('Heads up:', 'asl_locator'); ?></strong>
-                                        <?php echo esc_html__('The PHP mbstring extension is not installed. Import will not work without it. Please ask your server admin to enable mbstring (or enable it in your control panel).', 'asl_locator'); ?>
-                                    </div>
-                                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"
-                                        aria-label="<?php echo esc_attr__('Close', 'asl_locator'); ?>"></button>
-                                </div>
-                            </div>
-                            <?php endif; ?>
 
-                            <?php if ( ! is_writable( $import_dir ) ) : ?>
+                        <?php if ( ! extension_loaded('mbstring') ) : ?>
                             <div class="col-12">
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                    <div class="mb-1">
-                                        <strong><?php echo esc_html__('Directory not writable:', 'asl_locator'); ?></strong>
-                                        <code><?php echo esc_html( $import_dir ); ?></code>
-                                    </div>
-                                    <div class="small">
-                                        <?php echo esc_html__('Excel/CSV import will fail until this directory is writable by the web server.', 'asl_locator'); ?>
-                                        <?php echo esc_html__('Update permissions (e.g., 755/775) or adjust ownership to allow write access.', 'asl_locator'); ?>
-                                    </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="<?php echo esc_attr__('Close', 'asl_locator'); ?>"></button>
+                            <div class="alert alert-warning alert-dismissible fade show d-flex align-items-start" role="alert">
+                                <div class="me-2">
+                                <strong><?php echo esc_html__('Heads up:', 'asl_locator'); ?></strong>
+                                <?php echo esc_html__('The PHP mbstring extension is not installed. Import will not work without it. Please ask your server admin to enable mbstring (or enable it in your control panel).', 'asl_locator'); ?>
                                 </div>
+                                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="<?php echo esc_attr__('Close', 'asl_locator'); ?>"></button>
                             </div>
-                            <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php if ( ! is_writable( $import_dir ) ) : ?>
+                            <div class="col-12">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <div class="mb-1">
+                                <strong><?php echo esc_html__('Directory not writable:', 'asl_locator'); ?></strong>
+                                <code><?php echo esc_html( $import_dir ); ?></code>
+                                </div>
+                                <div class="small">
+                                <?php echo esc_html__('Excel/CSV import will fail until this directory is writable by the web server.', 'asl_locator'); ?>
+                                <?php echo esc_html__('Update permissions (e.g., 755/775) or adjust ownership to allow write access.', 'asl_locator'); ?>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<?php echo esc_attr__('Close', 'asl_locator'); ?>"></button>
+                            </div>
+                            </div>
+                        <?php endif; ?>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="asl-google-api-key asl-import-stores-box mb-4 rounded border p-4">
+                                <div class="asl-google-api-key asl-import-stores-box asl-import-panel mb-4 rounded border p-4">
                                     <h4 class="asl-box-title">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -166,19 +179,18 @@ if($level_mode == '1'): ?>
                                     <div class="card-text mb-4">
                                         <?php echo esc_attr__('Validate your Google Server API key to ensure accurate coordinate fetching through Google Maps API. Proper validation is essential for successful imports.', 'asl_locator') ?>
                                     </div>
-                                    <div class="input-group mt-2">
-                                        <label for="txt_server_key"
-                                            class="fw-mini-bold"><?php echo esc_attr__('Google Maps API Key', 'asl_locator') ?></label>
-                                        <input type="text" id="txt_server_key" readonly="readonly"
-                                            value="<?php echo esc_attr($api_key) ?>"
-                                            class="form-control bg-white rounded">
-                                        <a id="btn-validate-key"
-                                            data-loading-text="<?php echo esc_attr__('Validating...', 'asl_locator') ?>"
-                                            class="btn  py-2 px-3 rounded btn-primary"><?php echo esc_attr__('Validate Key', 'asl_locator') ?></a>
-                                        <div class="input-group-append">
+                                    <div class="asl-api-key-field mt-2">
+                                        <label for="txt_server_key" class="fw-mini-bold"><?php echo esc_attr__('Google Maps API Key', 'asl_locator') ?></label>
+                                        <div class="input-group asl-api-key-input-group">
+                                            <input type="text" id="txt_server_key" readonly="readonly"
+                                                value="<?php echo esc_attr($api_key) ?>"
+                                                class="form-control bg-white">
+                                            <a id="btn-validate-key"
+                                                data-loading-text="<?php echo esc_attr__('Validating...', 'asl_locator') ?>"
+                                                class="btn py-2 px-3 btn-primary"><?php echo esc_attr__('Validate Key', 'asl_locator') ?></a>
                                         </div>
                                     </div>
-                                    <div class=" rounded bg-light mt-4 px-4 py-3">
+                                    <div class="asl-import-quick-help rounded bg-light mt-4 px-4 py-3">
                                         <p class="sl-quick-help mb-2"><i><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -193,25 +205,24 @@ if($level_mode == '1'): ?>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/what-is-google-server-key/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('What is Google Server Key?','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/what-is-google-server-key/"><?php echo esc_attr__('What is Google Server Key?','asl_locator') ?></a></p>
+                                            </li>
+                                            <li class="mb-0">
+                                                <p class="help-p">• <a target="_blank"
+                                                        class="text-muted text-decoration-none"
+                                                        href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/"><?php echo esc_attr__('How to import a CSV file?','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('How to import a CSV file?','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/google-server-api-key-troubleshooting/"><?php echo esc_attr__('Troubleshoot :: Google Server API key ','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
                                                 <p class="help-p">• <a target="_blank"
                                                         class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/google-server-api-key-troubleshooting/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Troubleshoot :: Google Server API key ','asl_locator') ?></a>
-                                                </p>
-                                            </li>
-                                            <li class="mb-0">
-                                                <p class="help-p">• <a target="_blank"
-                                                        class="text-muted text-decoration-none"
-                                                        href="https://agilestorelocator.com/wiki/error-0-rows-imported/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><?php echo esc_attr__('Troubleshoot :: Issues','asl_locator') ?></a>
+                                                        href="https://agilestorelocator.com/wiki/error-0-rows-imported/"><?php echo esc_attr__('Troubleshoot :: Issues','asl_locator') ?></a>
                                                 </p>
                                             </li>
                                             <li class="mb-0">
@@ -222,17 +233,19 @@ if($level_mode == '1'): ?>
                                             </li>
                                         </ul>
                                     </div>
-                                    <p class="d-none alert alert-primary mt-4 mb-0"><i class="mb-1"><svg width="16"
-                                                height="16" class="text-dark">
-                                                <use xlink:href=" #i-alert"></use>
-                                            </svg></i><strong><?php echo esc_attr__('Pro Tips:', 'asl_locator') ?></strong><?php echo esc_attr__('The process may take a few minutes for large datasets.', 'asl_locator') ?>
-                                    </p>
+                                    <div class="d-none alert alert-primary mt-4 mb-0" role="status">
+                                        <i aria-hidden="true"><svg width="16" height="16"><use href="#i-alert"></use></svg></i>
+                                        <div class="asl-alert-content">
+                                            <strong><?php echo esc_html__('Pro Tips:', 'asl_locator') ?></strong>
+                                            <span><?php echo esc_html__('The process may take a few minutes for large datasets.', 'asl_locator') ?></span>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div
-                                    class="sl-complx rounded border p-4 asl-fatch-coordinates asl-import-stores-box mb-4">
+                                    class="rounded border p-4 asl-fatch-coordinates asl-import-stores-box asl-import-panel mb-4 sl-complx">
                                     <h4 class="asl-box-title">
                                         <i class="mr-2"><svg class="text-primary" width="22" height="22">
                                                 <use xlink:href="#i-geo-location"></use>
@@ -242,12 +255,14 @@ if($level_mode == '1'): ?>
                                     <div class="card-text mb-3">
                                         <?php echo esc_attr__('Automatically fetch missing coordinates (Lat/Lng) for your stores using Google Geocoding API. Ensure your API key is validated before proceeding.', 'asl_locator') ?>
                                     </div>
-                                    <p class="alert alert-warning d-none mt-4 mb-0"><i class="mb-1"><svg width="16"
-                                                height="16" class="text-dark">
-                                                <use xlink:href=" #i-alert"></use>
-                                            </svg></i><strong><?php echo esc_attr__('Pro Tips:', 'asl_locator') ?></strong><?php echo esc_attr__('The process may take a few minutes for large datasets.', 'asl_locator') ?>
-                                    </p>
-                                    <div class="rounded  bg-light mt-3 p-4">
+                                    <div class="alert alert-warning d-none mt-4 mb-0" role="status">
+                                        <i aria-hidden="true"><svg width="16" height="16"><use href="#i-alert"></use></svg></i>
+                                        <div class="asl-alert-content">
+                                            <strong><?php echo esc_html__('Pro Tips:', 'asl_locator') ?></strong>
+                                            <span><?php echo esc_html__('The process may take a few minutes for large datasets.', 'asl_locator') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="asl-coordinate-action rounded bg-light mt-3 p-4">
                                         <div class="row mb-2 justify-content-between">
                                             <div class="col-md-12">
                                                 <h4 class="asl-box-title">
@@ -258,10 +273,8 @@ if($level_mode == '1'): ?>
                                                 </div>
                                             </div>
                                             <div class="d-none col-md-2 text-center text-md-end">
-                                                <div class="text-warning fs-3 fw-bold">
-                                                    <?php echo esc_attr__('24','asl_locator') ?></div>
-                                                <div class="card-text">
-                                                    <?php echo esc_attr__(' Stores Found','asl_locator') ?></div>
+                                                <div class="text-warning fs-3 fw-bold"><?php echo esc_attr__('24','asl_locator') ?></div>
+                                                <div class="card-text"><?php echo esc_attr__(' Stores Found','asl_locator') ?></div>
                                             </div>
                                         </div>
                                         <a data-loading-text="<?php echo esc_attr__('Fetching Coordinates...', 'asl_locator') ?>"
@@ -271,7 +284,7 @@ if($level_mode == '1'): ?>
                                                     <use xlink:href="#i-geo-location"></use>
                                                 </svg></i><?php echo esc_attr__('Fetch Missing Coordinates', 'asl_locator') ?></a>
                                     </div>
-                                    <div class="row mt-4">
+                                    <div class="row mt-4 asl-import-stats">
                                         <!-- Total Stores -->
                                         <div class="col-md-4 text-center mb-3 mb-md-0">
                                             <div class="rounded border p-2">
@@ -314,42 +327,45 @@ if($level_mode == '1'): ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="row ">
+                        <div class="row">
                             <div class="col-md-12">
-                                <div class="asl-import-stores-box rounded border p-4 my-0 asl-lock-box">
+                              <section class="asl-pro-locked-section asl-pro-locked-panel" aria-labelledby="asl-import-export-lock-title">
+                                <div class="asl-pro-lock-overlay">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                                    <strong id="asl-import-export-lock-title"><?php esc_html_e('Import & Export is a Pro feature', 'asl_locator'); ?></strong>
+                                    <span><?php esc_html_e('Upgrade to import stores in bulk, export store data, and manage CSV files.', 'asl_locator'); ?></span>
+                                    <a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to Pro', 'asl_locator'); ?></a>
+                                </div>
+                                <div class="asl-pro-locked-preview" aria-hidden="true">
+                                <div class="asl-import-stores-box asl-import-panel asl-import-files-panel rounded border p-4">
 
                                     <div class="asl-box-title mb-3">
                                         <i><svg width="20" height="20" class="mb-1 text-primary">
-                                                <use xlink:href=" #i-page"></use>
+                                                <use xlink:href="#i-page"></use>
                                             </svg></i>
                                         <?php echo esc_attr__('CSV File Management', 'asl_locator') ?>
                                     </div>
                                     <!-- <div class="card-text mb-3">
                                         <?php echo esc_attr__('Upload your CSV files for store import. Ensure your files follow the correct format.', 'asl_locator') ?>
                                     </div> -->
-                                    <!-- <div class="card-text mb-3">
-                                        <?php echo esc_attr__('Please upload your CSV file and then import it though the import button, please make sure to follow the given template and the columns should be in the right format as described in the documentation or simply use Template.csv format, please validate your API Key before import.', 'asl_locator') ?>
-                                        <?php echo esc_attr__('Guide article: ', 'asl_locator') ?> <a target="_blank"
-                                            href="https://agilestorelocator.com/wiki/can-import-stores-using-excel-sheet/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version"><b><?php echo esc_attr__('Import Stores Using Excel/CSV', 'asl_locator') ?></b></a>.
-                                    </div> -->
-                                    <p class="alert alert-primary mt-0 mb-4"><i class="mb-1"><svg width="16" height="16"
-                                                class="text-dark">
-                                                <use xlink:href=" #i-alert"></use>
-                                            </svg></i><strong><?php echo esc_attr__('CSV Format Requirements', 'asl_locator') ?></strong><br><?php echo esc_attr__('This version supports CSV files with comma delimiters. For custom formats or technical support, contact our team at support@agilelogix.com', 'asl_locator') ?>
-                                    </p>
-                                    <div class="row border-top pt-4 mt-2 mb-3">
+                                    <div class="alert alert-primary mt-0 mb-4" role="status">
+                                        <i aria-hidden="true"><svg width="16" height="16"><use href="#i-alert"></use></svg></i>
+                                        <div class="asl-alert-content">
+                                            <strong><?php echo esc_html__('CSV Format Requirements', 'asl_locator') ?></strong>
+                                            <span class="d-block"><?php echo esc_html__('This version supports CSV files with comma delimiters. For custom formats or technical support, contact our team at support@agilelogix.com', 'asl_locator') ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="row asl-import-actions border-top pt-4 mt-2 mb-3">
                                         <div class="col-md-6 mb-3">
                                             <div class="float-md-left">
                                                 <div class="asl-mini-heading mb-2  text-black">
                                                     <?php echo esc_attr__('File Operations', 'asl_locator') ?></div>
-                                                <button type="button"
-                                                    class="btn px-4 py-2 mb-3 mb-md-0 btn-success text-white me-1"
-                                                    data-bs-toggle="smodal"
-                                                    data-bs-target="#import_store_file_emodel"><i><svg width="16"
-                                                            height="16"">
-                                                            <use xlink:href=" #i-upload"></use>
+                                                <button type="button" class="btn px-4 py-2 mb-3 mb-md-0 btn-success text-white me-1"
+                                                    data-bs-toggle="smodal" data-bs-target="#import_store_file_emodel"><i><svg
+                                                            width="16" height="16">
+                                                            <use xlink:href="#i-upload"></use>
                                                         </svg></i><?php echo esc_attr__('Upload CSV', 'asl_locator') ?></button>
-                                                <a class="btn  py-2 px-4 mb-3 mb-md-0 border btn-white me-1"
+                                                <a  class="btn  py-2 px-4 mb-3 mb-md-0 border btn-white me-1"
                                                     id="export_store_file_"><i><svg width="16" height="16">
                                                             <use xlink:href="#i-export"></use>
                                                         </svg></i><?php echo esc_attr__('Export All', 'asl_locator') ?></a>
@@ -357,21 +373,19 @@ if($level_mode == '1'): ?>
                                                     href="<?php echo ASL_URL_PATH . 'public/export/template-import.csv' ?>"><i><svg
                                                             width="16" height="16">
                                                             <use xlink:href="#i-copy"></use>
-                                                        </svg></i>Download Template</a>
+                                                        </svg></i><?php echo esc_attr__('Download Template', 'asl_locator') ?></a>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="float-md-right">
                                                 <div class="asl-mini-heading mb-2 text-black">
                                                     <?php echo esc_attr__('Data Management', 'asl_locator') ?></div>
-                                                <button type="button"
-                                                    class="btn  py-2 px-4 mb-3 mb-md-0 btn-danger text-white me-1"
+                                                <button type="button" class="btn  py-2 px-4 mb-3 mb-md-0 btn-danger text-white me-1"
                                                     data-loading-text="<?php echo esc_attr__('Deleting...', 'asl_locator') ?>"
                                                     id="asl-delete-stores"><i><svg width="16" height="16">
                                                             <use xlink:href="#i-trash"></use>
                                                         </svg></i><?php echo esc_attr__('Delete All Stores', 'asl_locator') ?></button>
-                                                <button type="button"
-                                                    class="sl-complx btn  py-2 px-4 mb-3 mb-md-0 btn-light mr-2"
+                                                <button type="button" class="sl-complx btn  py-2 px-4 mb-3 mb-md-0 btn-light mr-2"
                                                     data-loading-text="<?php echo esc_attr__('Removing...', 'asl_locator') ?>"
                                                     id="asl-duplicate-remove"><i><svg width="16" height="16">
                                                             <use xlink:href="#i-trash"></use>
@@ -380,7 +394,7 @@ if($level_mode == '1'): ?>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12 border-top pt-4  mb-3">
+                                        <div class="col-md-12 border-top pt-4 mb-3 sl-complx">
                                             <div class="asl-box-title">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -484,12 +498,15 @@ if($level_mode == '1'): ?>
 
                                                 </div>
                                             </div>
-                                            <p class="alert alert-warning mt-4 mb-0"><i class="mb-1"><svg width="16"
-                                                        height="16" class="text-dark">
-                                                        <use xlink:href=" #i-alert"></use>
-                                                    </svg></i><strong><?php echo esc_attr__('Performance Note:', 'asl_locator') ?></strong>
-                                                <?php echo esc_attr__('Large CSV files (5k+ rows) may take longer to process with these options enabled.', 'asl_locator') ?>
-                                            </p>
+                                            <div class="alert alert-warning mt-4 mb-0" role="status">
+                                                <i aria-hidden="true"><svg width="16" height="16">
+                                                    <use href="#i-alert"></use>
+                                                </svg></i>
+                                                <div class="asl-alert-content">
+                                                    <strong><?php echo esc_html__('Performance Note:', 'asl_locator') ?></strong>
+                                                    <span><?php echo esc_html__('Large CSV files (5k+ rows) may take longer to process with these options enabled.', 'asl_locator') ?></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row mt-3 border-top">
@@ -507,7 +524,7 @@ if($level_mode == '1'): ?>
                                                     <?php echo esc_attr__('CSV Files', 'asl_locator') ?>
                                                 </div>
                                                 <div class="sl-no-of-files">
-                                                    <?php 
+                                                <?php 
                                                     $dir   = ASL_PLUGIN_PATH . 'public/import/';
                                                     $files = @scandir($dir);
 
@@ -528,8 +545,8 @@ if($level_mode == '1'): ?>
                                                     ?>
                                                 </div>
                                             </div>
-                                            <div class="table-responsive">
-                                                <table id="sl-stores-import-files" class="table">
+                                            <div class="table-responsive asl-import-table-card">
+                                                <table id="sl-stores-import-files" class="table asl-import-files-table">
                                                     <colgroup>
                                                         <col style="width: 32%;">
                                                         <col style="width: 17%;">
@@ -556,7 +573,7 @@ if($level_mode == '1'): ?>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php 
+                                                    <?php 
                                                     $dir   = ASL_PLUGIN_PATH . 'public/import/';
                                                     $files = @scandir($dir);
 
@@ -580,25 +597,21 @@ if($level_mode == '1'): ?>
                                                             <td>
                                                                 <div class="d-flex align-items-center">
                                                                     <i>
-                                                                        <svg width="20" height="20"
-                                                                            class="text-primary">
+                                                                        <svg width="20" height="20" class="text-primary">
                                                                             <use xlink:href="#i-page"></use>
                                                                         </svg>
                                                                     </i>
                                                                     <span class="sl-import-file-name">
                                                                         <?php echo esc_html($file); ?>
-                                                                        <div class="sl-import-file-size">
-                                                                            <?php echo esc_html($size_kb); ?></div>
+                                                                        <div class="sl-import-file-size"><?php echo esc_html($size_kb); ?></div>
                                                                     </span>
                                                                 </div>
                                                             </td>
                                                             <td><?php echo esc_html($file_date); ?></td>
                                                             <td>
                                                                 <a href="<?php echo esc_url($file_url); ?>"
-                                                                    class="btn py-2 px-md-5 border btn-white" download>
-                                                                    <i><svg width="16" height="16">
-                                                                            <use xlink:href="#i-export"></use>
-                                                                        </svg></i>
+                                                                class="btn py-2 px-md-5 border btn-white" download>
+                                                                    <i><svg width="16" height="16"><use xlink:href="#i-export"></use></svg></i>
                                                                     <?php echo esc_html__('Download','asl_locator'); ?>
                                                                 </a>
                                                             </td>
@@ -607,9 +620,7 @@ if($level_mode == '1'): ?>
                                                                     class="btn py-2 px-md-5 btn-primary btn-asl-import_store"
                                                                     data-loading-text="<?php echo esc_attr__('Importing...','asl_locator'); ?>"
                                                                     data-id="<?php echo esc_attr($file); ?>">
-                                                                    <i><svg width="16" height="16">
-                                                                            <use xlink:href="#i-upload"></use>
-                                                                        </svg></i>
+                                                                    <i><svg width="16" height="16"><use xlink:href="#i-upload"></use></svg></i>
                                                                     <?php echo esc_html__('Import','asl_locator'); ?>
                                                                 </button>
                                                             </td>
@@ -617,14 +628,12 @@ if($level_mode == '1'): ?>
                                                                 <button type="button"
                                                                     class="btn py-2 px-md-5 btn-danger text-white btn-asl-delete_import_file"
                                                                     data-id="<?php echo esc_attr($file); ?>">
-                                                                    <i><svg width="13" height="13">
-                                                                            <use xlink:href="#i-trash"></use>
-                                                                        </svg></i>
+                                                                    <i><svg width="13" height="13"><use xlink:href="#i-trash"></use></svg></i>
                                                                     <?php echo esc_html__('Delete','asl_locator'); ?>
                                                                 </button>
                                                             </td>
                                                         </tr>
-                                                        <?php 
+                                                    <?php 
                                                             endforeach;
                                                         } else {
                                                             // No files after filtering
@@ -645,26 +654,20 @@ if($level_mode == '1'): ?>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="asl-lock-inner">
-                                        <svg width="70" height="100" viewBox="0 0 90 120" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M82.5 52.5H75V30C75 13.5 61.5 0 45 0C28.5 0 15 13.5 15 30V52.5H7.5C3.75 52.5 0 56.25 0 60V112.5C0 116.25 3.75 120 7.5 120H82.5C86.25 120 90 116.25 90 112.5V60C90 56.25 86.25 52.5 82.5 52.5ZM52.5 105H37.5L40.5 88.5C36.75 87 33.75 82.5 33.75 78.75C33.75 72.75 39 67.5 45 67.5C51 67.5 56.25 72.75 56.25 78.75C56.25 83.25 54 87 49.5 88.5L52.5 105ZM60 52.5H30V30C30 21.75 36.75 15 45 15C53.25 15 60 21.75 60 30V52.5Z"
-                                                fill="white" />
-                                        </svg>
-                                        <h6><?php echo esc_attr__('Upgrade Plugin To Get Import/Export Feature', 'asl_locator') ?>
-                                        </h6>
-                                        <a target="_blank"
-                                            href="<?php echo esc_url( ASL_UPGRADE_URL ); ?>"><?php echo esc_attr__('License - $59', 'asl_locator') ?></a>
-                                    </div>
                                 </div>
+                                </div>
+                              </section>
                             </div>
                         </div>
                     </div>
 
                 </div>
-
+                <!-- <div class="asl-lock-inner">
+                <svg width="70" height="100" viewBox="0 0 90 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M82.5 52.5H75V30C75 13.5 61.5 0 45 0C28.5 0 15 13.5 15 30V52.5H7.5C3.75 52.5 0 56.25 0 60V112.5C0 116.25 3.75 120 7.5 120H82.5C86.25 120 90 116.25 90 112.5V60C90 56.25 86.25 52.5 82.5 52.5ZM52.5 105H37.5L40.5 88.5C36.75 87 33.75 82.5 33.75 78.75C33.75 72.75 39 67.5 45 67.5C51 67.5 56.25 72.75 56.25 78.75C56.25 83.25 54 87 49.5 88.5L52.5 105ZM60 52.5H30V30C30 21.75 36.75 15 45 15C53.25 15 60 21.75 60 30V52.5Z" fill="white"/></svg>
+                <h6><?php echo esc_attr__('Upgrade Plugin To Get Import/Export Feature', 'asl_locator') ?></h6>
+                <a href="https://codecanyon.net/item/agile-store-locator-google-maps-for-wordpress/16973546"><?php echo esc_attr__('Lifetime License - $59', 'asl_locator') ?></a>
+              </div> -->
             </div>
         </div>
     </div>
@@ -672,7 +675,7 @@ if($level_mode == '1'): ?>
 
     <div class="smodal fade" id="import_store_file_emodel" role="dialog">
         <div class="smodal-dialog" role="document">
-            <div class="smodal-content">
+            <div class="smodal-content asl-import-upload-modal">
                 <div class="smodal-header">
                     <h5 class="smodal-title"><?php echo esc_attr__('Upload CSV File', 'asl_locator') ?></h5>
                     <button type="button" class="close" data-bs-dismiss="smodal" aria-label="Close">
@@ -683,17 +686,9 @@ if($level_mode == '1'): ?>
                     <form id="import_store_file" name="import_store_file">
                         <div class="col-md-12 form-group mb-3">
                             <div class="input-group" id="drop-zone">
-                                <input type="file" class="form-control  py-2 btn-default" accept=".csv"
-                                    id="file-logo-1" />
-                                <span for="file-logo-1"
-                                    class="input-group-text"><?php echo esc_attr__('File Path', 'asl_locator') ?></span>
-                                <!-- <div class="input-group-prepend">
-                                    </div>
-                                    style="width:98%;opacity:0;position:absolute;top:0;left:0" name="files"
-                                    <div class="custom-file">
-                                    <label class="custom-file-label"
-                                        for="file-logo-1"><?php echo esc_attr__('File Path...', 'asl_locator') ?></label>
-                                </div> -->
+                                
+                                <input type="file" class="form-control  py-2 btn-default" accept=".csv"  name="files" id="file-logo-1" />
+                                <span for="file-logo-1" class="input-group-text"><?php echo esc_attr__('File Path', 'asl_locator') ?></span>
                             </div>
                         </div>
                         <div class="col-md-12 form-group mb-3">
@@ -721,12 +716,12 @@ if($level_mode == '1'): ?>
 
 <!-- SCRIPTS -->
 <script type="text/javascript">
-var ASL_Instance = {
+  var ASL_Instance = {
     admin: '<?php echo admin_url('admin-ajax.php') . '?action=asl_ajax_handler&sl-action=export_file&asl-nounce=' . wp_create_nonce('asl-nounce'); ?>',
     url: '<?php echo ASL_UPLOAD_URL ?>'
-};
-
-window.addEventListener("load", function() {
+  };
+  
+  window.addEventListener("load", function() {
     asl_engine.pages.import_store();
-});
+  });
 </script>
