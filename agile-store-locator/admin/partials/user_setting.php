@@ -70,7 +70,7 @@ if($level_mode === true){ ?>
                             <svg><use href="#asl-admin-icon-settings"></use></svg>
                         </span>
                         <div class="asl-admin-page-header__copy">
-                            <h3><?php echo esc_html__('ASL Settings (Full Version - ','asl_locator').esc_html(ASL_CVERSION) ?>)</h3>
+                            <h3><?php echo esc_html__('ASL Settings (Free Version - ','asl_locator').esc_html(ASL_CVERSION) ?>)</h3>
                             <p><?php echo esc_html__('Set general options and preferences.','asl_locator') ?></p>
                         </div>
                         <div class="asl-admin-page-header__actions asl-settings-header-actions">
