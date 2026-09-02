@@ -1931,10 +1931,19 @@ class App
 
         $all_configs  = array_merge($default_options, $all_configs);
 
-        //  3 Labels Option
-        $all_configs['head_title']          = asl_esc_lbl('head_title');
-        $all_configs['category_title']  = asl_esc_lbl('category_title');
-        $all_configs['no_item_text']    = asl_esc_lbl('no_item_text');
+        //  Shortcode-overridable labels
+        $all_configs['header_title'] = isset($atts['header_title'])
+            ? sanitize_text_field($atts['header_title'])
+            : asl_esc_lbl('search_loc');
+        $all_configs['head_title'] = isset($atts['head_title'])
+            ? sanitize_text_field($atts['head_title'])
+            : asl_esc_lbl('head_title');
+        $all_configs['category_title'] = isset($atts['category_title'])
+            ? sanitize_text_field($atts['category_title'])
+            : asl_esc_lbl('category_title');
+        $all_configs['no_item_text'] = isset($atts['no_item_text'])
+            ? sanitize_text_field($atts['no_item_text'])
+            : asl_esc_lbl('no_item_text');
 
         if ($all_configs['sort_by'] == 'distance') {
 

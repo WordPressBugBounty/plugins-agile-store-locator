@@ -58,7 +58,7 @@ $layout_code        = ($all_configs['layout'] == '1'  || $all_configs['layout'] 
 $default_addr       = (isset($all_configs['default-addr']))?$all_configs['default-addr']: '';
 $container_class    = (isset($all_configs['full_width']) && $all_configs['full_width'])? 'sl-container-fluid': 'sl-container';
 
-$btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location'): asl_esc_lbl('search_loc');
+$btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location'): $all_configs['header_title'];
 
 
 ?>
@@ -116,7 +116,7 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
                                 <?php if(!$all_configs['advance_filter']): ?>
                                 <div class="inside search_filter">
                                     <label for="auto-complete-search"
-                                        class="mb-2"><?php echo asl_esc_lbl('search_loc') ?></label>
+                                        class="mb-2"><?php echo esc_html($all_configs['header_title']) ?></label>
                                     <div class="asl-store-search input-group d-flex">
                                         <input type="text" value="<?php echo esc_attr($default_addr) ?>"
                                             id="auto-complete-search"
@@ -134,7 +134,7 @@ $btn_text = ($all_configs['geo_button'] == '1')? asl_esc_lbl('current_location')
                                 <div class="asl-panel-inner">
                                     <div class="top-title Num_of_store">
                                         <span><span
-                                                class="sl-head-title"><?php echo asl_esc_lbl('head_title') ?></span>:
+                                                class="sl-head-title"><?php echo esc_html($all_configs['head_title']) ?></span>:
                                             <span class="count-result">0</span></span>
                                         <?php if($all_configs['branches'] != '0'): ?>
                                         <a title="<?php echo asl_esc_lbl('bck_to_list') ?>"

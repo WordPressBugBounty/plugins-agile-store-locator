@@ -252,6 +252,23 @@ $asl_support_url   = 'https://agilestorelocator.com/support/';
     </ul><div class="asl-help"><span><b>i</b><?php esc_html_e("Need help? We're here for you!", 'asl_locator'); ?><small><?php esc_html_e('Contact our support team anytime.', 'asl_locator'); ?></small></span><a href="<?php echo esc_url($asl_support_url); ?>" target="_blank"><?php esc_html_e('Get Support', 'asl_locator'); ?></a></div></article>
     <article class="asl-card asl-shortcode" id="asl-shortcode"><h2><?php esc_html_e('Store Locator Shortcode', 'asl_locator'); ?></h2><p><?php esc_html_e('Add your locator anywhere using the shortcode below.', 'asl_locator'); ?></p><div><code>[ASL_STORELOCATOR]</code><button type="button" class="asl-copy-shortcode" data-copy-label="<?php esc_attr_e('Copy shortcode', 'asl_locator'); ?>" aria-label="<?php esc_attr_e('Copy shortcode', 'asl_locator'); ?>"><svg><use href="#asl-i-copy"/></svg></button></div><p><?php esc_html_e('Works with WordPress, Elementor, and other page builders.', 'asl_locator'); ?></p><a class="asl-shortcode-guide" href="<?php echo esc_url($asl_docs_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Shortcode Guide', 'asl_locator'); ?> →</a></article>
   </section>
+
+  <section class="asl-rating" id="asl-rating" aria-labelledby="asl-rating-title">
+    <div class="asl-rating-mark" aria-hidden="true"><span>★</span><i>✦</i><i>✦</i><i>✦</i></div>
+    <div class="asl-rating-copy">
+      <div class="asl-rating-stars" aria-hidden="true">★ ★ ★ ★ ★</div>
+      <h2 id="asl-rating-title"><?php esc_html_e('Enjoying Agile Store Locator?', 'asl_locator'); ?></h2>
+      <p><?php esc_html_e("If Agile Store Locator is helping you and your customers find locations easily, we'd appreciate a quick review on WordPress.org.", 'asl_locator'); ?></p>
+    </div>
+    <div class="asl-rating-actions">
+      <div>
+        <a class="asl-rating-review" href="https://wordpress.org/support/plugin/agile-store-locator/reviews/#new-post" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Leave a Review', 'asl_locator'); ?> <span aria-hidden="true">→</span><svg aria-hidden="true"><use href="#asl-i-external"/></svg></a>
+        <button type="button" data-rating-action="later"><?php esc_html_e('Maybe Later', 'asl_locator'); ?></button>
+        <button type="button" data-rating-action="reviewed"><?php esc_html_e('Already Reviewed', 'asl_locator'); ?></button>
+      </div>
+      <p><span aria-hidden="true">♢</span><?php esc_html_e('It only takes a minute and it means a lot to us. Thank you!', 'asl_locator'); ?></p>
+    </div>
+  </section>
 </div>
 
 <div class="asl-p-cont asl-maps-setup-shell">
@@ -341,8 +358,43 @@ document.addEventListener('DOMContentLoaded', function () {
   var mapsKeyToggle = document.querySelector('#asl-toggle-maps-key');
   var mapProviderFields = document.querySelectorAll('input[name="asl-dashboard-map-provider"]');
   var mapProviderPanels = document.querySelectorAll('[data-map-provider-panel]');
+  var ratingPanel = document.querySelector('#asl-rating');
   var ajaxUrl = '<?php echo esc_url(admin_url('admin-ajax.php')); ?>';
   var nonce = '<?php echo esc_js(wp_create_nonce('asl-nounce')); ?>';
+
+  if (ratingPanel) {
+    var ratingStorageKey = 'asl_dashboard_rating_prompt';
+    var ratingState = null;
+
+    try {
+      ratingState = JSON.parse(window.localStorage.getItem(ratingStorageKey));
+    } catch (error) {
+      ratingState = null;
+    }
+
+    if (ratingState && ('reviewed' === ratingState.action || ('later' === ratingState.action && ratingState.until > Date.now()))) {
+      ratingPanel.hidden = true;
+    }
+
+    ratingPanel.querySelectorAll('[data-rating-action]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var action = button.getAttribute('data-rating-action');
+        var state = {action: action};
+
+        if ('later' === action) {
+          state.until = Date.now() + (7 * 24 * 60 * 60 * 1000);
+        }
+
+        try {
+          window.localStorage.setItem(ratingStorageKey, JSON.stringify(state));
+        } catch (error) {
+          // The prompt can still be dismissed for this page view when storage is unavailable.
+        }
+
+        ratingPanel.hidden = true;
+      });
+    });
+  }
 
   function aslPost(data) {
     data.action = 'asl_ajax_handler';

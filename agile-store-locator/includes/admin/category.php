@@ -302,12 +302,14 @@ class Category extends Base
 
         // Prepare and execute data query
         $data_query   = "$sql $sWhere $sOrder $sLimit";
-        $data_output  = $wpdb->get_results($wpdb->prepare($data_query, ...$sql_params));
+        $data_query   = $sql_params ? $wpdb->prepare($data_query, ...$sql_params) : $data_query;
+        $data_output  = $wpdb->get_results($data_query);
         $error_status = $wpdb->last_error;
 
         // Prepare and execute count query
         $count_query    = "$sqlCount $sWhere";
-        $r              = $wpdb->get_results($wpdb->prepare($count_query, ...$sql_params));
+        $count_query    = $sql_params ? $wpdb->prepare($count_query, ...$sql_params) : $count_query;
+        $r              = $wpdb->get_results($count_query);
         $iFilteredTotal = $r[0]->count ?? 0;
 
         // Final response output
