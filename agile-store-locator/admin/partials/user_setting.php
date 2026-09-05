@@ -74,6 +74,7 @@ if($level_mode === true){ ?>
                             <p><?php echo esc_html__('Set general options and preferences.','asl_locator') ?></p>
                         </div>
                         <div class="asl-admin-page-header__actions asl-settings-header-actions">
+                            <a href="#asl-feedback" role="button" aria-haspopup="dialog" class="asl-feedback-link btn btn-light bg-white text-primary border-0 d-inline-flex align-items-center"><span class="dashicons dashicons-format-chat me-1" aria-hidden="true"></span><?php esc_html_e('Send Feedback', 'asl_locator'); ?></a>
                             <a id="asl-btn-export-config" data-loading-text="Exporting..."
                                 class="btn btn-light bg-white text-primary border-0 d-inline-flex align-items-center">
                                 <span class="dashicons dashicons-download me-1" aria-hidden="true"></span>
@@ -317,7 +318,7 @@ if($level_mode === true){ ?>
                                         <div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
-                                                    for="asl-default_lat"><?php echo esc_attr__('Default Coordinates','asl_locator') ?></label>
+                                                    for="asl-default_lat"><?php echo esc_attr__('Default Map Center','asl_locator') ?></label>
                                                 <div class="form-group-inner">
                                                     <div class="input-group">
                                                         <input type="number" class="form-control validate[required]"

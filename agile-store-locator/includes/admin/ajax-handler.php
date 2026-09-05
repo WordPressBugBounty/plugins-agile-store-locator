@@ -93,6 +93,9 @@ class AjaxHandler {
     $this->register_route('import_assets', 'Asset', 'import_assets');
     $this->register_route('migrate_assets', 'Asset', 'migrate_assets');
 
+    // Voluntary admin feedback
+    $this->register_route('send_feedback', 'Feedback', 'send');
+
     //  Settings
     $this->register_route('save_setting', 'Setting', 'save_setting');
     $this->register_route('load_custom_template', 'Setting', 'load_custom_template');

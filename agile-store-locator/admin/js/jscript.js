@@ -4974,7 +4974,32 @@ var asl_engine = window['asl_engine'] || {};
       //  Create TMPL Editor //
       /////////////////////////
       
-      wp.codeEditor.initialize($('#sl-custom-template-textarea'), null);
+      var $custom_template_textarea = $('#sl-custom-template-textarea'),
+          custom_template_editor    = null;
+
+      // wp_enqueue_code_editor() does not load wp.codeEditor when the current
+      // user has disabled syntax highlighting in their profile. Keep the
+      // customizer usable with the native textarea in that case.
+      if (window.wp && wp.codeEditor && typeof wp.codeEditor.initialize === 'function') {
+        custom_template_editor = wp.codeEditor.initialize($custom_template_textarea, null);
+      }
+
+      function set_custom_template_value(value) {
+        if (custom_template_editor && custom_template_editor.codemirror) {
+          custom_template_editor.codemirror.setValue(value);
+        }
+        else {
+          $custom_template_textarea.val(value);
+        }
+      }
+
+      function get_custom_template_value() {
+        if (custom_template_editor && custom_template_editor.codemirror) {
+          return custom_template_editor.codemirror.getValue();
+        }
+
+        return $custom_template_textarea.val();
+      }
 
       var $section_tmpl_select = $('#asl-customize-section'),
           $template_select     = $('#asl-customize-template'),
@@ -5054,7 +5079,7 @@ var asl_engine = window['asl_engine'] || {};
 
           if (_response.success) {
 
-            document.querySelector('.sl-custom-tpl-text-section .CodeMirror').CodeMirror.setValue(_response.html);
+            set_custom_template_value(_response.html);
             mark_customizer_loaded(template, section);
             return;
           }
@@ -5074,7 +5099,7 @@ var asl_engine = window['asl_engine'] || {};
         
         var template    = $('#asl-customize-template').val(),
             section     = $('#asl-customize-section').val(),
-            html        = document.querySelector('.sl-custom-tpl-text-section .CodeMirror').CodeMirror.getValue();
+            html        = get_custom_template_value();
 
         if(template == undefined || section == undefined || html == '' || html == null){
 
@@ -5129,7 +5154,7 @@ var asl_engine = window['asl_engine'] || {};
           toastIt(_response);
 
           if (_response.success) {
-            document.querySelector('.sl-custom-tpl-text-section .CodeMirror').CodeMirror.setValue(_response.html);
+            set_custom_template_value(_response.html);
             return;
           }
         }, 'json');

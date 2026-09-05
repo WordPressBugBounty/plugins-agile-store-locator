@@ -8,7 +8,7 @@
  * Plugin Name:       Agile Store Locator
  * Plugin URI:        https://agilestorelocator.com
  * Description:       Agile Store Locator is a WordPress store finder with free OpenStreetMap and MapLibre maps, native Google Maps, and SEO-friendly location pages.
- * Version:           1.8.2
+ * Version:           1.8.3
  * Author:            AGILELOGIX
  * Author URI:        https://agilestorelocator.com/
  * License:           GPLv2 or later
@@ -57,7 +57,7 @@ if ( !class_exists( 'ASL_Store_locator' ) ) {
       define( 'ASL_PLUGIN_PATH', plugin_dir_path(__FILE__) );
       define( 'ASL_BASE_PATH', dirname( plugin_basename( __FILE__ ) ) );
       define( 'ASL_PREFIX', $wpdb->prefix."asl_" );
-      define( 'ASL_CVERSION', "1.8.2" );
+      define( 'ASL_CVERSION', "1.8.3" );
       define( 'ASL_UPLOAD_DIR', $upload_dir['basedir'].'/'.ASL_PLUGIN.'/' );
       define( 'ASL_UPLOAD_URL', $upload_dir['baseurl'].'/'.ASL_PLUGIN.'/' );
       //define( 'ASL_DEBUG', true );

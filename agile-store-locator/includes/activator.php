@@ -63,8 +63,38 @@ class Activator {
 		$database    = $wpdb->dbname;
 
 
+		// Attribute labels and custom controls read these tables during activation.
+		// dbDelta expects CREATE TABLE without IF NOT EXISTS.
+		/*Config*/
+		$sql = "CREATE TABLE `{$prefix}configs` (
+			  `id` int unsigned NOT NULL AUTO_INCREMENT,
+			  `key` varchar(100) DEFAULT NULL,
+			  `value` text,
+			  `type` varchar(50) DEFAULT NULL,
+			  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+			  PRIMARY KEY (`id`)
+			)  DEFAULT CHARSET=UTF8MB4;";
+		// dbDelta treats the legacy column named `key` as an index on existing tables.
+		// Create this table through dbDelta only when missing; preserve existing config data.
+		$config_table = $prefix . 'configs';
+		if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($config_table))) !== $config_table) {
+			dbDelta( $sql );
+		}
+
+
+		/*CREATE Settings*/
+		$sql = "CREATE TABLE `{$prefix}settings` (
+				  `id` int unsigned NOT NULL AUTO_INCREMENT,
+				  `name` varchar(50) DEFAULT NULL,
+				  `content` mediumtext,
+				  `type` varchar(25) DEFAULT NULL,
+				  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+				  PRIMARY KEY (`id`)
+				)  DEFAULT CHARSET=UTF8MB4;";
+		dbDelta( $sql );
+
 		/*Categories*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}categories` (
+		$sql = "CREATE TABLE `{$prefix}categories` (
 			  `id` int unsigned NOT NULL AUTO_INCREMENT,
 			  `category_name` varchar(255) DEFAULT NULL,
 			  `ordr` int DEFAULT '0',
@@ -87,14 +117,6 @@ class Activator {
 		}
 
 
-		//	Add Ordr column for the `brands`
-		$sql 	= "SELECT count(*) as c FROM information_schema.COLUMNS WHERE TABLE_NAME = '{$prefix}brands' AND COLUMN_NAME = 'ordr'";
-		$result = $wpdb->get_results($sql);
-		if($result[0]->c == 0) {
-			$wpdb->query("ALTER TABLE {$prefix}brands ADD COLUMN `ordr` int(11) DEFAULT '0';");
-		}
-
- 
 		// Define Data for Additional Attributes
 		$additional_attributes = [
 			//'training'  			=> ['label' => 'Training',   'plural' => 'Training',  'field' => 'training']
@@ -116,42 +138,37 @@ class Activator {
 		//	Create the DDL Filter tables
 		foreach($ddl_tables as $ddl_table_name => $ddl_table) {
 
-			$relationship_field = ($ddl_table_name === 'specials') ? "`brand_id` int(11) DEFAULT NULL," : "";
+			$relationship_field = ($ddl_table_name === 'specials') ? "`brand_id` int(11) DEFAULT NULL,\n" : "";
 
-			$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}$ddl_table_name` (
+			$sql = "CREATE TABLE `{$prefix}$ddl_table_name` (
 				  `id` int unsigned NOT NULL AUTO_INCREMENT,
 				  `name` varchar(255) DEFAULT NULL,
 				  `ordr` int DEFAULT '0',
 				  `lang` varchar(10) DEFAULT '',
-				  {$relationship_field}
-				  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+				  {$relationship_field}`created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 				  PRIMARY KEY (`id`)
 				)  DEFAULT CHARSET=UTF8MB4;";
 			dbDelta( $sql );
 	
 		}
 
-		self::add_special_brand_id();
-	
-	
-		/*Config*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}configs` (
-			  `id` int unsigned NOT NULL AUTO_INCREMENT,
-			  `key` varchar(100) DEFAULT NULL,
-			  `value` text,
-			  `type` varchar(50) DEFAULT NULL,
-			  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-			  PRIMARY KEY (`id`)
-			)  DEFAULT CHARSET=UTF8MB4;";
-		dbDelta( $sql );
+		// Existing brands tables may predate ordr; new tables now exist too.
+		//	Add Ordr column for the `brands`
+		$sql 	= "SELECT count(*) as c FROM information_schema.COLUMNS WHERE TABLE_NAME = '{$prefix}brands' AND COLUMN_NAME = 'ordr' AND TABLE_SCHEMA = '{$database}'";
+		$result = $wpdb->get_results($sql);
+		if($result[0]->c == 0) {
+			$wpdb->query("ALTER TABLE {$prefix}brands ADD COLUMN `ordr` int(11) DEFAULT '0';");
+		}
 
+
+		self::add_special_brand_id();
 
 		// Altering column type from VARCHAR to TEXT
 		$config_alter = "ALTER TABLE `{$prefix}configs` MODIFY COLUMN `value` TEXT";
 		//$wpdb->query( $config_alter );
 
 		/*Countries*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}countries` (
+		$sql = "CREATE TABLE `{$prefix}countries` (
 				  `id` int NOT NULL AUTO_INCREMENT,
 				  `country` varchar(50) NOT NULL,
 				  `iso_code_2` varchar(6) NOT NULL,
@@ -162,7 +179,7 @@ class Activator {
 
 
 		/*Stores Markers*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}markers` (
+		$sql = "CREATE TABLE `{$prefix}markers` (
 			  `id` int unsigned NOT NULL AUTO_INCREMENT,
 			  `marker_name` varchar(255) DEFAULT NULL,
 			  `is_active` tinyint NOT NULL,
@@ -174,7 +191,7 @@ class Activator {
 
 
 		/*CREATE Store Logos*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}storelogos` (
+		$sql = "CREATE TABLE `{$prefix}storelogos` (
 				  `id` int NOT NULL AUTO_INCREMENT,
 				  `path` varchar(300) NOT NULL,
 				  `name` varchar(50) NOT NULL DEFAULT '0',
@@ -186,7 +203,7 @@ class Activator {
 		###########################################################################
 
 		/* CREATE Stores*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}stores` (
+		$sql = "CREATE TABLE `{$prefix}stores` (
 			  `id` int unsigned NOT NULL AUTO_INCREMENT,
 				`title` varchar(255) DEFAULT NULL,
 				`description` text,
@@ -215,15 +232,15 @@ class Activator {
 				`pending` tinyint DEFAULT NULL,
 				`created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 				`updated_on` datetime DEFAULT NULL,
-				INDEX (`logo_id`),
-				INDEX (`country`),
+				KEY `logo_id` (`logo_id`),
+				KEY `country` (`country`),
 			  PRIMARY KEY (`id`)
 			)  DEFAULT CHARSET=UTF8MB4;";
 		dbDelta( $sql );
 
 
 		//	Create the stores meta
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}stores_meta` (
+		$sql = "CREATE TABLE `{$prefix}stores_meta` (
 				  `option_id` int unsigned NOT NULL AUTO_INCREMENT,
 				  `option_name` varchar(100) NOT NULL DEFAULT '',
 				  `option_value` text DEFAULT NULL,
@@ -251,31 +268,19 @@ class Activator {
 
 
 		/*CREATE Stores Categories*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}stores_categories` (
+		$sql = "CREATE TABLE `{$prefix}stores_categories` (
 			  `id` int unsigned NOT NULL AUTO_INCREMENT,
 			  `category_id` int NOT NULL,
 			  `store_id` int NOT NULL,
 			  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-			  INDEX (`store_id`),
+			  KEY `store_id` (`store_id`),
 			  PRIMARY KEY (`id`)
 			)  DEFAULT CHARSET=UTF8MB4;";
 		dbDelta( $sql );
 
 
-		/*CREATE Settings*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}settings` (
-				  `id` int unsigned NOT NULL AUTO_INCREMENT,
-				  `name` varchar(50) DEFAULT NULL,
-				  `content` mediumtext,
-				  `type` varchar(25) DEFAULT NULL,
-				  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-				  PRIMARY KEY (`id`)
-				)  DEFAULT CHARSET=UTF8MB4;";
-		dbDelta( $sql );
-
-
 		/*CREATE Store Views*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}stores_view` (
+		$sql = "CREATE TABLE `{$prefix}stores_view` (
 				  `id` int unsigned NOT NULL AUTO_INCREMENT,
 				  `store_id` int DEFAULT NULL,
 				  `search_str` varchar(255) DEFAULT NULL,
@@ -302,7 +307,7 @@ class Activator {
 
 
 		/* CREATE Leads*/
-		$sql = "CREATE TABLE IF NOT EXISTS `{$prefix}leads` (
+		$sql = "CREATE TABLE `{$prefix}leads` (
 			  `id` int unsigned NOT NULL AUTO_INCREMENT,
 				`store_id` int DEFAULT NULL,
 				`name` varchar(255) DEFAULT NULL,
@@ -676,7 +681,7 @@ class Activator {
 
 		$asl_configs = array(
 			array('cluster','1',''),
-			array('prompt_location','2',''),
+			array('prompt_location','0',''),
 			array('map_type','roadmap',''),
 			array('distance_unit','Miles',''),
 			array('zoom','9',''),

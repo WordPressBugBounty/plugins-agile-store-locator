@@ -6,7 +6,7 @@ Tags: wordpress store locator, store locator wordpress, store finder, where to b
 Requires at least: 3.3.2
 Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -431,8 +431,12 @@ Installation of this plugin is pretty easy.
 
 == Changelog ==
 
+= 1.8.3 =
+- Fixed SVG marker sizing with icon_size and applied the configured size, anchor, and label origin to active markers
+- Preserved optimized marker rendering when icon_size is not configured and for raster icons
+
 = 1.8.2 =
-* Fixed WordPress database preparation notices that could corrupt marker, category, and logo DataTable JSON responses.
+- Fixed WordPress database preparation notices that could corrupt marker, category, and logo DataTable JSON responses.
 
 = 1.8.1 =
 - Improved frontend performance for large store sets with optimized marker clustering and grouped list rendering

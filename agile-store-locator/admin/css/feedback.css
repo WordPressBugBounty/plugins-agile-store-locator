@@ -1,0 +1,22 @@
+.asl-feedback-link { cursor: pointer; }
+.asl-feedback-link:focus-visible { outline: 2px solid #2271b1; outline-offset: 4px; }
+.asl-feedback-fields { text-align: left; }
+.asl-feedback-fields > label { display: block; margin: 16px 0 6px; font-weight: 600; }
+.asl-feedback-fields > input,
+.asl-feedback-fields > select,
+.asl-feedback-fields > textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #c3c4c7;
+  border-radius: 6px;
+  background: #fff;
+  color: #1d2327;
+  font: inherit;
+}
+.asl-feedback-fields > textarea { resize: vertical; }
+.asl-feedback-fields small { display: block; margin-top: 5px; color: #646970; font-size: 12px; overflow-wrap: anywhere; }
+.asl-feedback-fields .asl-feedback-site { display: flex; align-items: flex-start; gap: 8px; font-weight: 400; }
+.asl-feedback-site input { margin-top: 3px; flex-shrink: 0; }
+.asl-feedback-modal.asl-feedback-sending .aswal2-close { display: none !important; }

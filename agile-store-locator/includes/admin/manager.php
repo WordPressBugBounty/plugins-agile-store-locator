@@ -234,6 +234,12 @@ class Manager extends Base {
     //  Store locator libraries
     wp_register_script( $this->AgileStoreLocator.'-lib', ASL_URL_PATH . 'admin/js/libs.min.js', array('jquery'), $this->version, false );
 
+    // Load feedback assets before the admin header renders on both entry pages.
+    $feedback_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
+    if (in_array($feedback_page, ['agile-dashboard', 'asl-settings'], true)) {
+      Feedback::enqueue($this->AgileStoreLocator.'-lib');
+    }
+
     //  Shortcode
     wp_register_script( $this->AgileStoreLocator.'-shortcode', ASL_URL_PATH . 'admin/js/shortcode.js', array('jquery'), $this->version, false );    
 

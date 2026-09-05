@@ -12037,3 +12037,9 @@ table#tbl_stores tbody tr.disabled_color.scheduled_color td {
   .asl-pro-placeholder-grid span:nth-child(n+2) { display: none; }
   .asl-pro-lock-overlay { width: 80%; }
 }
+
+@media (max-width: 782px) {
+  .asl-p-cont .btn > i > svg {
+    margin-right: 5px !important;
+  }
+}
