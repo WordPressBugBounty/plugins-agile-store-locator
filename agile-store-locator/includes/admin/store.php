@@ -603,6 +603,8 @@ class Store extends Base
             $store_id   = $wpdb->insert_id;
             $categories = (isset($_REQUEST['sl-category']) && $_REQUEST['sl-category']) ? ($_REQUEST['sl-category']) : null;
 
+            $this->maybe_set_default_center_from_store($form_data);
+
             // Save Categories
             if ($categories) {
                 foreach ($categories as $category) {
@@ -636,6 +638,57 @@ class Store extends Base
         }
 
         return $this->send_response($response);
+    }
+
+    /**
+     * Use a newly added store as the map center when the factory coordinates
+     * have not been customized.
+     *
+     * @param array $store_data The newly inserted store data.
+     * @return void
+     */
+    private function maybe_set_default_center_from_store($store_data)
+    {
+        global $wpdb;
+
+        $latitude  = isset($store_data['lat']) ? $store_data['lat'] : null;
+        $longitude = isset($store_data['lng']) ? $store_data['lng'] : null;
+
+        if (!\AgileStoreLocator\Helper::validate_coordinate($latitude, $longitude)) {
+            return;
+        }
+
+        $configs = \AgileStoreLocator\Helper::get_configs(['default_lat', 'default_lng']);
+
+        if (!isset($configs['default_lat'], $configs['default_lng'])) {
+            return;
+        }
+
+        $factory_latitude  = -33.947128;
+        $factory_longitude = 25.591169;
+
+        if (
+            abs((float) $configs['default_lat'] - $factory_latitude) > 0.000001 ||
+            abs((float) $configs['default_lng'] - $factory_longitude) > 0.000001
+        ) {
+            return;
+        }
+
+        $wpdb->update(
+            ASL_PREFIX . 'configs',
+            ['value' => (string) $latitude],
+            ['key' => 'default_lat'],
+            ['%s'],
+            ['%s']
+        );
+
+        $wpdb->update(
+            ASL_PREFIX . 'configs',
+            ['value' => (string) $longitude],
+            ['key' => 'default_lng'],
+            ['%s'],
+            ['%s']
+        );
     }
 
     /**

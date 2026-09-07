@@ -141,6 +141,8 @@ class App
 
         // Main locator
         if (has_shortcode($content, 'ASL_STORELOCATOR')) {
+            add_filter('the_content', [$this, 'unwrap_locator_shortcode'], 8);
+
             $template = $this->extract_template_from_content($content);
             $this->enqueue_styles($template);
         }
@@ -149,6 +151,28 @@ class App
         if (has_shortcode($content, 'ASL_STORE')) {
             $this->enqueue_styles('page');
         }
+    }
+
+    /**
+     * Remove accidental preformatted/code wrappers around the locator shortcode.
+     *
+     * @param string $content Post content before shortcode processing.
+     * @return string
+     */
+    public function unwrap_locator_shortcode($content)
+    {
+        if (
+            stripos($content, '[ASL_STORELOCATOR') === false ||
+            stripos($content, '<pre') === false
+        ) {
+            return $content;
+        }
+
+        return preg_replace(
+            '#<pre\b[^>]*>\s*(?:<code\b[^>]*>)?\s*(\[ASL_STORELOCATOR\b[^\]]*\])\s*(?:</code>\s*)?</pre>#i',
+            '$1',
+            $content
+        );
     }
 
     /**

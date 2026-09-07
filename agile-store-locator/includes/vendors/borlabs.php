@@ -58,12 +58,12 @@ class Borlabs {
 
 		//$thumbnail 		  = BORLABS_COOKIE_PLUGIN_URL . 'images/bct-google-maps.png';
 
-		$thumbnail 				= ASL_URL_PATH.'public/images/google-maps.png'; 
+		$thumbnail 				= ASL_URL_PATH.'public/css/images/google-maps.png';
 
 		//	Add our own file
 		/*
 		if(!file_exists($thumbnail)) {
-			$thumbnail 			= ASL_PLUGIN_PATH.'public/images/google-maps.png'; 
+			$thumbnail 			= ASL_PLUGIN_PATH.'public/css/images/google-maps.png';
 		}
 		*/
 

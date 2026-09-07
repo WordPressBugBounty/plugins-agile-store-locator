@@ -148,7 +148,7 @@ $asl_wc_ad_url = 'https://agilelogix.com/product/multi-store-addons-for-woocomme
       <div class="row">
         <div class="col-md-12 justify-content-md-center text-center">
           <a href="<?php echo esc_url($asl_wc_ad_url . '&ref=wordpress.org'); ?>" target="_blank" rel="noopener noreferrer" class="figure">
-            <img src="<?php echo ASL_URL_PATH ?>admin/images/asl-wc-addon.png" alt="Agile Stores Addons for WooCommerce" class="figure-img img-fluid rounded">
+            <img src="https://cdn.agilestorelocator.com/asl-wc/asl-wc-addon.png" alt="Agile Stores Addons for WooCommerce" class="figure-img img-fluid rounded">
           </a>
         </div>
       </div>

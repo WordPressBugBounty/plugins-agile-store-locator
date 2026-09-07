@@ -6,7 +6,7 @@ Tags: wordpress store locator, store locator wordpress, store finder, where to b
 Requires at least: 3.3.2
 Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -430,6 +430,11 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.8.4 =
+- Reduce the size of the build
+- Automatically use a newly added location as the default map center when the original factory coordinates have not been customized
+- Fixed store locator rendering when its shortcode is accidentally placed inside a Preformatted or Code block
 
 = 1.8.3 =
 - Fixed SVG marker sizing with icon_size and applied the configured size, anchor, and label origin to active markers

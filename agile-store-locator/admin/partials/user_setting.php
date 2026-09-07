@@ -140,7 +140,7 @@ if($level_mode === true){ ?>
                                                 <div class="form-group-inner">
                                                     <div class="asl-map-vendor-cards" role="group" aria-label="<?php echo esc_attr__('Map Vendor','asl_locator') ?>">
                                                         <button type="button" class="asl-map-vendor-card" data-map-vendor="google">
-                                                            <span class="asl-map-vendor-preview" aria-hidden="true"><img src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/map-vendors/google-maps.png'); ?>" alt=""></span>
+                                                            <span class="asl-map-vendor-preview" aria-hidden="true"><img src="<?php echo esc_url(ASL_URL_PATH . 'public/css/images/google-maps.png'); ?>" alt=""></span>
                                                             <span class="asl-map-vendor-check" aria-hidden="true">✓</span>
                                                             <strong><?php echo esc_html__('Google Maps','asl_locator') ?></strong>
                                                             <small><?php echo esc_html__('Feature-rich maps with global coverage.','asl_locator') ?></small>
@@ -2222,7 +2222,7 @@ if($level_mode === true){ ?>
                                         <div class="asl-pro-showcase__grid">
                                             <?php foreach ($asl_pro_images as $asl_pro_image) : ?>
                                                 <a class="asl-pro-showcase__card" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url($asl_upgrade_url); ?>">
-                                                    <img loading="lazy" src="<?php echo esc_url(ASL_URL_PATH . 'admin/images/pro/' . $asl_pro_image); ?>" alt="<?php esc_attr_e('Agile Store Locator Pro feature preview', 'asl_locator'); ?>">
+                                                    <img loading="lazy" src="<?php echo esc_url('https://cdn.agilestorelocator.com/pro/' . $asl_pro_image); ?>" alt="<?php esc_attr_e('Agile Store Locator Pro feature preview', 'asl_locator'); ?>">
                                                     <span><?php esc_html_e('Available in Pro', 'asl_locator'); ?><span aria-hidden="true">↗</span></span>
                                                 </a>
                                             <?php endforeach; ?>
@@ -2233,7 +2233,7 @@ if($level_mode === true){ ?>
                                                 <span><?php esc_html_e('Optional integration add-on', 'asl_locator'); ?></span>
                                                 <h3><?php esc_html_e('Connect Salesforce, Google Sheets, Smartsheet, and REST APIs', 'asl_locator'); ?></h3>
                                                 <p><?php esc_html_e('Agile Sync automates imports, maps custom fields, and helps keep store data up to date.', 'asl_locator'); ?></p>
-                                                <a class="btn btn-outline-primary" target="_blank" rel="noopener noreferrer" href="https://agilelogix.com/product/agile-sync-addon/?utm_source=wordpress-org&amp;utm_medium=plugin&amp;utm_campaign=free-version&amp;utm_content=agile-sync-addon"><?php esc_html_e('Learn about Agile Sync', 'asl_locator'); ?><span aria-hidden="true">→</span></a>
+                                                <a class="btn btn-outline-primary" target="_blank" rel="noopener noreferrer" href="https://agilestorelocator.com/agile-sync-addon/?utm_source=wordpress-org&amp;utm_medium=plugin&amp;utm_campaign=free-version&amp;utm_content=agile-sync-addon"><?php esc_html_e('Learn about Agile Sync', 'asl_locator'); ?><span aria-hidden="true">→</span></a>
                                             </div>
                                             <img loading="lazy" src="<?php echo esc_url('https://cdn.agilestorelocator.com/asl-wc/agile-sync-addon-banner.png'); ?>" alt="<?php esc_attr_e('Agile Sync integration preview', 'asl_locator'); ?>">
                                         </aside>

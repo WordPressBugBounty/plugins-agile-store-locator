@@ -1,7 +1,7 @@
 <?php
 
 $asl_wc_ad_url = 'https://agilestorelocator.com/multistore-woocommerce-addons/?utm_source=WordPress&utm_medium=Banner&utm_campaign=WP.org&utm_term=ASL&utm_content=';
-$asl_sync_ad_url = 'https://agilelogix.com/product/agile-sync-addon/?utm_source=wordpress&utm_medium=asl-settings&utm_campaign=agile-sync-addon';
+$asl_sync_ad_url = 'https://agilestorelocator.com/agile-sync-addon/?utm_source=wordpress&utm_medium=asl-settings&utm_campaign=agile-sync-addon';
 
 $faq_basic = array(
   array(
@@ -38,7 +38,7 @@ $faq_basic = array(
   ),
   array(
     'q'   => __('Can I synchronize stores with Google Sheets?', 'asl_locator'),
-    'ans' => __('Yes, with the separate <a href="https://agilelogix.com/product/agile-sync-addon/" target="_blank" rel="noopener noreferrer">Agile Sync Addon</a>. It automatically synchronizes store information between Google Sheets and Agile Store Locator.', 'asl_locator'),
+    'ans' => __('Yes, with the separate <a href="https://agilestorelocator.com/agile-sync-addon/" target="_blank" rel="noopener noreferrer">Agile Sync Addon</a>. It automatically synchronizes store information between Google Sheets and Agile Store Locator.', 'asl_locator'),
   ),
   array(
     'q'   => __('Why are my latest changes not appearing?', 'asl_locator'),
