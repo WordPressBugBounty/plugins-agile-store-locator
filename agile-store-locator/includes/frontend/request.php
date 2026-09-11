@@ -22,6 +22,62 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Request {
 
+  /** Proxy submitted searches with a shared upstream limit and cached results. */
+  public function nominatim_search() {
+    global $wpdb;
+
+    $query = isset($_GET['q']) && is_string($_GET['q']) ? trim(sanitize_text_field(wp_unslash($_GET['q']))) : '';
+    if (strlen($query) < 2 || strlen($query) > 300) {
+      wp_send_json_error(['message' => 'Enter an address between 2 and 300 characters.'], 400);
+    }
+    $countries = isset($_GET['countrycodes']) && is_string($_GET['countrycodes']) ? strtolower(sanitize_text_field(wp_unslash($_GET['countrycodes']))) : '';
+    $countries = implode(',', array_unique(array_filter(explode(',', $countries), function($code) {
+      return preg_match('/^[a-z]{2}$/', $code);
+    })));
+    // Administrators can switch upstream services without a plugin update.
+    $endpoint = apply_filters('asl_nominatim_endpoint', 'https://nominatim.openstreetmap.org/search');
+    $params = ['q' => $query, 'format' => 'jsonv2', 'addressdetails' => 1, 'limit' => 5];
+    if ($countries) $params['countrycodes'] = $countries;
+    $cache_key = 'asl_nom_' . md5($endpoint . wp_json_encode($params));
+    $cached = get_transient($cache_key);
+    if (false !== $cached) wp_send_json_success($cached);
+
+    // Atomic database lock: applies across PHP workers, visitors and object caches.
+    $lock_name = 'asl_nominatim_lock';
+    $now = microtime(true);
+    $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->options} WHERE option_name = %s AND CAST(option_value AS DECIMAL(20,6)) < %f", $lock_name, $now));
+    $acquired = $wpdb->query($wpdb->prepare("INSERT IGNORE INTO {$wpdb->options} (option_name, option_value, autoload) VALUES (%s, %s, 'no')", $lock_name, (string) ($now + 30)));
+    if (1 !== $acquired) {
+      header('Retry-After: 1');
+      wp_send_json_error(['message' => 'Address search is busy. Please try again in a moment.'], 429);
+    }
+
+    $response = wp_safe_remote_get(add_query_arg($params, $endpoint), [
+      'timeout' => 10,
+      'redirection' => 0,
+      'limit_response_size' => 262144,
+      'user-agent' => 'AgileStoreLocator/1.0 (' . home_url('/') . ')',
+      'headers' => ['Accept' => 'application/json']
+    ]);
+    // Leave at least one second after completion before another upstream request.
+    $wpdb->update($wpdb->options, ['option_value' => (string) (microtime(true) + 1.1)], ['option_name' => $lock_name]);
+    if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+      wp_send_json_error(['message' => 'Address search is temporarily unavailable. Please try again later.'], 502);
+    }
+    $items = json_decode(wp_remote_retrieve_body($response), true);
+    if (!is_array($items) || isset($items['error'])) {
+      wp_send_json_error(['message' => 'Invalid address search response.'], 502);
+    }
+    $items = array_values(array_filter($items, function($item) {
+      return is_array($item) && isset($item['display_name'], $item['lat'], $item['lon']) && is_numeric($item['lat']) && is_numeric($item['lon'])
+        && abs((float) $item['lat']) <= 90 && abs((float) $item['lon']) <= 180;
+    }));
+    set_transient($cache_key, $items, DAY_IN_SECONDS);
+    wp_send_json_success($items);
+  }
+
+
+
 
 	/**
 	 * [load_stores Load the Stores using AJAX Request]

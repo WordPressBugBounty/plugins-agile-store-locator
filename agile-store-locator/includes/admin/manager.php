@@ -259,7 +259,10 @@ class Manager extends Base {
     $asl_jscript_path = ASL_PLUGIN_PATH . 'admin/js/jscript.js';
     $asl_jscript_ver  = file_exists($asl_jscript_path) ? filemtime($asl_jscript_path) : $this->version;
     wp_register_script( $this->AgileStoreLocator.'-jscript', ASL_URL_PATH . 'admin/js/jscript.js', array('jquery'), $asl_jscript_ver, false );
-    wp_register_script( $this->AgileStoreLocator.'-common-map', ASL_URL_PATH . 'public/js/asl-common-map.js', array(), $this->version, false );
+    $asl_common_map_path = ASL_PLUGIN_PATH . 'public/js/asl-common-map.js';
+    $asl_common_map_ver = file_exists($asl_common_map_path) ? filemtime($asl_common_map_path) : $this->version;
+    wp_register_script( $this->AgileStoreLocator.'-common-map', ASL_URL_PATH . 'public/js/asl-common-map.js', array(), $asl_common_map_ver, false );
+    wp_localize_script($this->AgileStoreLocator.'-common-map', 'ASL_NOMINATIM_CONFIG', ['ajaxUrl' => admin_url('admin-ajax.php')]);
     wp_register_script( $this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/js/maplibre-gl.js', array(), $this->version, false );
     wp_register_style( $this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/css/maplibre-gl.css', array(), $this->version );
     wp_register_style( $this->AgileStoreLocator.'-maplibre-asl', ASL_URL_PATH . 'public/css/asl-maplibre.css', array($this->AgileStoreLocator.'-maplibre'), $this->version );
@@ -620,10 +623,10 @@ class Manager extends Base {
 
     global $wpdb;
 
-    $sql = "SELECT `key`,`value` FROM ".ASL_PREFIX."configs WHERE `key` = 'api_key'";
-    $all_configs_result = $wpdb->get_results($sql);
-
-    $all_configs = array('api_key' => isset($all_configs_result[0]->value) ? $all_configs_result[0]->value : '');
+    $all_configs = \AgileStoreLocator\Helper::get_configs([
+      'api_key', 'map_vendor', 'tile_provider', 'geoapify_api_key',
+      'mapbox_access_token', 'tile_provider_api_key', 'maplibre_style_url'
+    ]);
     $all_stats = array();
     
     $temp = $wpdb->get_results( "SELECT count(*) as c FROM ".ASL_PREFIX."markers");;

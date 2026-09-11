@@ -243,11 +243,13 @@ class App
 
         wp_register_style($this->AgileStoreLocator.'-autocomplete', ASL_URL_PATH . 'public/css/asl-autocomplete.css', [], $this->version);
         wp_register_script($this->AgileStoreLocator.'-autocomplete', ASL_URL_PATH . 'public/js/asl-autocomplete.js', [], $this->version, true);
+    wp_localize_script($this->AgileStoreLocator.'-autocomplete', 'ASL_NOMINATIM_CONFIG', ['ajaxUrl' => admin_url('admin-ajax.php')]);
 
         wp_register_style($this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/css/maplibre-gl.css', [], $this->version);
         wp_register_style($this->AgileStoreLocator.'-maplibre-asl', ASL_URL_PATH . 'public/css/asl-maplibre.css', [$this->AgileStoreLocator.'-maplibre'], $this->version);
         wp_register_script($this->AgileStoreLocator.'-maplibre', ASL_URL_PATH . 'public/js/maplibre-gl.js', [], $this->version, true);
         wp_register_script($this->AgileStoreLocator.'-common-map', ASL_URL_PATH . 'public/js/asl-common-map.js', [], $this->version, true);
+    wp_localize_script($this->AgileStoreLocator.'-common-map', 'ASL_NOMINATIM_CONFIG', ['ajaxUrl' => admin_url('admin-ajax.php')]);
         
         //  New cluster library
         wp_register_script($this->AgileStoreLocator.'-cluster', ASL_URL_PATH . 'public/js/asl_cluster.min.js', ['jquery', $this->AgileStoreLocator.'-lib'], $this->version, true);

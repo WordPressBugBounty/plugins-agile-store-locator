@@ -125,6 +125,9 @@ class Plugin {
 
 		add_action('init', [FrontendAnalytics::class, 'maybe_upgrade_schema']);
 		
+		add_action('wp_ajax_asl_nominatim_search', array($this->public_request, 'nominatim_search'));
+		add_action('wp_ajax_nopriv_asl_nominatim_search', array($this->public_request, 'nominatim_search'));
+
 		add_action('wp_ajax_asl_load_stores', array($this->public_request, 'load_stores'));	
 		add_action('wp_ajax_nopriv_asl_load_stores', array($this->public_request, 'load_stores'));
 

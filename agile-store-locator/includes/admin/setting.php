@@ -269,8 +269,12 @@ class Setting extends Base
 
         if ('google' === $provider) {
             $config_values['api_key'] = $api_key;
+            $config_values['search_provider'] = 'google';
+            $config_values['search_type'] = '0';
         } else {
             $config_values['tile_provider'] = 'osm';
+            $config_values['search_provider'] = 'nominatim';
+            $config_values['search_type'] = '4';
             $config_values['tile_provider_style'] = 'default';
             $config_values['maplibre_style_url'] = '';
         }

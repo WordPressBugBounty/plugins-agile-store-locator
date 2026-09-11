@@ -4127,6 +4127,7 @@ var asl_engine = window['asl_engine'] || {};
       //  To get Lat/lng
       $('#txt_city,#txt_state,#txt_postal_code').on('blur', function(e) {
 
+
         if (!isEmpty($form[0].elements["data[city]"].value)) {
 
           var address = [$form[0].elements["data[street]"].value, $form[0].elements["data[city]"].value, $form[0].elements["data[postal_code]"].value, $form[0].elements["data[state]"].value];
@@ -4618,6 +4619,7 @@ var asl_engine = window['asl_engine'] || {};
         type = String(type == null ? '0' : type);
 
         if (type === '1' || type === '2') return 'automatic';
+        if (provider === 'nominatim') return 'nominatim';
         if (type === '3') return 'geocode_enter';
         if (provider === 'disabled') return 'disabled';
         if (provider === 'geoapify') return 'geoapify';
@@ -4631,6 +4633,7 @@ var asl_engine = window['asl_engine'] || {};
           automatic: ['automatic', '4'],
           google_new: ['google', '4'],
           google_legacy: ['google', '0'],
+          nominatim: ['nominatim', '4'],
           geoapify: ['geoapify', '4'],
           mapbox: ['mapbox', '4'],
           geocode_enter: ['google', '3'],

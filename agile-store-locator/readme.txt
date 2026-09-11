@@ -6,7 +6,7 @@ Tags: wordpress store locator, store locator wordpress, store finder, where to b
 Requires at least: 3.3.2
 Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.8.4
+Stable tag: 1.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,14 +16,14 @@ Agile Store Locator is a WordPress store locator and store finder for where-to-b
 
 [Agile Store Locator](https://agilestorelocator.com/) is a free **WordPress store locator** for stores, dealers, branches, retailers, offices, and service centers. This flexible **store locator WordPress** solution also works as a **store finder** and **where to buy** directory. Add unlimited locations, display responsive maps, and help visitors find the nearest location by address, ZIP code, category, or their current position—without writing code.
 
-Start with **free maps that need no API key** by using MapLibre with OpenStreetMap. You can also choose Geoapify, Mapbox, MapTiler, a custom MapLibre style, or the plugin's **native Google Maps integration**. Address search can use Google Places, Geoapify, or Mapbox independently from your map provider.
+Start with **free maps that need no API key** by using MapLibre with OpenStreetMap. You can also choose Geoapify, Mapbox, MapTiler, a custom MapLibre style, or the plugin's **native Google Maps integration**. Address search can use Nominatim geocoding, Google Places, Geoapify, or Mapbox independently from your map provider.
 
 Whether you manage one storefront or hundreds of business locations, Agile Store Locator creates a fast, mobile-friendly locator that works with any WordPress theme. Build **SEO-friendly location pages** with unique store URLs and detailed business information to make individual locations easier for customers and search engines to discover.
 
 The free version provides flexible location management, multiple map and search providers, and Template 0. Pro adds CSV import/export, multiple templates, analytics, advanced filters, search widgets, registration forms, and additional professional tools.
 
 ### 🆓 Free Maps — No API Key Needed
-Choose **MapLibre + OpenStreetMap** to publish a complete interactive store locator without creating a Google Maps account, adding billing details, or entering an API key. OpenStreetMap tiles work out of the box and are a practical option for directories, local businesses, and new websites.
+Choose **MapLibre + OpenStreetMap** to publish a complete interactive store locator without creating a Google Maps account, adding billing details, or entering an API key. OpenStreetMap tiles work out of the box and are a practical option for directories, local businesses, and new websites. Selecting Free Maps also enables Nominatim address geocoding without an API key. Nominatim resolves submitted searches and completed store address fields; it does not provide autocomplete.
 
 Prefer another service? Agile Store Locator also supports:
 
@@ -430,6 +430,15 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.8.5 =
+- Switching from Free Maps to Google Maps now selects Google Places Legacy search
+- Free Maps now configures OpenStreetMap tiles with Nominatim address geocoding, without API keys
+- Added Nominatim to search settings and as a fallback when the selected Geoapify or Mapbox provider has no credentials
+- Enabled Nominatim geocoding when leaving City, State, or Postal Code fields on Create and Update Store pages; map search runs on Enter without autocomplete
+- Added cached, site-wide rate-limited Nominatim requests through WordPress
+- Fixed the dashboard map card showing Google Maps after selecting Free Maps
+- Removed duplicate attribution beside search fields while retaining the map attribution
 
 = 1.8.4 =
 - Reduce the size of the build

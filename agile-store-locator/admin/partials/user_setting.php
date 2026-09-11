@@ -238,6 +238,7 @@ if($level_mode === true){ ?>
                                                         <option value="automatic"><?php echo esc_html__('Address — Automatic (Recommended)','asl_locator') ?></option>
                                                         <option value="google_new"><?php echo esc_html__('Address — Google Places','asl_locator') ?></option>
                                                         <option value="google_legacy"><?php echo esc_html__('Address — Google Places (Legacy)','asl_locator') ?></option>
+                                                        <option value="nominatim"><?php echo esc_html__('Address — Nominatim (Geocoding only, no API key)','asl_locator') ?></option>
                                                         <option value="geoapify"><?php echo esc_html__('Address — Geoapify','asl_locator') ?></option>
                                                         <option value="mapbox"><?php echo esc_html__('Address — Mapbox','asl_locator') ?></option>
                                                         <option value="store_name" disabled><?php echo esc_html__('Store Name — Pro','asl_locator') ?></option>
