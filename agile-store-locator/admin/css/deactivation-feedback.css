@@ -45,8 +45,7 @@
 	margin: 0 0 4px;
 }
 
-.asl-deactivate-modal__header p,
-.asl-deactivate-privacy {
+.asl-deactivate-modal__header p {
 	color: #646970;
 	margin: 0;
 }
@@ -90,10 +89,27 @@
 	width: 100%;
 }
 
-.asl-deactivate-privacy {
-	font-size: 12px;
-	line-height: 1.5;
-	margin-top: 16px;
+.asl-deactivate-details input[type="email"] {
+	box-sizing: border-box;
+	margin-top: 6px;
+	width: 100%;
+}
+
+.asl-deactivate-details .asl-deactivate-contact {
+	align-items: center;
+	display: flex;
+	font-weight: 400;
+	gap: 8px;
+	margin-top: 12px;
+}
+
+.asl-deactivate-contact input[type="checkbox"] {
+	flex: none;
+	margin: 0;
+}
+
+.asl-deactivate-email {
+	margin-top: 10px;
 }
 
 .asl-deactivate-modal__footer {

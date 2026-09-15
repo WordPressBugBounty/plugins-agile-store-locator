@@ -28,11 +28,11 @@ class Category {
 
         $ASL_PREFIX   = ASL_PREFIX;
         $categories   = [];
-        $orde_by      = " `category_name` ;";
+        $orde_by      = " `ordr` ASC, `id` ASC;";
         $where_clause = "`lang` = ''";
 
         //  Get the results
-        $results    = $wpdb->get_results("SELECT * FROM {$ASL_PREFIX}categories WHERE {$where_clause} ORDER BY {$orde_by}");
+        $results    = self::group_in_saved_order($wpdb->get_results("SELECT * FROM {$ASL_PREFIX}categories WHERE {$where_clause} ORDER BY {$orde_by}"));
 
         //  Loop over
         if($addon) {
@@ -102,7 +102,10 @@ class Category {
         }
 
         //  Get the results
-        $cats    = $wpdb->get_results("SELECT `id`,`category_name` as $category_name, `icon`, `ordr` FROM ".ASL_PREFIX."categories WHERE lang = '$lang' $where_clause ORDER BY category_name ASC");
+        $cats    = $wpdb->get_results("SELECT `id`,`category_name` as $category_name, `icon`, `color`, `ordr`, `parent_id` FROM ".ASL_PREFIX."categories WHERE lang = '$lang' $where_clause ORDER BY `ordr` ASC, `id` ASC");
+        if ($with_children) {
+            $cats = self::group_in_saved_order($cats);
+        }
 
         //  Loop & filter
         if($cats) {
@@ -114,6 +117,34 @@ class Category {
         }
 
         return $cats;
+    }
+
+    /** Keep each category's descendants beside it while respecting sibling order. */
+    private static function group_in_saved_order($rows) {
+        $children = [];
+        $present = [];
+        foreach ($rows as $row) {
+            $present[(int) $row->id] = true;
+        }
+        foreach ($rows as $row) {
+            $parent = (int) $row->parent_id;
+            $children[isset($present[$parent]) ? $parent : 0][] = $row;
+        }
+        $ordered = [];
+        $seen = [];
+        $append = function ($parent) use (&$append, &$ordered, &$seen, $children) {
+            foreach ($children[$parent] ?? [] as $row) {
+                if (isset($seen[$row->id])) continue;
+                $seen[$row->id] = true;
+                $ordered[] = $row;
+                $append((int) $row->id);
+            }
+        };
+        $append(0);
+        foreach ($rows as $row) {
+            if (!isset($seen[$row->id])) $ordered[] = $row;
+        }
+        return $ordered;
     }
 
     /**
@@ -183,7 +214,7 @@ class Category {
         $all_categories = array();
 
         // Start building the SQL query
-        $sql = "SELECT id, category_name as name, icon, ordr, parent_id FROM " . ASL_PREFIX . "categories";
+        $sql = "SELECT id, category_name as name, icon, color, ordr, parent_id FROM " . ASL_PREFIX . "categories";
 
         // Initialize the array to hold SQL conditions
         $conditions = array();
@@ -209,7 +240,7 @@ class Category {
         }
 
         // Order the results
-        $sql .= " ORDER BY parent_id ASC";
+        $sql .= " ORDER BY parent_id ASC, ordr ASC, id ASC";
 
 
         $results = $wpdb->get_results($sql);
@@ -230,6 +261,7 @@ class Category {
                 // attribute here leaks entities such as "&amp;" into JS.
                 'name' => wp_specialchars_decode((string) $_result->name, ENT_QUOTES),
                 'icon' => $_result->icon,
+                'color' => $_result->color,
                 'ordr' => $_result->ordr,
                 'children' => array() // Initialize an array to store child categories
             );

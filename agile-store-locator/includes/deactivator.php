@@ -93,8 +93,15 @@ class Deactivator {
 					<div class="asl-deactivate-details" hidden>
 						<label for="asl-deactivate-details"><?php esc_html_e( 'Could you share a little more?', 'asl_locator' ); ?></label>
 						<textarea id="asl-deactivate-details" name="details" rows="3" maxlength="1000" placeholder="<?php esc_attr_e( 'Your feedback helps us improve the plugin.', 'asl_locator' ); ?>"></textarea>
+						<label class="asl-deactivate-contact" for="asl-deactivate-contact">
+							<input id="asl-deactivate-contact" name="contact_permission" type="checkbox">
+							<span><?php esc_html_e( 'You may email me about this feedback.', 'asl_locator' ); ?></span>
+						</label>
+						<div class="asl-deactivate-email" hidden>
+							<label for="asl-deactivate-email"><?php esc_html_e( 'Email address for your reply', 'asl_locator' ); ?></label>
+							<input id="asl-deactivate-email" name="email" type="email" maxlength="254" autocomplete="email" value="<?php echo esc_attr( wp_get_current_user()->user_email ); ?>" required disabled>
+						</div>
 					</div>
-					<p class="asl-deactivate-privacy"><?php esc_html_e( 'Submitting sends your response, plugin version, and website URL to AgileLogix. No feedback is sent when you skip.', 'asl_locator' ); ?></p>
 					<div class="asl-deactivate-modal__footer">
 						<button type="button" class="button-link asl-deactivate-skip"><?php esc_html_e( 'Skip & Deactivate', 'asl_locator' ); ?></button>
 						<button type="submit" class="button button-primary asl-deactivate-submit" disabled><?php esc_html_e( 'Submit & Deactivate', 'asl_locator' ); ?></button>
@@ -127,6 +134,11 @@ class Deactivator {
 		}
 
 		$details = isset( $_POST['details'] ) ? sanitize_textarea_field( wp_unslash( $_POST['details'] ) ) : '';
+		$contact_permission = isset( $_POST['contact_permission'] ) && '1' === $_POST['contact_permission'] && 'temporary' !== $reason_key;
+		$email = $contact_permission && isset( $_POST['email'] ) && is_string( $_POST['email'] ) ? trim( wp_unslash( $_POST['email'] ) ) : '';
+		if ( $contact_permission && ( '' === $email || strlen( $email ) > 254 || ! is_email( $email ) || preg_match( '/[\r\n]/', $email ) ) ) {
+			wp_send_json_error( array( 'message' => __( 'Please enter a valid email address for your reply.', 'asl_locator' ) ), 400 );
+		}
 		$subject = sprintf( '[ASL] Deactivation feedback: %s', $allowed_reasons[ $reason_key ] );
 		$message = implode(
 			"\n",
@@ -138,9 +150,14 @@ class Deactivator {
 				'Website: ' . home_url( '/' ),
 			)
 		);
+		$headers = array();
+		if ( $contact_permission ) {
+			$message .= "\nReply email: " . $email;
+			$headers[] = 'Reply-To: ' . sanitize_email( $email );
+		}
 
 		$recipient = apply_filters( 'asl_deactivation_feedback_email', 'feedback@agilelogix.com' );
-		wp_mail( sanitize_email( $recipient ), $subject, $message );
+		wp_mail( sanitize_email( $recipient ), $subject, $message, $headers );
 
 		wp_send_json_success();
 	}

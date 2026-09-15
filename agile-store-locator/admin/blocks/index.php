@@ -47,7 +47,7 @@ function asl_blocks_starter_enqueue_block_editor_assets() {
 		'wordpress-blocks-starter-blocks',
 		ASL_URL_PATH.'admin/' .$blocks_dir . 'index.js' ,
 		$blocks_asset_file['dependencies'],
-		$blocks_asset_file['version']
+		filemtime( ASL_PLUGIN_PATH . 'admin/' . $blocks_dir . 'index.js' )
 	);
 }
 

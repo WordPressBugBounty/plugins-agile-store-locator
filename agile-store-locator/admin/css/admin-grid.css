@@ -169,7 +169,7 @@
   border-radius: 7px;
   color: #0868d8 !important;
   background: #fff;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none !important;
 }
@@ -207,7 +207,7 @@
   padding: 9px 16px;
   border-radius: 7px;
   background: #fff;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   box-shadow: none;
 }
@@ -241,6 +241,19 @@
   border-color: #12813c;
   color: #fff;
   background: #128f42;
+}
+
+.asl-admin-grid-page .asl-grid-btn--pending {
+  border: 1px solid var(--asl-admin-primary);
+  color: var(--asl-admin-primary);
+  background: #fff;
+}
+
+.asl-admin-grid-page .asl-grid-btn--pending:hover,
+.asl-admin-grid-page .asl-grid-btn--pending:focus {
+  border-color: var(--asl-admin-primary);
+  color: var(--asl-admin-primary);
+  background: #eef6ff;
 }
 
 .asl-admin-grid-page .asl-grid-btn--secondary {
@@ -313,7 +326,7 @@
   border-radius: 12px;
   color: #344767;
   background: rgba(255, 255, 255, .96);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.35;
   text-align: center;
@@ -428,7 +441,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   gap: 7px;
   min-height: 40px;
   border-radius: 7px !important;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
   box-shadow: none;
@@ -560,7 +573,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border: 0;
   border-bottom: 1px solid #e7ebf1;
   color: #3f4f67;
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
   vertical-align: middle;
 }
@@ -652,7 +665,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
 .asl-admin-grid-page div.dataTables_wrapper .dataTables_info {
   margin: 0;
   color: #49618d;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   text-align: left;
 }
@@ -678,7 +691,119 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
 }
 
 .asl-admin-grid-page.asl-grid-categories table.asl-grid-data-table {
-  min-width: 1540px;
+  min-width: 1150px;
+}
+
+.asl-grid-categories #btn-asl-save-category-order[hidden] {
+  display: none !important;
+}
+
+.asl-grid-categories .asl-category-search-area {
+  position: relative;
+  width: min(100%, 620px);
+  margin: 0;
+}
+
+.asl-grid-categories .asl-grid-toolbar {
+  flex-wrap: wrap;
+}
+
+.asl-grid-categories .asl-grid-toolbar > .asl-category-search-area {
+  display: block;
+  margin-left: 0;
+}
+
+.asl-grid-categories .asl-grid-toolbar > .asl-category-toolbar-actions {
+  margin-left: auto;
+}
+
+.asl-grid-categories .asl-category-search-area::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #536a8b;
+  border-radius: 50%;
+  transform: translateY(-62%);
+  pointer-events: none;
+}
+
+.asl-grid-categories .asl-category-search-area::after {
+  content: '';
+  position: absolute;
+  top: calc(50% + 7px);
+  left: 35px;
+  width: 9px;
+  height: 2px;
+  border-radius: 2px;
+  background: #536a8b;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.asl-grid-categories .asl-category-search-area input {
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 20px 12px 64px !important;
+  border: 1px solid #cfdbed;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(38, 69, 118, .05);
+  font-size: 15px;
+}
+
+.asl-grid-categories .asl-category-search-area input:focus {
+  border-color: #7ca6df;
+  box-shadow: 0 0 0 3px rgba(45, 113, 203, .12);
+}
+
+.asl-grid-categories table.asl-grid-data-table thead tr:last-child th {
+  color: #213451;
+  background: #f5f9ff !important;
+  border-bottom: 1px solid #dbe5f3;
+  font-size: 15px;
+}
+
+.asl-grid-categories table.asl-grid-data-table tbody td {
+  font-size: 15px;
+}
+
+.asl-grid-categories table.asl-grid-data-table th:first-child,
+.asl-grid-categories table.asl-grid-data-table td:first-child {
+  width: 64px;
+  text-align: center;
+}
+
+.asl-grid-categories table.asl-grid-data-table td:nth-child(2) {
+  color: #086ce1;
+}
+
+.asl-grid-categories.asl-category-searching .asl-category-drag-handle {
+  opacity: .4;
+  cursor: default;
+}
+
+.asl-grid-categories .asl-category-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  font-size: 22px;
+  line-height: 1;
+  color: #606b77;
+  cursor: grab;
+  user-select: none;
+}
+
+.asl-grid-categories .asl-category-drag-handle:active {
+  cursor: grabbing;
+}
+
+.asl-grid-categories tbody tr.ui-sortable-helper {
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .16);
 }
 
 .asl-admin-grid-page.asl-grid-attributes table.asl-grid-data-table {
@@ -787,7 +912,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border: 0;
   color: #fff;
   background: linear-gradient(115deg, var(--asl-admin-header-start), var(--asl-admin-header-end)) !important;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
 }
 
@@ -802,7 +927,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border-radius: 7px;
   color: var(--asl-admin-ink);
   background: #fff;
-  font-size: 12px;
+  font-size: 13px;
   box-shadow: 0 0 0 1px rgba(8, 116, 232, .1);
 }
 
@@ -840,7 +965,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border-bottom: 1px solid #e8edf3;
   color: var(--asl-admin-ink);
   background: #fff;
-  font-size: 13px;
+  font-size: 14px;
   vertical-align: middle;
 }
 
@@ -1011,7 +1136,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border-radius: 7px;
   color: var(--asl-admin-primary) !important;
   background: #fff !important;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 650;
   text-decoration: none !important;
 }
@@ -1034,7 +1159,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   color: #086ADE !important;
   background: #fff;
   box-shadow: 0 4px 12px rgba(0, 45, 112, .14);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -1788,7 +1913,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
 .asl-admin-tabs-page.asl-grid-settings .asl-store-form-section__header h5 {
   margin: 0 0 3px;
   color: #17233a;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 750;
 }
 
@@ -2845,7 +2970,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border-radius: 7px 0 0 7px;
   color: #344767;
   background-color: #fff;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   box-shadow: none;
 }
@@ -2864,7 +2989,7 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
   border: 0;
   color: #fff;
   background: transparent;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -3093,4 +3218,75 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
     flex-wrap: wrap;
   }
 
+}
+.asl-grid-categories .asl-category-color-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 240px;
+}
+
+.asl-grid-categories .asl-category-list-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.asl-grid-categories .asl-category-list-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.asl-grid-stores .asl-store-category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  margin: 2px 4px 2px 0;
+  border: 1px solid #dce9fb;
+  border-radius: 999px;
+  background: #f3f8ff;
+  color: #315078;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.asl-grid-stores .asl-store-category-dot {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  border-radius: 50%;
+}
+
+.asl-grid-categories .asl-category-color-input input[type="color"] {
+  width: 44px;
+  height: 38px;
+  padding: 2px;
+  flex: none;
+  cursor: pointer;
+}
+
+.asl-grid-categories .asl-category-color-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.asl-grid-categories .asl-category-color-preset {
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #a7a7a7;
+  cursor: pointer;
+}
+
+.asl-grid-categories .asl-category-color-preset.is-selected,
+.asl-grid-categories .asl-category-color-preset:focus-visible {
+  box-shadow: 0 0 0 2px #242424;
 }

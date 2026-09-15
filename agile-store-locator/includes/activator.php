@@ -101,6 +101,7 @@ class Activator {
 			  `lang` varchar(10) DEFAULT '',
 			  `is_active` int NOT NULL,
 			  `icon` varchar(100) NOT NULL,
+			  `color` varchar(7) DEFAULT NULL,
 			  `parent_id` int(11) DEFAULT 0,
 			  `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
 			  PRIMARY KEY (`id`)
@@ -128,6 +129,7 @@ class Activator {
 	
 		//	Add the parent id
 		self::add_cat_parent_id(); 
+		self::add_cat_color();
 
 		//////////////////////
 		/// Make DDL Tables //
@@ -566,6 +568,16 @@ class Activator {
 		}
 	}
 
+	/** Add the optional category color to existing installations. */
+	public static function add_cat_color() {
+		global $wpdb;
+		$table = $wpdb->prefix . 'asl_categories';
+		if (!$wpdb->get_var($wpdb->prepare("SHOW COLUMNS FROM `{$table}` LIKE %s", 'color'))) {
+			$wpdb->query("ALTER TABLE `{$table}` ADD COLUMN `color` varchar(7) DEFAULT NULL");
+		}
+		return (bool) $wpdb->get_var($wpdb->prepare("SHOW COLUMNS FROM `{$table}` LIKE %s", 'color'));
+	}
+
 	/**
 	 * [Add brand_id Column for the `specials`]
 	 */
@@ -735,7 +747,7 @@ class Activator {
 			array('distance_control','1',''),
 			array('dropdown_range','20,40,60,80,*100',''),
 			array('target_blank','0',''),
-			array('geo_button','0',''),
+			array('geo_button','1',''),
 			array('week_hours','0',''),
 
 			array('user_center','0',''),

@@ -6,7 +6,7 @@ Tags: wordpress store locator, store locator wordpress, store finder, where to b
 Requires at least: 3.3.2
 Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -430,6 +430,12 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.8.6 =
+- Improved shortcode insertion and map-center controls in the block editor, Elementor, and WPBakery
+- Added category color dots to Template 0 list tags and Manage Store category badges
+- Added one-time category color schema migration for existing installations
+- Updated Manage Store column visibility defaults and labels, including hiding URL by default
 
 = 1.8.5 =
 - Switching from Free Maps to Google Maps now selects Google Places Legacy search

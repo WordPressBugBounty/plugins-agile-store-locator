@@ -228,6 +228,10 @@ class App
             $all_configs[$_config->key] = $_config->value;
         }
 
+        if (isset($all_configs['search_type']) && in_array((string) $all_configs['search_type'], ['1', '2'], true)) {
+            $all_configs['search_type'] = '0';
+        }
+
         return $all_configs;
     }
 
@@ -560,6 +564,9 @@ class App
 
         if (!$atts) {
             $atts = [];
+        }
+        if (isset($atts['search_type']) && in_array((string) $atts['search_type'], ['1', '2'], true)) {
+            $atts['search_type'] = '0';
         }
 
         //  Fetch All Configs
@@ -1613,6 +1620,11 @@ class App
             $atts     = apply_filters('asl_filter_locator_attrs', $atts);
         }
 
+        // Database-backed search modes are reserved for Pro.
+        if (isset($atts['search_type']) && in_array((string) $atts['search_type'], ['1', '2'], true)) {
+            $atts['search_type'] = '0';
+        }
+
         // Normalize template early if provided via shortcode
         if (isset($atts['template'])) {
             $atts['template'] = $this->sanitize_template($atts['template']);
@@ -1648,6 +1660,10 @@ class App
 
         //   Change the settings progamatically
         $all_configs = apply_filters('asl_filter_locator_init', $all_configs);
+
+        if (isset($all_configs['search_type']) && in_array((string) $all_configs['search_type'], ['1', '2'], true)) {
+            $all_configs['search_type'] = '0';
+        }
 
         //  Keep the local language vars synced with programmatic changes.
         if (isset($all_configs['lang']) && strlen($all_configs['lang']) <= 13) {
@@ -1945,7 +1961,7 @@ class App
             'target_blank' => '1',
             'fit_bound' => '1',
             'info_y_offset' => '',
-            'cat_sort' => 'name_',
+            'cat_sort' => 'ordr',
             'direction_btn' => '1',
             'print_btn' => '1',
             'tabs_layout' => false,

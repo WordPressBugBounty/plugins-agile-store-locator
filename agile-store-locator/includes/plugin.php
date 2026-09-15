@@ -124,6 +124,12 @@ class Plugin {
 		$this->frontend_analytics = new FrontendAnalytics();
 
 		add_action('init', [FrontendAnalytics::class, 'maybe_upgrade_schema']);
+		add_action('init', function () {
+			if (get_option('asl_category_color_schema') !== '1'
+				&& \AgileStoreLocator\Activator::add_cat_color()) {
+				update_option('asl_category_color_schema', '1', false);
+			}
+		});
 		
 		add_action('wp_ajax_asl_nominatim_search', array($this->public_request, 'nominatim_search'));
 		add_action('wp_ajax_nopriv_asl_nominatim_search', array($this->public_request, 'nominatim_search'));

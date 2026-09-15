@@ -140,7 +140,7 @@ class Manager extends Base {
     add_action('media_buttons', array($this,'add_shortcode_button'), 15); 
 
     // Generate shortcode popup 
-    add_action('admin_head', array($this,'shortcode_gen_popup'));
+    add_action('admin_footer', array($this,'shortcode_gen_popup'));
 
     // Shortcode registration can translate WPBakery labels, so run it after i18n is ready.
     add_action('init', array($this,'shortcode_registration'));
@@ -182,6 +182,10 @@ class Manager extends Base {
     $asl_admin_css_path = ASL_PLUGIN_PATH . 'admin/css/style.css';
     $asl_admin_css_ver  = file_exists($asl_admin_css_path) ? filemtime($asl_admin_css_path) : $this->version;
     wp_enqueue_style( 'asl_locator', ASL_URL_PATH . 'admin/css/style.css', array(), $asl_admin_css_ver, 'all' );
+    $asl_screen = get_current_screen();
+    if ($asl_screen && 'post' === $asl_screen->base && 'page' === $asl_screen->post_type) {
+      wp_enqueue_style( 'asl-shortcode-maplibre', ASL_URL_PATH . 'public/css/maplibre-gl.css', array(), filemtime(ASL_PLUGIN_PATH . 'public/css/maplibre-gl.css') );
+    }
     if (\AgileStoreLocator\Helper::expertise_level()) {
       wp_add_inline_style( 'asl_locator', '.sl-complx { display: none !important; }' );
     }
@@ -241,7 +245,8 @@ class Manager extends Base {
     }
 
     //  Shortcode
-    wp_register_script( $this->AgileStoreLocator.'-shortcode', ASL_URL_PATH . 'admin/js/shortcode.js', array('jquery'), $this->version, false );    
+    $asl_shortcode_script = ASL_PLUGIN_PATH . 'admin/js/shortcode.js';
+    wp_register_script( $this->AgileStoreLocator.'-shortcode', ASL_URL_PATH . 'admin/js/shortcode.js', array('jquery'), filemtime($asl_shortcode_script), false );
 
     //  Sviper library
     wp_register_script( $this->AgileStoreLocator.'-sviper', ASL_URL_PATH . 'admin/js/sviper.js', array('jquery'), $this->version, false );
@@ -552,7 +557,7 @@ class Manager extends Base {
 
     $logos     = $this->prepare_logo_dropdown_rows($wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name"));
     $markers   = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
-    $category  = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang'");
+    $category  = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang' ORDER BY ordr ASC, id ASC");
 
     //  Custom Fields
     $fields       = $this->_get_custom_fields();
@@ -601,7 +606,7 @@ class Manager extends Base {
 
     $logos      = $this->prepare_logo_dropdown_rows($wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name"));
     $markers    = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
-    $category   = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang';");
+    $category   = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang' ORDER BY ordr ASC, id ASC;");
     $countries  = $wpdb->get_results("SELECT * FROM ".ASL_PREFIX."countries ORDER BY `country`");
 
     $fields = $this->_get_custom_fields();
@@ -728,7 +733,7 @@ class Manager extends Base {
 
     $logos    = $this->prepare_logo_dropdown_rows($wpdb->get_results( "SELECT `id` as `value`, `name` as `text`, `path` as `imageSrc`  FROM ".ASL_PREFIX."storelogos ORDER BY name"));
     $markers  = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."markers");
-    $category = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang'");
+    $category = $wpdb->get_results( "SELECT * FROM ".ASL_PREFIX."categories WHERE lang = '$lang' ORDER BY ordr ASC, id ASC");
 
     // Field Columns
      $field_columns = array(
@@ -748,9 +753,9 @@ class Manager extends Base {
       '14' => 'Zip',
       '15' => 'Disabled',
       '16' => 'Categories',
-      '17' => 'Marker',
-      '18' => 'Logo',
-      '19' => 'Created'
+      '17' => 'Marker ID',
+      '18' => 'Logo ID',
+      '19' => 'Created On'
     );
 
 
@@ -762,7 +767,7 @@ class Manager extends Base {
       $hidden_fields = $hidden_fields[0]->content;
     }
     else
-        $hidden_fields = [];
+        $hidden_fields = wp_json_encode([5, 6, 13, 17, 18, 19]);
 
 
     // Get all config
@@ -1185,6 +1190,7 @@ class Manager extends Base {
       if($post->post_type == 'page') {
 
         // Add scripts
+        wp_enqueue_script( $this->AgileStoreLocator.'-maplibre' );
         $this->_enqueue_scripts(false, 'shortcode');
         
         // Include Add Shortcode admin Popup HTML 

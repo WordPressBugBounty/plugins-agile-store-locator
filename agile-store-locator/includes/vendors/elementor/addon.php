@@ -32,13 +32,16 @@ class Addon {
    * @var      string    $version    The current version of this plugin.
    */
     protected $version;
-    
+
     /**
      * Agile Store Locator Elementor Addon constructor.
      */
-    public function __construct() {
+    public function __construct( $AgileStoreLocator, $version ) {
 
-        add_action( 'elementor/widgets/widgets_registered', array( $this, 'widgets_registered' ) );
+        $this->AgileStoreLocator = $AgileStoreLocator;
+        $this->version = $version;
+
+        add_action( 'elementor/widgets/register', array( $this, 'widgets_registered' ) );
 
         add_action( 'elementor/frontend/after_enqueue_styles', array($this, 'asl_ele_editor_style' ) );
     }
@@ -46,12 +49,12 @@ class Addon {
     /**
      * Register widget
      */
-    public function widgets_registered() {
+    public function widgets_registered( $widgets_manager ) {
 
-        \Elementor\Plugin::instance()->widgets_manager->register(new StoreLocator());
-        \Elementor\Plugin::instance()->widgets_manager->register(new StoreCards());
-        \Elementor\Plugin::instance()->widgets_manager->register(new SearchWidget());
-        \Elementor\Plugin::instance()->widgets_manager->register(new StoreDetail());
+        $widgets_manager->register(new StoreLocator());
+        $widgets_manager->register(new StoreCards());
+        $widgets_manager->register(new SearchWidget());
+        $widgets_manager->register(new StoreDetail());
     }
 
     /**

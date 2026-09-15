@@ -28,11 +28,11 @@
                 {{/if}}
                 {{if c_names}}
                 <li class="sl-categories">
-                   <i class="icon-tag"></i>
                    <ul class="inner-cat-list">
                       {{for categories}}
-                      <li>
-                         <span>{{:name}}</span>
+                      <li class="asl-category-tag">
+                         {{if color}}<b class="asl-category-tag-dot" style="background-color:{{:color}}" aria-hidden="true"></b>{{/if}}
+                         {{:name}}
                       </li>
                       {{/for}}
                    </ul>

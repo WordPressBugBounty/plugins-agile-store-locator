@@ -37,6 +37,20 @@ class StoreLocator
         );
     }
 
+    /** Category choices for the same per-page restriction used by the shortcode modal. */
+    private function get_category_options()
+    {
+        $options = array();
+        $lang = Helper::get_configs('locale') ? get_locale() : '';
+        if ('en_US' === $lang) {
+            $lang = '';
+        }
+        foreach ((array) Category::get_categories($lang) as $category) {
+            $options[sprintf('%s (#%d)', $category->category_name, $category->id)] = (string) $category->id;
+        }
+        return $options;
+    }
+
     /**
      * Fields exposed in WPBakery as per-shortcode ASL Settings overrides.
      *
@@ -51,32 +65,34 @@ class StoreLocator
                 'param_name'  => 'template',
                 'value'       => $this->inherit_option() + array(
                     __('Template 0', 'asl_locator')      => '0',
-                    __('Template 1', 'asl_locator')      => '1',
-                    __('Template 2', 'asl_locator')      => '2',
-                    __('Template 3', 'asl_locator')      => '3',
-                    __('Template 4', 'asl_locator')      => '4',
-                    __('Template 5', 'asl_locator')      => '5',
-                    __('Template 6', 'asl_locator')      => '6',
-                    __('Template 7', 'asl_locator')      => '7',
-                    __('Template List', 'asl_locator')   => 'list',
-                    __('Template List 2', 'asl_locator') => 'list-2',
                 ),
                 'std'         => '',
-                'description' => __('Choose a locator template for this page only.', 'asl_locator'),
+                'description' => __('Template 0 is available in Free. Additional templates are available in Pro.', 'asl_locator'),
+                'group'       => __('Appearance & Search', 'asl_locator'),
             ),
             array(
                 'type'        => 'dropdown',
-                'heading'     => __('Search Type', 'asl_locator'),
-                'param_name'  => 'search_type',
+                'heading'     => __('Search Mode', 'asl_locator'),
+                'param_name'  => 'search_mode',
                 'value'       => $this->inherit_option() + array(
-                    __('Search By Address (Google)', 'asl_locator')                    => '0',
-                    __('Search By Store Name (Database)', 'asl_locator')               => '1',
-                    __('Search By Stores Cities, States (Database)', 'asl_locator')    => '2',
-                    __('Geocoding on Enter key (Google Geocoding API)', 'asl_locator') => '3',
-                    __('Search By New Place API (Google)', 'asl_locator')              => '4',
+                    __('Address — Automatic', 'asl_locator') => 'automatic',
+                    __('Address — Google Places', 'asl_locator') => 'google_new',
+                    __('Address — Google Places (Legacy)', 'asl_locator') => 'google_legacy',
+                    __('Address — Nominatim', 'asl_locator') => 'nominatim',
+                    __('Address — Geoapify', 'asl_locator') => 'geoapify',
+                    __('Address — Mapbox', 'asl_locator') => 'mapbox',
+                    __('Address — Search on Enter', 'asl_locator') => 'geocode_enter',
+                    __('Address search disabled', 'asl_locator') => 'disabled',
                 ),
                 'std'         => '',
-                'description' => __('Override the search behavior for this locator instance.', 'asl_locator'),
+                'description' => __('Override address search for this locator. Database search modes are available in Pro.', 'asl_locator'),
+                'group'       => __('Appearance & Search', 'asl_locator'),
+            ),
+            array(
+                'type'       => 'hidden',
+                'param_name' => 'search_type',
+                'std'        => '',
+                'group'      => __('Appearance & Search', 'asl_locator'),
             ),
             array(
                 'type'        => 'dropdown',
@@ -89,6 +105,7 @@ class StoreLocator
                 ),
                 'std'         => '',
                 'description' => __('Choose how store results are grouped in the list.', 'asl_locator'),
+                'group'       => __('Location & Display', 'asl_locator'),
             ),
             array(
                 'type'        => 'dropdown',
@@ -101,13 +118,17 @@ class StoreLocator
                 ),
                 'std'         => '',
                 'description' => __('Choose how users control the search distance.', 'asl_locator'),
+                'group'       => __('Location & Display', 'asl_locator'),
             ),
             array(
-                'type'        => 'textfield',
-                'heading'     => __('Category IDs', 'asl_locator'),
+                'type'        => 'checkbox',
+                'heading'     => __('Restrict to Categories', 'asl_locator'),
                 'param_name'  => 'category',
+                'value'       => $this->get_category_options(),
                 'std'         => '',
-                'description' => __('Optional comma-separated category IDs to show.', 'asl_locator'),
+                'settings'    => array('direction' => 'vertical'),
+                'description' => __('Select one or more categories. Leave empty to show all stores.', 'asl_locator'),
+                'group'       => __('Appearance & Search', 'asl_locator'),
             ),
             array(
                 'type'        => 'textfield',
@@ -146,7 +167,32 @@ class StoreLocator
                     __('Kilometers', 'asl_locator') => 'KM',
                 ),
                 'std'         => '',
-                'group'       => __('Advanced', 'asl_locator'),
+                'group'       => __('Location & Display', 'asl_locator'),
+            ),
+            array(
+                'type'       => 'dropdown',
+                'heading'    => __('Geo-Location Dialog', 'asl_locator'),
+                'param_name' => 'prompt_location',
+                'value'      => $this->inherit_option() + array(
+                    __('Disable', 'asl_locator') => '0',
+                    __('Geo-location Modal', 'asl_locator') => '1',
+                    __('Type your Location Modal', 'asl_locator') => '2',
+                    __('Geolocation On Load', 'asl_locator') => '3',
+                    __('GeoJS IP Service', 'asl_locator') => '4',
+                ),
+                'std'        => '',
+                'group'      => __('Location & Display', 'asl_locator'),
+            ),
+            array(
+                'type'       => 'dropdown',
+                'heading'    => __('Time Format', 'asl_locator'),
+                'param_name' => 'time_format',
+                'value'      => $this->inherit_option() + array(
+                    __('12 Hours', 'asl_locator') => '0',
+                    __('24 Hours', 'asl_locator') => '1',
+                ),
+                'std'        => '',
+                'group'      => __('Location & Display', 'asl_locator'),
             ),
             array(
                 'type'        => 'dropdown',
@@ -273,28 +319,28 @@ class StoreLocator
     }
 
 
-   
+
     /**
      * Initialize the class and set its properties.
      *
      * @since      4.8.21
      */
-    
+
     public function __construct()
     {
 
-          // We safely integrate with VC 
+          // We safely integrate with VC
         $this->integrate_with_vc();
 
         // Render shortcode hook
         add_shortcode('asl_store_locator', array($this, 'render_shortcode_store_locator'));
-       
+
     }
 
 
     /**
     * [Lets call vc_map function to "register" our custom shortcode within Visual Composer interface.]
-    * @since 4.8.21 
+    * @since 4.8.21
     */
     public function integrate_with_vc()
     {
@@ -305,7 +351,7 @@ class StoreLocator
             return;
         }
 
-      
+
         // WPBackery Addon Fields
         vc_map(
             array(
@@ -326,41 +372,61 @@ class StoreLocator
     }
 
     /*
-    
+
     */
-       
+
     /**
     * [Shortcode render vc_map]
-    * @since 4.8.21 
+    * @since 4.8.21
     * @param [type] $atts                [Get filter data from vc_map]
     * @param [type] $content             [description]
     */
     public function render_shortcode_store_locator($atts, $content = null)
     {
+        $atts = is_array($atts) ? $atts : array();
         $shortcode_attr = array();
 
         foreach ($this->get_shortcode_param_names() as $param_name) {
-            if (isset($atts[$param_name]) && $atts[$param_name] !== '') {
+            if ('template' === $param_name && isset($atts[$param_name]) && '0' !== (string) $atts[$param_name]) {
+                continue;
+            }
+            if (in_array($param_name, array('search_mode', 'search_type', 'category'), true)) {
+                continue;
+            }
+            if (isset($atts[$param_name]) && is_scalar($atts[$param_name]) && $atts[$param_name] !== '') {
                 $shortcode_attr[] = $param_name . '="' . esc_attr($atts[$param_name]) . '"';
             }
         }
 
+        $search_modes = array(
+            'automatic' => array('automatic', '4'), 'google_new' => array('google', '4'),
+            'google_legacy' => array('google', '0'), 'nominatim' => array('nominatim', '4'),
+            'geoapify' => array('geoapify', '4'), 'mapbox' => array('mapbox', '4'),
+            'geocode_enter' => array('google', '3'), 'disabled' => array('disabled', '0'),
+        );
+        $mode = isset($atts['search_mode']) ? (string) $atts['search_mode'] : '';
+        if (isset($search_modes[$mode])) {
+            $shortcode_attr[] = 'search_provider="' . $search_modes[$mode][0] . '"';
+            $shortcode_attr[] = 'search_type="' . $search_modes[$mode][1] . '"';
+        } elseif (isset($atts['search_type']) && in_array((string) $atts['search_type'], array('0', '3', '4'), true)) {
+            $shortcode_attr[] = 'search_type="' . $atts['search_type'] . '"';
+        }
 
-        $shortcode_attr = implode(' ', $shortcode_attr);
-        $shortcode = '[ASL_STORELOCATOR  '.$shortcode_attr.']';
+        if (isset($atts['category']) && is_scalar($atts['category'])) {
+            $categories = array_filter(explode(',', (string) $atts['category']), 'ctype_digit');
+            if ($categories) {
+                $shortcode_attr[] = 'category="' . implode(',', array_unique($categories)) . '"';
+            }
+        }
 
-
-        echo'<div class="elementor-shortcode asl-free-addon">';
-        echo do_shortcode($shortcode);
-        echo'</div>';
-
-      
+        $shortcode = '[ASL_STORELOCATOR' . ($shortcode_attr ? ' ' . implode(' ', $shortcode_attr) : '') . ']';
+        return '<div class="elementor-shortcode asl-free-addon">' . do_shortcode($shortcode) . '</div>';
     }
 
 
     /**
     * [Show notice if your plugin is activated]
-    * @since 4.8.21 
+    * @since 4.8.21
     */
     public function show_vc_version_notice()
     {

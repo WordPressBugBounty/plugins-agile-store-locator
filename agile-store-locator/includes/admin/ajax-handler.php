@@ -62,6 +62,7 @@ class AjaxHandler {
     $this->register_route('update_category', 'Category', 'update_category');
     $this->register_route('get_category_byid', 'Category', 'get_category_by_id');
     $this->register_route('get_categories', 'Category', 'get_categories');  
+    $this->register_route('save_category_order', 'Category', 'save_category_order');
     
 
     /*Attributes*/

@@ -934,38 +934,166 @@ var asl_engine = window['asl_engine'] || {};
 
       var table = null;
       var parent_categories;
+      var orderChanged = false;
+
+      function categoryOrderRows() {
+        return $('#tbl_categories tbody tr[data-category-id]');
+      }
+
+      function filterCategoryRows() {
+        var query = $.trim($('#asl-category-search').val()).toLowerCase();
+        var $rows = categoryOrderRows();
+        var visible = {};
+        if (query) {
+          $rows.each(function() {
+            var $row = $(this);
+            if ($row.find('.asl-category-list-name').text().toLowerCase().indexOf(query) !== -1) {
+              var id = $row.attr('data-category-id');
+              while (id && !visible[id]) {
+                visible[id] = true;
+                id = $rows.filter('[data-category-id="' + id + '"]').attr('data-parent-id');
+                if (id === '0') break;
+              }
+            }
+          });
+        }
+        $rows.each(function() {
+          $(this).toggle(!query || !!visible[$(this).attr('data-category-id')]);
+        });
+        var $body = $('#tbl_categories tbody');
+        if ($body.data('ui-sortable')) $body.sortable(query ? 'disable' : 'enable');
+        $('.asl-grid-categories').toggleClass('asl-category-searching', !!query);
+        updateCategoryCount();
+      }
+
+      function updateCategoryCount() {
+        var $rows = categoryOrderRows();
+        var total = $rows.length;
+        var shown = $rows.filter(':visible').length;
+        var query = $.trim($('#asl-category-search').val());
+        var start = shown ? 1 : 0;
+        var message = 'Showing ' + start + ' to ' + shown + ' of ' + shown + ' entries';
+        if (query && shown !== total) message += ' (filtered from ' + total + ' total entries)';
+        $('#tbl_categories_wrapper .dataTables_info').text(message);
+      }
+
+      function groupCategoryRows() {
+        var $body = $('#tbl_categories tbody');
+        var rows = categoryOrderRows().toArray();
+        var roots = rows.filter(function(row) { return $(row).attr('data-parent-id') === '0'; });
+        var visited = {};
+        function appendBranch(row) {
+          var id = $(row).attr('data-category-id');
+          if (visited[id]) return;
+          visited[id] = true;
+          $body.append(row);
+          rows.forEach(function(child) {
+            if ($(child).attr('data-parent-id') === id) appendBranch(child);
+          });
+        }
+        roots.forEach(appendBranch);
+        rows.forEach(appendBranch);
+      }
+
+      function initCategoryDragging() {
+        var $body = $('#tbl_categories tbody');
+        if ($body.data('ui-sortable')) $body.sortable('destroy');
+        $body.sortable({
+          items: '> tr[data-category-id]',
+          handle: '.asl-category-drag-handle',
+          axis: 'y',
+          start: function(event, ui) {
+            ui.item.data('original-index', ui.item.index());
+          },
+          update: function(event, ui) {
+            var parentId = ui.item.attr('data-parent-id');
+            if (parentId !== '0') {
+              var precedingRoot = ui.item.prevAll('tr[data-parent-id="0"]').first().attr('data-category-id');
+              if (precedingRoot !== parentId) {
+                $body.sortable('cancel');
+                return;
+              }
+            }
+            groupCategoryRows();
+            orderChanged = true;
+            $('#btn-asl-save-category-order').prop('hidden', false);
+          }
+        });
+        filterCategoryRows();
+      }
+
+      $('#asl-category-search').on('input', filterCategoryRows);
+      var categoryColors = ['#378a36', '#65519b', '#e7bf08', '#ee8b22', '#d94646', '#2784bc', '#149b86', '#343a40'];
+
+      function setCategoryColor($field, color) {
+        color = /^#[0-9a-f]{6}$/i.test(color || '') ? color.toLowerCase() : '';
+        $field.find('input[name="data[color]"]').val(color);
+        if (color) $field.find('input[type="color"]').val(color);
+        $field.find('.asl-category-color-preset').each(function() {
+          var selected = $(this).attr('data-color') === color;
+          $(this).toggleClass('is-selected', selected).attr('aria-pressed', selected ? 'true' : 'false');
+        });
+      }
+
+      $('.asl-category-color-field').each(function() {
+        var $field = $(this);
+        $.each(categoryColors, function(index, color) {
+          $('<button type="button" class="asl-category-color-preset" aria-label="' + color + '" aria-pressed="false"></button>')
+            .attr('data-color', color).css('background-color', color).appendTo($field.find('.asl-category-color-presets'));
+        });
+        $field.on('click', '.asl-category-color-preset', function() {
+          setCategoryColor($field, $(this).attr('data-color'));
+        });
+        $field.find('input[type="color"]').on('input change', function() {
+          setCategoryColor($field, this.value);
+        });
+        $field.find('input[name="data[color]"]').on('input', function() {
+          var color = this.value;
+          if (/^#[0-9a-f]{6}$/i.test(color)) setCategoryColor($field, color);
+          else $field.find('.asl-category-color-preset').removeClass('is-selected').attr('aria-pressed', 'false');
+        });
+      });
 
       var asInitVals = {};
       table = $('#tbl_categories').dataTable({
-        "sPaginationType": "bootstrap",
+        "bPaginate": false,
         "bProcessing": true,
         "bFilter": false,
         "bServerSide": true,
+        "bSort": false,
         "bAutoWidth": true,
         "columnDefs": [
-          { 'bSortable': false, "width": "140px", "targets": 0 },
-          { "width": "150px", "targets": 1 },
-          { "width": "260px", "targets": 2,
+          { 'bSortable': false, "width": "64px", "targets": 0 },
+          { "width": "260px", "targets": 1,
             render: function (data, type, full, meta) {
-              return '<a class="sl-store-title" href="'+ASL_Instance.manage_stores_url + full.id +'">' + data + "</a>";
+              var color = /^#[0-9a-f]{6}$/i.test(full.color || '') ? full.color : '';
+              var dot = color ? '<span class="asl-category-list-dot" style="background-color:' + color + '" aria-hidden="true"></span>' : '';
+              return '<a class="sl-store-title asl-category-list-name" href="'+ASL_Instance.manage_stores_url + full.id +'">' + dot + data + "</a>";
             }
           },
+          { "width": "100px", "targets": 2 },
           { "width": "220px", "targets": 3 },
-          { "width": "170px", "targets": 4 },
-          { "width": "200px", "targets": 5 },
-          { "width": "220px", "targets": 6 },
-          { 'bSortable': false, "width": "180px", "targets": 7 }
+          { "width": "200px", "targets": 4 },
+          { 'bSortable': false, "width": "180px", "targets": 5 }
         ],
-        "iDisplayLength": 10,
+        "iDisplayLength": -1,
+        "fnCreatedRow": function(row, data) {
+          $(row).attr('data-category-id', data.id).attr('data-parent-id', data.parent_id || 0);
+        },
+        "fnDrawCallback": function() {
+          initCategoryDragging();
+          orderChanged = false;
+          $('#btn-asl-save-category-order').prop('hidden', true);
+          // DataTables writes its own server-side summary during the draw.
+          setTimeout(updateCategoryCount, 0);
+        },
         "sAjaxSource": ASL_REMOTE.URL + "?action=asl_ajax_handler&asl-nounce=" + ASL_REMOTE.nounce + "&sl-action=get_categories",
         "columns": [
-          { "data": "check" },
-          { "data": "id" },
+          { "data": "handle" },
           { "data": "category_name" },
+          { "data": "id" },
           { "data": "parent_name" },
-          { "data": "ordr" },
           { "data": "icon" },
-          { "data": "created_on" },
           { "data": "action" }
         ],
         'fnServerData': function(sSource, aoData, fnCallback) {
@@ -1005,9 +1133,28 @@ var asl_engine = window['asl_engine'] || {};
             return item;
           });
         },
-        "order": [
-          [1, 'desc']
-        ]
+        "order": []
+      });
+
+      $('#btn-asl-save-category-order').on('click', function() {
+        if (!orderChanged) return;
+        var $button = $(this);
+        var ids = categoryOrderRows().map(function() { return $(this).attr('data-category-id'); }).get();
+        $button.prop('disabled', true);
+        ServerCall(ASL_REMOTE.URL + '?action=asl_ajax_handler&asl-nounce=' + ASL_REMOTE.nounce + '&sl-action=save_category_order', {
+          category_ids: ids,
+          'asl-lang': lang_ctrl ? lang_ctrl.value : ''
+        }, function(response) {
+          $button.prop('disabled', false);
+          if (response.success) {
+            orderChanged = false;
+            $button.prop('hidden', true);
+            atoastr.success(response.msg);
+            table.fnDraw();
+          } else {
+            atoastr.error(response.msg || 'Unable to save category order.');
+          }
+        }, 'json');
       });
 
       //prompt the category box
@@ -1018,53 +1165,6 @@ var asl_engine = window['asl_engine'] || {};
         });
         $('#asl-add-modal').smodal('show');
       });
-
-      //  Select all button
-      $('.table .select-all').on('click', function(e) {
-
-        $('.asl-p-cont .table input').attr('checked', 'checked');
-
-      });
-
-      //  Delete Selected Categories:: bulk
-      $('#btn-asl-delete-all').on('click', function(e) {
-
-        var $tmp_categories = $('.asl-p-cont .table input:checked');
-
-        if ($tmp_categories.length == 0) {
-          atoastr.error('No Category selected');
-          return;
-        }
-
-        var item_ids = [];
-        $('.asl-p-cont .table input:checked').each(function(i) {
-
-          item_ids.push($(this).attr('data-id'));
-        });
-
-
-        aswal({
-          title: ASL_REMOTE.LANG.delete_categories,
-          text: ASL_REMOTE.LANG.warn_question + ' ' + ASL_REMOTE.LANG.delete_categories + '?',
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#dc3545",
-          confirmButtonText: ASL_REMOTE.LANG.delete_it
-        }).then(function() {
-
-          ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=delete_category", { item_ids: item_ids, multiple: true }, function(_response) {
-
-            toastIt(_response);
-
-            if (_response.success) {
-              table.fnDraw();
-              return;
-            }
-
-          }, 'json');
-        });
-      });
-
 
       //  To Add New Categories
       var url_to_upload = ASL_REMOTE.URL,
@@ -1081,6 +1181,7 @@ var asl_engine = window['asl_engine'] || {};
           //reset form
           $('#asl-add-modal').smodal('hide');
           $('#frm-addcategory').find('input:text, input:file').val('');
+          setCategoryColor($('#frm-addcategory .asl-category-color-field'), '');
           $('#progress_bar').hide();
           //show table value
           table.fnDraw();
@@ -1098,7 +1199,7 @@ var asl_engine = window['asl_engine'] || {};
                 data: {
                   category_name: $categoryForm.find('[name="data[category_name]"]').val(),
                   parent_id: $categoryForm.find('[name="data[parent_id]"]').val() || 0,
-                  ordr: $categoryForm.find('[name="data[ordr]"]').val() || 0
+                  color: $categoryForm.find('[name="data[color]"]').val()
                 }
               };
 
@@ -1113,6 +1214,7 @@ var asl_engine = window['asl_engine'] || {};
             if (data.success) {
               $('#asl-add-modal').smodal('hide');
               $('#frm-addcategory').find('input:text, input:file').val('');
+              setCategoryColor($('#frm-addcategory .asl-category-color-field'), '');
               $('#progress_bar').hide();
               table.fnDraw();
             }
@@ -1142,7 +1244,7 @@ var asl_engine = window['asl_engine'] || {};
             });
 
             $("#update_category_icon").attr("src", ASL_Instance.url + "svg/" + _response.item['icon']);
-            $("#update_category_ordr").val(_response.item['ordr']);
+            setCategoryColor($('#frm-updatecategory .asl-category-color-field'), _response.item['color']);
           } else {
 
             atoastr.error(_response.error);
@@ -1164,7 +1266,7 @@ var asl_engine = window['asl_engine'] || {};
 
         if ($("#update_category_icon").attr("data-id") == "same") {
 
-          ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=update_category", { data: { category_id: $("#update_category_id_input").val(), action: "same", category_name: $("#update_category_name").val(), "parent_id": $("#update_parent_id").val(), "ordr": $("#update_category_ordr").val()  } },
+          ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=update_category", { data: { category_id: $("#update_category_id_input").val(), action: "same", category_name: $("#update_category_name").val(), "parent_id": $("#update_parent_id").val(), "color": $("#update_category_color").val()  } },
             function(_response) {
 
               toastIt(_response);

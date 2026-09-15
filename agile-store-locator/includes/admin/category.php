@@ -56,14 +56,20 @@ class Category extends Base
             return $this->send_response($response);
         }
 
-        //  The Order ID
-        $order_id  = (isset($form_data['ordr']) && is_numeric($form_data['ordr'])) ? $form_data['ordr'] : '0';
+        // New categories appear after their siblings until an admin drags them elsewhere.
+        $parent_id = isset($form_data['parent_id']) ? absint($form_data['parent_id']) : 0;
+        $order_id = (int) $wpdb->get_var($wpdb->prepare(
+            'SELECT COALESCE(MAX(ordr), -1) + 1 FROM ' . ASL_PREFIX . 'categories WHERE lang = %s AND parent_id = %d',
+            $this->lang,
+            $parent_id
+        ));
 
         //  Parameters to Save
         $data_params = [
-            'parent_id'     => isset($form_data['parent_id']) ? $this->clean_input($form_data['parent_id']) : 0,
+            'parent_id'     => $parent_id,
             'category_name' => $category_name,
-            'ordr'          => $order_id
+            'ordr'          => $order_id,
+            'color'         => $this->category_color($form_data['color'] ?? '')
         ];
 
         //  lang
@@ -161,11 +167,21 @@ class Category extends Base
 
         $data        = stripslashes_deep($_REQUEST['data']);
 
-        //  The Order ID
-        $order_id    = (isset($data['ordr']) && is_numeric($data['ordr'])) ? $data['ordr'] : '0';
-
         //  Parameters to Save
-        $data_params = ['category_name' => $this->clean_input($data['category_name']), 'parent_id' => $this->clean_input($data['parent_id']), 'ordr' => $order_id];
+        $data_params = ['category_name' => $this->clean_input($data['category_name']), 'parent_id' => $this->clean_input($data['parent_id']),
+            'color' => $this->category_color($data['color'] ?? '')];
+
+        $previous_parent = $wpdb->get_var($wpdb->prepare(
+            'SELECT parent_id FROM ' . ASL_PREFIX . 'categories WHERE id = %d',
+            absint($data['category_id'])
+        ));
+        if (null !== $previous_parent && (int) $previous_parent !== (int) $data_params['parent_id']) {
+            $data_params['ordr'] = (int) $wpdb->get_var($wpdb->prepare(
+                'SELECT COALESCE(MAX(ordr), -1) + 1 FROM ' . ASL_PREFIX . 'categories WHERE lang = %s AND parent_id = %d',
+                $this->lang,
+                (int) $data_params['parent_id']
+            ));
+        }
 
         // Have Icon to Update?
         if ($data['action'] == 'notsame') {
@@ -225,6 +241,13 @@ class Category extends Base
         return $this->send_response($response);
     }
 
+    /** Accept solid six-digit hex colors only; an empty value means no custom color. */
+    private function category_color($color)
+    {
+        $color = is_string($color) ? trim($color) : '';
+        return preg_match('/^#[0-9a-fA-F]{6}$/', $color) ? strtolower($color) : null;
+    }
+
     /**
      * [get_categories GET the Categories]
      * @return [type] [description]
@@ -233,16 +256,11 @@ class Category extends Base
     {
         global $wpdb;
 
-        // Initialize paging variables
-        $start  = isset($_REQUEST['iDisplayStart']) ? intval($_REQUEST['iDisplayStart']) : 0;
-        $length = isset($_REQUEST['iDisplayLength']) ? intval($_REQUEST['iDisplayLength']) : 10;
         $sEcho  = isset($_REQUEST['sEcho']) ? intval($_REQUEST['sEcho']) : 1;
 
-        $params = $_REQUEST ?? null;
-
-        // Allowed column names for sorting and filtering
-        $acolumns        = ['id', 'id', 'category_name', 'parent_id', 'ordr', 'icon', 'created_on', 'id'];
-        $allowed_columns = ['id', 'category_name', 'ordr', 'icon', 'created_on', 'parent_id'];
+        // The ordering view always loads the complete category list.
+        $acolumns        = ['id', 'category_name', 'id', 'parent_id', 'icon', 'id'];
+        $allowed_columns = ['id', 'category_name', 'icon', 'parent_id'];
 
         $clause     = [];
         $sql_params = [];
@@ -271,39 +289,41 @@ class Category extends Base
 
         $sWhere = $clause ? 'WHERE ' . implode(' AND ', $clause) : '';
 
-        // Pagination clause
-        $sLimit = "LIMIT $start, $length";
-
-        // Ordering
-        $sOrder = '';
-        if (isset($_REQUEST['iSortCol_0']) && isset($_REQUEST['iSortingCols'])) {
-            for ($i = 0; $i < intval($_REQUEST['iSortingCols']); $i++) {
-                $col_index = intval($_REQUEST['iSortCol_' . $i]);
-                $sort_dir  = (isset($_REQUEST['sSortDir_' . $i]) && strtolower($_REQUEST['sSortDir_' . $i]) === 'asc') ? 'ASC' : 'DESC';
-
-                if (isset($acolumns[$col_index]) && in_array($acolumns[$col_index], $allowed_columns, true)) {
-                    $sOrder = "ORDER BY `{$acolumns[$col_index]}` $sort_dir";
-                    break;
-                }
-            }
-        }
-
-        $fields = implode(', ', $acolumns);
+        $fields = implode(', ', $acolumns) . ', color, ordr, lang';
         $table  = ASL_PREFIX . 'categories';
 
         $sql       = "SELECT $fields FROM $table";
         $sqlCount  = "SELECT COUNT(*) as count FROM $table";
 
         // Get top-level categories for later use (parent_id = 0)
-        $parent_categories = $wpdb->get_results("SELECT `id`, `category_name` FROM $table WHERE `parent_id` = 0");
+        $parent_categories = $wpdb->get_results($wpdb->prepare("SELECT `id`, `category_name` FROM $table WHERE `parent_id` = 0 AND `lang` = %s ORDER BY `ordr` ASC, `id` ASC", $this->lang));
         if (!count($parent_categories) && strpos($wpdb->last_error, 'parent_id') !== false) {
             \AgileStoreLocator\Activator::add_cat_parent_id();
         }
 
         // Prepare and execute data query
-        $data_query   = "$sql $sWhere $sOrder $sLimit";
+        $data_query   = "$sql $sWhere ORDER BY `parent_id` ASC, `ordr` ASC, `id` ASC";
         $data_query   = $sql_params ? $wpdb->prepare($data_query, ...$sql_params) : $data_query;
         $data_output  = $wpdb->get_results($data_query);
+        $children_by_parent = [];
+        foreach ($data_output as $row) {
+            $children_by_parent[(int) $row->parent_id][] = $row;
+        }
+        $ordered_rows = [];
+        $seen = [];
+        $append_branch = function ($parent_id) use (&$append_branch, &$ordered_rows, &$seen, $children_by_parent) {
+            foreach ($children_by_parent[$parent_id] ?? [] as $row) {
+                if (isset($seen[$row->id])) continue;
+                $seen[$row->id] = true;
+                $ordered_rows[] = $row;
+                $append_branch((int) $row->id);
+            }
+        };
+        $append_branch(0);
+        foreach ($data_output as $row) {
+            if (!isset($seen[$row->id])) $ordered_rows[] = $row;
+        }
+        $data_output = $ordered_rows;
         $error_status = $wpdb->last_error;
 
         // Prepare and execute count query
@@ -323,7 +343,7 @@ class Category extends Base
         ];
 
         foreach ($data_output as $row) {
-            $row->parent_name = '';
+            $row->parent_name = '—';
 
             // Match parent name from parent_categories
             if ($row->parent_id) {
@@ -344,11 +364,7 @@ class Category extends Base
             <a title="Delete" data-id="' . esc_attr($row->id) . '" class="delete_category g-trash"><svg width="14" height="14"><use xlink:href="#i-trash"></use></svg></a>
         </div>';
 
-            // Add checkbox
-            $row->check = '<div class="custom-control custom-checkbox">
-            <input type="checkbox" data-id="' . esc_attr($row->id) . '" class="custom-control-input" id="asl-chk-' . esc_attr($row->id) . '">
-            <label class="custom-control-label" for="asl-chk-' . esc_attr($row->id) . '"></label>
-        </div>';
+            $row->handle = '<span class="asl-category-drag-handle" title="' . esc_attr__('Drag to reorder', 'asl_locator') . '" aria-hidden="true">⠿</span>';
 
             // Escape category name
             $row->category_name = esc_attr($row->category_name);
@@ -357,5 +373,31 @@ class Category extends Base
         }
 
         return $this->send_response($output);
+    }
+
+    /** Save a complete, language-scoped ordering without changing parent relationships. */
+    public function save_category_order()
+    {
+        global $wpdb;
+        $ids = isset($_POST['category_ids']) && is_array($_POST['category_ids']) ? array_map('absint', $_POST['category_ids']) : [];
+        $rows = $wpdb->get_results($wpdb->prepare(
+            'SELECT id, parent_id FROM ' . ASL_PREFIX . 'categories WHERE lang = %s', $this->lang
+        ));
+        $expected = array_map('intval', wp_list_pluck($rows, 'id'));
+        if (count($ids) !== count($expected) || count(array_unique($ids)) !== count($ids) || array_diff($expected, $ids) || array_diff($ids, $expected)) {
+            return $this->send_response(['success' => false, 'msg' => esc_html__('Category list changed. Reload the page and try again.', 'asl_locator')]);
+        }
+        $parents = [];
+        foreach ($rows as $row) $parents[(int) $row->id] = (int) $row->parent_id;
+        $position = [];
+        foreach ($ids as $id) {
+            $parent = $parents[$id];
+            $order = $position[$parent] ?? 0;
+            if (false === $wpdb->update(ASL_PREFIX . 'categories', ['ordr' => $order], ['id' => $id], ['%d'], ['%d'])) {
+                return $this->send_response(['success' => false, 'msg' => esc_html__('Could not save category order.', 'asl_locator')]);
+            }
+            $position[$parent] = $order + 1;
+        }
+        return $this->send_response(['success' => true, 'msg' => esc_html__('Category order saved.', 'asl_locator')]);
     }
 }

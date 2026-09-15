@@ -69,10 +69,13 @@
                                     </div>
 
                                     <div class="asl-grid-toolbar">
-                                        <p><?php echo esc_html__('Use the filters below each column to find specific categories.','asl_locator') ?></p>
-                                        <div>
-                                            <button type="button" id="btn-asl-delete-all" class="btn asl-grid-btn asl-grid-btn--danger"><i><svg><use href="#i-trash"></use></svg></i><?php echo esc_html__('Delete Selected','asl_locator') ?></button>
-                                            <button type="button" id="btn-asl-new-c" class="btn asl-grid-btn asl-grid-btn--primary"><i><svg><use href="#i-plus"></use></svg></i><?php echo esc_html__('New Category','asl_locator') ?></button>
+                                        <div class="asl-category-search-area">
+                                            <label for="asl-category-search" class="screen-reader-text"><?php echo esc_html__('Search categories', 'asl_locator'); ?></label>
+                                            <input type="search" id="asl-category-search" class="form-control" placeholder="<?php echo esc_attr__('Search categories...', 'asl_locator'); ?>" autocomplete="off">
+                                        </div>
+                                        <div class="asl-category-toolbar-actions">
+                                            <button type="button" id="btn-asl-save-category-order" class="btn asl-grid-btn asl-grid-btn--pending" hidden><?php echo esc_html__('Save Order', 'asl_locator'); ?></button>
+                                            <button type="button" id="btn-asl-new-c" class="btn asl-grid-btn asl-grid-btn--primary"><i><svg><use href="#i-plus"></use></svg></i><?php echo esc_html__('Create New','asl_locator') ?></button>
                                         </div>
                                     </div>
 
@@ -80,31 +83,15 @@
                                       <div class="table-responsive asl-grid-table-scroll">
                                         <table id="tbl_categories" class="table asl-grid-data-table">
                                             <thead>
-                                                <tr class="asl-grid-filter-row">
-                                                    <th aria-hidden="true"></th>
-                                                    <th><label><?php echo esc_html__('Search ID','asl_locator') ?><input type="text" class="form-control" data-id="id" placeholder="<?php echo esc_attr__('Enter ID','asl_locator') ?>" /></label></th>
-                                                    <th><label><?php echo esc_html__('Search Name','asl_locator') ?><input type="text" class="form-control" data-id="category_name" placeholder="<?php echo esc_attr__('Enter name','asl_locator') ?>" /></label></th>
-                                                    <th><label><?php echo esc_html__('Search Parent','asl_locator') ?><input type="text" class="form-control" data-id="parent_id" placeholder="<?php echo esc_attr__('Enter parent ID','asl_locator') ?>" /></label></th>
-                                                    <th><label><?php echo esc_html__('Search Order','asl_locator') ?><input type="text" class="form-control" data-id="ordr" placeholder="<?php echo esc_attr__('Enter order ID','asl_locator') ?>" /></label></th>
-                                                    <th><label><?php echo esc_html__('Search Icon','asl_locator') ?><input type="text" class="form-control" data-id="icon" placeholder="<?php echo esc_attr__('Enter icon name','asl_locator') ?>" /></label></th>
-                                                    <th><label><?php echo esc_html__('Search Date','asl_locator') ?><input type="text" class="form-control" data-id="created_on" placeholder="<?php echo esc_attr__('Enter date','asl_locator') ?>" /></label></th>
-                                                    <th aria-hidden="true"></th>
-                                                </tr>
                                                 <tr>
-                                                    <th scope="col"><a
-                                                            class="select-all"><?php echo esc_attr__('Select All','asl_locator') ?></a>
-                                                    </th>
+                                                    <th scope="col"><span class="screen-reader-text"><?php echo esc_html__('Drag handle', 'asl_locator'); ?></span></th>
+                                                    <th scope="col"><?php echo esc_html__('Category','asl_locator') ?></th>
                                                     <th scope="col" class="text-start">
-                                                        <?php echo esc_attr__('Category ID','asl_locator') ?></th>
-                                                    <th scope="col"><?php echo esc_attr__('Name','asl_locator') ?>
-                                                    </th>
+                                                        <?php echo esc_html__('ID','asl_locator') ?></th>
                                                     <th scope="col"><?php echo esc_attr__('Parent','asl_locator') ?>
                                                     </th>
-                                                    <th scope="col"><?php echo esc_attr__('Order ID','asl_locator') ?></th>
                                                     <th scope="col">
                                                         <?php echo esc_attr__('Icon','asl_locator') ?></th>
-                                                    <th scope="col">
-                                                        <?php echo esc_attr__('Created On','asl_locator') ?></th>
                                                     <th class="text-center" scope="col">
                                                         <?php echo esc_attr__('Action','asl_locator') ?>&nbsp;</th>
                                                 </tr>
@@ -158,11 +145,13 @@
                                 <select name="data[parent_id]" id="update_parent_id"
                                     class="form-control validate[required]"></select>
                             </div>
-                            <div class="col-md-12 form-group mb-3 sl-complx">
-                                <label for="update_category_ordr"
-                                    class="control-label"><?php echo esc_attr__('Order','asl_locator') ?></label>
-                                <input type="number" class="form-control validate[required]" name="data[ordr]"
-                                    id="update_category_ordr">
+                            <div class="col-md-12 form-group mb-3 asl-category-color-field">
+                                <label for="update_category_color" class="control-label"><?php echo esc_html__('Color', 'asl_locator'); ?></label>
+                                <div class="asl-category-color-input">
+                                    <input type="color" id="update_category_color_picker" value="#378a36" aria-label="<?php echo esc_attr__('Choose category color', 'asl_locator'); ?>">
+                                    <input type="text" class="form-control" id="update_category_color" name="data[color]" maxlength="7" pattern="#[0-9a-fA-F]{6}" placeholder="#378a36" aria-label="<?php echo esc_attr__('Category color hex value', 'asl_locator'); ?>">
+                                </div>
+                                <div class="asl-category-color-presets" role="group" aria-label="<?php echo esc_attr__('Preset colors', 'asl_locator'); ?>"></div>
                             </div>
                             <div class="col-md-12 form-group mb-3" id="updatecategory_image">
                                 <img src="" id="update_category_icon" alt="" data-id="same"
@@ -249,11 +238,13 @@
                                     class="control-label"><?php echo esc_attr__('Parent','asl_locator') ?></label>
                                 <select name="data[parent_id]" id="parent_id" class="form-control"></select>
                             </div>
-                            <div class="col-md-12 form-group mb-3 sl-complx">
-                                <label for="add_category_ordr"
-                                    class="control-label"><?php echo esc_attr__('Order','asl_locator') ?></label>
-                                <input type="number" class="form-control" name="data[ordr]"
-                                    id="add_category_ordr" placeholder="<?php echo esc_attr__('Enter display order (optional)', 'asl_locator'); ?>">
+                            <div class="col-md-12 form-group mb-3 asl-category-color-field">
+                                <label for="add_category_color" class="control-label"><?php echo esc_html__('Color', 'asl_locator'); ?></label>
+                                <div class="asl-category-color-input">
+                                    <input type="color" id="add_category_color_picker" value="#378a36" aria-label="<?php echo esc_attr__('Choose category color', 'asl_locator'); ?>">
+                                    <input type="text" class="form-control" id="add_category_color" name="data[color]" maxlength="7" pattern="#[0-9a-fA-F]{6}" placeholder="#378a36" aria-label="<?php echo esc_attr__('Category color hex value', 'asl_locator'); ?>">
+                                </div>
+                                <div class="asl-category-color-presets" role="group" aria-label="<?php echo esc_attr__('Preset colors', 'asl_locator'); ?>"></div>
                             </div>
                             <div class="col-md-12 form-group mb-3">
                                 <div class="input-group" id="drop-zone-1">

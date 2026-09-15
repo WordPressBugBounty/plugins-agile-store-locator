@@ -362,14 +362,16 @@ class Store extends Base
                 if (count($categories_ids)) {
                     $categories_ids = implode(',', $categories_ids);
 
-                    $categories_ = $wpdb->get_results('SELECT category_name FROM ' . ASL_PREFIX . "categories WHERE id IN ($categories_ids)");
+                    $categories_ = $wpdb->get_results('SELECT category_name, color FROM ' . ASL_PREFIX . "categories WHERE id IN ($categories_ids)");
 
                     $cnames = [];
                     foreach ($categories_ as $cat_) {
-                        $cnames[] = esc_attr($cat_->category_name);
+                        $color = sanitize_hex_color($cat_->color);
+                        $dot = $color ? '<span class="asl-store-category-dot" style="background-color:' . esc_attr($color) . '" aria-hidden="true"></span>' : '';
+                        $cnames[] = '<span class="asl-store-category-badge">' . $dot . esc_html($cat_->category_name) . '</span>';
                     }
 
-                    $aRow->categories = implode(', ', $cnames);
+                    $aRow->categories = implode(' ', $cnames);
                 }
             }
         }

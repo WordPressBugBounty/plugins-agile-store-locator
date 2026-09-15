@@ -46,6 +46,9 @@
 		$form.on('change', 'input[name="reason"]', function () {
 			var needsDetails = this.value !== 'temporary';
 			$form.find('.asl-deactivate-details').prop('hidden', !needsDetails);
+			$form.find('#asl-deactivate-contact').prop('disabled', !needsDetails);
+			$form.find('.asl-deactivate-email').prop('hidden', !needsDetails || !$('#asl-deactivate-contact').prop('checked'));
+			$form.find('#asl-deactivate-email').prop('disabled', !needsDetails || !$('#asl-deactivate-contact').prop('checked'));
 			$form.find('.asl-deactivate-submit').prop('disabled', false);
 
 			if (needsDetails) {
@@ -53,10 +56,17 @@
 			}
 		});
 
+		$form.on('change', '#asl-deactivate-contact', function () {
+			$form.find('.asl-deactivate-email').prop('hidden', !this.checked);
+			$form.find('#asl-deactivate-email').prop('disabled', !this.checked);
+		});
+
 		$form.on('submit', function (event) {
 			event.preventDefault();
 			var $submit = $form.find('.asl-deactivate-submit');
 			var requestFinished = false;
+			var contactPermission = $('#asl-deactivate-contact').prop('checked') && !$form.find('.asl-deactivate-details').prop('hidden');
+			var replyEmail = contactPermission ? $('#asl-deactivate-email').val() : '';
 			$submit.prop('disabled', true).text(config.sending);
 			$form.find('input, textarea').prop('disabled', true);
 
@@ -64,7 +74,9 @@
 				action: 'asl_submit_deactivation_feedback',
 				nonce: config.nonce,
 				reason: $form.find('input[name="reason"]:checked').val(),
-				details: $('#asl-deactivate-details').val()
+				details: $('#asl-deactivate-details').val(),
+				contact_permission: contactPermission ? '1' : '0',
+				email: replyEmail
 			});
 
 			request.always(function () {

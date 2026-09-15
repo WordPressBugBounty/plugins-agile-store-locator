@@ -87,7 +87,7 @@ if($level_mode === true){ ?>
                             </a>
                         </div>
                     </header>
-                   
+
                     <div class="asl-tabs-body">
                         <?php if ($level_mode === true) : ?>
                             <div class="asl-expert-mode-notice" role="status">
@@ -105,9 +105,9 @@ if($level_mode === true){ ?>
                             <li class="rounded"><a data-toggle="pill"
                                     href="#maps-tab"><?php echo esc_attr__('Maps','asl_locator') ?></a></li>
                             <li class="rounded"><a data-toggle="pill"
-                                    href="#sl-ui-tab"><?php echo esc_attr__('UI Settings','asl_locator') ?></a></li>
+                                    href="#sl-ui-tab"><?php echo esc_attr__('Appearance','asl_locator') ?></a></li>
                             <li class="rounded sl-complx"><a data-toggle="pill"
-                                    href="#sl-detail"><?php echo esc_attr__('Detail Page','asl_locator') ?></a></li>
+                                    href="#sl-detail"><?php echo esc_attr__('Store Pages','asl_locator') ?></a></li>
                             <li class="rounded sl-complx"><a data-toggle="pill"
                                     href="#sl-register"><?php echo esc_attr__('Notifications','asl_locator') ?></a></li>
                             <li class="rounded sl-complx"><a data-toggle="pill"
@@ -316,97 +316,13 @@ if($level_mode === true){ ?>
                                             </div>
                                         </section>
                                         <?php $asl_map_provider_settings = ob_get_clean(); ?>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-default_lat"><?php echo esc_attr__('Default Map Center','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control validate[required]"
-                                                            name="data[default_lat]" id="asl-default_lat"
-                                                            placeholder="<?php echo esc_attr__('Latitude','asl_locator') ?>">
-                                                        <input type="number" class="form-control validate[required]"
-                                                            name="data[default_lng]" id="asl-default_lng"
-                                                            placeholder="<?php echo esc_attr__('Longitude','asl_locator') ?>">
-                                                        <button data-bs-toggle="smodal" data-bs-target="#asl-map-modal"
-                                                            id="asl-setting-search-button"
-                                                            class="btn btn-dark no-shade-focus "
-                                                            type="button"><?php echo esc_attr__('Change','asl_locator') ?></button>
-                                                    </div>
-                                                    <p class="help-p"><a target="_blank" class="text-muted"
-                                                            href="https://www.google.com/maps"><?php echo esc_attr__('Get your coordinates by right click on the map','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-distance_control"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-distance_control-0"><input type="radio"
-                                                                name="data[distance_control]" value="0"
-                                                                id="asl-distance_control-0"><?php echo esc_attr__('Slider','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-distance_control-1"><input type="radio"
-                                                                name="data[distance_control]" value="1"
-                                                                id="asl-distance_control-1"><?php echo esc_attr__('Dropdown','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-distance_control-2"><input type="radio"
-                                                                name="data[distance_control]" value="2"
-                                                                id="asl-distance_control-2"><?php echo esc_attr__('Boundary Box','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p"><a class="text-muted" target="_blank"
-                                                            href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-direction_redirect"><?php echo esc_attr__('Store Direction','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <select name="data[direction_redirect]" id="asl-direction_redirect"
-                                                        class="custom-select">
-                                                        <option value="2">
-                                                            <?php echo esc_attr__('Open in Google Maps (All Devices)','asl_locator') ?>
-                                                        </option>
-                                                        <option value="0">
-                                                            <?php echo esc_attr__('Google Direction Legacy','asl_locator') ?>
-                                                        </option>
-                                                        <option value="3">
-                                                            <?php echo esc_attr__('Draw Direction with Route API','asl_locator') ?>
-                                                        </option>
-                                                        <option value="1">
-                                                            <?php echo esc_attr__('Open in Google Maps (Mobile)','asl_locator') ?>
-                                                        </option>
-                                                    </select>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Select how you want the direction to work.','asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/load-google-maps-app-mobile-direction/"
-                                                            target="_blank"><?php echo esc_attr__('Guide Help','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-dropdown_range"><?php echo esc_attr__('Distance Options','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <input type="text" class="form-control" name="data[dropdown_range]"
-                                                        id="asl-dropdown_range" placeholder="Example: 10,20,30">
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Enter the search dropdown options values, comma separated. Add default value with * symbol.','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-location" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Visitor Location & Distance', 'asl_locator'); ?></h5><p><?php esc_html_e('Choose how visitors find nearby stores and set distance controls.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="prompt_location"><?php echo esc_attr__('Geolocation','asl_locator') ?></label>
@@ -434,7 +350,124 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-distance_unit"><?php echo esc_attr__('Distance Unit','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-distance_unit-KM"><input type="radio"
+                                                                name="data[distance_unit]" value="KM"
+                                                                id="asl-distance_unit-KM"><?php echo esc_attr__('KM','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-distance_unit-Miles"><input type="radio"
+                                                                name="data[distance_unit]" value="Miles"
+                                                                id="asl-distance_unit-Miles"><?php echo esc_attr__('Miles','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Select the distance unit to use on Store Locator','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-distance_control"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-distance_control-0"><input type="radio"
+                                                                name="data[distance_control]" value="0"
+                                                                id="asl-distance_control-0"><?php echo esc_attr__('Slider','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-distance_control-1"><input type="radio"
+                                                                name="data[distance_control]" value="1"
+                                                                id="asl-distance_control-1"><?php echo esc_attr__('Dropdown','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-distance_control-2"><input type="radio"
+                                                                name="data[distance_control]" value="2"
+                                                                id="asl-distance_control-2"><?php echo esc_attr__('Boundary Box','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p"><a class="text-muted" target="_blank"
+                                                            href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-distance_slider"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-distance_slider"><input
+                                                            type="checkbox" value="1" class="custom-control-input"
+                                                            name="data[distance_slider]" id="asl-distance_slider"><span
+                                                            class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-dropdown_range"><?php echo esc_attr__('Distance Options','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <input type="text" class="form-control" name="data[dropdown_range]"
+                                                        id="asl-dropdown_range" placeholder="Example: 10,20,30">
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Enter the search dropdown options values, comma separated. Add default value with * symbol.','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+    </div>
+</section>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-search" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Search & Filters', 'asl_locator'); ?></h5><p><?php esc_html_e('Choose the search and filter controls shown to visitors.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-advance_filter"><?php echo esc_attr__('Advance Filter','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-advance_filter"><input
+                                                            type="checkbox" value="1" class="custom-control-input"
+                                                            name="data[advance_filter]" id="asl-advance_filter"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p"><a
+                                                            href="https://agilestorelocator.com/wiki/enable-disable-advance-features/"
+                                                            target="_blank"><?php echo esc_attr__('Disabling it will remove all the filters','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="geo_button"><?php echo esc_attr__('Search Button Type','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-geo_button-0"><input type="radio"
+                                                                name="data[geo_button]" value="0"
+                                                                id="asl-geo_button-0"><?php echo esc_attr__('Search Location','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-geo_button-1"><input type="radio"
+                                                                name="data[geo_button]" value="1"
+                                                                id="asl-geo_button-1"><?php echo esc_attr__('Geo-Location','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Select either to display the geolocation button or the search button next to address search','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="search_destin"><?php echo esc_attr__('Search Result','asl_locator') ?></label>
@@ -453,7 +486,105 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="single_cat_select"><?php echo esc_attr__('Category Select','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-single_cat_select-0"><input type="radio"
+                                                                name="data[single_cat_select]" value="0"
+                                                                id="asl-single_cat_select-0"><?php echo esc_attr__('Multiple Category Selection','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-single_cat_select-1"><input type="radio"
+                                                                name="data[single_cat_select]" value="1"
+                                                                id="asl-single_cat_select-1"><?php echo esc_attr__('Single Category Selection','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('To make the category selection mode','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="filter_ddl"><?php echo esc_attr__('Dropdown Filters','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <?php
+                                          $ddl_controls = AgileStoreLocator\Model\Attribute::get_controls();
+                                          ?>
+                                                    <select multiple id="asl-filter_ddl"
+                                                        class="custom-select asl-chosen">
+                                                        <?php foreach($ddl_controls as $ddl_control): ?>
+                                                        <option value="<?php echo esc_attr__($ddl_control['field']) ?>">
+                                                            <?php echo esc_attr__($ddl_control['label'],'asl_locator') ?>
+                                                        </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Additional Dropdowns filters based on Brand and Specialities data.','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/brand-and-special-dropdowns-additional-dropdowns/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-address_ddl"><?php echo esc_attr__('Address Dropdowns','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-address_ddl"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[address_ddl]" id="asl-address_ddl"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p"><a
+                                                            href="https://agilestorelocator.com/wiki/drop-down-menus-address/"
+                                                            target="_blank"><?php echo esc_attr__('Dropdown controls for Country, State and City.','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-and_filter"><?php echo esc_attr__('AND Filter','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-and_filter"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[and_filter]" id="asl-and_filter"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('To change the category filter logic from OR to AND','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-time_switch"><?php echo esc_attr__('Time Switch','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-time_switch"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[time_switch]" id="asl-time_switch"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Control will show a switch to see opened stores at the current time','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+    </div>
+</section>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-list-view" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Store Results', 'asl_locator'); ?></h5><p><?php esc_html_e('Control how stores are sorted and loaded in the list.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="sort_by"><?php echo esc_attr__('Sort List','asl_locator') ?></label>
@@ -482,7 +613,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="stores_limit"><?php echo esc_attr__('Stores Limit','asl_locator') ?></label>
@@ -495,110 +626,22 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
-                                                    for="load_all"><?php echo esc_attr__('Marker Load','asl_locator') ?></label>
+                                                    for="asl-sort_random"><?php echo esc_attr__('Sort Random','asl_locator') ?></label>
                                                 <div class="form-group-inner">
-                                                    <select name="data[load_all]" id="asl-load_all"
-                                                        class="custom-select">
-                                                        <option value="1">
-                                                            <?php echo esc_attr__('Load All (Recommended)','asl_locator') ?></option>
-                                                        <option value="0">
-                                                            <?php echo esc_attr__('Load on Bound','asl_locator') ?>
-                                                        </option>
-                                                        <option value="2">
-                                                            <?php echo esc_attr__('Load via Button','asl_locator') ?>
-                                                        </option>
-                                                    </select>
+                                                    <label class="switch" for="asl-sort_random"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[sort_random]" id="asl-sort_random"><span
+                                                            class="slider round"></span></label>
                                                     <p class="help-p">
-                                                        <?php echo esc_attr__('Use Load on Bound in case of 1K+ markers','asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/store-data-loading-types/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
+                                                        <?php echo esc_attr__('Sort stores list randomly on the load of the Store Locator (Enabling it will disable Default Location Marker)','asl_locator') ?>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-distance_unit"><?php echo esc_attr__('Distance Unit','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-distance_unit-KM"><input type="radio"
-                                                                name="data[distance_unit]" value="KM"
-                                                                id="asl-distance_unit-KM"><?php echo esc_attr__('KM','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-distance_unit-Miles"><input type="radio"
-                                                                name="data[distance_unit]" value="Miles"
-                                                                id="asl-distance_unit-Miles"><?php echo esc_attr__('Miles','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Select the distance unit to use on Store Locator','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="geo_button"><?php echo esc_attr__('Search Button Type','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-geo_button-0"><input type="radio"
-                                                                name="data[geo_button]" value="0"
-                                                                id="asl-geo_button-0"><?php echo esc_attr__('Search Location','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-geo_button-1"><input type="radio"
-                                                                name="data[geo_button]" value="1"
-                                                                id="asl-geo_button-1"><?php echo esc_attr__('Geo-Location','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Select either to display the geolocation button or the search button next to address search','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="single_cat_select"><?php echo esc_attr__('Category Select','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-single_cat_select-0"><input type="radio"
-                                                                name="data[single_cat_select]" value="0"
-                                                                id="asl-single_cat_select-0"><?php echo esc_attr__('Multiple Category Selection','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-single_cat_select-1"><input type="radio"
-                                                                name="data[single_cat_select]" value="1"
-                                                                id="asl-single_cat_select-1"><?php echo esc_attr__('Single Category Selection','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('To make the category selection mode','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-country_restrict"><?php echo esc_attr__('Restrict Search','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <input type="text" class="form-control validate[minSize[2]]"
-                                                        name="data[country_restrict]" id="asl-country_restrict"
-                                                        placeholder="Example: US">
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Enter 2 alphabet country, for multiple countries comma separated','asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/restrict-search-to-specific-countries/"
-                                                            target="_blank"><?php echo esc_attr__('Guide Doc','asl_locator') ?></a>
-                                                        | <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
-                                                            target="_blank" rel="nofollow"><?php echo esc_attr__('Code','asl_locator') ?></a></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-first_load"><?php echo esc_attr__('List Load','asl_locator') ?></label>
@@ -633,113 +676,63 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+    </div>
+</section>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-external" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Store Actions', 'asl_locator'); ?></h5><p><?php esc_html_e('Choose how directions and store links open.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
-                                                    for="filter_ddl"><?php echo esc_attr__('Dropdown Filters','asl_locator') ?></label>
+                                                    for="asl-direction_redirect"><?php echo esc_attr__('Store Direction','asl_locator') ?></label>
                                                 <div class="form-group-inner">
-                                                    <?php
-                                          $ddl_controls = AgileStoreLocator\Model\Attribute::get_controls();
-                                          ?>
-                                                    <select multiple id="asl-filter_ddl"
-                                                        class="custom-select asl-chosen">
-                                                        <?php foreach($ddl_controls as $ddl_control): ?>
-                                                        <option value="<?php echo esc_attr__($ddl_control['field']) ?>">
-                                                            <?php echo esc_attr__($ddl_control['label'],'asl_locator') ?>
-                                                        </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Additional Dropdowns filters based on Brand and Specialities data.','asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/brand-and-special-dropdowns-additional-dropdowns/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Start Branches -->
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-branches"><?php echo esc_attr__('Store Branches','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <select name="data[branches]" id="asl-branches"
+                                                    <select name="data[direction_redirect]" id="asl-direction_redirect"
                                                         class="custom-select">
-                                                        <option value="0">
-                                                            <?php echo esc_attr__('Disable','asl_locator') ?></option>
-                                                        <option value="1">
-                                                            <?php echo esc_attr__('Show Branches – Parent Markers on Map','asl_locator') ?>
-                                                        </option>
                                                         <option value="2">
-                                                            <?php echo esc_attr__('Show Branches – All Markers on Map','asl_locator') ?>
+                                                            <?php echo esc_attr__('Open in Google Maps (All Devices)','asl_locator') ?>
+                                                        </option>
+                                                        <option value="0">
+                                                            <?php echo esc_attr__('Google Direction Legacy','asl_locator') ?>
+                                                        </option>
+                                                        <option value="3">
+                                                            <?php echo esc_attr__('Draw Direction with Route API','asl_locator') ?>
+                                                        </option>
+                                                        <option value="1">
+                                                            <?php echo esc_attr__('Open in Google Maps (Mobile)','asl_locator') ?>
                                                         </option>
                                                     </select>
                                                     <p class="help-p">
-                                                        <?php echo esc_attr__('Ability to group stores in a single store','asl_locator') ?>
+                                                        <?php echo esc_attr__('Select how you want the direction to work.','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/load-google-maps-app-mobile-direction/"
+                                                            target="_blank"><?php echo esc_attr__('Guide Help','asl_locator') ?></a>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- End Branches -->
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
-                                                    for="asl-advance_filter"><?php echo esc_attr__('Advance Filter','asl_locator') ?></label>
+                                                    for="asl-target_blank"><?php echo esc_attr__('Open Link New Tab','asl_locator') ?></label>
                                                 <div class="form-group-inner">
-                                                    <label class="switch" for="asl-advance_filter"><input
-                                                            type="checkbox" value="1" class="custom-control-input"
-                                                            name="data[advance_filter]" id="asl-advance_filter"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p"><a
-                                                            href="https://agilestorelocator.com/wiki/enable-disable-advance-features/"
-                                                            target="_blank"><?php echo esc_attr__('Disabling it will remove all the filters','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-address_ddl"><?php echo esc_attr__('Address Dropdowns','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-address_ddl"><input type="checkbox"
+                                                    <label class="switch" for="asl-target_blank"><input type="checkbox"
                                                             value="1" class="custom-control-input"
-                                                            name="data[address_ddl]" id="asl-address_ddl"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p"><a
-                                                            href="https://agilestorelocator.com/wiki/drop-down-menus-address/"
-                                                            target="_blank"><?php echo esc_attr__('Dropdown controls for Country, State and City.','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-time_switch"><?php echo esc_attr__('Time Switch','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-time_switch"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[time_switch]" id="asl-time_switch"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Control will show a switch to see opened stores at the current time','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-distance_slider"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-distance_slider"><input
-                                                            type="checkbox" value="1" class="custom-control-input"
-                                                            name="data[distance_slider]" id="asl-distance_slider"><span
+                                                            name="data[target_blank]" id="asl-target_blank"><span
                                                             class="slider round"></span></label>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+    </div>
+</section>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-admin-generic" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Site Features', 'asl_locator'); ?></h5><p><?php esc_html_e('Configure optional site-wide features and integrations.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-analytics"><?php echo esc_attr__('Analytics','asl_locator') ?></label>
@@ -755,126 +748,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-sort_by_bound"><?php echo esc_attr__('Sort By Bound','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-sort_by_bound"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[sort_by_bound]" id="asl-sort_by_bound"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Refresh list to show nearest stores in the view.','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-target_blank"><?php echo esc_attr__('Open Link New Tab','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-target_blank"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[target_blank]" id="asl-target_blank"><span
-                                                            class="slider round"></span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-user_center"><?php echo esc_attr__('Default Location Center','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-user_center"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[user_center]" id="asl-user_center"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p"><a
-                                                            href="https://agilestorelocator.com/wiki/why-the-google-map-zoom-in-on-the-page-load/"
-                                                            target="_blank"><?php echo esc_attr__('Store Locator will consider Default coordinates as the center point','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-geo_marker"><?php echo esc_attr__('Geo-Location Marker','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-geo_marker"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[geo_marker]" id="asl-geo_marker"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('To remove the user own location marker','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-and_filter"><?php echo esc_attr__('AND Filter','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-and_filter"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[and_filter]" id="asl-and_filter"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('To change the category filter logic from OR to AND','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-category_marker"><?php echo esc_attr__('Category Marker','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-category_marker"><input
-                                                            type="checkbox" value="1" class="custom-control-input"
-                                                            name="data[category_marker]" id="asl-category_marker"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p"><a
-                                                            href="https://agilestorelocator.com/wiki/enable-category-markers/"
-                                                            target="_blank"><?php echo esc_attr__('Manage Markers will be replaced by the Category Icons','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-category_bound"><?php echo esc_attr__('Category Bound','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-category_bound"><input
-                                                            type="checkbox" value="1" class="custom-control-input"
-                                                            name="data[category_bound]" id="asl-category_bound"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Fit bound to markers when a category is selected','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-sort_random"><?php echo esc_attr__('Sort Random','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-sort_random"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[sort_random]" id="asl-sort_random"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Sort stores list randomly on the load of the Store Locator (Enabling it will disable Default Location Marker)','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-locale"><?php echo esc_attr__('Data WPML','asl_locator') ?></label>
@@ -891,7 +765,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-gdpr"><?php echo esc_attr__('GDPR','asl_locator') ?></label>
@@ -917,8 +791,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Store schedule switch -->
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-store_schedule"><?php echo esc_attr__('Store Schedule','asl_locator') ?></label>
@@ -935,7 +808,9 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 asl-general-pro-summary">
+    </div>
+</section>
+<div class="col-12 asl-general-pro-summary">
                                             <div class="asl-general-pro-summary__icon" aria-hidden="true">
                                                 <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
                                             </div>
@@ -969,6 +844,31 @@ if($level_mode === true){ ?>
                                         <div class="col-12">
                                             <div class="row asl-map-provider-settings">
                                                 <?php echo $asl_map_provider_settings; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped setting markup captured above. ?>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-admin-site-alt3" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Address Search Region', 'asl_locator'); ?></h5><p><?php esc_html_e('Limit address suggestions to selected countries.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-country_restrict"><?php echo esc_attr__('Restrict Search','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <input type="text" class="form-control validate[minSize[2]]"
+                                                        name="data[country_restrict]" id="asl-country_restrict"
+                                                        placeholder="Example: US">
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Enter 2 alphabet country, for multiple countries comma separated','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/restrict-search-to-specific-countries/"
+                                                            target="_blank"><?php echo esc_attr__('Guide Doc','asl_locator') ?></a>
+                                                        | <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2"
+                                                            target="_blank" rel="nofollow"><?php echo esc_attr__('Code','asl_locator') ?></a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+    </div>
+</section>
                                             </div>
                                         </div>
                                         <section class="col-12 asl-map-settings-group" data-map-settings-group="behavior">
@@ -977,7 +877,30 @@ if($level_mode === true){ ?>
                                                 <div><h5><?php echo esc_html__('Map Display & Behavior','asl_locator') ?></h5><p><?php echo esc_html__('Set the initial map view, zoom behavior, language, controls, and Google map styling.','asl_locator') ?></p></div>
                                             </header>
                                             <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-default_lat"><?php echo esc_attr__('Default Map Center','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control validate[required]"
+                                                            name="data[default_lat]" id="asl-default_lat"
+                                                            placeholder="<?php echo esc_attr__('Latitude','asl_locator') ?>">
+                                                        <input type="number" class="form-control validate[required]"
+                                                            name="data[default_lng]" id="asl-default_lng"
+                                                            placeholder="<?php echo esc_attr__('Longitude','asl_locator') ?>">
+                                                        <button data-bs-toggle="smodal" data-bs-target="#asl-map-modal"
+                                                            id="asl-setting-search-button"
+                                                            class="btn btn-dark no-shade-focus "
+                                                            type="button"><?php echo esc_attr__('Change','asl_locator') ?></button>
+                                                    </div>
+                                                    <p class="help-p"><a target="_blank" class="text-muted"
+                                                            href="https://www.google.com/maps"><?php echo esc_attr__('Get your coordinates by right click on the map','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-zoom"><?php echo esc_attr__('Default Zoom','asl_locator') ?></label>
@@ -994,7 +917,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-zoom_li"><?php echo esc_attr__('Clicked Zoom','asl_locator') ?></label>
@@ -1014,7 +937,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-search_zoom"><?php echo esc_attr__('Search Zoom','asl_locator') ?></label>
@@ -1035,6 +958,129 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-user_center"><?php echo esc_attr__('Default Location Center','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-user_center"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[user_center]" id="asl-user_center"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p"><a
+                                                            href="https://agilestorelocator.com/wiki/why-the-google-map-zoom-in-on-the-page-load/"
+                                                            target="_blank"><?php echo esc_attr__('Store Locator will consider Default coordinates as the center point','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-geo_marker"><?php echo esc_attr__('Geo-Location Marker','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-geo_marker"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[geo_marker]" id="asl-geo_marker"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('To remove the user own location marker','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-category_marker"><?php echo esc_attr__('Category Marker','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-category_marker"><input
+                                                            type="checkbox" value="1" class="custom-control-input"
+                                                            name="data[category_marker]" id="asl-category_marker"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p"><a
+                                                            href="https://agilestorelocator.com/wiki/enable-category-markers/"
+                                                            target="_blank"><?php echo esc_attr__('Manage Markers will be replaced by the Category Icons','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-category_bound"><?php echo esc_attr__('Category Bound','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-category_bound"><input
+                                                            type="checkbox" value="1" class="custom-control-input"
+                                                            name="data[category_bound]" id="asl-category_bound"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Fit bound to markers when a category is selected','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-sort_by_bound"><?php echo esc_attr__('Sort By Bound','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-sort_by_bound"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[sort_by_bound]" id="asl-sort_by_bound"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Refresh list to show nearest stores in the view.','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="load_all"><?php echo esc_attr__('Marker Load','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <select name="data[load_all]" id="asl-load_all"
+                                                        class="custom-select">
+                                                        <option value="1">
+                                                            <?php echo esc_attr__('Load All (Recommended)','asl_locator') ?></option>
+                                                        <option value="0">
+                                                            <?php echo esc_attr__('Load on Bound','asl_locator') ?>
+                                                        </option>
+                                                        <option value="2">
+                                                            <?php echo esc_attr__('Load via Button','asl_locator') ?>
+                                                        </option>
+                                                    </select>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Use Load on Bound in case of 1K+ markers','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/store-data-loading-types/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-branches"><?php echo esc_attr__('Store Branches','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <select name="data[branches]" id="asl-branches"
+                                                        class="custom-select">
+                                                        <option value="0">
+                                                            <?php echo esc_attr__('Disable','asl_locator') ?></option>
+                                                        <option value="1">
+                                                            <?php echo esc_attr__('Show Branches – Parent Markers on Map','asl_locator') ?>
+                                                        </option>
+                                                        <option value="2">
+                                                            <?php echo esc_attr__('Show Branches – All Markers on Map','asl_locator') ?>
+                                                        </option>
+                                                    </select>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Ability to group stores in a single store','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx asl-google-map-setting">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
@@ -1183,11 +1229,11 @@ if($level_mode === true){ ?>
                                               $option_disabled = $option['disable'];
 
                                               echo '<option value="' . esc_attr($option_value) . '"';
-                                              
+
                                               if ($option_disabled) {
                                                   echo ' disabled';
                                               }
-                                              
+
                                               echo '>' . esc_html($option_label) . '</option>';
                                           }
                                           ?>
@@ -1274,279 +1320,6 @@ if($level_mode === true){ ?>
                                     </section>
                                 </div>
                                 <div id="sl-ui-tab" class="tab-pane">
-                                    <div class="row mt-2">
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-map_top"><?php echo esc_attr__('Map & List Order','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <select name="data[map_top]" id="asl-map_top" class="custom-select">
-                                                        <option value="0">
-                                                            <?php echo esc_attr__('List Top, Map Bottom','asl_locator') ?>
-                                                        </option>
-                                                        <option value="2">
-                                                            <?php echo esc_attr__('Map Top, List Bottom','asl_locator') ?>
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-hide_search"><?php echo esc_attr__('Hide Search','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-hide_search"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[hide_search]" id="asl-hide_search"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p"><?php echo esc_html__('Hide the main address search controls from the store locator.', 'asl_locator') ?></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-full_height"><?php echo esc_attr__('Full Height','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <select name="data[full_height]" id="asl-full_height"
-                                                        class="custom-select">
-                                                        <option value=""><?php echo esc_attr__('None','asl_locator') ?>
-                                                        </option>
-                                                        <option value="full-height">
-                                                            <?php echo esc_attr__('Full Height (Not Fixed)','asl_locator') ?>
-                                                        </option>
-                                                        <option value="full-height asl-fixed">
-                                                            <?php echo esc_attr__('Full Height (Fixed)','asl_locator') ?>
-                                                        </option>
-                                                    </select>
-                                                    <p class="help-p"><a target="_blank"
-                                                            href="https://agilestorelocator.com/wiki/can-we-adjust-the-height-of-the-store-locator-map/"
-                                                            href=""><?php echo esc_attr__('Change Height of the Locator','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-full_width"><?php echo esc_attr__('Full Width','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-full_width"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[full_width]" id="asl-full_width"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Make the store locator full width 100% with respect to the parent container','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-tabs_layout"><?php echo esc_attr__('Tabs Layout','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-tabs_layout-0"><input type="radio"
-                                                                name="data[tabs_layout]" value="0"
-                                                                id="asl-tabs_layout-0"><?php echo esc_attr__('Dropdowns','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-tabs_layout-1"><input type="radio"
-                                                                name="data[tabs_layout]" value="1"
-                                                                id="asl-tabs_layout-1"><?php echo esc_attr__('Clickable Tabs','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('To show categories dropdown in tab options.','asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/tabs-for-filter-instead-of-dropdown/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a><br><span
-                                                            class="red">(Supported in Template 0 & 1, 4)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-additional_info"><?php echo esc_attr__('Description','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-additional_info-0"><input type="radio"
-                                                                name="data[additional_info]" value="0"
-                                                                id="asl-additional_info-0"><?php echo esc_attr__('Hide','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-additional_info-1"><input type="radio"
-                                                                name="data[additional_info]" value="1"
-                                                                id="asl-additional_info-1"><?php echo esc_attr__('In Store List','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-additional_info-2"><input type="radio"
-                                                                name="data[additional_info]" value="2"
-                                                                id="asl-additional_info-2"><?php echo esc_attr__('In Modal via Link','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('To show the description text either in listing or modal.','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="week_hours"><?php echo esc_attr__('Hours Format','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-week_hours-0"><input type="radio"
-                                                                name="data[week_hours]" value="0"
-                                                                id="asl-week_hours-0"><?php echo esc_attr__('Today','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-week_hours-1"><input type="radio"
-                                                                name="data[week_hours]" value="1"
-                                                                id="asl-week_hours-1"><?php echo esc_attr__('7 Days','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-week_hours-2"><input type="radio"
-                                                                name="data[week_hours]" value="2"
-                                                                id="asl-week_hours-2"><?php echo esc_attr__('7 Days (Grouped)','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('To show only the current day hours or full week','asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/add-additional-time-slot-store-locator/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-time_format"><?php echo esc_attr__('Time Format','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-time_format-0"><input type="radio"
-                                                                name="data[time_format]" value="0"
-                                                                id="asl-time_format-0"><?php echo esc_attr__('12 Hours','asl_locator') ?></label>
-                                                    </div>
-                                                    <div class="asl-wc-radio">
-                                                        <label for="asl-time_format-1"><input type="radio"
-                                                                name="data[time_format]" value="1"
-                                                                id="asl-time_format-1"><?php echo esc_attr__('24 Hours','asl_locator') ?></label>
-                                                    </div>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Select either 12 or 24 hours time format','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-zoom_btn"><?php echo esc_attr__('Zoom Button','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-zoom_btn"><input type="checkbox"
-                                                            value="1" class="custom-control-input" name="data[zoom_btn]"
-                                                            id="asl-zoom_btn"><span class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Show/Hide Zoom button in the infobox.','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-direction_btn"><?php echo esc_attr__('Direction Button','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-direction_btn"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[direction_btn]" id="asl-direction_btn"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_attr__('Show/Hide direction button in the listing and infobox.','asl_locator') ?>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-slug_link"><?php echo esc_attr__('Website Link','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-slug_link"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[slug_link]" id="asl-slug_link"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p">
-                                                        <?php echo esc_html__('Enable the website link button.', 'asl_locator') ?>
-                                                        | <a href="https://agilestorelocator.com/wiki/add-site-link-store-locator-list/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-show_categories"><?php echo esc_attr__('Show Categories','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-show_categories"><input
-                                                            type="checkbox" value="1" class="custom-control-input"
-                                                            name="data[show_categories]" id="asl-show_categories"><span
-                                                            class="slider round"></span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-hide_hours"><?php echo esc_attr__('Hide Hours','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-hide_hours"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[hide_hours]" id="asl-hide_hours"><span
-                                                            class="slider round"></span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-hide_logo"><?php echo esc_attr__('Hide Logo','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-hide_logo"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[hide_logo]" id="asl-hide_logo"><span
-                                                            class="slider round"></span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-print_btn"><?php echo esc_attr__('Print Button','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-print_btn"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[print_btn]" id="asl-print_btn"><span
-                                                            class="slider round"></span></label>
-                                                    <p class="help-p"><a target="_blank"
-                                                            href="https://agilestorelocator.com/wiki/custom-print-header-for-store-list/"><?php echo esc_attr__('Add Print Header or remove it','asl_locator') ?></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
-                                            <div class="form-group d-lg-flex d-md-block">
-                                                <label class="custom-control-label"
-                                                    for="asl-display_list"><?php echo esc_attr__('Display List','asl_locator') ?></label>
-                                                <div class="form-group-inner">
-                                                    <label class="switch" for="asl-display_list"><input type="checkbox"
-                                                            value="1" class="custom-control-input"
-                                                            name="data[display_list]" id="asl-display_list"><span
-                                                            class="slider round"></span></label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <section class="asl-pro-locked-section asl-pro-locked-panel asl-settings-pro-lock" aria-labelledby="asl-ui-lock-title">
                                         <div class="asl-pro-lock-overlay">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
@@ -1670,7 +1443,7 @@ if($level_mode === true){ ?>
                                                         <label class="custom-control-label"
                                                             for="asl-color_scheme"><?php echo esc_attr__('Color Scheme','asl_locator') ?></label>
                                                         <div class="a-radio-select">
-                                                            <?php 
+                                                            <?php
                                                 $tmpl_2_colors = array(
                                                   '0' => array('#CC3333', '#542733'),
                                                   '1' => array('#008FED', '#2580C3'),
@@ -1772,6 +1545,304 @@ if($level_mode === true){ ?>
                                     </div>
                                         </div>
                                     </section>
+<div class="row mt-2">
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-layout" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Layout & Search Display', 'asl_locator'); ?></h5><p><?php esc_html_e('Choose the locator layout and which search controls appear.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-map_top"><?php echo esc_attr__('Map & List Order','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <select name="data[map_top]" id="asl-map_top" class="custom-select">
+                                                        <option value="0">
+                                                            <?php echo esc_attr__('List Top, Map Bottom','asl_locator') ?>
+                                                        </option>
+                                                        <option value="2">
+                                                            <?php echo esc_attr__('Map Top, List Bottom','asl_locator') ?>
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-display_list"><?php echo esc_attr__('Display List','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-display_list"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[display_list]" id="asl-display_list"><span
+                                                            class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-full_height"><?php echo esc_attr__('Full Height','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <select name="data[full_height]" id="asl-full_height"
+                                                        class="custom-select">
+                                                        <option value=""><?php echo esc_attr__('None','asl_locator') ?>
+                                                        </option>
+                                                        <option value="full-height">
+                                                            <?php echo esc_attr__('Full Height (Not Fixed)','asl_locator') ?>
+                                                        </option>
+                                                        <option value="full-height asl-fixed">
+                                                            <?php echo esc_attr__('Full Height (Fixed)','asl_locator') ?>
+                                                        </option>
+                                                    </select>
+                                                    <p class="help-p"><a target="_blank"
+                                                            href="https://agilestorelocator.com/wiki/can-we-adjust-the-height-of-the-store-locator-map/"
+                                                            href=""><?php echo esc_attr__('Change Height of the Locator','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-full_width"><?php echo esc_attr__('Full Width','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-full_width"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[full_width]" id="asl-full_width"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Make the store locator full width 100% with respect to the parent container','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-tabs_layout"><?php echo esc_attr__('Tabs Layout','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-tabs_layout-0"><input type="radio"
+                                                                name="data[tabs_layout]" value="0"
+                                                                id="asl-tabs_layout-0"><?php echo esc_attr__('Dropdowns','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-tabs_layout-1"><input type="radio"
+                                                                name="data[tabs_layout]" value="1"
+                                                                id="asl-tabs_layout-1"><?php echo esc_attr__('Clickable Tabs','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('To show categories dropdown in tab options.','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/tabs-for-filter-instead-of-dropdown/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a><br><span
+                                                            class="red">(Supported in Template 0 & 1, 4)</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-hide_search"><?php echo esc_attr__('Hide Search','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-hide_search"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[hide_search]" id="asl-hide_search"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p"><?php echo esc_html__('Hide the main address search controls from the store locator.', 'asl_locator') ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+    </div>
+</section>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-id" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Store Details', 'asl_locator'); ?></h5><p><?php esc_html_e('Choose which store information visitors can see.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-additional_info"><?php echo esc_attr__('Description','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-additional_info-0"><input type="radio"
+                                                                name="data[additional_info]" value="0"
+                                                                id="asl-additional_info-0"><?php echo esc_attr__('Hide','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-additional_info-1"><input type="radio"
+                                                                name="data[additional_info]" value="1"
+                                                                id="asl-additional_info-1"><?php echo esc_attr__('In Store List','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-additional_info-2"><input type="radio"
+                                                                name="data[additional_info]" value="2"
+                                                                id="asl-additional_info-2"><?php echo esc_attr__('In Modal via Link','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('To show the description text either in listing or modal.','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="week_hours"><?php echo esc_attr__('Hours Format','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-week_hours-0"><input type="radio"
+                                                                name="data[week_hours]" value="0"
+                                                                id="asl-week_hours-0"><?php echo esc_attr__('Today','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-week_hours-1"><input type="radio"
+                                                                name="data[week_hours]" value="1"
+                                                                id="asl-week_hours-1"><?php echo esc_attr__('7 Days','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-week_hours-2"><input type="radio"
+                                                                name="data[week_hours]" value="2"
+                                                                id="asl-week_hours-2"><?php echo esc_attr__('7 Days (Grouped)','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('To show only the current day hours or full week','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/add-additional-time-slot-store-locator/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-time_format"><?php echo esc_attr__('Time Format','asl_locator') ?></label>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-time_format-0"><input type="radio"
+                                                                name="data[time_format]" value="0"
+                                                                id="asl-time_format-0"><?php echo esc_attr__('12 Hours','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-time_format-1"><input type="radio"
+                                                                name="data[time_format]" value="1"
+                                                                id="asl-time_format-1"><?php echo esc_attr__('24 Hours','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Select either 12 or 24 hours time format','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-show_categories"><?php echo esc_attr__('Show Categories','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-show_categories"><input
+                                                            type="checkbox" value="1" class="custom-control-input"
+                                                            name="data[show_categories]" id="asl-show_categories"><span
+                                                            class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-hide_hours"><?php echo esc_attr__('Hide Hours','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-hide_hours"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[hide_hours]" id="asl-hide_hours"><span
+                                                            class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-hide_logo"><?php echo esc_attr__('Hide Logo','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-hide_logo"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[hide_logo]" id="asl-hide_logo"><span
+                                                            class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+    </div>
+</section>
+<section class="col-12 asl-map-settings-group asl-settings-control-group">
+    <header class="asl-map-settings-group__header">
+        <span class="dashicons dashicons-admin-links" aria-hidden="true"></span>
+        <div><h5><?php esc_html_e('Buttons', 'asl_locator'); ?></h5><p><?php esc_html_e('Show or hide buttons in the store list and info window.', 'asl_locator'); ?></p></div>
+    </header>
+    <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-zoom_btn"><?php echo esc_attr__('Zoom Button','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-zoom_btn"><input type="checkbox"
+                                                            value="1" class="custom-control-input" name="data[zoom_btn]"
+                                                            id="asl-zoom_btn"><span class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Show/Hide Zoom button in the infobox.','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-direction_btn"><?php echo esc_attr__('Direction Button','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-direction_btn"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[direction_btn]" id="asl-direction_btn"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_attr__('Show/Hide direction button in the listing and infobox.','asl_locator') ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-slug_link"><?php echo esc_attr__('Website Link','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-slug_link"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[slug_link]" id="asl-slug_link"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p">
+                                                        <?php echo esc_html__('Enable the website link button.', 'asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/add-site-link-store-locator-list/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <label class="custom-control-label"
+                                                    for="asl-print_btn"><?php echo esc_attr__('Print Button','asl_locator') ?></label>
+                                                <div class="form-group-inner">
+                                                    <label class="switch" for="asl-print_btn"><input type="checkbox"
+                                                            value="1" class="custom-control-input"
+                                                            name="data[print_btn]" id="asl-print_btn"><span
+                                                            class="slider round"></span></label>
+                                                    <p class="help-p"><a target="_blank"
+                                                            href="https://agilestorelocator.com/wiki/custom-print-header-for-store-list/"><?php echo esc_attr__('Add Print Header or remove it','asl_locator') ?></a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+    </div>
+</section>
+</div>
+
                                 </div>
                                 <div id="sl-detail" class="tab-pane">
                                     <div class="row mt-2">
@@ -1792,6 +1863,7 @@ if($level_mode === true){ ?>
                                                     </div>
                                                     <p class="help-p">
                                                         <?php echo esc_attr__('Select the URL type of website link, page slug will only work when page slug is provided','asl_locator') ?>
+                                                        | <a href="https://agilestorelocator.com/wiki/add-site-link-store-locator-list/" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Guide Doc', 'asl_locator'); ?></a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -2087,7 +2159,7 @@ if($level_mode === true){ ?>
                                                         <div class="asl-settings-customizer__field">
                                                             <label for="asl-customize-template"><?php echo esc_html__('Template','asl_locator') ?></label>
                                                             <p><?php echo esc_html__('Choose the locator template you want to edit.','asl_locator') ?></p>
-                                                    <?php 
+                                                    <?php
                                           // Get all the templates support customization
                                           $cust_tmpls = \AgileStoreLocator\Helper::customizer_tmpls();
                                        ?>
@@ -2242,7 +2314,7 @@ if($level_mode === true){ ?>
                                 </div>
                                 <?php if(!defined ( 'ASL_WC_VERSION' )) {
                            include ASL_PLUGIN_PATH.'admin/partials/asl-wc-ads.php';
-                           } 
+                           }
                         ?>
                                 <div id="sl-store-form" class="tab-pane">
                                     <?php include ASL_PLUGIN_PATH.'admin/partials/store-form-tab.php'; ?>
@@ -2379,7 +2451,7 @@ if($level_mode === true){ ?>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php 
+                                                <?php
 
                                        $field_types = [
                                           'text'      => esc_attr__('Text', 'asl_locator'),
@@ -2394,8 +2466,8 @@ if($level_mode === true){ ?>
 
                                        $field_index = 0;
 
-                                       foreach($fields as $field): 
-                                          
+                                       foreach($fields as $field):
+
                                           $field_index++;
                                        	$field_name      = strip_tags($field['name']);
                                           $field_option    = isset($field['options'])? strip_tags($field['options']): '';
