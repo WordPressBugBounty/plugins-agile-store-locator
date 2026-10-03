@@ -29,7 +29,7 @@ class Brand {
     
     $categories   = [];
     
-    $orde_by      = " `name` ;";
+    $orde_by      = " `ordr` ASC, `id` ASC;";
     $where_clause = "`lang` = ''";
     
     //  Get the results

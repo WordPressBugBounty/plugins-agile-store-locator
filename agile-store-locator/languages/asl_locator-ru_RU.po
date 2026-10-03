@@ -1,0 +1,5082 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Agile Store Locator\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-15 00:08+0000\n"
+"PO-Revision-Date: 2026-09-15 18:25+0000\n"
+"Language: ru_RU\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11) ? 0 : ((n%10>=2 && n%10<=4 && (n%100<12 || n%100>14)) ? 1 : 2);\n"
+"X-Generator: Loco https://localise.biz/\n"
+
+msgid " Stores Found"
+msgstr " магазинов найдено"
+
+msgid " added successfully"
+msgstr " успешно добавлен"
+
+msgid "%1$d of 4 completed"
+msgstr "Выполнено %1$d из 4"
+
+msgid "%d overlay"
+msgid_plural "%d overlays"
+msgstr[0] "%d наложение"
+msgstr[1] "%d наложения"
+msgstr[2] "%d наложений"
+
+msgid "%s Ready"
+msgstr "%s готов"
+
+msgid "%s is ready"
+msgstr "%s готов"
+
+msgid "%s out of 5 stars"
+msgstr "%s из 5 звёзд"
+
+msgid "1. Set Up Your Map"
+msgstr "1. Настройте карту"
+
+msgid "10"
+msgstr "10"
+
+msgid "12 Hours"
+msgstr "12 часов"
+
+msgid "156"
+msgstr "156"
+
+msgid "2. Add Your First Store"
+msgstr "2. Добавьте свой первый магазин"
+
+msgid "24"
+msgstr "24"
+
+msgid "24 Hours"
+msgstr "24 часа"
+
+msgid "3. Add to Your Website"
+msgstr "3. Добавьте на свой сайт"
+
+msgid "3. Added to Your Website"
+msgstr "3. Добавлено на ваш сайт"
+
+msgid "4. Customize Locator"
+msgstr "4. Настройте локатор"
+
+msgid "6 features"
+msgstr "6 функций"
+
+msgid "7 Days"
+msgstr "7 дней"
+
+msgid "7 Days (Grouped)"
+msgstr "7 дней (сгруппировано)"
+
+msgid "<b>Google Maps</b> is a familiar choice with Google search features, but it normally requires an API key and billing account. Choose the <b>free map option</b> when you want to display stores without relying on Google Maps."
+msgstr "<b>Google Maps</b> — привычный выбор с функциями поиска Google, но обычно требует ключ API и платёжный аккаунт. Выберите <b>бесплатный вариант карты</b>, если хотите показывать магазины без использования Google Maps."
+
+msgid "<p><a href=\"%verification_url%\" target=\"_blank\">Approve Store</a> to adding it in listing.</p>"
+msgstr "<p><a href=\"%verification_url%\" target=\"_blank\">Подтвердите магазин</a>, чтобы добавить его в список.</p>"
+
+msgid "A Store Locator"
+msgstr "Локатор магазинов"
+
+msgid "A closer look at the additional tools and experiences available in the full version."
+msgstr "Подробнее о дополнительных инструментах и возможностях полной версии."
+
+msgid "A new WordPress page will be created"
+msgstr "Будет создана новая страница WordPress"
+
+msgid "A search value is required."
+msgstr "Необходимо указать значение для поиска."
+
+msgid "A store ID is required."
+msgstr "Необходимо указать ID магазина."
+
+msgid "ADDRESS LOCATION"
+msgstr "МЕСТОПОЛОЖЕНИЕ АДРЕСА"
+
+msgid "AGILELOGIX"
+msgstr "AGILELOGIX"
+
+msgid "ALL"
+msgstr "ВСЕ"
+
+msgid "AM"
+msgstr "AM"
+
+msgid "AND Filter"
+msgstr "Фильтр И"
+
+msgid "API Credentials"
+msgstr "Учётные данные API"
+
+msgid "API KEY"
+msgstr "КЛЮЧ API"
+
+msgid "ASL Settings"
+msgstr "Настройки ASL"
+
+msgid "ASL Settings (Free Version - "
+msgstr "Настройки ASL (бесплатная версия — "
+
+msgid "Ability to group stores in a single store"
+msgstr "Возможность группировать магазины в один магазин"
+
+msgid "About This Location"
+msgstr "Об этом месте"
+
+msgid "Accept"
+msgstr "Принять"
+
+msgid "Accordion (Categories)"
+msgstr "Аккордеон (категории)"
+
+msgid "Accordion (States, Cities, Countries)"
+msgstr "Аккордеон (регионы, города, страны)"
+
+msgid "Action"
+msgstr "Действие"
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Activity over time"
+msgstr "Активность по времени"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add Category"
+msgstr "Добавить категорию"
+
+msgid "Add Custom Field"
+msgstr "Добавить настраиваемое поле"
+
+msgid "Add New"
+msgstr "Добавить"
+
+msgid "Add New Category"
+msgstr "Добавить новую категорию"
+
+msgid "Add New Marker"
+msgstr "Добавить новый маркер"
+
+msgid "Add New Store"
+msgstr "Добавить новый магазин"
+
+msgid "Add Print Header or remove it"
+msgstr "Добавьте заголовок печати или удалите его"
+
+msgid "Add Store"
+msgstr "Добавить магазин"
+
+msgid "Add Store Locator"
+msgstr "Добавить Store Locator"
+
+msgid "Add Store Locator Shortcode"
+msgstr "Добавить шорткод Store Locator"
+
+msgid "Add a new store to your locator."
+msgstr "Добавьте новый магазин в свой локатор."
+
+msgid "Add a powerful location search box anywhere on your site."
+msgstr "Добавьте мощную форму поиска местоположения в любом месте сайта."
+
+msgid "Add and manage extra features for stores."
+msgstr "Добавляйте и управляйте дополнительными функциями для магазинов."
+
+msgid "Add at least one store to show on the map."
+msgstr "Добавьте хотя бы один магазин, чтобы показать его на карте."
+
+msgid "Add store selection, local pickup, location-based inventory, and distance-rate shipping to your WooCommerce experience."
+msgstr "Добавьте выбор магазина, самовывоз, учёт запасов по местоположению и доставку по тарифу в зависимости от расстояния в WooCommerce."
+
+msgid "Add the [ASL_STORE] shortcode to the same page."
+msgstr "Добавьте шорткод [ASL_STORE] на ту же страницу."
+
+msgid "Add to Website"
+msgstr "Добавить на сайт"
+
+msgid "Add your locator anywhere using the shortcode below."
+msgstr "Добавьте локатор в любом месте с помощью шорткода ниже."
+
+msgid "Add your store locator to a new WordPress page."
+msgstr "Добавьте локатор магазинов на новую страницу WordPress."
+
+msgid "Added ✓"
+msgstr "Добавлено ✓"
+
+msgid "Additional Configuration"
+msgstr "Дополнительная конфигурация"
+
+msgid "Additional Data"
+msgstr "Дополнительные данные"
+
+msgid "Additional Description"
+msgstr "Дополнительное описание"
+
+msgid "Additional Details"
+msgstr "Дополнительные сведения"
+
+msgid "Additional Dropdowns filters based on Brand and Specialities data."
+msgstr "Дополнительные раскрывающиеся фильтры на основе данных о бренде и специализациях."
+
+msgid "Additional templates and database search modes are available in Pro."
+msgstr "Дополнительные шаблоны и режимы поиска по базе данных доступны в Pro."
+
+msgid "Address"
+msgstr "Адрес"
+
+msgid "Address Dropdowns"
+msgstr "Раскрывающиеся списки адреса"
+
+msgid "Address Location"
+msgstr "Местоположение адреса"
+
+msgid "Address Search Disabled"
+msgstr "Поиск по адресу отключён"
+
+msgid "Address Search Region"
+msgstr "Регион поиска адреса"
+
+msgid "Address and geographic fields used to locate the store."
+msgstr "Поля адреса и географических координат, используемые для определения местоположения магазина."
+
+msgid "Address search disabled"
+msgstr "Поиск по адресу отключён"
+
+msgid "Address search is unavailable because no geocoding provider is configured."
+msgstr "Поиск по адресу недоступен, так как не настроен провайдер геокодирования."
+
+msgid "Address — Automatic"
+msgstr "Адрес — Автоматически"
+
+msgid "Address — Automatic (Recommended)"
+msgstr "Адрес — Автоматически (рекомендуется)"
+
+msgid "Address — Geoapify"
+msgstr "Адрес — Geoapify"
+
+msgid "Address — Google Places"
+msgstr "Адрес — Google Places"
+
+msgid "Address — Google Places (Legacy)"
+msgstr "Адрес — Google Places (устаревшая версия)"
+
+msgid "Address — Mapbox"
+msgstr "Адрес — Mapbox"
+
+msgid "Address — Nominatim"
+msgstr "Адрес — Nominatim"
+
+msgid "Address — Nominatim (Geocoding only, no API key)"
+msgstr "Адрес — Nominatim (только геокодирование, без ключа API)"
+
+msgid "Address — Search on Enter"
+msgstr "Адрес — поиск по нажатию Enter"
+
+msgid "Address: "
+msgstr "Адрес: "
+
+msgid "Administrator permissions are required."
+msgstr "Требуются права администратора."
+
+msgid "Advance Filter"
+msgstr "Расширенный фильтр"
+
+msgid "Advanced"
+msgstr "Дополнительно"
+
+msgid "Advanced Filters"
+msgstr "Расширенные фильтры"
+
+msgid "Advanced General Options"
+msgstr "Расширенные общие настройки"
+
+msgid "Advanced Search"
+msgstr "Расширенный поиск"
+
+msgid "Advanced UI layouts are a Pro feature"
+msgstr "Расширенные макеты интерфейса — функция Pro"
+
+msgid "Advanced settings"
+msgstr "Дополнительные настройки"
+
+msgid "Agile Cards"
+msgstr "Agile Cards"
+
+msgid "Agile Search Grid"
+msgstr "Agile Search Grid"
+
+msgid "Agile Search Widget"
+msgstr "Agile Search Widget"
+
+msgid "Agile Store Locator"
+msgstr "Agile Store Locator"
+
+msgid "Agile Store Locator Pro"
+msgstr "Agile Store Locator Pro"
+
+msgid "Agile Store Locator Pro feature preview"
+msgstr "Обзор функций Agile Store Locator Pro"
+
+msgid "Agile Store Locator UI Customizer"
+msgstr "Персонализатор интерфейса Agile Store Locator"
+
+msgid "Agile Store Locator is a WordPress store finder with free OpenStreetMap and MapLibre maps, native Google Maps, and SEO-friendly location pages."
+msgstr "Agile Store Locator — это поиск магазинов для WordPress с бесплатными картами OpenStreetMap и MapLibre, встроенным Google Maps и SEO-оптимизированными страницами местоположений."
+
+msgid "Agile Sync Addon"
+msgstr "Дополнение Agile Sync"
+
+msgid "Agile Sync Addon: automatically synchronize Agile Store Locator with Google Sheets, Salesforce, Smartsheet, and REST APIs."
+msgstr "Дополнение Agile Sync: автоматическая синхронизация Agile Store Locator с Google Sheets, Salesforce, Smartsheet и REST API."
+
+msgid "Agile Sync automates imports, maps custom fields, and helps keep store data up to date."
+msgstr "Agile Sync автоматизирует импорт, сопоставляет настраиваемые поля и помогает поддерживать данные магазинов в актуальном состоянии."
+
+msgid "Agile Sync integration preview"
+msgstr "Обзор интеграции Agile Sync"
+
+msgid "Alert!"
+msgstr "Внимание!"
+
+msgid "All"
+msgstr "Все"
+
+msgid "All Additional"
+msgstr "Все дополнительные"
+
+msgid "All Additional 2"
+msgstr "Все дополнительные 2"
+
+msgid "All Brands"
+msgstr "Все бренды"
+
+msgid "All Categories"
+msgstr "Все категории"
+
+msgid "All Cities"
+msgstr "Все города"
+
+msgid "All Countries"
+msgstr "Все страны"
+
+msgid "All Options"
+msgstr "Все параметры"
+
+msgid "All Specialities"
+msgstr "Все специализации"
+
+msgid "All States"
+msgstr "Все регионы"
+
+msgid "All Stores are deleted"
+msgstr "Все магазины удалены"
+
+msgid "All changes saved"
+msgstr "Все изменения сохранены"
+
+msgid "All selected"
+msgstr "Все выбрано"
+
+msgid "Allow businesses to submit new store locations from the frontend."
+msgstr "Разрешите компаниям добавлять новые магазины через интерфейс сайта."
+
+msgid "Already Reviewed"
+msgstr "Уже оценено"
+
+msgid "Already using a page builder?"
+msgstr "Уже используете конструктор страниц?"
+
+msgid "Always unblock Store Locator"
+msgstr "Всегда разблокировать Store Locator"
+
+msgid "Amanda Food Court"
+msgstr "Amanda Food Court"
+
+msgid "Amanzi Club"
+msgstr "Amanzi Club"
+
+msgid "Analytics"
+msgstr "Аналитика"
+
+msgid "Analytics & Reports"
+msgstr "Аналитика и отчёты"
+
+msgid "Analytics Overview"
+msgstr "Обзор аналитики"
+
+msgid "Analytics date range"
+msgstr "Период аналитики"
+
+msgid "Analytics is a Pro feature"
+msgstr "Аналитика — функция Pro"
+
+msgid "Appearance"
+msgstr "Внешний вид"
+
+msgid "Appearance & Search"
+msgstr "Внешний вид и поиск"
+
+msgid "Apply Changes"
+msgstr "Применить изменения"
+
+msgid "Apply Friday"
+msgstr "Применить к пятнице"
+
+msgid "Apply Monday"
+msgstr "Применить к понедельнику"
+
+msgid "Apply Saturday"
+msgstr "Применить к субботе"
+
+msgid "Apply Sunday"
+msgstr "Применить к воскресенью"
+
+msgid "Apply Thursday"
+msgstr "Применить к четвергу"
+
+msgid "Apply Tuesday"
+msgstr "Применить к вторнику"
+
+msgid "Apply Wednesday"
+msgstr "Применить к среде"
+
+msgid "Apply the city filter to the grid"
+msgstr "Применить фильтр по городу к таблице"
+
+msgid "Apply the state filter to the grid"
+msgstr "Применить фильтр по региону к таблице"
+
+msgid "Approve"
+msgstr "Подтвердить"
+
+msgid "Approving..."
+msgstr "Подтверждение..."
+
+msgid "Are you ready to Experience the Difference? Just fill out the form below and one of our helpful representatives will find your nearest dealer and get you in contact!"
+msgstr "Готовы почувствовать разницу? Просто заполните форму ниже, и один из наших специалистов найдёт ближайшего к вам дилера и свяжется с вами!"
+
+msgid "Are you sure to delete all stores of all languages?"
+msgstr "Вы уверены, что хотите удалить все магазины на всех языках?"
+
+msgid "Are you sure to remove Template from the theme root directory?"
+msgstr "Вы уверены, что хотите удалить шаблон из корневого каталога темы?"
+
+msgid "Are you sure you want to "
+msgstr "Вы уверены, что хотите "
+
+msgid "Are you sure you want to remove all duplicate stores?"
+msgstr "Вы уверены, что хотите удалить все дублирующиеся магазины?"
+
+msgid "Arrange the registration form, control field visibility and choose which values can be updated in bulk."
+msgstr "Настройте форму регистрации, управляйте видимостью полей и выберите, какие значения можно обновлять массово."
+
+msgid "Assets Backup Successfully, Download the Zip File."
+msgstr "Резервная копия ресурсов успешно создана. Скачайте ZIP-файл."
+
+msgid "Assets Imported Successfully."
+msgstr "Ресурсы успешно импортированы."
+
+msgid "Assign Store Branches"
+msgstr "Назначить филиалы магазина"
+
+msgid "Attribute"
+msgstr "Атрибут"
+
+msgid "Attributes"
+msgstr "Атрибуты"
+
+msgid "Attributes add searchable store details; use the tabs to manage each attribute type."
+msgstr "Атрибуты добавляют доступные для поиска сведения о магазине; используйте вкладки для управления каждым типом атрибутов."
+
+msgid "Automatically fetch missing coordinates (Lat/Lng) for your stores using Google Geocoding API. Ensure your API key is validated before proceeding."
+msgstr "Автоматически получайте недостающие координаты (широту и долготу) для магазинов с помощью Google Geocoding API. Перед продолжением убедитесь, что ваш ключ API проверен."
+
+msgid "Available"
+msgstr "Доступно"
+
+msgid "Available in Pro"
+msgstr "Доступно в Pro"
+
+msgid "Available with Google Maps"
+msgstr "Доступно с Google Maps"
+
+msgid "Average Rating"
+msgstr "Средний рейтинг"
+
+msgid "Avoid Duplication"
+msgstr "Избегать дублирования"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Back to List"
+msgstr "Назад к списку"
+
+msgid "Back to Settings"
+msgstr "Назад к настройкам"
+
+msgid "Back to stores"
+msgstr "Назад к магазинам"
+
+msgid "Backed up"
+msgstr "Резервная копия создана"
+
+msgid "Background color"
+msgstr "Цвет фона"
+
+msgid "Background of action buttons"
+msgstr "Фон кнопок действий"
+
+msgid "Background of the header area"
+msgstr "Фон области заголовка"
+
+msgid "Background of the info window"
+msgstr "Фон информационного окна"
+
+msgid "Background of the list area"
+msgstr "Фон области списка"
+
+msgid "Background of the search button"
+msgstr "Фон кнопки поиска"
+
+msgid "Backup"
+msgstr "Резервная копия"
+
+msgid "Backup Template"
+msgstr "Резервная копия шаблона"
+
+msgid "Backup of templates is not need if you haven't customize the template via plugin editor, are you sure to backup Template into theme root directory?"
+msgstr "Резервная копия шаблонов не нужна, если вы не изменяли шаблон в редакторе плагина. Вы уверены, что хотите создать резервную копию шаблона в корневом каталоге темы?"
+
+msgid "Badge"
+msgstr "Значок"
+
+msgid "Basic System Info"
+msgstr "Основная информация о системе"
+
+msgid "Before you deactivate Agile Store Locator, would you tell us why?"
+msgstr "Прежде чем отключить Agile Store Locator, не могли бы вы сообщить нам причину?"
+
+msgid "Best check yourself "
+msgstr "Лучше проверьте сами "
+
+msgid "Beta"
+msgstr "Бета"
+
+msgid "Beta version"
+msgstr "Бета-версия"
+
+msgid "Bicycle"
+msgstr "Велосипед"
+
+msgid "Border only"
+msgstr "Только рамка"
+
+msgid "Borlabs Cookies"
+msgstr "Borlabs Cookies"
+
+msgid "Boundary Box"
+msgstr "Ограничивающая рамка"
+
+msgid "Brand"
+msgstr "Бренд"
+
+msgid "Brands"
+msgstr "Бренды"
+
+msgid "Breadcrumb"
+msgstr "Хлебные крошки"
+
+msgid "Build your frontend form"
+msgstr "Создайте форму для сайта"
+
+msgid "Bulk Edit"
+msgstr "Массовое редактирование"
+
+msgid "Bulk Edit Fields"
+msgstr "Массовое редактирование полей"
+
+msgid "Bulk Edit Stores"
+msgstr "Массовое редактирование магазинов"
+
+msgid "Business Hours"
+msgstr "Часы работы"
+
+msgid "Button color"
+msgstr "Цвет кнопки"
+
+msgid "Buttons"
+msgstr "Кнопки"
+
+msgid "CF7 Postal Code Field"
+msgstr "Поле почтового индекса CF7"
+
+msgid "CSS Class"
+msgstr "CSS-класс"
+
+msgid "CSV File Management"
+msgstr "Управление CSV-файлами"
+
+msgid "CSV Files"
+msgstr "CSV-файлы"
+
+msgid "CSV Format Requirements"
+msgstr "Требования к формату CSV"
+
+msgid "CSV Import & Export"
+msgstr "Импорт и экспорт CSV"
+
+msgid "Cache"
+msgstr "Кэш"
+
+msgid "Call Now"
+msgstr "Позвонить"
+
+msgid "Camera Control"
+msgstr "Управление камерой"
+
+msgid "Can I display different stores on different pages?"
+msgstr "Можно ли отображать разные магазины на разных страницах?"
+
+msgid "Can I synchronize stores with Google Sheets?"
+msgstr "Можно ли синхронизировать магазины с Google Sheets?"
+
+msgid "Can I use the store locator without paying for Google Maps?"
+msgstr "Можно ли использовать локатор магазинов без оплаты Google Maps?"
+
+msgid "Can customers select a store during WooCommerce checkout?"
+msgstr "Могут ли покупатели выбирать магазин при оформлении заказа в WooCommerce?"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Capture inquiries and route leads to the appropriate store automatically."
+msgstr "Собирайте запросы и автоматически направляйте лиды в нужный магазин."
+
+msgid "Card Preview"
+msgstr "Предпросмотр карточки"
+
+msgid "Cards Template Updated"
+msgstr "Шаблон карточек обновлён"
+
+msgid "Categories"
+msgstr "Категории"
+
+msgid "Categories deleted successfully."
+msgstr "Категории успешно удалены."
+
+msgid "Categories let you group stores and help visitors narrow their results."
+msgstr "Категории позволяют группировать магазины и помогают посетителям сужать результаты поиска."
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Category Bound"
+msgstr "Границы категории"
+
+msgid "Category ID"
+msgstr "ID категории"
+
+msgid "Category Logic"
+msgstr "Логика категорий"
+
+msgid "Category Marker"
+msgstr "Маркер категории"
+
+msgid "Category Select"
+msgstr "Выбор категории"
+
+msgid "Category added successfully"
+msgstr "Категория успешно добавлена"
+
+msgid "Category color hex value"
+msgstr "HEX-значение цвета категории"
+
+msgid "Category deleted successfully."
+msgstr "Категория успешно удалена."
+
+msgid "Category icon is optional"
+msgstr "Значок категории необязателен"
+
+msgid "Category list changed. Reload the page and try again."
+msgstr "Список категорий изменился. Обновите страницу и повторите попытку."
+
+msgid "Category name is required."
+msgstr "Необходимо указать название категории."
+
+msgid "Category order saved."
+msgstr "Порядок категорий сохранён."
+
+msgid "Category updated successfully."
+msgstr "Категория успешно обновлена."
+
+msgid "Change"
+msgstr "Изменить"
+
+msgid "Change Colors"
+msgstr "Изменить цвета"
+
+msgid "Change Coordinates"
+msgstr "Изменить координаты"
+
+msgid "Change Height of the Locator"
+msgstr "Изменить высоту локатора"
+
+msgid "Change Status"
+msgstr "Изменить статус"
+
+msgid "Change layout, map and design."
+msgstr "Измените макет, карту и дизайн."
+
+msgid "Change only the <mark>Primary</mark> color to automatically update the matching theme colors."
+msgstr "Измените только <mark>основной</mark> цвет, чтобы автоматически обновить соответствующие цвета темы."
+
+msgid "Changes are not published until you save."
+msgstr "Изменения не публикуются, пока вы их не сохраните."
+
+msgid "Changing this name can disconnect previously saved values."
+msgstr "Изменение этого имени может нарушить связь с ранее сохранёнными значениями."
+
+msgid "Check that the store is enabled and has valid latitude and longitude values. If cache is enabled, refresh the JSON cache after saving your changes."
+msgstr "Убедитесь, что магазин включён и имеет корректные значения широты и долготы. Если кэш включён, обновите JSON-кэш после сохранения изменений."
+
+msgid "Checkbox"
+msgstr "Флажок"
+
+msgid "Choices"
+msgstr "Варианты"
+
+msgid "Choose %s"
+msgstr "Выберите %s"
+
+msgid "Choose Background color"
+msgstr "Выберите цвет фона"
+
+msgid "Choose Button color"
+msgstr "Выберите цвет кнопки"
+
+msgid "Choose Card Layout"
+msgstr "Выберите макет карточки"
+
+msgid "Choose Fields"
+msgstr "Выберите поля"
+
+msgid "Choose a KML or KMZ file to upload."
+msgstr "Выберите файл KML или KMZ для загрузки."
+
+msgid "Choose a feedback type and enter a message of up to 5,000 characters."
+msgstr "Выберите тип отзыва и введите сообщение до 5000 символов."
+
+msgid "Choose a map service"
+msgstr "Выберите картографический сервис"
+
+msgid "Choose a predefined Google map theme or provide your own custom style."
+msgstr "Выберите готовую тему Google Maps или задайте собственный стиль."
+
+msgid "Choose a style supplied by the selected tile provider."
+msgstr "Выберите стиль, предоставленный выбранным провайдером тайлов."
+
+msgid "Choose a template file"
+msgstr "Выберите файл шаблона"
+
+msgid "Choose a tool, then draw directly on the map preview."
+msgstr "Выберите инструмент и рисуйте прямо на предпросмотре карты."
+
+msgid "Choose category color"
+msgstr "Выберите цвет категории"
+
+msgid "Choose how directions and store links open."
+msgstr "Выберите, как открываются маршруты и ссылки на магазины."
+
+msgid "Choose how store details appear when a visitor selects a marker."
+msgstr "Выберите, как отображаются сведения о магазине при выборе маркера."
+
+msgid "Choose how store results are arranged."
+msgstr "Выберите порядок расположения результатов по магазинам."
+
+msgid "Choose how store results are grouped in the list."
+msgstr "Выберите способ группировки результатов в списке."
+
+msgid "Choose how users control the search distance."
+msgstr "Выберите способ управления радиусом поиска для пользователей."
+
+msgid "Choose how visitors find nearby stores and set distance controls."
+msgstr "Выберите, как посетители находят ближайшие магазины, и настройте параметры расстояния."
+
+msgid "Choose page-specific options. Leave a field on Use saved setting to inherit the locator settings."
+msgstr "Выберите параметры для конкретной страницы. Оставьте значение «Использовать сохранённую настройку», чтобы наследовать настройки локатора."
+
+msgid "Choose the locator layout and which search controls appear."
+msgstr "Выберите макет локатора и элементы управления поиском."
+
+msgid "Choose the locator structure, layout and color scheme, then preview the selected design."
+msgstr "Выберите структуру, макет и цветовую схему локатора, затем просмотрите выбранный дизайн."
+
+msgid "Choose the locator template you want to edit."
+msgstr "Выберите шаблон локатора, который хотите изменить."
+
+msgid "Choose the map engine and, for MapLibre, the service that supplies the map."
+msgstr "Выберите движок карты и, для MapLibre, сервис, предоставляющий карту."
+
+msgid "Choose the map service used by your store locator."
+msgstr "Выберите картографический сервис, используемый локатором магазинов."
+
+msgid "Choose the search and filter controls shown to visitors."
+msgstr "Выберите элементы поиска и фильтров, отображаемые посетителям."
+
+msgid "Choose what visitors can search and which address service provides results."
+msgstr "Выберите, что могут искать посетители и какой сервис адресов предоставляет результаты."
+
+msgid "Choose what visitors search and, for addresses, which service supplies suggestions."
+msgstr "Выберите, что ищут посетители, и, для адресов, какой сервис предоставляет подсказки."
+
+msgid "Choose where this field appears when editing a store."
+msgstr "Выберите, где отображается это поле при редактировании магазина."
+
+msgid "Choose which store information visitors can see."
+msgstr "Выберите, какую информацию о магазине видят посетители."
+
+msgid "Circle"
+msgstr "Круг"
+
+msgid "Cities"
+msgstr "Города"
+
+msgid "Cities (Cities)"
+msgstr "Города (города)"
+
+msgid "City"
+msgstr "Город"
+
+msgid "City Filter"
+msgstr "Фильтр по городу"
+
+msgid "Clear"
+msgstr "Очистить"
+
+msgid "Clear All"
+msgstr "Очистить всё"
+
+msgid "Clear image"
+msgstr "Удалить изображение"
+
+msgid "Click one corner, move the pointer, then click the opposite corner."
+msgstr "Щёлкните по одному углу, переместите указатель, затем щёлкните по противоположному углу."
+
+msgid "Click the center, move the pointer, then click again to finish."
+msgstr "Щёлкните по центру, переместите указатель, затем щёлкните ещё раз, чтобы завершить."
+
+msgid "Click the map or drag the marker to choose the center."
+msgstr "Щёлкните по карте или перетащите маркер, чтобы выбрать центр."
+
+msgid "Click to add line points, then select Finish Drawing or double-click."
+msgstr "Щёлкайте, чтобы добавить точки линии, затем выберите «Завершить рисование» или дважды щёлкните."
+
+msgid "Click to add polygon points, then select Finish Drawing or double-click."
+msgstr "Щёлкайте, чтобы добавить точки полигона, затем выберите «Завершить рисование» или дважды щёлкните."
+
+msgid "Clickable Tabs"
+msgstr "Кликабельные вкладки"
+
+msgid "Clicked Zoom"
+msgstr "Масштаб при клике"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Closed"
+msgstr "Закрыто"
+
+msgid "Cluster"
+msgstr "Кластер"
+
+msgid "Cluster Markers"
+msgstr "Кластеризация маркеров"
+
+msgid "Code"
+msgstr "Код"
+
+msgid "Color"
+msgstr "Цвет"
+
+msgid "Color Schema"
+msgstr "Цветовая схема"
+
+msgid "Color Scheme"
+msgstr "Цветовая схема"
+
+msgid "Color for highlighted elements"
+msgstr "Цвет выделенных элементов"
+
+msgid "Color of list subtitles"
+msgstr "Цвет подзаголовков списка"
+
+msgid "Color of list titles"
+msgstr "Цвет заголовков списка"
+
+msgid "Color of the search text"
+msgstr "Цвет текста поиска"
+
+msgid "Colors"
+msgstr "Цвета"
+
+msgid "Colors & Fonts"
+msgstr "Цвета и шрифты"
+
+msgid "Columns Visiblity"
+msgstr "Видимость столбцов"
+
+msgid "Company"
+msgstr "Компания"
+
+msgid "Compare Plans"
+msgstr "Сравнить тарифы"
+
+msgid "Complete"
+msgstr "Завершено"
+
+msgid "Config exported successfully"
+msgstr "Конфигурация успешно экспортирована"
+
+msgid "Config has been imported successfully"
+msgstr "Конфигурация успешно импортирована"
+
+msgid "Configuration Import"
+msgstr "Импорт конфигурации"
+
+msgid "Configure"
+msgstr "Настроить"
+
+msgid "Configure another MapLibre provider in ASL Settings"
+msgstr "Настройте другого провайдера MapLibre в настройках ASL"
+
+msgid "Configure markers, categories, and other store settings"
+msgstr "Настройте маркеры, категории и другие параметры магазинов"
+
+msgid "Configure optional site-wide features and integrations."
+msgstr "Настройте дополнительные функции и интеграции для всего сайта."
+
+msgid "Configure the map center, zoom and search type."
+msgstr "Настройте центр карты, масштаб и тип поиска."
+
+msgid "Congratulations! your registered store has been approved and is live now!."
+msgstr "Поздравляем! Ваш зарегистрированный магазин одобрен и уже опубликован!"
+
+msgid "Connect Salesforce, Google Sheets, Smartsheet, and REST APIs"
+msgstr "Подключите Salesforce, Google Sheets, Smartsheet и REST API"
+
+msgid "Connected"
+msgstr "Подключено"
+
+msgid "Contact Form"
+msgstr "Форма обратной связи"
+
+msgid "Contact Form 7 Hook"
+msgstr "Хук Contact Form 7"
+
+msgid "Contact Form 7 Hook is a Pro feature"
+msgstr "Хук Contact Form 7 — функция Pro"
+
+msgid "Contact Store Form"
+msgstr "Форма связи с магазином"
+
+msgid "Contact Us"
+msgstr "Связаться с нами"
+
+msgid "Contact our support team anytime."
+msgstr "Свяжитесь с нашей службой поддержки в любое время."
+
+msgid "Control how stores are sorted and loaded in the list."
+msgstr "Управляйте сортировкой и загрузкой магазинов в списке."
+
+msgid "Control will show a switch to see opened stores at the current time"
+msgstr "Элемент управления покажет переключатель для просмотра открытых сейчас магазинов"
+
+msgid "Coordinates"
+msgstr "Координаты"
+
+msgid "Coordinates Management"
+msgstr "Управление координатами"
+
+msgid "Copied successfully"
+msgstr "Успешно скопировано"
+
+msgid "Copied!"
+msgstr "Скопировано!"
+
+msgid "Copy"
+msgstr "Копировать"
+
+msgid "Copy Shortcode"
+msgstr "Скопировать шорткод"
+
+msgid "Copy shortcode"
+msgstr "Скопировать шорткод"
+
+msgid "Copy the shortcode and add it to any page using WordPress, Elementor, Divi, or another page builder."
+msgstr "Скопируйте шорткод и добавьте его на любую страницу с помощью WordPress, Elementor, Divi или другого конструктора страниц."
+
+msgid "Copy/Paste Monday Timing"
+msgstr "Скопировать/вставить время понедельника"
+
+msgid "Core information visitors provide about a store."
+msgstr "Основная информация о магазине, которую видят посетители."
+
+msgid "Could not save category order."
+msgstr "Не удалось сохранить порядок категорий."
+
+msgid "Could you share a little more?"
+msgstr "Не могли бы вы рассказать немного подробнее?"
+
+msgid "Count of markers will appear as clusters"
+msgstr "Количество маркеров, отображаемых как кластеры"
+
+msgid "Countries"
+msgstr "Страны"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "Country Restriction"
+msgstr "Ограничение по стране"
+
+msgid "Create"
+msgstr "Создать"
+
+msgid "Create Backup"
+msgstr "Создать резервную копию"
+
+msgid "Create Locator Page"
+msgstr "Создать страницу локатора"
+
+msgid "Create New"
+msgstr "Создать"
+
+msgid "Create New Store"
+msgstr "Создать новый магазин"
+
+msgid "Create Page"
+msgstr "Создать страницу"
+
+msgid "Create a Google Maps API Key in Just 5 Minutes"
+msgstr "Создайте ключ API Google Maps всего за 5 минут"
+
+msgid "Create a new category to organize your stores."
+msgstr "Создайте новую категорию для организации ваших магазинов."
+
+msgid "Create a page for your store locator or add it manually."
+msgstr "Создайте страницу для локатора магазинов или добавьте её вручную."
+
+msgid "Create a support ticket by emailing us at "
+msgstr "Создайте обращение в поддержку, написав нам на "
+
+msgid "Create dedicated pages with complete information for each location."
+msgstr "Создавайте отдельные страницы с полной информацией по каждому местоположению."
+
+msgid "Create extra fields for your stores and choose which tab they appear in. These fields are also available through CSV import and export."
+msgstr "Создавайте дополнительные поля для магазинов и выбирайте, на какой вкладке они отображаются. Эти поля также доступны при импорте и экспорте CSV."
+
+msgid "Create it!"
+msgstr "Создать!"
+
+msgid "Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> shortcode, and publish the page. Your store locator will appear where the shortcode is placed."
+msgstr "Создайте или отредактируйте страницу WordPress, добавьте шорткод <b>[ASL_STORELOCATOR]</b> и опубликуйте страницу. Локатор магазинов появится там, где размещён шорткод."
+
+msgid "Create your first backup to protect template customizations."
+msgstr "Создайте первую резервную копию, чтобы защитить настройки шаблона."
+
+msgid "Create, customize and manage map markers for your store locator."
+msgstr "Создавайте, настраивайте и управляйте маркерами карты для локатора магазинов."
+
+msgid "Created On"
+msgstr "Дата создания"
+
+msgid "Cron Log Viewer"
+msgstr "Просмотр журнала Cron"
+
+msgid "Cron Logs"
+msgstr "Журналы Cron"
+
+msgid "Cron logs and lead follow-up are Pro features"
+msgstr "Журналы Cron и работа с лидами — функции Pro"
+
+msgid "Current Location"
+msgstr "Текущее местоположение"
+
+msgid "Current+Location"
+msgstr "Текущее+местоположение"
+
+msgid "Custom"
+msgstr "Настраиваемый"
+
+msgid "Custom Style URL"
+msgstr "URL пользовательского стиля"
+
+msgid "Customize Colors"
+msgstr "Настроить цвета"
+
+msgid "Customize Google Maps with Advanced Markers"
+msgstr "Настройте Google Maps с расширенными маркерами"
+
+msgid "Customize Locator"
+msgstr "Настроить локатор"
+
+msgid "Customize Map"
+msgstr "Настроить карту"
+
+msgid "Customize Store Locator Templates"
+msgstr "Настройте шаблоны локатора магазинов"
+
+msgid "Customize this locator color"
+msgstr "Настройте цвет этого локатора"
+
+msgid "Customize this page or keep your saved settings."
+msgstr "Настройте эту страницу или сохраните текущие параметры."
+
+msgid "Customizer"
+msgstr "Персонализатор"
+
+msgid "Customizer Guide"
+msgstr "Руководство по персонализатору"
+
+msgid "DELETE ALL"
+msgstr "УДАЛИТЬ ВСЁ"
+
+msgid "DELETE ALL STORES"
+msgstr "УДАЛИТЬ ВСЕ МАГАЗИНЫ"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Dashboard links"
+msgstr "Ссылки панели управления"
+
+msgid "Data Filters"
+msgstr "Фильтры данных"
+
+msgid "Data Management"
+msgstr "Управление данными"
+
+msgid "Data WPML"
+msgstr "Данные WPML"
+
+msgid "Date range"
+msgstr "Диапазон дат"
+
+msgid "Day Label (optional)"
+msgstr "Название дня (необязательно)"
+
+msgid "Default"
+msgstr "По умолчанию"
+
+msgid "Default (Distance)"
+msgstr "По умолчанию (расстояние)"
+
+msgid "Default Lat & Default Lng values are invalid!"
+msgstr "Значения широты и долготы по умолчанию недопустимы!"
+
+msgid "Default Latitude"
+msgstr "Широта по умолчанию"
+
+msgid "Default Location Center"
+msgstr "Центр местоположения по умолчанию"
+
+msgid "Default Longitude"
+msgstr "Долгота по умолчанию"
+
+msgid "Default Map"
+msgstr "Карта по умолчанию"
+
+msgid "Default Map Center"
+msgstr "Центр карты по умолчанию"
+
+msgid "Default Provider Style"
+msgstr "Стиль провайдера по умолчанию"
+
+msgid "Default Zoom"
+msgstr "Масштаб по умолчанию"
+
+msgid "Default template is loaded"
+msgstr "Загружен шаблон по умолчанию"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete All Stores"
+msgstr "Удалить все магазины"
+
+msgid "Delete Backup"
+msgstr "Удалить резервную копию"
+
+msgid "Delete Categories"
+msgstr "Удалить категории"
+
+msgid "Delete Category"
+msgstr "Удалить категорию"
+
+msgid "Delete File"
+msgstr "Удалить файл"
+
+msgid "Delete Logo"
+msgstr "Удалить логотип"
+
+msgid "Delete Marker"
+msgstr "Удалить маркер"
+
+msgid "Delete Markers"
+msgstr "Удалить маркеры"
+
+msgid "Delete Selected"
+msgstr "Удалить выбранные"
+
+msgid "Delete Selected Logos"
+msgstr "Удалить выбранные логотипы"
+
+msgid "Delete Store"
+msgstr "Удалить магазин"
+
+msgid "Delete Stores"
+msgstr "Удалить магазины"
+
+msgid "Delete it!"
+msgstr "Удалить это!"
+
+msgid "Delete this KML file?"
+msgstr "Удалить этот файл KML?"
+
+msgid "Deleting..."
+msgstr "Удаление..."
+
+msgid "Descending Order for the list, higher number on top."
+msgstr "Сортировка по убыванию для списка, большее число сверху."
+
+msgid "Description"
+msgstr "Описание"
+
+msgid "Destination missing or invalid"
+msgstr "Пункт назначения отсутствует или недействителен"
+
+msgid "Direction"
+msgstr "Направление"
+
+msgid "Direction Button"
+msgstr "Кнопка маршрута"
+
+msgid "Directions"
+msgstr "Маршрут"
+
+msgid "Directory is not writable, Category Image Upload will Fail, Make directory writable."
+msgstr "Каталог недоступен для записи, загрузка изображения категории завершится ошибкой. Сделайте каталог доступным для записи."
+
+msgid "Directory is not writable, Logo Image upload will fail, make directory writable."
+msgstr "Каталог недоступен для записи, загрузка логотипа завершится ошибкой. Сделайте каталог доступным для записи."
+
+msgid "Directory is not writable, marker image upload will fail, make directory writable."
+msgstr "Каталог недоступен для записи, загрузка изображения маркера завершится ошибкой. Сделайте каталог доступным для записи."
+
+msgid "Directory not writable:"
+msgstr "Каталог недоступен для записи:"
+
+msgid "Disable"
+msgstr "Отключить"
+
+msgid "Disabled"
+msgstr "Отключено"
+
+msgid "Disabling it will remove all the filters"
+msgstr "Отключение удалит все фильтры"
+
+msgid "Disallowed PHP functions detected."
+msgstr "Обнаружены запрещённые функции PHP."
+
+msgid "Display List"
+msgstr "Отображать список"
+
+msgid "Display Option"
+msgstr "Параметр отображения"
+
+msgid "Display Store List"
+msgstr "Отображать список магазинов"
+
+msgid "Display store detail"
+msgstr "Отображать сведения о магазине"
+
+msgid "Display store locator widget"
+msgstr "Отображать виджет локатора магазинов"
+
+msgid "Display stores in grid"
+msgstr "Отображать магазины в виде сетки"
+
+msgid "Display stores search widget"
+msgstr "Отображать виджет поиска магазинов"
+
+msgid "Distance"
+msgstr "Расстояние"
+
+msgid "Distance Control"
+msgstr "Управление расстоянием"
+
+msgid "Distance Options"
+msgstr "Параметры расстояния"
+
+msgid "Distance Range"
+msgstr "Диапазон расстояния"
+
+msgid "Distance Unit"
+msgstr "Единица измерения расстояния"
+
+msgid "Do you want to add new %s?"
+msgstr "Хотите добавить новый %s?"
+
+msgid "Docs"
+msgstr "Документация"
+
+msgid "Documentation"
+msgstr "Документация"
+
+msgid "Download"
+msgstr "Скачать"
+
+msgid "Download Template"
+msgstr "Скачать шаблон"
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Drag fields between sections to reorder them. Use each switch to show or hide optional fields."
+msgstr "Перетаскивайте поля между разделами, чтобы изменить их порядок. Используйте переключатели, чтобы показать или скрыть необязательные поля."
+
+msgid "Drag fields to reorder"
+msgstr "Перетащите поля, чтобы изменить порядок"
+
+msgid "Drag handle"
+msgstr "Маркер перетаскивания"
+
+msgid "Drag to reorder"
+msgstr "Перетащите для изменения порядка"
+
+msgid "Draw Direction with Route API"
+msgstr "Рисовать маршрут с помощью Route API"
+
+msgid "Draw Shapes & Layers"
+msgstr "Рисование фигур и слоёв"
+
+msgid "Draw map areas, configure layers, and choose the controls shown to visitors."
+msgstr "Рисуйте области карты, настраивайте слои и выбирайте элементы управления, отображаемые посетителям."
+
+msgid "Drawing tools and these map layers require Google Maps."
+msgstr "Инструменты рисования и эти слои карты требуют Google Maps."
+
+msgid "Dropdown"
+msgstr "Раскрывающийся список"
+
+msgid "Dropdown Filters"
+msgstr "Фильтры в виде раскрывающихся списков"
+
+msgid "Dropdown Range"
+msgstr "Диапазон раскрывающегося списка"
+
+msgid "Dropdown controls for Country, State and City."
+msgstr "Раскрывающиеся списки для страны, региона и города."
+
+msgid "Dropdowns"
+msgstr "Раскрывающиеся списки"
+
+msgid "Due to the GDPR, we need your consent to load data from Google, more information in our privacy policy."
+msgstr "В соответствии с GDPR нам необходимо ваше согласие на загрузку данных от Google, подробнее в нашей политике конфиденциальности."
+
+msgid "Duplicate"
+msgstr "Дублировать"
+
+msgid "Duplicate Selected Store"
+msgstr "Дублировать выбранный магазин"
+
+msgid "Duplicate it!"
+msgstr "Дублировать!"
+
+msgid "Duplicate stores removed"
+msgstr "Дублирующиеся магазины удалены"
+
+msgid "Easy"
+msgstr "Простой"
+
+msgid "Easy mode is enabled"
+msgstr "Простой режим включён"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit Store"
+msgstr "Редактировать магазин"
+
+msgid "Edit the store list or marker InfoBox HTML safely without changing the plugin template files."
+msgstr "Безопасно редактируйте HTML списка магазинов или InfoBox маркера, не изменяя файлы шаблонов плагина."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Email (optional)"
+msgstr "Email (необязательно)"
+
+msgid "Email <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. Include your WordPress version, Store Locator version, map option, page URL, and a screenshot or exact error message."
+msgstr "Напишите на <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. Укажите версию WordPress, версию Store Locator, вариант карты, URL страницы и приложите скриншот или точный текст ошибки."
+
+msgid "Email address"
+msgstr "Адрес электронной почты"
+
+msgid "Email address for your reply"
+msgstr "Email для ответа"
+
+msgid "Email address to recieve the email notification for stores registered through frontend form."
+msgstr "Email для получения уведомлений о магазинах, зарегистрированных через форму на сайте."
+
+msgid "Enable"
+msgstr "Включить"
+
+msgid "Enable Expert Mode"
+msgstr "Включить экспертный режим"
+
+msgid "Enable Hook"
+msgstr "Включить хук"
+
+msgid "Enable all kind of email alerts & notifications."
+msgstr "Включить все виды email-оповещений и уведомлений."
+
+msgid "Enable cron execution logs for CSV imports."
+msgstr "Включить журналы выполнения cron для импорта CSV."
+
+msgid "Enable location or address search under <b>ASL Settings</b>. Visitors can then enter an address, city, or postal code to find the closest stores."
+msgstr "Включите поиск по местоположению или адресу в разделе <b>Настройки ASL</b>. После этого посетители смогут вводить адрес, город или почтовый индекс, чтобы найти ближайшие магазины."
+
+msgid "Enable only the fields you want to replace. Other store data will remain unchanged."
+msgstr "Включите только те поля, которые хотите заменить. Остальные данные магазина останутся без изменений."
+
+msgid "Enable the Analytics"
+msgstr "Включить аналитику"
+
+msgid "Enable the CF7 integration hook."
+msgstr "Включить хук интеграции с CF7."
+
+msgid "Enable the website link button."
+msgstr "Включить кнопку ссылки на сайт."
+
+msgid "Enabled"
+msgstr "Включено"
+
+msgid "Enabling it will hide all your stores data if data is not assigned for the correct language"
+msgstr "Включение скроет все данные магазинов, если данные не привязаны к нужному языку"
+
+msgid "End Time"
+msgstr "Время окончания"
+
+msgid "Ending Time"
+msgstr "Время окончания"
+
+msgid "Enjoying Agile Store Locator?"
+msgstr "Нравится Agile Store Locator?"
+
+msgid "Enter 2 alphabet country, for multiple countries comma separated"
+msgstr "Введите двухбуквенный код страны, для нескольких стран разделяйте запятыми"
+
+msgid "Enter Description"
+msgstr "Введите описание"
+
+msgid "Enter ID"
+msgstr "Введите ID"
+
+msgid "Enter URL"
+msgstr "Введите URL"
+
+msgid "Enter a Location"
+msgstr "Введите местоположение"
+
+msgid "Enter a page title"
+msgstr "Введите заголовок страницы"
+
+msgid "Enter a valid latitude and longitude together."
+msgstr "Введите корректные значения широты и долготы одновременно."
+
+msgid "Enter a valid location and try again."
+msgstr "Введите корректное местоположение и повторите попытку."
+
+msgid "Enter brand name"
+msgstr "Введите название бренда"
+
+msgid "Enter category name"
+msgstr "Введите название категории"
+
+msgid "Enter city"
+msgstr "Введите город"
+
+msgid "Enter correct email address"
+msgstr "Введите корректный адрес электронной почты"
+
+msgid "Enter country"
+msgstr "Введите страну"
+
+msgid "Enter date"
+msgstr "Введите дату"
+
+msgid "Enter description to apply to selected stores"
+msgstr "Введите описание для применения к выбранным магазинам"
+
+msgid "Enter email"
+msgstr "Введите email"
+
+msgid "Enter icon name"
+msgstr "Введите название значка"
+
+msgid "Enter image name"
+msgstr "Введите название изображения"
+
+msgid "Enter latitude"
+msgstr "Введите широту"
+
+msgid "Enter logo ID"
+msgstr "Введите ID логотипа"
+
+msgid "Enter longitude"
+msgstr "Введите долготу"
+
+msgid "Enter marker ID"
+msgstr "Введите ID маркера"
+
+msgid "Enter name"
+msgstr "Введите название"
+
+msgid "Enter only the credentials required by the selected map and search services."
+msgstr "Вводите только те учётные данные, которые требуются выбранным сервисам карт и поиска."
+
+msgid "Enter order"
+msgstr "Введите порядок"
+
+msgid "Enter phone"
+msgstr "Введите телефон"
+
+msgid "Enter postal code"
+msgstr "Введите почтовый индекс"
+
+msgid "Enter state"
+msgstr "Введите регион"
+
+msgid "Enter street"
+msgstr "Введите улицу"
+
+msgid "Enter the language code."
+msgstr "Введите код языка."
+
+msgid "Enter the search dropdown options values, comma separated. Add default value with * symbol."
+msgstr "Введите значения для раскрывающегося списка поиска через запятую. Отметьте значение по умолчанию символом *."
+
+msgid "Enter the store location and contact information"
+msgstr "Введите местоположение магазина и контактные данные"
+
+msgid "Enter title"
+msgstr "Введите заголовок"
+
+msgid "Enter your address"
+msgstr "Введите ваш адрес"
+
+msgid "Enter your email"
+msgstr "Введите ваш email"
+
+msgid "Enter your name"
+msgstr "Введите ваше имя"
+
+msgid "Error Occured, Please try Again."
+msgstr "Произошла ошибка, повторите попытку."
+
+msgid "Error occurred while Changing Status"
+msgstr "Произошла ошибка при изменении статуса"
+
+msgid "Error occurred while approving the records"
+msgstr "Произошла ошибка при подтверждении записей"
+
+msgid "Error occurred while deleting record"
+msgstr "Произошла ошибка при удалении записи"
+
+msgid "Error occurred while geting record"
+msgstr "Произошла ошибка при получении записи"
+
+msgid "Error occurred while saving Store"
+msgstr "Произошла ошибка при сохранении магазина"
+
+msgid "Error occurred while saving record"
+msgstr "Произошла ошибка при сохранении записи"
+
+msgid "Error occurred while saving the map."
+msgstr "Произошла ошибка при сохранении карты."
+
+msgid "Error occurred while updating selected stores."
+msgstr "Произошла ошибка при обновлении выбранных магазинов."
+
+msgid "Error occurred while uploading image."
+msgstr "Произошла ошибка при загрузке изображения."
+
+msgid "Error! Default Lat & Lng are invalid values, please try to swap them."
+msgstr "Ошибка! Значения широты и долготы по умолчанию недопустимы, попробуйте поменять их местами."
+
+msgid "Error! Failed to upload the image."
+msgstr "Ошибка! Не удалось загрузить изображение."
+
+msgid "Error! Failed to validate for the coordinates by the Google API, validate the Server API key."
+msgstr "Ошибка! Не удалось проверить координаты через Google API. Проверьте серверный ключ API."
+
+msgid "Error! Lang is not defined."
+msgstr "Ошибка! Язык не определён."
+
+msgid "Error! Please select a logo image."
+msgstr "Ошибка! Выберите изображение логотипа."
+
+msgid "Error! Search and Map will not work due to missing API Key"
+msgstr "Ошибка! Поиск и карта не будут работать из-за отсутствия ключа API"
+
+msgid "Error! Store not found."
+msgstr "Ошибка! Магазин не найден."
+
+msgid "Error! Template file doesn't exist."
+msgstr "Ошибка! Файл шаблона не существует."
+
+msgid "Error! Template file is not valid."
+msgstr "Ошибка! Файл шаблона недействителен."
+
+msgid "Error! assigned store is already a parent store."
+msgstr "Ошибка! Назначенный магазин уже является головным."
+
+msgid "Error! fail to delete the file."
+msgstr "Ошибка! Не удалось удалить файл."
+
+msgid "Error! fail to move the file, check permisions."
+msgstr "Ошибка! Не удалось переместить файл, проверьте права доступа."
+
+msgid "Error! logo name is required."
+msgstr "Ошибка! Необходимо указать название логотипа."
+
+msgid "Error! method not exist!"
+msgstr "Ошибка! Метод не существует!"
+
+msgid "Error! path is forbidden."
+msgstr "Ошибка! Путь запрещён."
+
+msgid "Error! request verification fail."
+msgstr "Ошибка! Проверка запроса не пройдена."
+
+msgid "Error! route not found."
+msgstr "Ошибка! Маршрут не найден."
+
+msgid "Error! unkown file is uploaded."
+msgstr "Ошибка! Загружен неизвестный файл."
+
+msgid "Error! update id not found."
+msgstr "Ошибка! ID обновления не найден."
+
+msgid "Error, file not moved, check permission."
+msgstr "Ошибка, файл не перемещён, проверьте права доступа."
+
+msgid "Everything you need for multi-store selling"
+msgstr "Всё необходимое для продаж через несколько магазинов"
+
+msgid "Example Widget"
+msgstr "Пример виджета"
+
+msgid "Example: 20,40,60,80,*100"
+msgstr "Пример: 20,40,60,80,*100"
+
+msgid "Example: Small, Medium, Large"
+msgstr "Пример: маленький, средний, большой"
+
+msgid "Excel/CSV import will fail until this directory is writable by the web server."
+msgstr "Импорт Excel/CSV не будет работать, пока веб-сервер не получит доступ на запись в этот каталог."
+
+msgid "Explore Extension — $69"
+msgstr "Изучить расширение — $69"
+
+msgid "Explore More Features"
+msgstr "Изучить дополнительные функции"
+
+msgid "Explore Pro"
+msgstr "Изучить Pro"
+
+msgid "Export"
+msgstr "Экспорт"
+
+msgid "Export All"
+msgstr "Экспортировать всё"
+
+msgid "Export Analytics"
+msgstr "Экспорт аналитики"
+
+msgid "Export Configuration"
+msgstr "Экспорт конфигурации"
+
+msgid "Export Logo Paths"
+msgstr "Экспорт путей к логотипам"
+
+msgid "Export Settings"
+msgstr "Экспорт настроек"
+
+msgid "Export with Logo Images Path"
+msgstr "Экспорт с путями к изображениям логотипов"
+
+msgid "Export with Store IDs"
+msgstr "Экспорт с ID магазинов"
+
+msgid "Export with Store IDs (IDs are required for update)"
+msgstr "Экспорт с ID магазинов (ID необходимы для обновления)"
+
+msgid "FAQ & Help"
+msgstr "Вопросы и помощь"
+
+msgid "FAQ Links"
+msgstr "Ссылки на FAQ"
+
+msgid "FAQ Videos"
+msgstr "Видео FAQ"
+
+msgid "Failed to Create the Backup"
+msgstr "Не удалось создать резервную копию"
+
+msgid "Failed to Imported Assets."
+msgstr "Не удалось импортировать ресурсы."
+
+msgid "Failed to import configuration, contact support for help."
+msgstr "Не удалось импортировать конфигурацию, обратитесь в поддержку."
+
+msgid "Fax"
+msgstr "Факс"
+
+msgid "Feature preview"
+msgstr "Обзор функций"
+
+msgid "Feature-rich maps with global coverage."
+msgstr "Функциональные карты с глобальным покрытием."
+
+msgid "Feedback type"
+msgstr "Тип отзыва"
+
+msgid "Fetch Missing Coordinates"
+msgstr "Получить недостающие координаты"
+
+msgid "Fetching Coordinates..."
+msgstr "Получение координат..."
+
+msgid "Field Label"
+msgstr "Название поля"
+
+msgid "Field Type"
+msgstr "Тип поля"
+
+msgid "Fields has been updated successfully."
+msgstr "Поля успешно обновлены."
+
+msgid "File"
+msgid_plural "Files"
+msgstr[0] "Файл"
+msgstr[1] "Файла"
+msgstr[2] "Файлов"
+
+msgid "File Information"
+msgstr "Информация о файле"
+
+msgid "File Name"
+msgstr "Имя файла"
+
+msgid "File Operations"
+msgstr "Операции с файлами"
+
+msgid "File Path"
+msgstr "Путь к файлу"
+
+msgid "File Path..."
+msgstr "Путь к файлу..."
+
+msgid "File Size"
+msgstr "Размер файла"
+
+msgid "File deleted successfully."
+msgstr "Файл успешно удалён."
+
+msgid "Fill in the details to add a new store to your network"
+msgstr "Заполните сведения, чтобы добавить новый магазин в вашу сеть"
+
+msgid "Fill in the details to update your store"
+msgstr "Заполните сведения, чтобы обновить магазин"
+
+msgid "Fill up the form of your Store to register it for the approval by the administrator and it will list down in the Store Locator listing."
+msgstr "Заполните форму вашего магазина, чтобы зарегистрировать его для одобрения администратором, после чего он появится в списке Store Locator."
+
+msgid "Filter & Export Leads"
+msgstr "Фильтровать и экспортировать лиды"
+
+msgid "Filter by City"
+msgstr "Фильтр по городу"
+
+msgid "Filter by State"
+msgstr "Фильтр по региону"
+
+msgid "Filters"
+msgstr "Фильтры"
+
+msgid "Find A Store"
+msgstr "Найти магазин"
+
+msgid "Find Nearby Service Providers"
+msgstr "Найти ближайших поставщиков услуг"
+
+msgid "Find a Dealer"
+msgstr "Найти дилера"
+
+msgid "Find a Store Near You"
+msgstr "Найдите магазин рядом с вами"
+
+msgid "Fine-tune search behavior, distance controls, category logic, analytics, and multilingual store data."
+msgstr "Настройте поведение поиска, параметры расстояния, логику категорий, аналитику и многоязычные данные магазинов."
+
+msgid "Finish Drawing"
+msgstr "Завершить рисование"
+
+msgid "First confirm that the selected map option is configured correctly. For Google Maps, check the API key, billing status, allowed website address, and required APIs. You can also switch to the free map option under <b>ASL Settings → Maps</b>."
+msgstr "Сначала убедитесь, что выбранный вариант карты настроен правильно. Для Google Maps проверьте ключ API, статус оплаты, разрешённый адрес сайта и необходимые API. Также можно переключиться на бесплатный вариант карты в разделе <b>Настройки ASL → Карты</b>."
+
+msgid "Fit Bound Location"
+msgstr "Подгонка границ по местоположению"
+
+msgid "Fit Bounds"
+msgstr "Подгонка границ"
+
+msgid "Fit bound to markers when a category is selected"
+msgstr "Подгонять границы под маркеры при выборе категории"
+
+msgid "Font Colors"
+msgstr "Цвета шрифта"
+
+msgid "Font Size"
+msgstr "Размер шрифта"
+
+msgid "Font size in pixels"
+msgstr "Размер шрифта в пикселях"
+
+msgid "For testing and light interactive use. Address search is configured separately and may still require an API key."
+msgstr "Для тестирования и лёгкого интерактивного использования. Поиск по адресу настраивается отдельно и может по-прежнему требовать ключ API."
+
+msgid "Form Guide"
+msgstr "Руководство по форме"
+
+msgid "Form structure"
+msgstr "Структура формы"
+
+msgid "Free Maps"
+msgstr "Бесплатные карты"
+
+msgid "Free Maps (MapLibre)"
+msgstr "Бесплатные карты (MapLibre)"
+
+msgid "Free Maps enabled successfully."
+msgstr "Бесплатные карты успешно включены."
+
+msgid "Free Maps enabled."
+msgstr "Бесплатные карты включены."
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "From"
+msgstr "От"
+
+msgid "Frontend submission"
+msgstr "Отправка с сайта"
+
+msgid "Full Height"
+msgstr "Полная высота"
+
+msgid "Full Height (Fixed)"
+msgstr "Полная высота (фиксированная)"
+
+msgid "Full Height (Not Fixed)"
+msgstr "Полная высота (нефиксированная)"
+
+msgid "Full Name"
+msgstr "Полное имя"
+
+msgid "Full Width"
+msgstr "Полная ширина"
+
+msgid "Fullscreen"
+msgstr "Полноэкранный режим"
+
+msgid "GDPR"
+msgstr "GDPR"
+
+msgid "GDPR Consent for the Google Maps Library"
+msgstr "Согласие GDPR на использование библиотеки Google Maps"
+
+msgid "GET DIRECTIONS"
+msgstr "ПРОЛОЖИТЬ МАРШРУТ"
+
+msgid "Gallery"
+msgstr "Галерея"
+
+msgid "General"
+msgstr "Общие"
+
+msgid "General feedback"
+msgstr "Общий отзыв"
+
+msgid "General text color"
+msgstr "Общий цвет текста"
+
+msgid "Generate Marker"
+msgstr "Создать маркер"
+
+msgid "Geo-Location"
+msgstr "Геолокация"
+
+msgid "Geo-Location Dialog"
+msgstr "Диалог геолокации"
+
+msgid "Geo-Location Marker"
+msgstr "Маркер геолокации"
+
+msgid "Geo-location Modal"
+msgstr "Модальное окно геолокации"
+
+msgid "GeoJS IP Service"
+msgstr "Сервис IP GeoJS"
+
+msgid "GeoJS IP Service (Free API)"
+msgstr "Сервис IP GeoJS (бесплатный API)"
+
+msgid "Geoapify"
+msgstr "Geoapify"
+
+msgid "Geoapify API Key"
+msgstr "Ключ API Geoapify"
+
+msgid "Geocode"
+msgstr "Геокод"
+
+msgid "Geocode was not Successful:"
+msgstr "Геокодирование не выполнено:"
+
+msgid "Geolocation"
+msgstr "Геолокация"
+
+msgid "Geolocation On Load"
+msgstr "Геолокация при загрузке"
+
+msgid "Get Code"
+msgstr "Получить код"
+
+msgid "Get Direction"
+msgstr "Проложить маршрут"
+
+msgid "Get Directions"
+msgstr "Проложить маршрут"
+
+msgid "Get Help"
+msgstr "Получить помощь"
+
+msgid "Get Support"
+msgstr "Получить поддержку"
+
+msgid "Get WooCommerce Extension"
+msgstr "Получить расширение WooCommerce"
+
+msgid "Get Your Directions"
+msgstr "Проложите маршрут"
+
+msgid "Get more from your store locator with these powerful tools."
+msgstr "Получите больше от локатора магазинов с помощью этих мощных инструментов."
+
+msgid "Get your API key from"
+msgstr "Получите ключ API на"
+
+msgid "Get your access token from"
+msgstr "Получите токен доступа на"
+
+msgid "Get your coordinates by right click on the map"
+msgstr "Получите координаты, щёлкнув правой кнопкой мыши по карте"
+
+msgid "Get your free API key from"
+msgstr "Получите бесплатный ключ API на"
+
+msgid "Give customers a faster, location-aware shopping experience."
+msgstr "Обеспечьте покупателям более быстрый и учитывающий местоположение опыт покупок."
+
+msgid "Go to <b>Manage Stores → Add New Store</b>, enter the store name and address, confirm its location, and save it. You can also assign a category, marker, logo, opening hours, and contact details."
+msgstr "Перейдите в раздел <b>Управление магазинами → Добавить новый магазин</b>, введите название и адрес магазина, подтвердите местоположение и сохраните его. Также можно назначить категорию, маркер, логотип, часы работы и контактные данные."
+
+msgid "Go to Contact Page"
+msgstr "Перейти на страницу контактов"
+
+msgid "Google API KEY (Geocoding)"
+msgstr "КЛЮЧ API Google (геокодирование)"
+
+msgid "Google API Key"
+msgstr "Ключ API Google"
+
+msgid "Google API Key is Missing"
+msgstr "Отсутствует ключ API Google"
+
+msgid "Google Advanced Marker"
+msgstr "Google Advanced Marker"
+
+msgid "Google Cloud Console"
+msgstr "Google Cloud Console"
+
+msgid "Google Direction Legacy"
+msgstr "Google Direction (устаревший)"
+
+msgid "Google Map Styling"
+msgstr "Стилизация Google Maps"
+
+msgid "Google Maps"
+msgstr "Google Maps"
+
+msgid "Google Maps API"
+msgstr "Google Maps API"
+
+msgid "Google Maps API Configuration"
+msgstr "Конфигурация Google Maps API"
+
+msgid "Google Maps API Key"
+msgstr "Ключ Google Maps API"
+
+msgid "Google Maps API key"
+msgstr "Ключ Google Maps API"
+
+msgid "Google Maps API key saved. Verifying configuration…"
+msgstr "Ключ Google Maps API сохранён. Проверка конфигурации…"
+
+msgid "Google Maps connected successfully."
+msgstr "Google Maps успешно подключён."
+
+msgid "Google Maps has been blocked.<br>Click on <strong>Load Store Locator</strong> to unblock Google Maps library.<br> further details about the <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" rel=\"nofollow\">Google Maps Privacy Policy</a> . "
+msgstr "Google Maps заблокирован.<br>Нажмите <strong>Загрузить Store Locator</strong>, чтобы разблокировать библиотеку Google Maps.<br>подробнее о <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" rel=\"nofollow\">политике конфиденциальности Google Maps</a> . "
+
+msgid "Google Maps setup guide"
+msgstr "Руководство по настройке Google Maps"
+
+msgid "Google Place ID"
+msgstr "ID места Google"
+
+msgid "Google Server API Key"
+msgstr "Серверный ключ API Google"
+
+msgid "Google Server API Key is Missing."
+msgstr "Отсутствует серверный ключ API Google."
+
+msgid "Google Server API key is missing."
+msgstr "Отсутствует серверный ключ API Google."
+
+msgid "Google Style"
+msgstr "Стиль Google"
+
+msgid "Google newly launched advanced marker option, read the documentation guide about <a href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\">Google Advanced Markers</a>"
+msgstr "Google недавно представил расширенные маркеры, ознакомьтесь с руководством о <a href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\">Google Advanced Markers</a>"
+
+msgid "Grid"
+msgstr "Сетка"
+
+msgid "Guide"
+msgstr "Руководство"
+
+msgid "Guide Doc"
+msgstr "Документ-руководство"
+
+msgid "Guide Help"
+msgstr "Справка руководства"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "HTML added in TextEditor"
+msgstr "HTML добавлен в текстовый редактор"
+
+msgid "Have an idea or something we could improve?"
+msgstr "Есть идея или что-то, что мы могли бы улучшить?"
+
+msgid "Heading&nbsp;Tag"
+msgstr "Тег&nbsp;заголовка"
+
+msgid "Heads up:"
+msgstr "Обратите внимание:"
+
+msgid "Help & Resources"
+msgstr "Помощь и ресурсы"
+
+msgid "Hidden Columns"
+msgstr "Скрытые столбцы"
+
+msgid "Hide"
+msgstr "Скрыть"
+
+msgid "Hide Details"
+msgstr "Скрыть сведения"
+
+msgid "Hide Hours"
+msgstr "Скрыть часы работы"
+
+msgid "Hide Logo"
+msgstr "Скрыть логотип"
+
+msgid "Hide Pending Stores"
+msgstr "Скрыть ожидающие магазины"
+
+msgid "Hide Search"
+msgstr "Скрыть поиск"
+
+msgid "Hide the main address search controls from the store locator."
+msgstr "Скрыть основные элементы поиска по адресу в локаторе магазинов."
+
+msgid "Home"
+msgstr "Главная"
+
+msgid "Hours"
+msgstr "Часы работы"
+
+msgid "Hours Format"
+msgstr "Формат времени"
+
+msgid "How Geolocation works?"
+msgstr "Как работает геолокация?"
+
+msgid "How can visitors search for a nearby store?"
+msgstr "Как посетители могут искать ближайший магазин?"
+
+msgid "How do I add my first store?"
+msgstr "Как добавить мой первый магазин?"
+
+msgid "How do I add the store locator to my website?"
+msgstr "Как добавить локатор магазинов на мой сайт?"
+
+msgid "How do I change store markers, logos, and categories?"
+msgstr "Как изменить маркеры, логотипы и категории магазинов?"
+
+msgid "How do I change the colors and design?"
+msgstr "Как изменить цвета и дизайн?"
+
+msgid "How do I change the map’s starting location?"
+msgstr "Как изменить начальное местоположение карты?"
+
+msgid "How do I contact support?"
+msgstr "Как связаться со службой поддержки?"
+
+msgid "How to add lead form?"
+msgstr "Как добавить форму для лидов?"
+
+msgid "How to configure a Google Maps API key"
+msgstr "Как настроить ключ Google Maps API"
+
+msgid "How to create a WPForms hidden field?"
+msgstr "Как создать скрытое поле WPForms?"
+
+msgid "How to create custom maps?"
+msgstr "Как создать пользовательские карты?"
+
+msgid "How to import a CSV file?"
+msgstr "Как импортировать файл CSV?"
+
+msgid "Hybrid"
+msgstr "Гибридная"
+
+msgid "I agree to terms and conditions and all the provided information is correct"
+msgstr "Я согласен с условиями использования, и вся указанная информация верна"
+
+msgid "I am only deactivating temporarily"
+msgstr "Я отключаю плагин только временно"
+
+msgid "I could not find a feature I needed"
+msgstr "Я не нашёл нужную мне функцию"
+
+msgid "I found a better plugin"
+msgstr "Я нашёл плагин лучше"
+
+msgid "I've Added It"
+msgstr "Я добавил это"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Icon"
+msgstr "Значок"
+
+msgid "Icon (Optional)"
+msgstr "Значок (необязательно)"
+
+msgid "If Agile Store Locator is helping you and your customers find locations easily, we'd appreciate a quick review on WordPress.org."
+msgstr "Если Agile Store Locator помогает вам и вашим клиентам легко находить местоположения, мы будем признательны за короткий отзыв на WordPress.org."
+
+msgid "If you have any problem with the plugin or suggestion, please email us at"
+msgstr "Если у вас возникли проблемы с плагином или есть предложения, напишите нам на"
+
+msgid "If you like our Plugin, please rate us 5 stars."
+msgstr "Если вам нравится наш плагин, пожалуйста, поставьте нам 5 звёзд."
+
+msgid "Image"
+msgstr "Изображение"
+
+msgid "Import"
+msgstr "Импорт"
+
+msgid "Import & Export Settings"
+msgstr "Импорт и экспорт настроек"
+
+msgid "Import & Export is a Pro feature"
+msgstr "Импорт и экспорт — функция Pro"
+
+msgid "Import / Export"
+msgstr "Импорт / экспорт"
+
+msgid "Import Configuration & Settings"
+msgstr "Импорт конфигурации и настроек"
+
+msgid "Import Data"
+msgstr "Импорт данных"
+
+msgid "Import Settings"
+msgstr "Импорт настроек"
+
+msgid "Import Stores (Pro Version)"
+msgstr "Импорт магазинов (версия Pro)"
+
+msgid "Import many stores at once with CSV file with geocoding API."
+msgstr "Импортируйте сразу много магазинов из CSV-файла с помощью API геокодирования."
+
+msgid "Import stores in bulk or export your location data with ease."
+msgstr "Легко импортируйте магазины массово или экспортируйте данные о местоположениях."
+
+msgid "Import/Export Stores"
+msgstr "Импорт/экспорт магазинов"
+
+msgid "Importing..."
+msgstr "Импорт..."
+
+msgid "In"
+msgstr "В"
+
+msgid "In Modal via Link"
+msgstr "В модальном окне по ссылке"
+
+msgid "In Store List"
+msgstr "В списке магазинов"
+
+msgid "Include image paths"
+msgstr "Включить пути к изображениям"
+
+msgid "Include my site URL"
+msgstr "Включить URL моего сайта"
+
+msgid "Include unique identifiers"
+msgstr "Включить уникальные идентификаторы"
+
+msgid "InfoBox"
+msgstr "InfoBox"
+
+msgid "InfoBox Layout"
+msgstr "Макет InfoBox"
+
+msgid "InfoBox Maker"
+msgstr "Конструктор InfoBox"
+
+msgid "Inherit from ASL Settings"
+msgstr "Наследовать из настроек ASL"
+
+msgid "Insert Shortcode"
+msgstr "Вставить шорткод"
+
+msgid "Integration"
+msgstr "Интеграция"
+
+msgid "Interactions"
+msgstr "Взаимодействия"
+
+msgid "Internal Field Name"
+msgstr "Внутреннее имя поля"
+
+msgid "Internal Page Link"
+msgstr "Внутренняя ссылка на страницу"
+
+msgid "Invalid File, Accepts JPG, PNG, GIF or SVG."
+msgstr "Недопустимый файл. Поддерживаются JPG, PNG, GIF или SVG."
+
+msgid "Invalid analytics request."
+msgstr "Недопустимый запрос аналитики."
+
+msgid "Invalid custom map style. Please provide a valid JSON array."
+msgstr "Недопустимый пользовательский стиль карты. Укажите корректный массив JSON."
+
+msgid "Invalid feedback submission."
+msgstr "Недопустимая отправка отзыва."
+
+msgid "Invalid map customization data."
+msgstr "Недопустимые данные настройки карты."
+
+msgid "Invalid onboarding step."
+msgstr "Недопустимый шаг введения в работу."
+
+msgid "Invalid request parameters."
+msgstr "Недопустимые параметры запроса."
+
+msgid "Invalid template path."
+msgstr "Недопустимый путь к шаблону."
+
+msgid "Invalid template section."
+msgstr "Недопустимый раздел шаблона."
+
+msgid "Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes are supported."
+msgstr "Недопустимое значение для ограничения по стране. Поддерживаются только коды стран ISO 3166-1 alpha-2."
+
+msgid "It may slow import process for a large CSV file with 5k+ rows."
+msgstr "Это может замедлить импорт для больших CSV-файлов с более чем 5000 строк."
+
+msgid "It only appear with dropdown control and overrides the search zoom value to fitbound"
+msgstr "Отображается только с раскрывающимся списком и переопределяет значение масштаба поиска на подгонку границ"
+
+msgid "It only takes a minute and it means a lot to us. Thank you!"
+msgstr "Это займёт всего минуту и очень много значит для нас. Спасибо!"
+
+msgid "JSON Cache is a Pro feature"
+msgstr "JSON-кэш — функция Pro"
+
+msgid "JSON schema data for Google SEO"
+msgstr "Данные JSON-схемы для SEO Google"
+
+msgid "KM"
+msgstr "КМ"
+
+msgid "KML File uploaded successfully."
+msgstr "Файл KML успешно загружен."
+
+msgid "KML guide"
+msgstr "Руководство по KML"
+
+msgid "Keep customized template files safely in your active theme so plugin updates do not overwrite them."
+msgstr "Храните настроенные файлы шаблонов в активной теме, чтобы обновления плагина не перезаписали их."
+
+msgid "Kilometers"
+msgstr "Километры"
+
+msgid "Km"
+msgstr "Км"
+
+msgid "LOCATE"
+msgstr "НАЙТИ"
+
+msgid "LOCATE YOUR GEOPOSITION"
+msgstr "ОПРЕДЕЛИТЬ ВАШЕ МЕСТОПОЛОЖЕНИЕ"
+
+msgid "Labels"
+msgstr "Подписи"
+
+msgid "Labels section can be used to change the labels of the frontend of the store locator widgets, enable the switch above to activate."
+msgstr "Раздел «Подписи» позволяет изменить подписи в виджетах локатора магазинов на сайте; включите переключатель выше, чтобы активировать его."
+
+msgid "Lang"
+msgstr "Язык"
+
+msgid "Large CSV files (5k+ rows) may take longer to process with these options enabled."
+msgstr "Обработка больших CSV-файлов (более 5000 строк) может занять больше времени при включённых этих параметрах."
+
+msgid "Lat"
+msgstr "Шир."
+
+msgid "Latitude"
+msgstr "Широта"
+
+msgid "Layout"
+msgstr "Макет"
+
+msgid "Layout & Search Display"
+msgstr "Макет и отображение поиска"
+
+msgid "Lead Contact Form"
+msgstr "Форма контакта лида"
+
+msgid "Lead Follow-up Email"
+msgstr "Письмо для сопровождения лида"
+
+msgid "Lead Forms"
+msgstr "Формы лидов"
+
+msgid "Lead Manager"
+msgstr "Менеджер лидов"
+
+msgid "Lead and Cron management are Pro features"
+msgstr "Управление лидами и Cron — функции Pro"
+
+msgid "Learn about Agile Sync"
+msgstr "Узнать об Agile Sync"
+
+msgid "Learn how to use multiple store locators with different templates"
+msgstr "Узнайте, как использовать несколько локаторов магазинов с разными шаблонами"
+
+msgid "Learn more"
+msgstr "Узнать больше"
+
+msgid "Leave a Review"
+msgstr "Оставить отзыв"
+
+msgid "Leave both fields empty to use the saved map center."
+msgstr "Оставьте оба поля пустыми, чтобы использовать сохранённый центр карты."
+
+msgid "Level has been changed."
+msgstr "Уровень изменён."
+
+msgid "Lifetime License - $59"
+msgstr "Бессрочная лицензия — $59"
+
+msgid "Limit"
+msgstr "Ограничение"
+
+msgid "Limit address suggestions to selected countries."
+msgstr "Ограничить подсказки адресов выбранными странами."
+
+msgid "Link color in the info window"
+msgstr "Цвет ссылок в информационном окне"
+
+msgid "Link to Google Maps"
+msgstr "Ссылка на Google Maps"
+
+msgid "List"
+msgstr "Список"
+
+msgid "List Format"
+msgstr "Формат списка"
+
+msgid "List Layout"
+msgstr "Макет списка"
+
+msgid "List Load"
+msgstr "Загрузка списка"
+
+msgid "List Loading"
+msgstr "Загрузка списка"
+
+msgid "List Top, Map Bottom"
+msgstr "Список сверху, карта снизу"
+
+msgid "Live Map Preview"
+msgstr "Предпросмотр карты в реальном времени"
+
+msgid "Live Preview"
+msgstr "Предпросмотр в реальном времени"
+
+msgid "Live selection"
+msgstr "Выбор в реальном времени"
+
+msgid "Lng"
+msgstr "Долг."
+
+msgid "Load All (Recommended)"
+msgstr "Загрузить все (рекомендуется)"
+
+msgid "Load All Stores"
+msgstr "Загрузить все магазины"
+
+msgid "Load Store Locator"
+msgstr "Загрузить Store Locator"
+
+msgid "Load Template"
+msgstr "Загрузить шаблон"
+
+msgid "Load a template before saving."
+msgstr "Загрузите шаблон перед сохранением."
+
+msgid "Load a template to edit its HTML source."
+msgstr "Загрузите шаблон, чтобы отредактировать его исходный код HTML."
+
+msgid "Load all stores"
+msgstr "Загрузить все магазины"
+
+msgid "Load on Bound"
+msgstr "Загружать по границам"
+
+msgid "Load stores in map bounds"
+msgstr "Загружать магазины в пределах видимой области карты"
+
+msgid "Load via Button"
+msgstr "Загружать по кнопке"
+
+msgid "Loading Stores"
+msgstr "Загрузка магазинов"
+
+msgid "Loading customizer…"
+msgstr "Загрузка персонализатора…"
+
+msgid "Loading..."
+msgstr "Загрузка..."
+
+msgid "Loading…"
+msgstr "Загрузка…"
+
+msgid "Location"
+msgstr "Местоположение"
+
+msgid "Location & Contact Info"
+msgstr "Местоположение и контактная информация"
+
+msgid "Location & Display"
+msgstr "Местоположение и отображение"
+
+msgid "Locations"
+msgstr "Местоположения"
+
+msgid "Locator Page Not Found"
+msgstr "Страница локатора не найдена"
+
+msgid "Locator page created successfully."
+msgstr "Страница локатора успешно создана."
+
+msgid "Locator shortcode"
+msgstr "Шорткод локатора"
+
+msgid "Logo"
+msgstr "Логотип"
+
+msgid "Logo ID"
+msgstr "ID логотипа"
+
+msgid "Logo Name"
+msgstr "Название логотипа"
+
+msgid "Logo deleted Successfully."
+msgstr "Логотип успешно удалён."
+
+msgid "Logo is uploaded successfully."
+msgstr "Логотип успешно загружен."
+
+msgid "Logo updated successfully."
+msgstr "Логотип успешно обновлён."
+
+msgid "Logos deleted Successfully."
+msgstr "Логотипы успешно удалены."
+
+msgid "Logos help visitors recognize stores and brands in your locator."
+msgstr "Логотипы помогают посетителям узнавать магазины и бренды в вашем локаторе."
+
+msgid "Longitude"
+msgstr "Долгота"
+
+msgid "Main brand color, buttons and highlights"
+msgstr "Основной цвет бренда, кнопок и выделений"
+
+msgid "Make categories and group stores."
+msgstr "Создавайте категории и группируйте магазины."
+
+msgid "Make the store locator full width 100% with respect to the parent container"
+msgstr "Растянуть локатор магазинов на 100% ширины относительно родительского контейнера"
+
+msgid "Manage"
+msgstr "Управление"
+
+msgid "Manage Additional Fields"
+msgstr "Управление дополнительными полями"
+
+msgid "Manage Attributes"
+msgstr "Управление атрибутами"
+
+msgid "Manage Attributes is a Pro feature"
+msgstr "Управление атрибутами — функция Pro"
+
+msgid "Manage Brands"
+msgstr "Управление брендами"
+
+msgid "Manage Cards"
+msgstr "Управление карточками"
+
+msgid "Manage Categories"
+msgstr "Управление категориями"
+
+msgid "Manage JSON Cache"
+msgstr "Управление JSON-кэшем"
+
+msgid "Manage Logos"
+msgstr "Управление логотипами"
+
+msgid "Manage Map"
+msgstr "Управление картой"
+
+msgid "Manage Markers"
+msgstr "Управление маркерами"
+
+msgid "Manage Markers will be replaced by the Category Icons"
+msgstr "Управление маркерами будет заменено значками категорий"
+
+msgid "Manage Setup"
+msgstr "Управление настройкой"
+
+msgid "Manage Speciality"
+msgstr "Управление специализацией"
+
+msgid "Manage Stores"
+msgstr "Управление магазинами"
+
+msgid "Manage WooCommerce Inventory Across Multiple Stores"
+msgstr "Управляйте запасами WooCommerce для нескольких магазинов"
+
+msgid "Manage your stores, customize your locator and help customers find you easily."
+msgstr "Управляйте магазинами, настраивайте локатор и помогайте клиентам легко находить вас."
+
+msgid "Manage your uploaded KML overlays."
+msgstr "Управляйте загруженными наложениями KML."
+
+msgid "Map"
+msgstr "Карта"
+
+msgid "Map & List Order"
+msgstr "Порядок карты и списка"
+
+msgid "Map Appearance"
+msgstr "Внешний вид карты"
+
+msgid "Map Controls"
+msgstr "Элементы управления картой"
+
+msgid "Map Custom"
+msgstr "Пользовательская карта"
+
+msgid "Map Display & Behavior"
+msgstr "Отображение и поведение карты"
+
+msgid "Map Language"
+msgstr "Язык карты"
+
+msgid "Map Layers"
+msgstr "Слои карты"
+
+msgid "Map Layouts"
+msgstr "Макеты карты"
+
+msgid "Map Provider"
+msgstr "Провайдер карты"
+
+msgid "Map Region"
+msgstr "Регион карты"
+
+msgid "Map Style"
+msgstr "Стиль карты"
+
+msgid "Map Top, List Bottom"
+msgstr "Карта сверху, список снизу"
+
+msgid "Map Type"
+msgstr "Тип карты"
+
+msgid "Map Type Control"
+msgstr "Управление типом карты"
+
+msgid "Map Vendor"
+msgstr "Поставщик карты"
+
+msgid "Map Zoom"
+msgstr "Масштаб карты"
+
+msgid "Map center for this page"
+msgstr "Центр карты для этой страницы"
+
+msgid "Map customization data is missing."
+msgstr "Отсутствуют данные настройки карты."
+
+msgid "Map customization preview"
+msgstr "Предпросмотр настройки карты"
+
+msgid "Map drawing tools"
+msgstr "Инструменты рисования на карте"
+
+msgid "Map has been updated successfully."
+msgstr "Карта успешно обновлена."
+
+msgid "Map preview is unavailable. You can still enter coordinates above."
+msgstr "Предпросмотр карты недоступен. Вы всё равно можете ввести координаты выше."
+
+msgid "Map providers, tile providers and map styles guide"
+msgstr "Руководство по провайдерам карт, тайлов и стилей карт"
+
+msgid "MapLibre"
+msgstr "MapLibre"
+
+msgid "MapLibre supports Zoom and Fullscreen. Camera, Street View, and Map Type controls require Google Maps and are disabled."
+msgstr "MapLibre поддерживает масштабирование и полноэкранный режим. Управление камерой, Street View и типом карты требует Google Maps и отключено."
+
+msgid "MapLibre will use OpenStreetMap tiles so you can get started without a map API key."
+msgstr "MapLibre будет использовать тайлы OpenStreetMap, поэтому можно начать работу без ключа API карты."
+
+msgid "MapTiler"
+msgstr "MapTiler"
+
+msgid "MapTiler API Key"
+msgstr "Ключ API MapTiler"
+
+msgid "Mapbox"
+msgstr "Mapbox"
+
+msgid "Mapbox Access Token"
+msgstr "Токен доступа Mapbox"
+
+msgid "Maps"
+msgstr "Карты"
+
+msgid "Marker"
+msgstr "Маркер"
+
+msgid "Marker Animation"
+msgstr "Анимация маркера"
+
+msgid "Marker Clusterer (New)"
+msgstr "Кластеризация маркеров (новая)"
+
+msgid "Marker Clusterer Plus"
+msgstr "Marker Clusterer Plus"
+
+msgid "Marker ID"
+msgstr "ID маркера"
+
+msgid "Marker Load"
+msgstr "Загрузка маркера"
+
+msgid "Marker Loading"
+msgstr "Загрузка маркера"
+
+msgid "Marker Name"
+msgstr "Название маркера"
+
+msgid "Marker Updated Successfully."
+msgstr "Маркер успешно обновлён."
+
+msgid "Marker added successfully"
+msgstr "Маркер успешно добавлен"
+
+msgid "Marker deleted successfully."
+msgstr "Маркер успешно удалён."
+
+msgid "Markers"
+msgstr "Маркеры"
+
+msgid "Markers deleted successfully."
+msgstr "Маркеры успешно удалены."
+
+msgid "Markers help your visitors identify different store types on the map."
+msgstr "Маркеры помогают посетителям различать типы магазинов на карте."
+
+msgid "Maybe Later"
+msgstr "Возможно позже"
+
+msgid "Memory Limit"
+msgstr "Ограничение памяти"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Message (required)"
+msgstr "Сообщение (обязательно)"
+
+msgid "Miles"
+msgstr "Мили"
+
+msgid "Missing Coordinates"
+msgstr "Отсутствующие координаты"
+
+msgid "Missing Coordinates Detection"
+msgstr "Обнаружение отсутствующих координат"
+
+msgid "Missing Coordinates Request Completed"
+msgstr "Запрос отсутствующих координат завершён"
+
+msgid "Missing Coordinates are not Found in Store Listing"
+msgstr "Магазины с отсутствующими координатами не найдены в списке магазинов"
+
+msgid "Missing required data."
+msgstr "Отсутствуют обязательные данные."
+
+msgid "Missing template identifier."
+msgstr "Отсутствует идентификатор шаблона."
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Most Viewed Stores"
+msgstr "Самые просматриваемые магазины"
+
+msgid "Mouse Scroll"
+msgstr "Прокрутка мышью"
+
+msgid "Multiple Category Selection"
+msgstr "Выбор нескольких категорий"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "Need help? Check our documentation for details on customizing your store locator."
+msgstr "Нужна помощь? Ознакомьтесь с нашей документацией по настройке локатора магазинов."
+
+msgid "Need help? We're here for you!"
+msgstr "Нужна помощь? Мы всегда рядом!"
+
+msgid "Needs attention"
+msgstr "Требует внимания"
+
+msgid "New Field"
+msgstr "Новое поле"
+
+msgid "New Logo"
+msgstr "Новый логотип"
+
+msgid "New Marker"
+msgstr "Новый маркер"
+
+msgid "New Shortcode"
+msgstr "Новый шорткод"
+
+msgid "New Store"
+msgstr "Новый магазин"
+
+msgid "New store is registered with these details."
+msgstr "Новый магазин зарегистрирован со следующими данными."
+
+msgid "No"
+msgstr "Нет"
+
+msgid "No Columns"
+msgstr "Нет столбцов"
+
+msgid "No Duplicate deleted!"
+msgstr "Дубликаты не удалены!"
+
+msgid "No Files"
+msgstr "Нет файлов"
+
+msgid "No Filter"
+msgstr "Без фильтра"
+
+msgid "No Filters are Applied"
+msgstr "Фильтры не применены"
+
+msgid "No Item Found"
+msgstr "Ничего не найдено"
+
+msgid "No KML files uploaded."
+msgstr "Файлы KML не загружены."
+
+msgid "No List & Map at Load"
+msgstr "Без списка и карты при загрузке"
+
+msgid "No List and Markers"
+msgstr "Без списка и маркеров"
+
+msgid "No List and Markers with Full Map"
+msgstr "Без списка и маркеров с полной картой"
+
+msgid "No List with Markers"
+msgstr "Без списка с маркерами"
+
+msgid "No Logo"
+msgstr "Без логотипа"
+
+msgid "No Search Found"
+msgstr "Поиск не выполнялся"
+
+msgid "No Search Results!"
+msgstr "Результаты поиска отсутствуют!"
+
+msgid "No Shortcode Preset is Available"
+msgstr "Нет доступных пресетов шорткодов"
+
+msgid "No Store Views!"
+msgstr "Нет просмотров магазина!"
+
+msgid "No categories available."
+msgstr "Нет доступных категорий."
+
+msgid "No day selected for open hours update."
+msgstr "Не выбран день для обновления часов работы."
+
+msgid "No fields selected to update."
+msgstr "Не выбраны поля для обновления."
+
+msgid "No files to import. Upload a CSV file."
+msgstr "Нет файлов для импорта. Загрузите файл CSV."
+
+msgid "No matching KML files found."
+msgstr "Подходящие файлы KML не найдены."
+
+msgid "No options found"
+msgstr "Параметры не найдены"
+
+msgid "No result found"
+msgstr "Результатов не найдено"
+
+msgid "No stores selected."
+msgstr "Магазины не выбраны."
+
+msgid "No template backups yet"
+msgstr "Резервных копий шаблонов пока нет"
+
+msgid "No valid day selected for open hours update."
+msgstr "Не выбран корректный день для обновления часов работы."
+
+msgid "None"
+msgstr "Нет"
+
+msgid "None Selected"
+msgstr "Ничего не выбрано"
+
+msgid "None selected"
+msgstr "Ничего не выбрано"
+
+msgid "Not configured"
+msgstr "Не настроено"
+
+msgid "Notification Email"
+msgstr "Email для уведомлений"
+
+msgid "Notification Status"
+msgstr "Статус уведомления"
+
+msgid "Notification to Store Emails"
+msgstr "Уведомление на email магазинов"
+
+msgid "Notifications"
+msgstr "Уведомления"
+
+msgid "Number Of Shops"
+msgstr "Количество магазинов"
+
+msgid "Number Of Shops: 66"
+msgstr "Количество магазинов: 66"
+
+msgid "OPEN"
+msgstr "ОТКРЫТО"
+
+msgid "Offset"
+msgstr "Смещение"
+
+msgid "Onboarding progress saved."
+msgstr "Прогресс введения в работу сохранён."
+
+msgid "Only Show Selected Store on List"
+msgstr "Показывать в списке только выбранный магазин"
+
+msgid "Only Show Stores on Search or Filter Selection"
+msgstr "Показывать магазины только при поиске или выборе фильтра"
+
+msgid "Only administrators can update this template."
+msgstr "Только администраторы могут обновлять этот шаблон."
+
+msgid "Only simple options are currently visible. Enable Expert mode to view all settings."
+msgstr "Сейчас отображаются только простые параметры. Включите экспертный режим, чтобы увидеть все настройки."
+
+msgid "Only stores in the selected categories will appear."
+msgstr "Будут отображаться только магазины из выбранных категорий."
+
+msgid "Open"
+msgstr "Открыто"
+
+msgid "Open 24 Hour"
+msgstr "Открыто круглосуточно"
+
+msgid "Open 24 Hours"
+msgstr "Открыто 24 часа"
+
+msgid "Open <b>ASL Settings → Maps</b>, set the default location and zoom level, then save your settings. This is the area visitors see before starting a search."
+msgstr "Откройте <b>Настройки ASL → Карты</b>, задайте местоположение и масштаб по умолчанию, затем сохраните настройки. Это область, которую посетители видят перед началом поиска."
+
+msgid "Open Colors & Fonts Customizer"
+msgstr "Открыть персонализатор цветов и шрифтов"
+
+msgid "Open Hours"
+msgstr "Часы работы"
+
+msgid "Open Link New Tab"
+msgstr "Открывать ссылку в новой вкладке"
+
+msgid "Open Media Library"
+msgstr "Открыть медиатеку"
+
+msgid "Open UI Customizer"
+msgstr "Открыть персонализатор интерфейса"
+
+msgid "Open in Google Maps (All Devices)"
+msgstr "Открыть в Google Maps (все устройства)"
+
+msgid "Open in Google Maps (Mobile)"
+msgstr "Открыть в Google Maps (мобильные устройства)"
+
+msgid "Open source and self-hosted map solution."
+msgstr "Решение с открытым исходным кодом для самостоятельного размещения."
+
+msgid "OpenStreetMap (No API Key)"
+msgstr "OpenStreetMap (без ключа API)"
+
+msgid "OpenStreetMap with Nominatim address geocoding. No API keys required."
+msgstr "OpenStreetMap с геокодированием адресов через Nominatim. Ключи API не требуются."
+
+msgid "Opened Stores"
+msgstr "Открытые магазины"
+
+msgid "Opening hours and schedule information."
+msgstr "Часы работы и расписание."
+
+msgid "Operating Hours"
+msgstr "Часы работы"
+
+msgid "Optional Google Maps language code, such as en or ar."
+msgstr "Необязательный код языка Google Maps, например en или ar."
+
+msgid "Optional Google Maps region code, such as US or AE."
+msgstr "Необязательный код региона Google Maps, например US или AE."
+
+msgid "Optional MapLibre style JSON URL. It overrides the selected preset and may contain {api_key} or {access_token}."
+msgstr "Необязательный URL JSON-стиля MapLibre. Он переопределяет выбранный пресет и может содержать {api_key} или {access_token}."
+
+msgid "Optional comma-separated country codes."
+msgstr "Необязательные коды стран через запятую."
+
+msgid "Optional comma-separated store IDs to show."
+msgstr "Необязательные ID магазинов для отображения через запятую."
+
+msgid "Optional integration add-on"
+msgstr "Необязательное дополнение для интеграции"
+
+msgid "Optional, dropdown and custom store information."
+msgstr "Необязательная, выпадающая и пользовательская информация о магазине."
+
+msgid "Optional. Available placeholders: {street}, {city}, {state}, {postal_code}, {country}. Leave empty to use the default format."
+msgstr "Необязательно. Доступные плейсхолдеры: {street}, {city}, {state}, {postal_code}, {country}. Оставьте пустым, чтобы использовать формат по умолчанию."
+
+msgid "Order"
+msgstr "Порядок"
+
+msgid "Other"
+msgstr "Другое"
+
+msgid "Other Details"
+msgstr "Прочие сведения"
+
+msgid "Other Details tab"
+msgstr "Вкладка прочих сведений"
+
+msgid "Overlay Count"
+msgstr "Количество наложений"
+
+msgid "Override address search for this locator. Database search modes are available in Pro."
+msgstr "Переопределить поиск по адресу для этого локатора. Режимы поиска по базе данных доступны в Pro."
+
+msgid "PHP Version"
+msgstr "Версия PHP"
+
+msgid "PM"
+msgstr "PM"
+
+msgid "PRINT"
+msgstr "ПЕЧАТЬ"
+
+msgid "PUBLIC ACCESS TOKEN"
+msgstr "ПУБЛИЧНЫЙ ТОКЕН ДОСТУПА"
+
+msgid "Page Slug"
+msgstr "Слаг страницы"
+
+msgid "Page preview"
+msgstr "Предпросмотр страницы"
+
+msgid "Page title"
+msgstr "Заголовок страницы"
+
+msgid "Parent"
+msgstr "Родитель"
+
+msgid "Paste Configuration JSON"
+msgstr "Вставьте JSON конфигурации"
+
+msgid "Paste URL for redirect of your store locator page"
+msgstr "Вставьте URL для перенаправления со страницы локатора магазинов"
+
+msgid "Paste your Google Maps API key"
+msgstr "Вставьте ваш ключ Google Maps API"
+
+msgid "Performance"
+msgstr "Производительность"
+
+msgid "Performance Note:"
+msgstr "Примечание о производительности:"
+
+msgid "Personalize the locator colors to match your website."
+msgstr "Настройте цвета локатора в соответствии с вашим сайтом."
+
+msgid "Phone"
+msgstr "Телефон"
+
+msgid "Phone Name"
+msgstr "Название телефона"
+
+msgid "Photo Gallery"
+msgstr "Фотогалерея"
+
+msgid "Photo of %s"
+msgstr "Фото %s"
+
+msgid "Photos"
+msgstr "Фотографии"
+
+msgid "Pick on map"
+msgstr "Выбрать на карте"
+
+msgid "Pickup Here"
+msgstr "Забрать здесь"
+
+msgid "Please agree to register for store in the listing."
+msgstr "Пожалуйста, дайте согласие на регистрацию магазина в списке."
+
+msgid "Please contact our team by phone or email for more information."
+msgstr "Свяжитесь с нашей командой по телефону или email для получения дополнительной информации."
+
+msgid "Please correct the error in field"
+msgstr "Исправьте ошибку в поле"
+
+msgid "Please enter a Google Maps API key."
+msgstr "Введите ключ Google Maps API."
+
+msgid "Please enter a logo name."
+msgstr "Введите название логотипа."
+
+msgid "Please enter a page title."
+msgstr "Введите заголовок страницы."
+
+msgid "Please enter a valid email address for your reply."
+msgstr "Введите корректный адрес электронной почты для ответа."
+
+msgid "Please enter a valid email address or leave it blank."
+msgstr "Введите корректный адрес электронной почты или оставьте поле пустым."
+
+msgid "Please enter message"
+msgstr "Введите сообщение"
+
+msgid "Please enter phone number"
+msgstr "Введите номер телефона"
+
+msgid "Please enter valid email"
+msgstr "Введите корректный email"
+
+msgid "Please enter your feedback (up to 5,000 characters)."
+msgstr "Введите ваш отзыв (до 5000 символов)."
+
+msgid "Please enter your name"
+msgstr "Введите ваше имя"
+
+msgid "Please enter zip code"
+msgstr "Введите почтовый индекс"
+
+msgid "Please fill up the form."
+msgstr "Заполните форму."
+
+msgid "Please login with Administrator Account."
+msgstr "Войдите под учётной записью администратора."
+
+msgid "Please reload the page and try again."
+msgstr "Обновите страницу и попробуйте снова."
+
+msgid "Please select a logo image before uploading."
+msgstr "Выберите изображение логотипа перед загрузкой."
+
+msgid "Please select a reason."
+msgstr "Выберите причину."
+
+msgid "Please select a valid map provider."
+msgstr "Выберите корректного провайдера карты."
+
+msgid "Please wait a minute before sending more feedback."
+msgstr "Подождите минуту перед отправкой следующего отзыва."
+
+msgid "Plugin GDPR"
+msgstr "GDPR плагина"
+
+msgid "Plugin Version"
+msgstr "Версия плагина"
+
+msgid "Polygon"
+msgstr "Полигон"
+
+msgid "Polyline"
+msgstr "Линия"
+
+msgid "Post Code"
+msgstr "Почтовый индекс"
+
+msgid "Postal Code"
+msgstr "Почтовый индекс"
+
+msgid "Postal Code Field ID in CF7 Form."
+msgstr "ID поля почтового индекса в форме CF7."
+
+msgid "Prepopulated Destination Address"
+msgstr "Предзаполненный адрес назначения"
+
+msgid "Preset colors"
+msgstr "Предустановленные цвета"
+
+msgid "Preview on map"
+msgstr "Предпросмотр на карте"
+
+msgid "Preview the customer-facing tools included with the WooCommerce extension."
+msgstr "Просмотрите инструменты для покупателей, входящие в расширение WooCommerce."
+
+msgid "Previewing"
+msgstr "Предпросмотр"
+
+msgid "Print Button"
+msgstr "Кнопка печати"
+
+msgid "Priority Order"
+msgstr "Приоритетный порядок"
+
+msgid "Pro Features"
+msgstr "Функции Pro"
+
+msgid "Pro Tips:"
+msgstr "Полезные советы:"
+
+msgid "Pro features"
+msgstr "Функции Pro"
+
+msgid "Provide the page-relative URL and the WordPress page ID."
+msgstr "Укажите относительный URL страницы и ID страницы WordPress."
+
+msgid "Provide your email if you would like a reply."
+msgstr "Укажите ваш email, если хотите получить ответ."
+
+msgid "Query Parameter"
+msgstr "Параметр запроса"
+
+msgid "Quick Actions"
+msgstr "Быстрые действия"
+
+msgid "Quick Feedback"
+msgstr "Быстрый отзыв"
+
+msgid "Quick Help"
+msgstr "Быстрая справка"
+
+msgid "Quick tip:"
+msgstr "Быстрый совет:"
+
+msgid "Radio List"
+msgstr "Список с переключателями"
+
+msgid "Radius"
+msgstr "Радиус"
+
+msgid "Radius Circle"
+msgstr "Круг радиуса"
+
+msgid "Radius Colors"
+msgstr "Цвета радиуса"
+
+msgid "Read more"
+msgstr "Читать далее"
+
+msgid "Ready"
+msgstr "Готово"
+
+msgid "Ready to connect WooCommerce with your stores?"
+msgstr "Готовы подключить WooCommerce к вашим магазинам?"
+
+msgid "Ready to publish your locator?"
+msgstr "Готовы опубликовать локатор?"
+
+msgid "Ready ✓"
+msgstr "Готово ✓"
+
+msgid "Reason for deactivating"
+msgstr "Причина отключения"
+
+msgid "Rectangle"
+msgstr "Прямоугольник"
+
+msgid "Redirect"
+msgstr "Перенаправление"
+
+msgid "Refresh Cache"
+msgstr "Обновить кэш"
+
+msgid "Refresh list to show nearest stores in the view."
+msgstr "Обновите список, чтобы показать ближайшие магазины в текущей области."
+
+msgid "Refreshing..."
+msgstr "Обновление..."
+
+msgid "Region"
+msgstr "Регион"
+
+msgid "Regions"
+msgstr "Регионы"
+
+msgid "Regions (Locality, City, State)"
+msgstr "Регионы (местность, город, область)"
+
+msgid "Register"
+msgstr "Зарегистрировать"
+
+msgid "Register your Store!"
+msgstr "Зарегистрируйте свой магазин!"
+
+msgid "Registering..."
+msgstr "Регистрация..."
+
+msgid "Registration Form"
+msgstr "Форма регистрации"
+
+msgid "Registration Form Sections"
+msgstr "Разделы формы регистрации"
+
+msgid "Reload stores when map moves"
+msgstr "Перезагружать магазины при перемещении карты"
+
+msgid "Remove"
+msgstr "Удалить"
+
+msgid "Remove Duplicates"
+msgstr "Удалить дубликаты"
+
+msgid "Remove Filter"
+msgstr "Удалить фильтр"
+
+msgid "Remove Other Maps Scripts"
+msgstr "Удалить другие скрипты карт"
+
+msgid "Remove Template"
+msgstr "Удалить шаблон"
+
+msgid "Remove all drawn shapes?"
+msgstr "Удалить все нарисованные фигуры?"
+
+msgid "Remove field"
+msgstr "Удалить поле"
+
+msgid "Remove other Google Maps scripts in case of malfunctioning"
+msgstr "Удалите другие скрипты Google Maps в случае неполадок"
+
+msgid "Removing..."
+msgstr "Удаление..."
+
+msgid "Report an issue"
+msgstr "Сообщить о проблеме"
+
+msgid "Required"
+msgstr "Обязательно"
+
+msgid "Reset"
+msgstr "Сбросить"
+
+msgid "Reset Map"
+msgstr "Сбросить карту"
+
+msgid "Reset Template"
+msgstr "Сбросить шаблон"
+
+msgid "Reset this template to its default settings?"
+msgstr "Сбросить этот шаблон до настроек по умолчанию?"
+
+msgid "Reseting..."
+msgstr "Сброс..."
+
+msgid "Resetting…"
+msgstr "Сброс…"
+
+msgid "Restrict Search"
+msgstr "Ограничить поиск"
+
+msgid "Restrict to Categories"
+msgstr "Ограничить категориями"
+
+msgid "Review"
+msgstr "Отзыв"
+
+msgid "Reviews"
+msgstr "Отзывы"
+
+msgid "Rich Textarea"
+msgstr "Расширенное текстовое поле"
+
+msgid "Road Map"
+msgstr "Схема дорог"
+
+msgid "Roadmap"
+msgstr "Схема"
+
+msgid "STORE INFORMATION"
+msgstr "ИНФОРМАЦИЯ О МАГАЗИНЕ"
+
+msgid "Same Everyday"
+msgstr "Одинаково каждый день"
+
+msgid "Sat"
+msgstr "Сб"
+
+msgid "Satellite"
+msgstr "Спутник"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save Changes on the Permalinks page"
+msgstr "Сохраните изменения на странице постоянных ссылок"
+
+msgid "Save Customization"
+msgstr "Сохранить настройку"
+
+msgid "Save Fields"
+msgstr "Сохранить поля"
+
+msgid "Save Order"
+msgstr "Сохранить порядок"
+
+msgid "Save Settings"
+msgstr "Сохранить настройки"
+
+msgid "Save Settings to apply the changes"
+msgstr "Сохраните настройки, чтобы применить изменения"
+
+msgid "Save Template"
+msgstr "Сохранить шаблон"
+
+msgid "Save and Verify"
+msgstr "Сохранить и проверить"
+
+msgid "Save the changed store or setting, then refresh the JSON cache if it is enabled. You may also need to clear your browser, WordPress, or CDN cache."
+msgstr "Сохраните изменённый магазин или настройку, затем обновите JSON-кэш, если он включён. Также может потребоваться очистить кэш браузера, WordPress или CDN."
+
+msgid "Saving Store..."
+msgstr "Сохранение магазина..."
+
+msgid "Saving..."
+msgstr "Сохранение..."
+
+msgid "Saving…"
+msgstr "Сохранение…"
+
+msgid "Scan Area"
+msgstr "Проверить область"
+
+msgid "Scanning your uploaded files for stores missing latitude/longitude data"
+msgstr "Проверка загруженных файлов на наличие магазинов без данных широты/долготы"
+
+msgid "Schedule"
+msgstr "Расписание"
+
+msgid "Schedule stores to display on specified duration"
+msgstr "Настройте отображение магазинов в течение заданного периода"
+
+msgid "Scroll Wheel"
+msgstr "Колесо прокрутки"
+
+msgid "Scroll left"
+msgstr "Прокрутить влево"
+
+msgid "Scroll right"
+msgstr "Прокрутить вправо"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Search & Filters"
+msgstr "Поиск и фильтры"
+
+msgid "Search Brand"
+msgstr "Поиск по бренду"
+
+msgid "Search Button Type"
+msgstr "Тип кнопки поиска"
+
+msgid "Search City"
+msgstr "Поиск по городу"
+
+msgid "Search Country"
+msgstr "Поиск по стране"
+
+msgid "Search Date"
+msgstr "Поиск по дате"
+
+msgid "Search Email"
+msgstr "Поиск по email"
+
+msgid "Search Field"
+msgstr "Поле поиска"
+
+msgid "Search ID"
+msgstr "Поиск по ID"
+
+msgid "Search Icon"
+msgstr "Поиск по значку"
+
+msgid "Search Image"
+msgstr "Поиск по изображению"
+
+msgid "Search KML files"
+msgstr "Поиск файлов KML"
+
+msgid "Search KML files..."
+msgstr "Поиск файлов KML..."
+
+msgid "Search Labels"
+msgstr "Поиск по подписям"
+
+msgid "Search Latitude"
+msgstr "Поиск по широте"
+
+msgid "Search Location"
+msgstr "Поиск местоположения"
+
+msgid "Search Logo ID"
+msgstr "Поиск по ID логотипа"
+
+msgid "Search Longitude"
+msgstr "Поиск по долготе"
+
+msgid "Search Marker ID"
+msgstr "Поиск по ID маркера"
+
+msgid "Search Mode"
+msgstr "Режим поиска"
+
+msgid "Search Name"
+msgstr "Поиск по названию"
+
+msgid "Search Order"
+msgstr "Поиск по порядку"
+
+msgid "Search Phone"
+msgstr "Поиск по телефону"
+
+msgid "Search Postal Code"
+msgstr "Поиск по почтовому индексу"
+
+msgid "Search Result"
+msgstr "Результат поиска"
+
+msgid "Search Schedule"
+msgstr "Поиск по расписанию"
+
+msgid "Search State"
+msgstr "Поиск по региону"
+
+msgid "Search Status"
+msgstr "Поиск по статусу"
+
+msgid "Search Street"
+msgstr "Поиск по улице"
+
+msgid "Search Title"
+msgstr "Поиск по заголовку"
+
+msgid "Search URL"
+msgstr "Поиск по URL"
+
+msgid "Search Widget"
+msgstr "Виджет поиска"
+
+msgid "Search Your Nearest Location"
+msgstr "Найдите ближайшее к вам местоположение"
+
+msgid "Search Zoom"
+msgstr "Масштаб при поиске"
+
+msgid "Search an address to see the nearest stores."
+msgstr "Найдите адрес, чтобы увидеть ближайшие магазины."
+
+msgid "Search categories"
+msgstr "Поиск категорий"
+
+msgid "Search categories..."
+msgstr "Поиск категорий..."
+
+msgid "Search for a location, draw shapes, and preview layers and controls before saving."
+msgstr "Найдите местоположение, нарисуйте фигуры и просмотрите слои и элементы управления перед сохранением."
+
+msgid "Search for a page or enter a relative URL such as /example-page/."
+msgstr "Найдите страницу или введите относительный URL, например /example-page/."
+
+msgid "Search for nearby location in your area."
+msgstr "Найдите ближайшее местоположение в вашем районе."
+
+msgid "Search location"
+msgstr "Поиск местоположения"
+
+msgid "Search mode"
+msgstr "Режим поиска"
+
+msgid "Search the keyword and change the text"
+msgstr "Найдите ключевое слово и измените текст"
+
+msgid "Search your Location"
+msgstr "Найдите ваше местоположение"
+
+msgid "Search!"
+msgstr "Искать!"
+
+msgid "Search, organize, validate, and update all stores from one place."
+msgstr "Ищите, упорядочивайте, проверяйте и обновляйте все магазины из одного места."
+
+msgid "Search..."
+msgstr "Поиск..."
+
+msgid "Searches"
+msgstr "Поисковые запросы"
+
+msgid "Searches & Interactions"
+msgstr "Поиски и взаимодействия"
+
+msgid "Searches (Last 7 Days)"
+msgstr "Поисковые запросы (последние 7 дней)"
+
+msgid "Section"
+msgstr "Раздел"
+
+msgid "See All Videos"
+msgstr "Смотреть все видео"
+
+msgid "See how customers find and interact with your stores during the selected period."
+msgstr "Узнайте, как клиенты находят ваши магазины и взаимодействуют с ними за выбранный период."
+
+msgid "See what you can do with Pro"
+msgstr "Узнайте, что можно делать с Pro"
+
+msgid "Select"
+msgstr "Выбрать"
+
+msgid "Select All"
+msgstr "Выбрать всё"
+
+msgid "Select Categories"
+msgstr "Выбрать категории"
+
+msgid "Select Category"
+msgstr "Выбрать категорию"
+
+msgid "Select Columns"
+msgstr "Выбрать столбцы"
+
+msgid "Select Country"
+msgstr "Выбрать страну"
+
+msgid "Select Distance"
+msgstr "Выбрать расстояние"
+
+msgid "Select Field"
+msgstr "Выбрать поле"
+
+msgid "Select Filters"
+msgstr "Выбрать фильтры"
+
+msgid "Select Image"
+msgstr "Выбрать изображение"
+
+msgid "Select Layout"
+msgstr "Выбрать макет"
+
+msgid "Select Logo"
+msgstr "Выбрать логотип"
+
+msgid "Select Marker"
+msgstr "Выбрать маркер"
+
+msgid "Select Option"
+msgstr "Выбрать параметр"
+
+msgid "Select Page"
+msgstr "Выбрать страницу"
+
+msgid "Select Slugs"
+msgstr "Выбрать слаги"
+
+msgid "Select Some Options"
+msgstr "Выберите некоторые параметры"
+
+msgid "Select State"
+msgstr "Выбрать регион"
+
+msgid "Select Store"
+msgstr "Выбрать магазин"
+
+msgid "Select Template"
+msgstr "Выбрать шаблон"
+
+msgid "Select a category"
+msgstr "Выберите категорию"
+
+msgid "Select a drawing tool to begin."
+msgstr "Выберите инструмент рисования, чтобы начать."
+
+msgid "Select a provider style or optionally supply an advanced MapLibre style URL."
+msgstr "Выберите стиль провайдера или, при необходимости, укажите расширенный URL стиля MapLibre."
+
+msgid "Select display option"
+msgstr "Выберите параметр отображения"
+
+msgid "Select either 12 or 24 hours time format"
+msgstr "Выберите 12- или 24-часовой формат времени"
+
+msgid "Select either to display the geolocation button or the search button next to address search"
+msgstr "Выберите, отображать ли кнопку геолокации или кнопку поиска рядом с поиском по адресу"
+
+msgid "Select how you want the direction to work."
+msgstr "Выберите, как должен работать маршрут."
+
+msgid "Select language"
+msgstr "Выберите язык"
+
+msgid "Select one of the simple options below to continue."
+msgstr "Выберите один из простых вариантов ниже, чтобы продолжить."
+
+msgid "Select one or more categories. Leave empty to show all stores."
+msgstr "Выберите одну или несколько категорий. Оставьте пустым, чтобы показать все магазины."
+
+msgid "Select or Upload Media"
+msgstr "Выберите или загрузите медиафайл"
+
+msgid "Select the URL type of website link, page slug will only work when page slug is provided"
+msgstr "Выберите тип URL для ссылки на сайт; слаг страницы работает только при его указании"
+
+msgid "Select the base design for your store locator."
+msgstr "Выберите базовый дизайн для локатора магазинов."
+
+msgid "Select the distance filter control"
+msgstr "Выберите элемент управления фильтром расстояния"
+
+msgid "Select the distance unit to use on Store Locator"
+msgstr "Выберите единицу измерения расстояния для Store Locator"
+
+msgid "Select which fields are available in the bulk editor for stores."
+msgstr "Выберите, какие поля доступны в редакторе массового изменения магазинов."
+
+msgid "Select which part of the template to customize."
+msgstr "Выберите, какую часть шаблона настроить."
+
+msgid "Selected Shape"
+msgstr "Выбранная фигура"
+
+msgid "Selected Store Locator"
+msgstr "Выбранный Store Locator"
+
+msgid "Selected Stores"
+msgstr "Выбранные магазины"
+
+msgid "Selected store locator template preview"
+msgstr "Предпросмотр выбранного шаблона локатора магазинов"
+
+msgid "Selected stores updated successfully."
+msgstr "Выбранные магазины успешно обновлены."
+
+msgid "Send Feedback"
+msgstr "Отправить отзыв"
+
+msgid "Send WPForms notifications to the relevant store owners through the Agile Store Locator integration."
+msgstr "Отправляйте уведомления WPForms соответствующим владельцам магазинов через интеграцию с Agile Store Locator."
+
+msgid "Send a copy of a Contact Form 7 email to the closest store, determined by the postal code submitted in the form."
+msgstr "Отправляйте копию письма Contact Form 7 в ближайший магазин, определяемый по почтовому индексу, указанному в форме."
+
+msgid "Send a follow-up notification to the dealer lead after 48 hours."
+msgstr "Отправляйте повторное уведомление лиду дилера через 48 часов."
+
+msgid "Sending feedback…"
+msgstr "Отправка отзыва…"
+
+msgid "Separate each choice with a comma."
+msgstr "Разделяйте варианты запятой."
+
+msgid "Server Google API Key is Missing"
+msgstr "Отсутствует серверный ключ API Google"
+
+msgid "Server Google API Key is not saved."
+msgstr "Серверный ключ API Google не сохранён."
+
+msgid "Set Coordinates & Zoom"
+msgstr "Задать координаты и масштаб"
+
+msgid "Set Up Map"
+msgstr "Настроить карту"
+
+msgid "Set Up Your Map"
+msgstr "Настройте карту"
+
+msgid "Set general options and preferences."
+msgstr "Задайте общие параметры и настройки."
+
+msgid "Set max limit for items in grid or empty to display all (limited to 1000).\n                    "
+msgstr "Задайте максимальное количество элементов в сетке или оставьте пустым, чтобы показать все (не более 1000).\n                    "
+
+msgid "Set store id"
+msgstr "Задать ID магазина"
+
+msgid "Set the initial map view, zoom behavior, language, controls, and Google map styling."
+msgstr "Настройте начальный вид карты, поведение масштабирования, язык, элементы управления и стиль Google Maps."
+
+msgid "Set the stores opening and closing times for each day"
+msgstr "Задайте время открытия и закрытия магазинов для каждого дня"
+
+msgid "Set your store locator default coordinates and zoom level using the marker below, drag the marker to pinpoint."
+msgstr "Задайте координаты и масштаб локатора магазинов по умолчанию с помощью маркера ниже, перетащите маркер, чтобы указать точку."
+
+msgid "Setting has been updated successfully."
+msgstr "Настройка успешно обновлена."
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Settings & Configuration"
+msgstr "Настройки и конфигурация"
+
+msgid "Settings has been updated."
+msgstr "Настройки обновлены."
+
+msgid "Settings saved successfully."
+msgstr "Настройки успешно сохранены."
+
+msgid "Shape color"
+msgstr "Цвет фигуры"
+
+msgid "Shape fill style"
+msgstr "Стиль заливки фигуры"
+
+msgid "Shipping Methods"
+msgstr "Способы доставки"
+
+msgid "Short guides to help you configure and manage your store locator."
+msgstr "Короткие руководства, которые помогут настроить локатор магазинов и управлять им."
+
+msgid "Shortcode"
+msgstr "Шорткод"
+
+msgid "Shortcode Guide"
+msgstr "Руководство по шорткодам"
+
+msgid "Shortcode copied"
+msgstr "Шорткод скопирован"
+
+msgid "Show"
+msgstr "Показать"
+
+msgid "Show API key"
+msgstr "Показать ключ API"
+
+msgid "Show Address"
+msgstr "Показывать адрес"
+
+msgid "Show Branches – All Markers on Map"
+msgstr "Показывать филиалы — все маркеры на карте"
+
+msgid "Show Branches – Parent Markers on Map"
+msgstr "Показывать филиалы — маркеры головных магазинов на карте"
+
+msgid "Show Categories"
+msgstr "Показывать категории"
+
+msgid "Show Category"
+msgstr "Показывать категорию"
+
+msgid "Show Country in Address"
+msgstr "Показывать страну в адресе"
+
+msgid "Show Email"
+msgstr "Показывать email"
+
+msgid "Show Field In"
+msgstr "Показывать поле в"
+
+msgid "Show My Nearest Location From Search"
+msgstr "Показывать моё ближайшее местоположение из поиска"
+
+msgid "Show Pending Stores"
+msgstr "Показывать магазины на рассмотрении"
+
+msgid "Show Phone"
+msgstr "Показывать телефон"
+
+msgid "Show URL Link"
+msgstr "Показывать ссылку URL"
+
+msgid "Show no stores on the page load"
+msgstr "Не показывать магазины при загрузке страницы"
+
+msgid "Show or hide buttons in the store list and info window."
+msgstr "Показывайте или скрывайте кнопки в списке магазинов и информационном окне."
+
+msgid "Show store state wise"
+msgstr "Показывать магазины по регионам"
+
+msgid "Show the country in the address displayed on the store detail page. Directions and schema continue to use the full address."
+msgstr "Показывать страну в адресе на странице сведений о магазине. Маршруты и схема разметки по-прежнему используют полный адрес."
+
+msgid "Show/Hide Columns"
+msgstr "Показать/скрыть столбцы"
+
+msgid "Show/Hide Zoom button in the infobox."
+msgstr "Показать/скрыть кнопку масштаба в InfoBox."
+
+msgid "Show/Hide direction button in the listing and infobox."
+msgstr "Показать/скрыть кнопку маршрута в списке и InfoBox."
+
+msgid "Simple free setup"
+msgstr "Простая бесплатная настройка"
+
+msgid "Single Category Selection"
+msgstr "Выбор одной категории"
+
+msgid "Site Features"
+msgstr "Функции сайта"
+
+msgid "Skip & Deactivate"
+msgstr "Пропустить и отключить"
+
+msgid "Skip duplicate entries"
+msgstr "Пропускать дублирующиеся записи"
+
+msgid "Slider"
+msgstr "Слайдер"
+
+msgid "Solid"
+msgstr "Сплошной"
+
+msgid "Some stores could not be updated."
+msgstr "Некоторые магазины не удалось обновить."
+
+msgid "Something went wrong. Please try again."
+msgstr "Что-то пошло не так. Попробуйте снова."
+
+msgid "Sorry! there are no stores found!"
+msgstr "К сожалению, магазины не найдены!"
+
+msgid "Sorry, only JPG, JPEG, PNG & GIF files are allowed."
+msgstr "К сожалению, разрешены только файлы JPG, JPEG, PNG и GIF."
+
+msgid "Sorry, only KML files are allowed to import"
+msgstr "К сожалению, для импорта разрешены только файлы KML"
+
+msgid "Sorry, this SVG file is not allowed."
+msgstr "К сожалению, этот файл SVG не разрешён."
+
+msgid "Sorry, your file is too large."
+msgstr "К сожалению, ваш файл слишком большой."
+
+msgid "Sort By Bound"
+msgstr "Сортировать по границам"
+
+msgid "Sort List"
+msgstr "Сортировать список"
+
+msgid "Sort Random"
+msgstr "Сортировать случайно"
+
+msgid "Sort by"
+msgstr "Сортировать по"
+
+msgid "Sort stores list randomly on the load of the Store Locator (Enabling it will disable Default Location Marker)"
+msgstr "Сортировать список магазинов случайным образом при загрузке Store Locator (включение отключит маркер местоположения по умолчанию)"
+
+msgid "Sort your listing based on fields, default is Distance"
+msgstr "Сортируйте список по полям, по умолчанию — по расстоянию"
+
+msgid "Specialities"
+msgstr "Специализации"
+
+msgid "Speciality"
+msgstr "Специализация"
+
+msgid "Start Time"
+msgstr "Время начала"
+
+msgid "Starting Time"
+msgstr "Время начала"
+
+msgid "State"
+msgstr "Регион"
+
+msgid "State Filter"
+msgstr "Фильтр по региону"
+
+msgid "States"
+msgstr "Регионы"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Store"
+msgstr "Магазин"
+
+msgid "Store Actions"
+msgstr "Действия с магазином"
+
+msgid "Store Address"
+msgstr "Адрес магазина"
+
+msgid "Store Address & Contact"
+msgstr "Адрес и контакты магазина"
+
+msgid "Store Address tab"
+msgstr "Вкладка адреса магазина"
+
+msgid "Store Approved Successfully"
+msgstr "Магазин успешно одобрен"
+
+msgid "Store Branches"
+msgstr "Филиалы магазина"
+
+msgid "Store Cards"
+msgstr "Карточки магазинов"
+
+msgid "Store City or State — Pro"
+msgstr "Город или регион магазина — Pro"
+
+msgid "Store Detail"
+msgstr "Сведения о магазине"
+
+msgid "Store Detail Guide"
+msgstr "Руководство по сведениям о магазине"
+
+msgid "Store Detail Page"
+msgstr "Страница сведений о магазине"
+
+msgid "Store Details"
+msgstr "Сведения о магазине"
+
+msgid "Store Direction"
+msgstr "Маршрут до магазина"
+
+msgid "Store Form"
+msgstr "Форма магазина"
+
+msgid "Store Form Builder"
+msgstr "Конструктор формы магазина"
+
+msgid "Store Form tools are a Pro feature"
+msgstr "Инструменты формы магазина — функция Pro"
+
+msgid "Store ID"
+msgstr "ID магазина"
+
+msgid "Store IDs"
+msgstr "ID магазинов"
+
+msgid "Store Information"
+msgstr "Информация о магазине"
+
+msgid "Store JSON-LD"
+msgstr "JSON-LD магазина"
+
+msgid "Store Locator"
+msgstr "Store Locator"
+
+msgid "Store Locator Shortcode"
+msgstr "Шорткод Store Locator"
+
+msgid "Store Locator Updates! New Store Registered"
+msgstr "Обновления Store Locator! Зарегистрирован новый магазин"
+
+msgid "Store Locator Widget"
+msgstr "Виджет Store Locator"
+
+msgid "Store Locator will consider Default coordinates as the center point"
+msgstr "Store Locator будет использовать координаты по умолчанию как центральную точку"
+
+msgid "Store Name — Pro"
+msgstr "Название магазина — Pro"
+
+msgid "Store Page Address Format"
+msgstr "Формат адреса страницы магазина"
+
+msgid "Store Page Slug"
+msgstr "Слаг страницы магазина"
+
+msgid "Store Pages"
+msgstr "Страницы магазинов"
+
+msgid "Store Registration Form"
+msgstr "Форма регистрации магазина"
+
+msgid "Store Results"
+msgstr "Результаты по магазинам"
+
+msgid "Store Saved"
+msgstr "Магазин сохранён"
+
+msgid "Store Schedule"
+msgstr "Расписание магазина"
+
+msgid "Store Scheduling"
+msgstr "Планирование магазина"
+
+msgid "Store Search Widget"
+msgstr "Виджет поиска магазинов"
+
+msgid "Store Slug Fields"
+msgstr "Поля слага магазина"
+
+msgid "Store Timing"
+msgstr "Время работы магазина"
+
+msgid "Store added successfully."
+msgstr "Магазин успешно добавлен."
+
+msgid "Store city or state — Pro"
+msgstr "Город или регион магазина — Pro"
+
+msgid "Store deleted successfully."
+msgstr "Магазин успешно удалён."
+
+msgid "Store duplicated successfully."
+msgstr "Магазин успешно продублирован."
+
+msgid "Store has been delete from branch successfully."
+msgstr "Магазин успешно удалён из филиала."
+
+msgid "Store has been scheduled successfully."
+msgstr "Магазин успешно запланирован."
+
+msgid "Store has been updated into branch successfully."
+msgstr "Магазин успешно обновлён в филиале."
+
+msgid "Store is already approved."
+msgstr "Магазин уже одобрен."
+
+msgid "Store name — Pro"
+msgstr "Название магазина — Pro"
+
+msgid "Store updated successfully."
+msgstr "Магазин успешно обновлён."
+
+msgid "Stores"
+msgstr "Магазины"
+
+msgid "Stores Limit"
+msgstr "Лимит магазинов"
+
+msgid "Stores deleted successfully."
+msgstr "Магазины успешно удалены."
+
+msgid "Street"
+msgstr "Улица"
+
+msgid "Street View"
+msgstr "Street View"
+
+msgid "Style URL Override"
+msgstr "Переопределение URL стиля"
+
+msgid "Sub-Categories"
+msgstr "Подкатегории"
+
+msgid "Submit"
+msgstr "Отправить"
+
+msgid "Submit & Deactivate"
+msgstr "Отправить и отключить"
+
+msgid "Submitting ..."
+msgstr "Отправка ..."
+
+msgid "Submitting..."
+msgstr "Отправка..."
+
+msgid "Success! All coordinates looks correct values"
+msgstr "Успешно! Все координаты выглядят корректными"
+
+msgid "Success! Store has been approved."
+msgstr "Успешно! Магазин одобрен."
+
+msgid "Success! Store is approved and registered into the listing."
+msgstr "Успешно! Магазин одобрен и зарегистрирован в списке."
+
+msgid "Suggestion"
+msgstr "Предложение"
+
+msgid "Sun"
+msgstr "Вс"
+
+msgid "Sunday"
+msgstr "Воскресенье"
+
+msgid "Support"
+msgstr "Поддержка"
+
+msgid "Support Center"
+msgstr "Центр поддержки"
+
+msgid "Sync Store Data Automatically with Google Sheets"
+msgstr "Автоматически синхронизируйте данные магазинов с Google Sheets"
+
+msgid "System Status"
+msgstr "Статус системы"
+
+msgid "Tabs Layout"
+msgstr "Макет с вкладками"
+
+msgid "Template"
+msgstr "Шаблон"
+
+msgid "Template %s — Pro"
+msgstr "Шаблон %s — Pro"
+
+msgid "Template 0"
+msgstr "Шаблон 0"
+
+msgid "Template 0 is available in Free. Additional templates are available in Pro."
+msgstr "Шаблон 0 доступен в бесплатной версии. Дополнительные шаблоны доступны в Pro."
+
+msgid "Template Backup Guide"
+msgstr "Руководство по резервному копированию шаблонов"
+
+msgid "Template Backups"
+msgstr "Резервные копии шаблонов"
+
+msgid "Template Backups are a Pro feature"
+msgstr "Резервные копии шаблонов — функция Pro"
+
+msgid "Template Editor"
+msgstr "Редактор шаблонов"
+
+msgid "Template Guide"
+msgstr "Руководство по шаблонам"
+
+msgid "Template List"
+msgstr "Список шаблонов"
+
+msgid "Template List 2"
+msgstr "Список шаблонов 2"
+
+msgid "Template List 2 — Pro"
+msgstr "Список шаблонов 2 — Pro"
+
+msgid "Template List — Pro"
+msgstr "Список шаблонов — Pro"
+
+msgid "Template UI settings updated"
+msgstr "Настройки интерфейса шаблона обновлены"
+
+msgid "Template Updated"
+msgstr "Шаблон обновлён"
+
+msgid "Template editor"
+msgstr "Редактор шаблонов"
+
+msgid "Template file moved to theme directory."
+msgstr "Файл шаблона перемещён в каталог темы."
+
+msgid "Template file not found or invalid."
+msgstr "Файл шаблона не найден или недействителен."
+
+msgid "Template file removed from the theme directory."
+msgstr "Файл шаблона удалён из каталога темы."
+
+msgid "Template settings have been reset."
+msgstr "Настройки шаблона сброшены."
+
+msgid "Template updated"
+msgstr "Шаблон обновлён"
+
+msgid "Terrain"
+msgstr "Рельеф"
+
+msgid "Testing the Maps JavaScript API configuration…"
+msgstr "Проверка конфигурации Maps JavaScript API…"
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Text color in the header"
+msgstr "Цвет текста в заголовке"
+
+msgid "Text color in the info window"
+msgstr "Цвет текста в информационном окне"
+
+msgid "Text color of action buttons"
+msgstr "Цвет текста кнопок действий"
+
+msgid "Text color of the search button"
+msgstr "Цвет текста кнопки поиска"
+
+msgid "Textarea"
+msgstr "Текстовое поле"
+
+msgid "Thank you for your feedback!"
+msgstr "Спасибо за ваш отзыв!"
+
+msgid "The <b>Internal Field Name</b> is generated automatically for new fields. Open <b>Advanced settings</b> only when you need to review it or add a CSS class."
+msgstr "<b>Внутреннее имя поля</b> создаётся автоматически для новых полей. Открывайте <b>дополнительные настройки</b>, только если нужно проверить его или добавить CSS-класс."
+
+msgid "The KML file could not be previewed. Confirm that it is publicly accessible and valid."
+msgstr "Не удалось просмотреть файл KML. Убедитесь, что он общедоступен и действителен."
+
+msgid "The PHP mbstring extension is not installed. Import will not work without it. Please ask your server admin to enable mbstring (or enable it in your control panel)."
+msgstr "Расширение PHP mbstring не установлено. Без него импорт работать не будет. Попросите администратора сервера включить mbstring (или включите его в панели управления)."
+
+msgid "The default icon will be used when none is uploaded."
+msgstr "Если значок не загружен, будет использован значок по умолчанию."
+
+msgid "The default map type remains in <a href=\"%s\">ASL Settings</a>. Camera Control and Zoom Control (Old Style) are alternative navigation controls and cannot be enabled together."
+msgstr "Тип карты по умолчанию остаётся в <a href=\"%s\">Настройках ASL</a>. Управление камерой и управление масштабом (старый стиль) — альтернативные элементы навигации, их нельзя включить одновременно."
+
+msgid "The key must allow Maps JavaScript API requests from this website."
+msgstr "Ключ должен разрешать запросы Maps JavaScript API с этого сайта."
+
+msgid "The locator shortcode will be inserted"
+msgstr "Шорткод локатора будет вставлен"
+
+msgid "The map service could not be configured."
+msgstr "Не удалось настроить картографический сервис."
+
+msgid "The page connected to your store locator is no longer available."
+msgstr "Страница, связанная с вашим локатором магазинов, больше недоступна."
+
+msgid "The page was created, but its setup status could not be saved."
+msgstr "Страница создана, но не удалось сохранить статус её настройки."
+
+msgid "The plugin did not work as expected"
+msgstr "Плагин работал не так, как ожидалось"
+
+msgid "The plugin was difficult to set up or use"
+msgstr "Плагин было сложно настроить или использовать"
+
+msgid "The preview updates when you choose a template or color scheme."
+msgstr "Предпросмотр обновляется при выборе шаблона или цветовой схемы."
+
+msgid "The process may take a few minutes for large datasets."
+msgstr "Для больших наборов данных процесс может занять несколько минут."
+
+msgid "The shortcode will be inserted into the page automatically."
+msgstr "Шорткод будет автоматически вставлен на страницу."
+
+msgid "Theme files"
+msgstr "Файлы темы"
+
+msgid "These defaults can still be overridden by shortcode attributes."
+msgstr "Эти значения по умолчанию всё же можно переопределить атрибутами шорткода."
+
+msgid "This Month"
+msgstr "Этот месяц"
+
+msgid "This is the title visitors will see on your website."
+msgstr "Это заголовок, который посетители увидят на вашем сайте."
+
+msgid "This version supports CSV files with comma delimiters. For custom formats or technical support, contact our team at support@agilelogix.com"
+msgstr "Эта версия поддерживает файлы CSV с разделителем-запятой. По вопросам пользовательских форматов или технической поддержки обращайтесь к нашей команде на support@agilelogix.com"
+
+msgid "Thur"
+msgstr "Чт"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Tile Provider"
+msgstr "Провайдер тайлов"
+
+msgid "Tile usage policy"
+msgstr "Политика использования тайлов"
+
+msgid "Time Filter"
+msgstr "Фильтр по времени"
+
+msgid "Time Format"
+msgstr "Формат времени"
+
+msgid "Time Switch"
+msgstr "Переключатель времени"
+
+msgid "Tip: Complete all steps to make your store locator live and help customers find you."
+msgstr "Совет: выполните все шаги, чтобы опубликовать локатор магазинов и помочь клиентам найти вас."
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Title and City are default fields to create slug"
+msgstr "Заголовок и город — поля по умолчанию для создания слага"
+
+msgid "Title: "
+msgstr "Заголовок: "
+
+msgid "To"
+msgstr "До"
+
+msgid "To change the category filter logic from OR to AND"
+msgstr "Чтобы изменить логику фильтра категорий с ИЛИ на И"
+
+msgid "To enable the label changing feature please enable the switch,<br> For multi-language translation, please disable it and follow the "
+msgstr "Чтобы включить изменение подписей, включите переключатель.<br>Для многоязычного перевода отключите его и следуйте инструкциям "
+
+msgid "To make the category selection mode"
+msgstr "Чтобы задать режим выбора категории"
+
+msgid "To remove the user own location marker"
+msgstr "Чтобы убрать маркер собственного местоположения пользователя"
+
+msgid "To restrict the Google Place API search scope"
+msgstr "Чтобы ограничить область поиска Google Place API"
+
+msgid "To show a limited number of stores."
+msgstr "Чтобы показать ограниченное количество магазинов."
+
+msgid "To show categories dropdown in tab options."
+msgstr "Чтобы показать раскрывающийся список категорий в параметрах вкладок."
+
+msgid "To show only the current day hours or full week"
+msgstr "Чтобы показать часы работы только текущего дня или всей недели"
+
+msgid "To show the additional fields on the template, please add the fields in the template as in this "
+msgstr "Чтобы показать дополнительные поля в шаблоне, добавьте их в шаблон, как показано здесь "
+
+msgid "To show the description text either in listing or modal."
+msgstr "Чтобы показать текст описания в списке или в модальном окне."
+
+msgid "Today"
+msgstr "Сегодня"
+
+msgid "Toggle %s field"
+msgstr "Переключить поле %s"
+
+msgid "Toggle Easy or Advanced level"
+msgstr "Переключить простой или расширенный уровень"
+
+msgid "Top Search Locations"
+msgstr "Часто искомые местоположения"
+
+msgid "Top Searched Locations"
+msgstr "Часто искомые местоположения"
+
+msgid "Total Stores"
+msgstr "Всего магазинов"
+
+msgid "Total items"
+msgstr "Всего элементов"
+
+msgid "Traffic"
+msgstr "Пробки"
+
+msgid "Transit"
+msgstr "Общественный транспорт"
+
+msgid "Trash"
+msgstr "Корзина"
+
+msgid "Troubleshoot"
+msgstr "Устранение неполадок"
+
+msgid "Troubleshoot :: Google Server API key "
+msgstr "Устранение неполадок :: серверный ключ API Google "
+
+msgid "Troubleshoot :: Issues"
+msgstr "Устранение неполадок :: проблемы"
+
+msgid "Truncate Stores Table"
+msgstr "Очистить таблицу магазинов"
+
+msgid "Tues"
+msgstr "Вт"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Turn every store into a connected sales location"
+msgstr "Превратите каждый магазин в подключённую точку продаж"
+
+msgid "Type an address and select a suggestion"
+msgstr "Введите адрес и выберите вариант"
+
+msgid "Type to Search"
+msgstr "Введите текст для поиска"
+
+msgid "Type your Location Modal"
+msgstr "Модальное окно ввода местоположения"
+
+msgid "UI Templates"
+msgstr "Шаблоны интерфейса"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "USE LOCATION"
+msgstr "ИСПОЛЬЗОВАТЬ МЕСТОПОЛОЖЕНИЕ"
+
+msgid "Unable to reset the template. Please try again."
+msgstr "Не удалось сбросить шаблон. Попробуйте снова."
+
+msgid "Unable to save the connected state."
+msgstr "Не удалось сохранить состояние подключения."
+
+msgid "Unable to save the map provider."
+msgstr "Не удалось сохранить провайдера карты."
+
+msgid "Unable to save the onboarding step."
+msgstr "Не удалось сохранить шаг введения в работу."
+
+msgid "Unable to save the setup status."
+msgstr "Не удалось сохранить статус настройки."
+
+msgid "Unable to save the template settings."
+msgstr "Не удалось сохранить настройки шаблона."
+
+msgid "Unable to send feedback. Your message is still here; please try again."
+msgstr "Не удалось отправить отзыв. Ваше сообщение сохранено, попробуйте снова."
+
+msgid "Unavailable"
+msgstr "Недоступно"
+
+msgid "Unlock More Powerful Features"
+msgstr "Откройте более мощные функции"
+
+msgid "Unlock more control with Pro"
+msgstr "Получите больше возможностей с Pro"
+
+msgid "Unlock more ways to build, manage, and grow your store locator"
+msgstr "Откройте новые способы создания, управления и развития локатора магазинов"
+
+msgid "Unsaved changes"
+msgstr "Несохранённые изменения"
+
+msgid "Update %s"
+msgstr "Обновить %s"
+
+msgid "Update Categories"
+msgstr "Обновить категории"
+
+msgid "Update Category"
+msgstr "Обновить категорию"
+
+msgid "Update Description"
+msgstr "Обновить описание"
+
+msgid "Update InfoBox"
+msgstr "Обновить InfoBox"
+
+msgid "Update Logo"
+msgstr "Обновить логотип"
+
+msgid "Update Marker"
+msgstr "Обновить маркер"
+
+msgid "Update Open Hours"
+msgstr "Обновить часы работы"
+
+msgid "Update Store"
+msgstr "Обновить магазин"
+
+msgid "Update permissions (e.g., 755/775) or adjust ownership to allow write access."
+msgstr "Обновите права доступа (например, 755/775) или измените владельца, чтобы разрешить запись."
+
+msgid "Update selected fields across multiple stores at once."
+msgstr "Обновите выбранные поля сразу для нескольких магазинов."
+
+msgid "Updated Successfully"
+msgstr "Успешно обновлено"
+
+msgid "Upgrade Plugin To Get Import/Export Feature"
+msgstr "Обновите плагин, чтобы получить функцию импорта/экспорта"
+
+msgid "Upgrade to Pro"
+msgstr "Перейти на Pro"
+
+msgid "Upgrade to Pro and take your store locator to the next level."
+msgstr "Перейдите на Pro и выведите локатор магазинов на новый уровень."
+
+msgid "Upgrade to configure registration form sections and bulk edit fields."
+msgstr "Перейдите на Pro, чтобы настраивать разделы формы регистрации и массово редактировать поля."
+
+msgid "Upgrade to create and manage protected template backups."
+msgstr "Перейдите на Pro, чтобы создавать и защищать резервные копии шаблонов."
+
+msgid "Upgrade to create and manage searchable store attributes."
+msgstr "Перейдите на Pro, чтобы создавать доступные для поиска атрибуты магазинов."
+
+msgid "Upgrade to import stores in bulk, export store data, and manage CSV files."
+msgstr "Перейдите на Pro, чтобы импортировать магазины массово, экспортировать данные и управлять файлами CSV."
+
+msgid "Upgrade to manage and refresh the high-performance store cache."
+msgstr "Перейдите на Pro, чтобы управлять высокопроизводительным кэшем магазинов и обновлять его."
+
+msgid "Upgrade to route Contact Form 7 messages to the closest store."
+msgstr "Перейдите на Pro, чтобы направлять сообщения Contact Form 7 в ближайший магазин."
+
+msgid "Upgrade to send WPForms notifications to the relevant stores."
+msgstr "Перейдите на Pro, чтобы отправлять уведомления WPForms в нужные магазины."
+
+msgid "Upgrade to unlock detailed store performance insights."
+msgstr "Перейдите на Pro, чтобы получить подробную аналитику эффективности магазинов."
+
+msgid "Upgrade to use tab layouts, additional UI templates, and InfoBox layouts."
+msgstr "Перейдите на Pro, чтобы использовать макеты с вкладками, дополнительные шаблоны интерфейса и макеты InfoBox."
+
+msgid "Upgrade without losing your stores or settings. Pro adds advanced layouts, management tools, analytics, integrations, and more."
+msgstr "Перейдите на новую версию без потери магазинов и настроек. Pro добавляет расширенные макеты, инструменты управления, аналитику, интеграции и многое другое."
+
+msgid "Upload"
+msgstr "Загрузить"
+
+msgid "Upload CSV"
+msgstr "Загрузить CSV"
+
+msgid "Upload CSV File"
+msgstr "Загрузить файл CSV"
+
+msgid "Upload Date"
+msgstr "Дата загрузки"
+
+msgid "Upload Failed! Please try Again."
+msgstr "Ошибка загрузки! Попробуйте снова."
+
+msgid "Upload File"
+msgstr "Загрузить файл"
+
+msgid "Upload KML"
+msgstr "Загрузить KML"
+
+msgid "Upload Logo"
+msgstr "Загрузить логотип"
+
+msgid "Upload Marker"
+msgstr "Загрузить маркер"
+
+msgid "Upload and manage store logos."
+msgstr "Загружайте логотипы магазинов и управляйте ими."
+
+msgid "Upload your CSV files for store import. Ensure your files follow the correct format."
+msgstr "Загрузите файлы CSV для импорта магазинов. Убедитесь, что файлы соответствуют нужному формату."
+
+msgid "Uploaded KML Files (%d)"
+msgstr "Загруженные файлы KML (%d)"
+
+msgid "Uploaded On"
+msgstr "Дата загрузки"
+
+msgid "Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b> from the Store Locator menu. After creating them, assign them to stores from the store editor."
+msgstr "Используйте разделы <b>Управление маркерами</b>, <b>Управление логотипами</b> и <b>Управление категориями</b> в меню Store Locator. После создания назначьте их магазинам в редакторе магазина."
+
+msgid "Use Default Location & Zoom"
+msgstr "Использовать местоположение и масштаб по умолчанию"
+
+msgid "Use Free Maps"
+msgstr "Использовать бесплатные карты"
+
+msgid "Use Google Maps with your API key."
+msgstr "Используйте Google Maps с вашим ключом API."
+
+msgid "Use Image"
+msgstr "Использовать изображение"
+
+msgid "Use Load on Bound in case of 1K+ markers"
+msgstr "Используйте загрузку по границам при более чем 1000 маркеров"
+
+msgid "Use Slider"
+msgstr "Использовать слайдер"
+
+msgid "Use my location to find the closest Service Provider near me"
+msgstr "Использовать моё местоположение, чтобы найти ближайшего поставщика услуг"
+
+msgid "Use saved setting"
+msgstr "Использовать сохранённую настройку"
+
+msgid "Use the <b>Customizer</b> section in ASL Settings to change colors, fonts, labels, and templates. Preview your changes before showing them to visitors."
+msgstr "Используйте раздел <b>Персонализатор</b> в настройках ASL, чтобы изменить цвета, шрифты, подписи и шаблоны. Просматривайте изменения перед показом посетителям."
+
+msgid "Use the filters below each column to find specific attributes."
+msgstr "Используйте фильтры под каждым столбцом, чтобы найти нужные атрибуты."
+
+msgid "Use the filters below each column to find specific logos."
+msgstr "Используйте фильтры под каждым столбцом, чтобы найти нужные логотипы."
+
+msgid "Use the filters below each column to find specific markers."
+msgstr "Используйте фильтры под каждым столбцом, чтобы найти нужные маркеры."
+
+msgid "User Center"
+msgstr "Личный кабинет пользователя"
+
+msgid "User denied geo-location, check preferences."
+msgstr "Пользователь отклонил запрос геолокации, проверьте настройки."
+
+msgid "Using Elementor? Add a Shortcode widget and paste the shortcode above."
+msgstr "Используете Elementor? Добавьте виджет шорткода и вставьте шорткод выше."
+
+msgid "Valid API Key"
+msgstr "Действительный ключ API"
+
+msgid "Validate Coordinates"
+msgstr "Проверить координаты"
+
+msgid "Validate Key"
+msgstr "Проверить ключ"
+
+msgid "Validate your Google Server API key to ensure accurate coordinate fetching through Google Maps API. Proper validation is essential for successful imports."
+msgstr "Проверьте серверный ключ API Google, чтобы обеспечить точное получение координат через Google Maps API. Правильная проверка необходима для успешного импорта."
+
+msgid "Validating..."
+msgstr "Проверка..."
+
+msgid "Value"
+msgstr "Значение"
+
+msgid "Verified"
+msgstr "Проверено"
+
+msgid "Verifying…"
+msgstr "Проверка…"
+
+msgid "Version"
+msgstr "Версия"
+
+msgid "Video Guide"
+msgstr "Видеоруководство"
+
+msgid "Video Tutorials"
+msgstr "Видеоуроки"
+
+msgid "Video tutorial"
+msgstr "Видеоурок"
+
+msgid "View All"
+msgstr "Просмотреть всё"
+
+msgid "View All Branches"
+msgstr "Просмотреть все филиалы"
+
+msgid "View All Photos"
+msgstr "Просмотреть все фото"
+
+msgid "View Analytics"
+msgstr "Просмотреть аналитику"
+
+msgid "View Cron Logs"
+msgstr "Просмотреть журналы Cron"
+
+msgid "View Description"
+msgstr "Просмотреть описание"
+
+msgid "View Docs"
+msgstr "Просмотреть документацию"
+
+msgid "View Documentation"
+msgstr "Просмотреть документацию"
+
+msgid "View File"
+msgstr "Просмотреть файл"
+
+msgid "View Full Analytics"
+msgstr "Просмотреть полную аналитику"
+
+msgid "View Locator"
+msgstr "Просмотреть локатор"
+
+msgid "View, edit or delete your stores."
+msgstr "Просматривайте, редактируйте или удаляйте свои магазины."
+
+msgid "Views"
+msgstr "Просмотры"
+
+msgid "Visitor Location & Distance"
+msgstr "Местоположение и расстояние посетителя"
+
+msgid "Visitor Search"
+msgstr "Поиск посетителя"
+
+msgid "WC Addon"
+msgstr "Дополнение WC"
+
+msgid "WPForms Hook"
+msgstr "Хук WPForms"
+
+msgid "WPForms Hook is a Pro feature"
+msgstr "Хук WPForms — функция Pro"
+
+msgid "WPML Data"
+msgstr "Данные WPML"
+
+msgid "Warning"
+msgstr "Предупреждение"
+
+msgid "Warning!"
+msgstr "Предупреждение!"
+
+msgid "Warning! Export includes all configuration including API keys, labels, customizations and maps related settings."
+msgstr "Внимание! Экспорт включает всю конфигурацию, в том числе ключи API, подписи, настройки и параметры карт."
+
+msgid "Warning! JSON cache loading preloads all the data to serve it with great speed, but everytime you make any changes you have to hit the \"Refresh Cache\" button, if your JSON file is cached by browser or CDN such as cloudflare change the Query Parameter value."
+msgstr "Внимание! Загрузка JSON-кэша предзагружает все данные для высокой скорости отдачи, но при каждом изменении необходимо нажимать кнопку «Обновить кэш». Если ваш JSON-файл кэшируется браузером или CDN, например Cloudflare, измените значение параметра запроса."
+
+msgid "Warning! search will pinpoint the nearest available store, and will NOT center to actual location"
+msgstr "Внимание! Поиск определит ближайший доступный магазин и НЕ будет центрироваться по фактическому местоположению"
+
+msgid "Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!"
+msgstr "Внимание! Существующая конфигурация будет удалена и заменена, включая настройки, сделанные в разделе «Персонализатор»!"
+
+msgid "Watch :: Import Stores Tutorial"
+msgstr "Смотреть :: видеоурок по импорту магазинов"
+
+msgid "Watch Now"
+msgstr "Смотреть сейчас"
+
+msgid "Watch on YouTube"
+msgstr "Смотреть на YouTube"
+
+msgid "Watch tutorial"
+msgstr "Смотреть видеоурок"
+
+msgid "We will respond as soon as possible to resolve your problem, please include (\"Store Locator\" in the Subject) to avoid the spam list."
+msgstr "Мы ответим как можно скорее, чтобы решить вашу проблему; пожалуйста, укажите «Store Locator» в теме письма, чтобы избежать попадания в спам."
+
+msgid "Website"
+msgstr "Сайт"
+
+msgid "Website Field"
+msgstr "Поле сайта"
+
+msgid "Website Link"
+msgstr "Ссылка на сайт"
+
+msgid "Website Link Type"
+msgstr "Тип ссылки на сайт"
+
+msgid "Website URL"
+msgstr "URL сайта"
+
+msgid "Websites"
+msgstr "Сайты"
+
+msgid "Wed"
+msgstr "Ср"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Welcome to Agile Store Locator"
+msgstr "Добро пожаловать в Agile Store Locator"
+
+msgid "We’ll prepare a new page with the Agile Store Locator shortcode already added."
+msgstr "Мы подготовим новую страницу с уже добавленным шорткодом Agile Store Locator."
+
+msgid "What happens next?"
+msgstr "Что дальше?"
+
+msgid "What is Google Server Key?"
+msgstr "Что такое серверный ключ Google?"
+
+msgid "What should I do if the map does not load?"
+msgstr "Что делать, если карта не загружается?"
+
+msgid "Which map option should I choose?"
+msgstr "Какой вариант карты выбрать?"
+
+msgid "Why are my latest changes not appearing?"
+msgstr "Почему мои последние изменения не отображаются?"
+
+msgid "Why is my store not appearing on the map?"
+msgstr "Почему мой магазин не отображается на карте?"
+
+msgid "Why the Default Zoom is not working?"
+msgstr "Почему не работает масштаб по умолчанию?"
+
+msgid "With Coordinates"
+msgstr "С координатами"
+
+msgid "Within"
+msgstr "В пределах"
+
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+msgid "WooCommerce Integration"
+msgstr "Интеграция с WooCommerce"
+
+msgid "WordPress Version"
+msgstr "Версия WordPress"
+
+msgid "Works with WordPress, Elementor, and other page builders."
+msgstr "Работает с WordPress, Elementor и другими конструкторами страниц."
+
+msgid "Yes"
+msgstr "Да"
+
+msgid "Yes, Remove"
+msgstr "Да, удалить"
+
+msgid "Yes, with the separate <a href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">Multi Store Addon for WooCommerce</a>. It adds store selection, local pickup, location-based inventory, and distance-rate shipping."
+msgstr "Да, с помощью отдельного <a href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">дополнения Multi Store для WooCommerce</a>. Оно добавляет выбор магазина, самовывоз, учёт запасов по местоположению и доставку по тарифу в зависимости от расстояния."
+
+msgid "Yes, with the separate <a href=\"https://agilestorelocator.com/agile-sync-addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>. It automatically synchronizes store information between Google Sheets and Agile Store Locator."
+msgstr "Да, с помощью отдельного <a href=\"https://agilestorelocator.com/agile-sync-addon/\" target=\"_blank\" rel=\"noopener noreferrer\">дополнения Agile Sync</a>. Оно автоматически синхронизирует информацию о магазинах между Google Sheets и Agile Store Locator."
+
+msgid "Yes. Open <b>ASL Settings → Maps</b> and select the free map option. It can display your stores without a Google Maps account. Some address-search features may still require a separate free or paid search service."
+msgstr "Да. Откройте <b>Настройки ASL → Карты</b> и выберите бесплатный вариант карты. Он позволяет отображать магазины без аккаунта Google Maps. Для некоторых функций поиска по адресу может по-прежнему требоваться отдельный бесплатный или платный сервис."
+
+msgid "Yes. Shortcode options let you filter the locator by categories, stores, or other values, so each page can display a different group of locations."
+msgstr "Да. Параметры шорткода позволяют фильтровать локатор по категориям, магазинам или другим значениям, поэтому каждая страница может показывать свою группу местоположений."
+
+msgid "You are not allowed to perform this action."
+msgstr "Вам не разрешено выполнять это действие."
+
+msgid "You are not allowed to search pages."
+msgstr "Вам не разрешено искать страницы."
+
+msgid "You can add, edit, delete and organize store details."
+msgstr "Вы можете добавлять, редактировать, удалять и упорядочивать сведения о магазинах."
+
+msgid "You can also visit our contact page for assistance."
+msgstr "Вы также можете посетить нашу страницу контактов для получения помощи."
+
+msgid "You can review the page before publishing"
+msgstr "Вы можете просмотреть страницу перед публикацией"
+
+msgid "You do not have permission to send feedback."
+msgstr "У вас нет прав для отправки отзыва."
+
+msgid "You have pending stores to approve them."
+msgstr "У вас есть магазины, ожидающие одобрения."
+
+msgid "You may email me about this feedback."
+msgstr "Вы можете написать мне на email по поводу этого отзыва."
+
+msgid "Your Address"
+msgstr "Ваш адрес"
+
+msgid "Your Current Location"
+msgstr "Ваше текущее местоположение"
+
+msgid "Your Geo Location"
+msgstr "Ваша геолокация"
+
+msgid "Your Store Locator Setup"
+msgstr "Настройка вашего Store Locator"
+
+msgid "Your Store Locator page is ready."
+msgstr "Страница вашего Store Locator готова."
+
+msgid "Your existing data stays intact"
+msgstr "Ваши существующие данные остаются нетронутыми"
+
+msgid "Your feedback helps us improve the plugin."
+msgstr "Ваш отзыв помогает нам улучшать плагин."
+
+msgid "Your interactive store locator will appear here."
+msgstr "Здесь появится ваш интерактивный локатор магазинов."
+
+msgid "Your locator has been added to your website."
+msgstr "Ваш локатор добавлен на сайт."
+
+msgid "Your locator has been marked as added."
+msgstr "Ваш локатор отмечен как добавленный."
+
+msgid "Your locator page already exists."
+msgstr "Страница вашего локатора уже существует."
+
+msgid "Your locator uses %s."
+msgstr "Ваш локатор использует %s."
+
+msgid "Your map needs setup"
+msgstr "Ваша карта требует настройки"
+
+msgid "Your selected map service is ready for the store locator."
+msgstr "Выбранный вами картографический сервис готов для локатора магазинов."
+
+msgid "Your site could not send the email. Please check WordPress email delivery and try again."
+msgstr "Ваш сайт не смог отправить письмо. Проверьте настройку отправки email в WordPress и попробуйте снова."
+
+msgid "Zip Code"
+msgstr "Почтовый индекс"
+
+msgid "Zoom"
+msgstr "Масштаб"
+
+msgid "Zoom Button"
+msgstr "Кнопка масштаба"
+
+msgid "Zoom Control (Old Style)"
+msgstr "Управление масштабом (старый стиль)"
+
+msgid "Zoom value when a search is performed, it works only when radius circle is disabled."
+msgstr "Значение масштаба при выполнении поиска; работает только при отключённом круге радиуса."
+
+msgid "Zoom value when store list item is clicked"
+msgstr "Значение масштаба при клике по элементу списка магазинов"
+
+msgid "address"
+msgstr "адрес"
+
+msgid "alert link"
+msgstr "ссылка оповещения"
+
+msgid "city"
+msgstr "город"
+
+msgid "content"
+msgstr "содержимое"
+
+msgid "country"
+msgstr "страна"
+
+msgid "deleted successfully"
+msgstr "успешно удалено"
+
+msgid "https://agilestorelocator.com"
+msgstr "https://agilestorelocator.com"
+
+msgid "https://agilestorelocator.com/"
+msgstr "https://agilestorelocator.com/"
+
+msgid "label has been updated"
+msgstr "подпись обновлена"
+
+msgid "lat"
+msgstr "широта"
+
+msgid "lng"
+msgstr "долгота"
+
+msgid "longitude"
+msgstr "долгота"
+
+msgid "multi-language translation guide"
+msgstr "руководство по многоязычному переводу"
+
+msgid "open_hours"
+msgstr "часы работы"
+
+msgid "overlay"
+msgstr "наложение"
+
+msgid "postal-code"
+msgstr "почтовый индекс"
+
+msgid "selected"
+msgstr "выбрано"
+
+msgid "stars"
+msgstr "звёзд"
+
+msgid "state"
+msgstr "регион"
+
+msgid "stores"
+msgstr "магазины"
+
+msgid "stores selected"
+msgstr "магазинов выбрано"
+
+msgid "support@agilelogix.com"
+msgstr "support@agilelogix.com"
+
+msgid "we will get back to you as soon as possible, please include (\"Store Locator\" in the Subject) to avoid the spam list."
+msgstr "мы свяжемся с вами как можно скорее, пожалуйста, укажите «Store Locator» в теме письма, чтобы избежать попадания в спам."
+

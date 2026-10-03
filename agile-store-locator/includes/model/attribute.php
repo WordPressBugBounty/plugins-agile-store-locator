@@ -154,7 +154,7 @@ class Attribute {
     }
 
 
-    $results     = $wpdb->get_results($sql_query.' ORDER BY name ASC');
+    $results     = $wpdb->get_results($sql_query.' ORDER BY ordr ASC, id ASC');
 
     $list        = [];
 
@@ -186,7 +186,7 @@ class Attribute {
     //  must be a valid attribute
     $attr_name  = (in_array($type, self::$options))? $type: self::$options[0]; 
 
-    $results    = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".ASL_PREFIX.$attr_name." WHERE lang = %s ORDER BY name ASC", $lang));
+    $results    = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".ASL_PREFIX.$attr_name." WHERE lang = %s ORDER BY ordr ASC, id ASC", $lang));
 
     if($results) {
 

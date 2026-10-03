@@ -11930,17 +11930,13 @@ table#tbl_stores tbody tr.disabled_color.scheduled_color td {
 }
 
 /* Keep Pro-only settings hidden without hiding their surrounding section cards. */
-#sl-gen-tab .row > .col-md-6:has(#asl-dropdown_range),
-#sl-gen-tab .row > .col-md-6:has(#asl-distance_control-0),
 #sl-gen-tab .row > .col-md-6:has(#asl-search_destin),
 #sl-gen-tab .row > .col-md-6:has(#asl-single_cat_select-0),
 #sl-gen-tab .row > .col-md-6:has(#asl-address_ddl),
 #sl-gen-tab .row > .col-md-6:has(#asl-filter_ddl),
 #sl-gen-tab .row > .col-md-6:has(#asl-first_load),
 #sl-gen-tab .row > .col-md-6:has(#asl-store_schedule),
-#sl-gen-tab .row > .col-md-6:has(#asl-advance_filter),
 #sl-gen-tab .row > .col-md-6:has(#asl-time_switch),
-#sl-gen-tab .row > .col-md-6:has(#asl-distance_slider),
 #sl-gen-tab .row > .col-md-6:has(#asl-analytics),
 #sl-gen-tab .row > .col-md-6:has(#asl-and_filter),
 #sl-gen-tab .row > .col-md-6:has(#asl-locale),
@@ -11950,10 +11946,6 @@ table#tbl_stores tbody tr.disabled_color.scheduled_color td {
 #maps-tab .row > .col-md-6:has(#asl-category_marker),
 #maps-tab .row > .col-md-6:has(#asl-category_bound),
 #maps-tab .row > .col-md-6:has(#asl-sort_by_bound) {
-  display: none !important;
-}
-
-#sl-ui-tab .row > .col-md-6:has(#asl-tabs_layout-0) {
   display: none !important;
 }
 

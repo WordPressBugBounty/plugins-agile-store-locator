@@ -1222,15 +1222,28 @@ var asl_engine = window['asl_engine'] || {};
         }
       });
 
+      var $updateCategoryButton = $('#btn-asl-update-categories'),
+        categoryEditRequest = 0;
+
       //show edit category model
       $('#tbl_categories tbody').on('click', '.edit_category', function(e) {
 
+        var categoryId = $(this).attr("data-id"),
+          requestId = ++categoryEditRequest;
+
         $('#updatecategory_image').show();
         $('#updatecategory_editimage').hide();
+        $('#frm-updatecategory')[0].reset();
+        $('#update_parent_id').empty();
+        $('#update_category_icon').attr({ src: '', 'data-id': 'same' });
+        $updateCategoryButton.prop('disabled', true);
         $('#asl-update-modal').smodal('show');
-        $('#update_category_id_input').val($(this).attr("data-id"));
+        $('#update_category_id_input').val(categoryId);
 
-        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=get_category_byid", { category_id: $(this).attr("data-id") }, function(_response) {
+        ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=get_category_byid", { category_id: categoryId }, function(_response) {
+
+          // Ignore a late response from a previously selected category.
+          if (requestId !== categoryEditRequest || $('#update_category_id_input').val() !== String(categoryId)) return;
 
           if (_response.success) {
 
@@ -1245,6 +1258,7 @@ var asl_engine = window['asl_engine'] || {};
 
             $("#update_category_icon").attr("src", ASL_Instance.url + "svg/" + _response.item['icon']);
             setCategoryColor($('#frm-updatecategory .asl-category-color-field'), _response.item['color']);
+            $updateCategoryButton.prop('disabled', false);
           } else {
 
             atoastr.error(_response.error);
@@ -1264,10 +1278,16 @@ var asl_engine = window['asl_engine'] || {};
       //  Update category without icon
       $('#btn-asl-update-categories').click(function() {
 
+        if ($updateCategoryButton.prop('disabled') || !$.trim($("#update_category_name").val())) return;
+
         if ($("#update_category_icon").attr("data-id") == "same") {
+
+          $updateCategoryButton.prop('disabled', true);
 
           ServerCall(ASL_REMOTE.URL + "?action=asl_ajax_handler&sl-action=update_category", { data: { category_id: $("#update_category_id_input").val(), action: "same", category_name: $("#update_category_name").val(), "parent_id": $("#update_parent_id").val(), "color": $("#update_category_color").val()  } },
             function(_response) {
+
+              $updateCategoryButton.prop('disabled', false);
 
               toastIt(_response);
 
@@ -4672,7 +4692,8 @@ var asl_engine = window['asl_engine'] || {};
           _lyout = '1';
 
         
-        var tmpl_name = (_tmpl == 'list' || _tmpl == 'list-2' || _tmpl == '4' || _tmpl == '5')? _tmpl: _tmpl + '-' + _lyout;
+        var preview_tmpl = (_tmpl == '0-legacy') ? '0' : _tmpl;
+        var tmpl_name = (preview_tmpl == 'list' || preview_tmpl == 'list-2' || preview_tmpl == '4' || preview_tmpl == '5')? preview_tmpl: preview_tmpl + '-' + _lyout;
         $(document.getElementById('asl-tmpl-img')).attr('src', ASL_Instance.plugin_url + 'admin/images/asl-tmpl-' + tmpl_name + '.png');
 
         //  Hide the Layout control for the List Template
@@ -4682,7 +4703,7 @@ var asl_engine = window['asl_engine'] || {};
           $('.asl-p-cont .layout-section').removeClass('hide');
       }
 
-      var radio_fields = ['additional_info', 'link_type', 'distance_unit', 'geo_button', 'time_format', 'week_hours', 'distance_control', 'single_cat_select', 'map_layout', 'infobox_layout', 'color_scheme', 'color_scheme_1', 'color_scheme_2', 'color_scheme_3', 'font_color_scheme','gdpr', 'tabs_layout', 'filter_ddl'];
+      var radio_fields = ['additional_info', 'link_type', 'distance_unit', 'geo_button', 'time_format', 'week_hours', 'distance_control', 'single_cat_select', 'map_layout', 'infobox_layout', 'color_scheme', 'color_scheme_1', 'color_scheme_2', 'color_scheme_3', 'font_color_scheme','gdpr', 'tabs_layout', 'filter_ddl', 'action_button_display'];
 
       for (var i in _keys) {
 
@@ -5283,7 +5304,8 @@ var asl_engine = window['asl_engine'] || {};
         _configs['template'] = '0';
 
       //  Show the option of right template
-      $('.box_layout_' + _configs['template']).removeClass('hide');
+      var settings_template = (_configs['template'] == '0-legacy') ? '0' : _configs['template'];
+      $('.box_layout_' + settings_template).removeClass('hide');
 
       $('.asl-p-cont #asl-layout').on('change', function(e) {
 
@@ -5294,7 +5316,7 @@ var asl_engine = window['asl_engine'] || {};
       //  Bind Change Template
       $('.asl-p-cont #asl-template').on('change', function(e) {
 
-        var _value = this.value;
+        var _value = (this.value == '0-legacy') ? '0' : this.value;
         $('.asl-p-cont .template-box').addClass('hide');
         $('.box_layout_' + _value).removeClass('hide');
 

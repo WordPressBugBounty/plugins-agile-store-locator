@@ -158,6 +158,12 @@ class Setting extends Base
             $data_['store_page_address_format'] = sanitize_text_field($data_['store_page_address_format']);
         }
 
+        if (isset($data_['action_button_display'])) {
+            $data_['action_button_display'] = in_array($data_['action_button_display'], ['icons', 'text', 'both'], true)
+                ? $data_['action_button_display']
+                : 'icons';
+        }
+
         //  Loop over the setting items
         foreach ($keys as $key) {
             $updated = $wpdb->update(
@@ -166,7 +172,7 @@ class Setting extends Base
                 ['key'   => $key]
             );
 
-            if (0 === $updated && in_array($key, ['map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'search_provider', 'geoapify_api_key', 'mapbox_access_token', 'hide_search'], true)) {
+            if (0 === $updated && in_array($key, ['map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'search_provider', 'geoapify_api_key', 'mapbox_access_token', 'hide_search', 'action_button_display'], true)) {
                 $exists = $wpdb->get_var($wpdb->prepare(
                     'SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s',
                     $key
@@ -1124,11 +1130,11 @@ class Setting extends Base
 
         $default_fonts  = [
             'template-0'  => [
-                'title-size'    => 16,
+                'title-size'    => 14,
                 'font-size'     => 13,
-                'btn-size'      => 14,
-                'label-size'    => 16,
-                'input-size'    => 16,
+                'btn-size'      => 13,
+                'label-size'    => 13,
+                'input-size'    => 13,
                 'radius-size'   => 6
             ],
             'template-1'  => [

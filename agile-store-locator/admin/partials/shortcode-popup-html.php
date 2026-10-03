@@ -33,6 +33,7 @@ $asl_map_center = \AgileStoreLocator\Helper::get_configs( array('default_lat', '
                     <select class="custom-select custom-nice-select input" id="asl-template" name="template">
                       <option value=""><?php esc_html_e('Use saved setting','asl_locator'); ?></option>
                       <option value="0"><?php echo esc_attr__('Template 0','asl_locator'); ?></option>
+                      <option value="0-legacy"><?php echo esc_attr__('Template 0 (Legacy)','asl_locator'); ?></option>
                       <?php foreach (array('1','2','3','4','5','6','7') as $asl_template): ?>
                         <option value="<?php echo esc_attr($asl_template); ?>" disabled><?php echo esc_html(sprintf(__('Template %s — Pro','asl_locator'), $asl_template)); ?></option>
                       <?php endforeach; ?>

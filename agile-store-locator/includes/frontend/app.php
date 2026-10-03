@@ -59,7 +59,7 @@ class App
      *
      * @var array
      */
-    private $allowed_templates = ['0'];
+    private $allowed_templates = ['0', '0-legacy'];
 
     /**
      * Validate and normalize template value.
@@ -110,6 +110,7 @@ class App
             $this->AgileStoreLocator . '-sl-icons'    => $base_url . 'icons/fontello.css',
             $this->AgileStoreLocator . '-sl-bootstrap'=> $base_url . 'sl-bootstrap.css',
             $this->AgileStoreLocator . '-tmpl-0'      => $base_url . 'tmpl-0/tmpl-0.css',
+            $this->AgileStoreLocator . '-tmpl-0-legacy' => $base_url . 'tmpl-0/tmpl-0-legacy.css',
             $this->AgileStoreLocator . '-form'        => $base_url . 'asl-form.css',
             $this->AgileStoreLocator . '-lead'        => $base_url . 'asl-lead-form.css',
             $this->AgileStoreLocator . '-page'        => $base_url . 'store-page.css',
@@ -489,6 +490,12 @@ class App
         }
 
         switch ($template) {
+
+            case '0-legacy':
+
+                wp_enqueue_style($this->AgileStoreLocator.'-tmpl-0-legacy');
+
+                break;
 
             case 'form':
 
@@ -1963,6 +1970,7 @@ class App
             'info_y_offset' => '',
             'cat_sort' => 'ordr',
             'direction_btn' => '1',
+            'action_button_display' => 'icons',
             'print_btn' => '1',
             'tabs_layout' => false,
             'filter_ddl' => '',
@@ -2188,7 +2196,12 @@ class App
         $css_code = '';
 
         //  Code codes for the CSS
-        $css_code .= \AgileStoreLocator\Helper::generate_tmpl_css($all_configs['template']);
+        $css_template = ($all_configs['template'] === '0-legacy') ? '0' : $all_configs['template'];
+        $css_code .= \AgileStoreLocator\Helper::generate_tmpl_css($css_template);
+
+        $css_code .= '#asl-storelocator.asl-cont .sl-act-btns--icons .sl-act-btn-text {display: none;}';
+        $css_code .= '#asl-storelocator.asl-cont .sl-act-btns--text i {display: none;}';
+        $css_code .= '#asl-storelocator.asl-cont .sl-act-btns--both .btn {gap: 6px;}';
 
         //  Hide the direction button
         if ($all_configs['direction_btn'] == '0') {
@@ -2207,7 +2220,7 @@ class App
 
         //  Hide the search controls and remove the space reserved above the list.
         if (isset($all_configs['hide_search']) && $all_configs['hide_search'] == '1') {
-            if ($all_configs['template'] == '0' && $all_configs['advance_filter'] == '1') {
+            if (in_array($all_configs['template'], ['0', '0-legacy'], true) && $all_configs['advance_filter'] == '1') {
                 $css_code .= '#asl-storelocator.asl-cont .asl-wrapper .Filter_section .search_filter {display: none;}';
             }
 
@@ -2253,11 +2266,20 @@ class App
 
         $template_file = null;
 
-        if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
-            $all_configs['color_scheme'] = 0;
-        }
+        switch ($all_configs['template']) {
 
-        $template_file = 'template-frontend-0.php';
+            case '0-legacy':
+                $template_file = 'template-frontend-0-legacy.php';
+                break;
+
+            default:
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $template_file = 'template-frontend-0.php';
+                break;
+        }
 
         // Customization of Template file
         if ($template_file) {
@@ -2300,7 +2322,13 @@ class App
         // since version 4.10.15
         $all_attributes   = apply_filters('asl_filter_locator_attributes', $all_attributes);
 
-        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_configuration', $all_configs);
+        $script_configs = $all_configs;
+        if ($script_configs['template'] === '0-legacy') {
+            $script_configs['template_variant'] = '0-legacy';
+            $script_configs['template'] = '0';
+        }
+
+        $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_configuration', $script_configs);
         $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_categories', $all_categories);
         $this->localize_scripts($this->AgileStoreLocator.$this->script_name, 'asl_attributes', $all_attributes);
 

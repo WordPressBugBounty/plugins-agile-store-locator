@@ -1,75 +1,108 @@
 <li class="sl-item" data-id="{{:id}}" tabindex="0" accesskey="{{:id}}">
-<div class="sl-addr-sec">
-    <div class="sl-row addr-loc">
-        <div class="{{if path}}pol-sm-8 pol-8 pr-0{{else}}pol-12{{/if}}">
-            <p class="sl-addr-list-title">{{:title}}</p>
+    <div class="sl-addr-sec">
+        {{if featured}}
+        <div class="sl-item-head">
+            <span class="sl-verified-badge">[Featured]</span>
+        </div>
+        {{/if}}
+        <div class="sl-row addr-loc">
+            <div class="{{if path}}pol-sm-9 pol-9{{else}}pol-12 {{/if}} pl-0">
+                <p class="sl-addr-list-title">{{:title}}</p>
+                <ul>
+                    <li class="sl-addr">
+                        <span>{{:address}}</span>
+                    </li>
+                    {{if email}}
+                    <li class="sl-email">
+                        <i class="icon-mail"></i>
+                        <a href="mailto:{{:email}}">{{:email}}</a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </div>
+            {{if path}}
+            <div class="pol-sm-3 pol-3 px-0">
+                <div class="sl-logo-cont">
+                    <div class="sl-logo-box">
+                        <img alt="{{:title}}" src="{{:URL}}Logo/{{:path}}">
+                    </div>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+        {{if show_store_status}}
+        {{if status_available}}
+        <div class="sl-store-status-box mt-3">
             <ul>
-                <li class="sl-addr">
-                    <i class="icon-location-1"></i>  
-                    <span>{{:address}}</span>
+                <li class="sl-store-status {{if open}}is-open{{else}}is-closed{{/if}}">
+                    {{if open}}
+                    <span>Open{{if status_time}} &middot;{{/if}}</span>
+                    {{if status_time}}<div>closes {{:status_time}}</div>{{/if}}
+                    {{else}}
+                    <span>Closed{{if status_time}} &middot;{{/if}}</span>
+                    {{if status_time}}<div>opens {{:status_time}}</div>{{/if}}
+                    {{/if}}
                 </li>
-                {{if phone}}
-                <li class="sl-phone">
-                    <i class="icon-mobile"></i>
-                    <a href="tel:{{:phone}}">{{:phone}}</a>
-                </li>
-                {{/if}}
-                {{if email}}
-                <li class="sl-email">
-                    <i class="icon-mail"></i>
-                    <a href="mailto:{{:email}}">{{:email}}</a>
-                </li>
-                {{/if}}
-                {{if open_hours}}
+            </ul>
+        </div>
+        {{/if}}
+        {{else}}
+        {{if open_hours}}
+        <div class="sl-store-status-box mt-3">
+            <ul>
                 <li class="sl-hours">
                     <i class="icon-clock"></i>
                     <span class="txt-hours">{{:open_hours}}</span>
                 </li>
-                {{/if}}
-                {{if c_names}}
-                <li class="sl-categories">
-                   <ul class="inner-cat-list">
-                      {{for categories}}
-                      <li class="asl-category-tag">
-                         {{if color}}<b class="asl-category-tag-dot" style="background-color:{{:color}}" aria-hidden="true"></b>{{/if}}
-                         {{:name}}
-                      </li>
-                      {{/for}}
-                   </ul>
-                </li>
-                {{/if}}
             </ul>
         </div>
-        {{if path}}
-        <div class="pol-sm-4 pol-4">
-            <div class="sl-logo-cont">
-                <div class="sl-logo-box">
-                    <img alt="store-logo" alt="store-logo" src="{{:URL}}Logo/{{:path}}">
-                </div>
+        {{/if}}
+        {{/if}}
+        {{if c_names}}
+        <div class="sl-categories">
+            <ul class="inner-cat-list">
+                {{for categories}}
+                <li class="asl-category-tag">
+                    {{if color}}<b class="asl-category-tag-dot" style="background-color:{{:color}}"
+                        aria-hidden="true"></b>{{/if}}
+                    {{:name}}
+                </li>
+                {{/for}}
+            </ul>
+        </div>
+        {{/if}}
+        {{if description}}
+        <div class="sl-row sl-desc">
+            {{if desc_link}}
+            <div class="pol-12"><button type="button" class="sl-link mt-2">[View Description]</button></div>
+            {{else}}
+            <div class="pol-12">
+                <p>{{:description}}</p>
+            </div>
+            {{/if}}
+        </div>
+        {{/if}}
+        {{:social_icons}}
+        <div class="sl-acts-div mt-3 ">
+            {{if dist_str}}
+            <div class="sl-miles">
+                <span class="s-distance">{{:dist_str}}</span>
+            </div>
+            {{/if}}
+            <div class="sl-act-btns sl-act-btns--{{:action_button_display}} ml-auto">
+                <button type="button" class="btn btn-asl s-direction" aria-label="Get directions"><i
+                        class="icon-direction-outline" aria-hidden="true"></i><span
+                        class="sl-act-btn-text">[Directions]</span></button>
+                {{if phone}}
+                <a class="btn btn-asl sl-phone-link" href="tel:{{:phone}}" aria-label="Call {{:title}}"><i
+                        class="icon-mobile-1" aria-hidden="true"></i><span class="sl-act-btn-text">[Phone]</span></a>
+                {{/if}}
+                {{if link}}
+                <a target="{{:target}}" class="btn btn-asl btn-asl-outline s-visit-website" href="{{:link}}"
+                    aria-label="Visit {{:title}} website"><i class="icon-globe" aria-hidden="true"></i><span
+                        class="sl-act-btn-text">[Website]</span></a>
+                {{/if}}
             </div>
         </div>
-        {{/if}}
     </div>
-    {{if description}}
-    <div class="sl-row sl-desc">
-      {{if desc_link}}
-      <div class="pol-12"><a class="sl-link mt-2">[View Description]</a></div>
-      {{else}}
-      <div class="pol-12"><p>{{:description}}</p></div>
-      {{/if}}
-    </div>
-    {{/if}}
-    {{:social_icons}}
-    <div class="sl-act-btns mt-3">
-        <a class="btn btn-asl s-direction">[Directions]</a>
-        {{if link}}
-        <a target="{{:target}}" class="btn btn-asl btn-asl-outline s-visit-website" href="{{:link}}">[Website]</a>
-        {{/if}}
-        {{if dist_str}}
-        <div class="sl-miles">
-            <span class="s-distance">{{:dist_str}}</span>
-        </div>
-        {{/if}}
-    </div>
- </div>
 </li>

@@ -6,7 +6,7 @@ Tags: wordpress store locator, store locator wordpress, store finder, where to b
 Requires at least: 3.3.2
 Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -430,6 +430,14 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.8.7 =
+- Added Template 0 (Legacy) selection in plugin settings and shortcode support through template="0-legacy"
+- Added distance-control selection and configurable distance dropdown options to the Free settings
+- Added the Advance Filter toggle to the Free Search & Filters settings
+- Added Dropdowns, Clickable Tabs, and Checkboxes category-filter layouts to the Appearance settings
+- Added Action Button Content options for Template 0 store-list buttons
+- Removed Pro-only frontend controls and accordion layout markup from the Free Template 0 experience
 
 = 1.8.6 =
 - Improved shortcode insertion and map-center controls in the block editor, Elementor, and WPBakery

@@ -397,7 +397,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-distance_slider"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
@@ -817,11 +817,9 @@ if($level_mode === true){ ?>
                                             <div class="asl-general-pro-summary__content">
                                                 <span><?php esc_html_e('Advanced General Options', 'asl_locator'); ?></span>
                                                 <h5><?php esc_html_e('Unlock more control with Pro', 'asl_locator'); ?></h5>
-                                                <p><?php esc_html_e('Fine-tune search behavior, distance controls, category logic, analytics, and multilingual store data.', 'asl_locator'); ?></p>
+                                                <p><?php esc_html_e('Fine-tune search behavior, category logic, analytics, and multilingual store data.', 'asl_locator'); ?></p>
                                                 <div class="asl-general-pro-summary__features" aria-label="<?php esc_attr_e('Pro features', 'asl_locator'); ?>">
                                                     <span><?php esc_html_e('Advanced Search', 'asl_locator'); ?></span>
-                                                    <span><?php esc_html_e('Distance Control', 'asl_locator'); ?></span>
-                                                    <span><?php esc_html_e('Distance Options', 'asl_locator'); ?></span>
                                                     <span><?php esc_html_e('Category Logic', 'asl_locator'); ?></span>
                                                     <span><?php esc_html_e('Address Dropdowns', 'asl_locator'); ?></span>
                                                     <span><?php esc_html_e('Dropdown Filters', 'asl_locator'); ?></span>
@@ -1323,8 +1321,8 @@ if($level_mode === true){ ?>
                                     <section class="asl-pro-locked-section asl-pro-locked-panel asl-settings-pro-lock" aria-labelledby="asl-ui-lock-title">
                                         <div class="asl-pro-lock-overlay">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-                                            <strong id="asl-ui-lock-title"><?php esc_html_e('Advanced UI layouts are a Pro feature', 'asl_locator'); ?></strong>
-                                            <span><?php esc_html_e('Upgrade to use tab layouts, additional UI templates, and InfoBox layouts.', 'asl_locator'); ?></span>
+                                            <strong id="asl-ui-lock-title"><?php esc_html_e('Additional UI templates are a Pro feature', 'asl_locator'); ?></strong>
+                                            <span><?php esc_html_e('Upgrade to use additional UI templates and InfoBox layouts.', 'asl_locator'); ?></span>
                                             <a href="<?php echo esc_url($asl_upgrade_url); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('Upgrade to Pro', 'asl_locator'); ?></a>
                                         </div>
                                         <div class="asl-pro-locked-preview" aria-hidden="true">
@@ -1351,6 +1349,9 @@ if($level_mode === true){ ?>
                                                         name="data[template]">
                                                         <option value="0">
                                                             <?php echo esc_attr__('Template','asl_locator') ?> 0
+                                                        </option>
+                                                        <option value="0-legacy">
+                                                            <?php echo esc_attr__('Template 0 (Legacy)','asl_locator') ?>
                                                         </option>
                                                         <option value="1">
                                                             <?php echo esc_attr__('Template','asl_locator') ?> 1
@@ -1618,7 +1619,7 @@ if($level_mode === true){ ?>
                                                 </div>
                                             </div>
                                         </div>
-<div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-tabs_layout"><?php echo esc_attr__('Tabs Layout','asl_locator') ?></label>
@@ -1633,8 +1634,13 @@ if($level_mode === true){ ?>
                                                                 name="data[tabs_layout]" value="1"
                                                                 id="asl-tabs_layout-1"><?php echo esc_attr__('Clickable Tabs','asl_locator') ?></label>
                                                     </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-tabs_layout-2"><input type="radio"
+                                                                name="data[tabs_layout]" value="2"
+                                                                id="asl-tabs_layout-2"><?php echo esc_attr__('Checkboxes','asl_locator') ?></label>
+                                                    </div>
                                                     <p class="help-p">
-                                                        <?php echo esc_attr__('To show categories dropdown in tab options.','asl_locator') ?>
+                                                        <?php echo esc_attr__('Choose how category filters appear in the store locator.','asl_locator') ?>
                                                         | <a href="https://agilestorelocator.com/wiki/tabs-for-filter-instead-of-dropdown/" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Guide Doc', 'asl_locator') ?></a><br><span
                                                             class="red">(Supported in Template 0 & 1, 4)</span></p>
                                                 </div>
@@ -1779,6 +1785,32 @@ if($level_mode === true){ ?>
         <div><h5><?php esc_html_e('Buttons', 'asl_locator'); ?></h5><p><?php esc_html_e('Show or hide buttons in the store list and info window.', 'asl_locator'); ?></p></div>
     </header>
     <div class="row">
+<div class="col-md-6 col-sm-6 col-12 mb-5">
+                                            <div class="form-group d-lg-flex d-md-block">
+                                                <span class="custom-control-label"><?php echo esc_html__('Action Button Content','asl_locator') ?></span>
+                                                <div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-action_button_display-icons"><input type="radio"
+                                                                name="data[action_button_display]" value="icons"
+                                                                id="asl-action_button_display-icons"><?php echo esc_html__('Icons only','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-action_button_display-text"><input type="radio"
+                                                                name="data[action_button_display]" value="text"
+                                                                id="asl-action_button_display-text"><?php echo esc_html__('Text only','asl_locator') ?></label>
+                                                    </div>
+                                                    <div class="asl-wc-radio">
+                                                        <label for="asl-action_button_display-both"><input type="radio"
+                                                                name="data[action_button_display]" value="both"
+                                                                id="asl-action_button_display-both"><?php echo esc_html__('Icons and text','asl_locator') ?></label>
+                                                    </div>
+                                                    <p class="help-p">
+                                                        <?php echo esc_html__('Choose how action buttons appear in the store list.','asl_locator') ?><br>
+                                                        <span class="red"><?php echo esc_html__('(Supported in Template 0 Only)','asl_locator') ?></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
 <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"

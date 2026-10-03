@@ -669,7 +669,7 @@ class Activator {
 		);
 
 		//$database    = $wpdb->dbname;
-		$c = $wpdb->get_results("SELECT count(*) AS 'c' FROM `{$prefix}configs` WHERE `key` = 'server_key' || `key` = 'wpfrm_store_notify' || `key` = 'tile_provider_style'");
+		$c = $wpdb->get_results("SELECT count(*) AS 'c' FROM `{$prefix}configs` WHERE `key` = 'action_button_display' || `key` = 'wpfrm_store_notify' || `key` = 'tile_provider_style'");
 
 		if($c && isset($c[0]) && $c[0]->c != 3) {
 
@@ -759,7 +759,7 @@ class Activator {
 			array('server_key','','priv'),
 			array('first_load','1',''),
 			array('map_top','0',''),
-			array('direction_redirect','0',''),
+			array('direction_redirect','2',''),
 			array('color_scheme_3','0',''),
 			array('category_bound','1',''),
 			array('sort_random','0',''),
@@ -779,6 +779,7 @@ class Activator {
 			array('rewrite_id','',''),
 			array('print_btn','0',''),
 			array('direction_btn','1',''),
+			array('action_button_display','both',''),
 			array('zoom_btn','1',''),
 			array('additional_info','0',''),
 			array('address_ddl','0',''),

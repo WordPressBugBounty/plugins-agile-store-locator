@@ -157,12 +157,14 @@ class Label {
         'status'            => esc_attr__('Status','asl_locator'),
         'back'              => esc_attr__('Back','asl_locator'),
         'store_label'       => esc_attr__('Store','asl_locator'),
+        'stores'            => esc_attr__('Stores','asl_locator'),
         'find_store'        => esc_attr__('Find A Store','asl_locator'),
         'enter_add'         => esc_attr__('Enter your address','asl_locator'),
         'accpt'             => esc_attr__('Accept','asl_locator'),
         'search_near'       => esc_attr__('Search Your Nearest Location','asl_locator'),
         'search_loc1'       => esc_attr__('Search your Location','asl_locator'),
         'sort_by'           => esc_attr__('Sort by','asl_locator'),
+        'nearest'           => esc_attr__('Nearest','asl_locator'),
         'title'             => esc_attr__('Title','asl_locator'),
         'cities'            => esc_attr__('Cities','asl_locator'),
         'states'            => esc_attr__('States','asl_locator'),
@@ -230,7 +232,7 @@ class Label {
         'am'                => esc_attr__('AM','asl_locator'),
         'pm'                => esc_attr__('PM','asl_locator'),
         'sub_cat_label'     => esc_attr__('Sub-Categories','asl_locator'),
-        'head_title'        => esc_attr__('Number Of Shops','asl_locator'),
+        'head_title'        => esc_attr__('Locations','asl_locator'),
         'category_title'    => esc_attr__('Category','asl_locator'),
         'no_item_text'      => esc_attr__('No Item Found','asl_locator'),
         'no_search_item'    => esc_attr__('No Search Found','asl_locator'),
@@ -272,7 +274,12 @@ class Label {
         'store_page_wednesday'       => esc_attr__('Wednesday', 'asl_locator'),
         'store_page_thursday'        => esc_attr__('Thursday', 'asl_locator'),
         'store_page_friday'          => esc_attr__('Friday', 'asl_locator'),
-        'store_page_saturday'        => esc_attr__('Saturday', 'asl_locator')
+        'store_page_saturday'        => esc_attr__('Saturday', 'asl_locator'),
+        'by_category'       => esc_attr__('Browse by Category','asl_locator'),
+        'pick_by_category'  => esc_attr__('Pick a Category to see Nearly Stores','asl_locator'),
+        'within_lc'         => esc_attr__('within','asl_locator'),
+        'mi_short'          => esc_attr__('mi','asl_locator'),
+        'km_short'          => esc_attr__('km','asl_locator')
         );
         
 
