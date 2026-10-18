@@ -208,7 +208,7 @@ class GoogleMapsAuthorization extends Base
         ]);
     }
 
-    private function google_request($method, $url, array $body = null)
+    private function google_request($method, $url, ?array $body = null)
     {
         $token = get_transient($this->token_key());
         if (!$token) {

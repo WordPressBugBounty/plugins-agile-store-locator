@@ -115,6 +115,9 @@ class Plugin {
 		
 		//	ADMIN HOOKS
 		$this->plugin_admin   = new Manager( $this->get_AgileStoreLocator(), $this->get_version() );
+		new \AgileStoreLocator\Admin\GoogleConnect();
+		add_action('save_post_page', ['\\AgileStoreLocator\\Admin\\Dashboard', 'sync_store_page_slug'], 20, 3);
+		add_action('init', ['\\AgileStoreLocator\\Admin\\Dashboard', 'refresh_store_page_rewrites'], 30);
 
 		//	FRONTEND Public
 		$this->plugin_public  = new App( $this->get_AgileStoreLocator(), $this->get_version() );

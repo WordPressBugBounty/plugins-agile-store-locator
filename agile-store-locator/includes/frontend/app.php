@@ -85,6 +85,7 @@ class App
         $this->version           = function_exists('wp_get_environment_type') && wp_get_environment_type() == 'development' ? time() : $version;
 
         $this->script_name = '';
+        add_action('template_redirect', [$this, 'customizer_preview']);
 
         //  Match & redirect
         if (isset($_GET['sl-addr']) && $_GET['sl-addr']) {
@@ -92,6 +93,98 @@ class App
             $sanitize_text = esc_attr($_GET['sl-addr']);
             //$this->have_matching_address($sanitize_text);
         }
+    }
+
+    public function customizer_preview()
+    {
+        if (!isset($_GET['asl-customizer-preview'])) {
+            return;
+        }
+        if (!current_user_can(ASL_PERMISSION) || !isset($_GET['_wpnonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'asl-customizer-preview')) {
+            wp_die(esc_html__('You cannot access this preview.', 'asl_locator'), '', ['response' => 403]);
+        }
+        nocache_headers();
+        status_header(200);
+        header('X-Frame-Options: SAMEORIGIN');
+        $template = isset($_GET['template']) ? sanitize_text_field(wp_unslash($_GET['template'])) : $this->get_default_template();
+        if ($template === 'wc') {
+            wp_die(esc_html__('The WooCommerce add-on preview requires a product page. You can edit and save its colors and fonts here.', 'asl_locator'), esc_html__('WooCommerce preview', 'asl_locator'), ['response' => 200, 'back_link' => false]);
+        }
+        $template = $this->sanitize_template($template);
+        $attributes = ['template' => $template];
+        $appearance = isset($_GET['appearance']) && is_array($_GET['appearance']) ? wp_unslash($_GET['appearance']) : [];
+        foreach (\AgileStoreLocator\Helper::customizer_appearance_options() as $key => $allowed) {
+            if ($key === 'tabs_layout') continue;
+            if (isset($appearance[$key]) && is_string($appearance[$key]) && in_array($appearance[$key], $allowed, true)) {
+                $attributes[$key] = $appearance[$key];
+            }
+        }
+        $filters = isset($_GET['filters']) && is_array($_GET['filters']) ? wp_unslash($_GET['filters']) : [];
+        $boolean_filters = ['advance_filter', 'hide_search', 'ddl_search', 'distance_slider'];
+        $allowed_search_fields = ['title', 'street', 'city', 'state', 'postal_code', 'country', 'description', 'description_2'];
+        $allowed_filter_fields = array_column(\AgileStoreLocator\Model\Attribute::get_controls(), 'field');
+        foreach ($filters as $key => $value) {
+            if (!is_string($value)) continue;
+            if (in_array($key, $boolean_filters, true) && in_array($value, ['0', '1'], true)) $attributes[$key] = $value;
+            elseif ($key === 'filter_sort' && in_array($value, ['ordr', 'name_'], true)) $attributes[$key] = $value;
+            elseif ($key === 'distance_control' && $value === '1') $attributes[$key] = $value;
+            elseif ($key === 'fixed_radius' && ($value === '' || (ctype_digit($value) && (int) $value > 0))) $attributes[$key] = $value;
+            elseif ($key === 'select_category' && ($value === '' || preg_match('/^\d+(?:,\d+)*$/', $value))) $attributes[$key] = $value;
+        }
+        $layout = isset($_GET['locator_layout']) && is_array($_GET['locator_layout']) ? wp_unslash($_GET['locator_layout']) : [];
+        if (in_array($template, \AgileStoreLocator\Helper::customizer_layout_templates(), true)) {
+            foreach ($layout as $key => $value) {
+                if (strpos($key, 'list-width-') === 0) continue;
+                if (\AgileStoreLocator\Helper::valid_customizer_layout_value($key, $value, $template)) $attributes[$key] = $value;
+            }
+        }
+        $this->register_styles();
+        $dimensions = isset($_GET['locator_dimensions']) && is_array($_GET['locator_dimensions']) ? wp_unslash($_GET['locator_dimensions']) : [];
+        foreach (\AgileStoreLocator\Helper::customizer_dimension_keys() as $key) {
+            if (isset($dimensions[$key]) && \AgileStoreLocator\Helper::valid_customizer_dimension($dimensions[$key])) $attributes[$key] = $dimensions[$key];
+        }
+        $locator = $this->frontendStoreLocator($attributes);
+        // The preview shares wp_head() with the current page. Remove locator
+        // template styles that page/theme hooks may enqueue for another template.
+        add_action('wp_print_styles', function () use ($template) {
+            $template_styles = [
+                '0' => '-tmpl-0', '0-legacy' => '-tmpl-0-legacy',
+                '1' => '-tmpl-1', '2' => '-tmpl-2', '3' => '-tmpl-3',
+                '4' => '-tmpl-4', '5' => '-tmpl-5', '6' => '-tmpl-6',
+                '7' => '-tmpl-7', 'list' => '-list', 'list-2' => '-list-2',
+            ];
+            foreach ($template_styles as $style_template => $suffix) {
+                if ((string) $style_template !== $template) {
+                    wp_dequeue_style($this->AgileStoreLocator . $suffix);
+                }
+            }
+        }, PHP_INT_MAX);
+        // Dependencies and alternate handles can bypass queue cleanup. Check
+        // the actual template stylesheet path immediately before printing it.
+        add_filter('style_loader_tag', function ($html, $handle) use ($template) {
+            $styles = wp_styles();
+            if (empty($styles->registered[$handle]->src)) {
+                return $html;
+            }
+            $path = wp_parse_url($styles->registered[$handle]->src, PHP_URL_PATH);
+            if (!is_string($path)) {
+                return $html;
+            }
+            if (preg_match('~/public/css/tmpl-([0-7])/tmpl-\1(-legacy)?\.css$~', $path, $matches)) {
+                $style_template = $matches[1] . (!empty($matches[2]) ? '-legacy' : '');
+                return $style_template === $template ? $html : '';
+            }
+            if (preg_match('~/public/css/tmpl-(list(?:-2)?)\.css$~', $path, $matches)) {
+                return $matches[1] === $template ? $html : '';
+            }
+            return $html;
+        }, PHP_INT_MAX, 2);
+        ?><!doctype html>
+        <html <?php language_attributes(); ?>><head><meta charset="<?php bloginfo('charset'); ?>"><meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php wp_head(); ?>
+        <style>html{margin-top:0!important}body{margin:0!important;padding:0!important;background:#fff}#wpadminbar{display:none!important}#asl-storelocator{width:100%;margin:0!important}</style>
+        </head><body><?php echo $locator; // Generated by the registered locator shortcode. ?><?php wp_footer(); ?></body></html><?php
+        exit;
     }
 
     /**
@@ -129,6 +222,10 @@ class App
      */
     public function maybe_enqueue_public_styles()
     {
+        // Preview styles come from its explicit template, not the hosting page.
+        if (isset($_GET['asl-customizer-preview'])) {
+            return;
+        }
         if (is_admin()) {
             return;
         }
@@ -148,9 +245,19 @@ class App
             $this->enqueue_styles($template);
         }
 
-        // Store detail pages are the only additional shortcode in Free.
-        if (has_shortcode($content, 'ASL_STORE')) {
-            $this->enqueue_styles('page');
+        // Other shortcodes
+        $shortcode_styles = [
+            'ASL_CARDS'     => 'cards',
+            'ASL_SEARCH'    => 'search',
+            'ASL_STORE'     => 'page',
+            'ASL_FORM'      => 'form',
+            'ASL_LEADFORM'  => 'lead',
+        ];
+
+        foreach ($shortcode_styles as $tag => $template) {
+            if (has_shortcode($content, $tag)) {
+                $this->enqueue_styles($template);
+            }
         }
     }
 
@@ -758,10 +865,10 @@ class App
 
         $markers    = $wpdb->get_results('SELECT * FROM '.ASL_PREFIX.'markers');
         $countries  = $wpdb->get_results('SELECT id, country FROM '.ASL_PREFIX.'countries ORDER BY `country`');
-        
+
 
         $ddl_controls = \AgileStoreLocator\Model\Attribute::get_controls();
-        
+
         $all_ddl_controls = [];
         $controls_by_field = [];
 
@@ -1068,7 +1175,7 @@ class App
                 // If $q_param is missing, trigger a custom action
                 do_action('asl_store_details_missing_param');
             }
-            
+
         }
 
         if ($q_param) {
@@ -1080,7 +1187,7 @@ class App
 
             //  Run the main query
             $query   = "SELECT s.`id`, `title`,  `description`, `street`,  `city`,  `state`, `postal_code`, `country`, `lat`,`lng`,`phone`,  `fax`,`email`,`website`,`logo_id`,{$ASL_PREFIX}storelogos.`path`,`marker_id`,`description_2`,`open_hours`, `ordr`,$ddl_fields_str, `custom`,
-                    group_concat(category_id) as categories, lang FROM {$ASL_PREFIX}stores as s 
+                    group_concat(category_id) as categories, lang FROM {$ASL_PREFIX}stores as s
                     LEFT JOIN {$ASL_PREFIX}storelogos ON logo_id = {$ASL_PREFIX}storelogos.id
                     LEFT JOIN {$ASL_PREFIX}stores_categories ON s.`id` = {$ASL_PREFIX}stores_categories.store_id
                     WHERE {$where_clause}";
@@ -1256,6 +1363,9 @@ class App
                     }
                 }
 
+                // Apply shortcode map-provider overrides before loading provider assets.
+                $all_configs = $this->_prepare_detail_configs($all_configs, $store_data, $atts);
+
                 //Load the Scripts
                 $this->enqueue_scripts('detail', $all_configs);
 
@@ -1327,11 +1437,8 @@ class App
                 //  Open hours
                 $store_data->open_hours = ($all_configs['hide_hours'] != '1') ? \AgileStoreLocator\Helper::openHours($store_data, $all_configs['week_hours'], $show_close_label) : '';
 
-                //  When we have a map!
-                if ($store_data->map) {
-
-                    $all_configs = $this->_prepare_detail_configs($all_configs, $store_data, $atts);
-                } else {
+                // Remove map-only configuration when the map is disabled.
+                if (!$store_data->map) {
 
                     unset($all_configs['zoom']);
                     unset($all_configs['map_layout']);
@@ -1627,11 +1734,6 @@ class App
             $atts     = apply_filters('asl_filter_locator_attrs', $atts);
         }
 
-        // Database-backed search modes are reserved for Pro.
-        if (isset($atts['search_type']) && in_array((string) $atts['search_type'], ['1', '2'], true)) {
-            $atts['search_type'] = '0';
-        }
-
         // Normalize template early if provided via shortcode
         if (isset($atts['template'])) {
             $atts['template'] = $this->sanitize_template($atts['template']);
@@ -1668,9 +1770,15 @@ class App
         //   Change the settings progamatically
         $all_configs = apply_filters('asl_filter_locator_init', $all_configs);
 
-        if (isset($all_configs['search_type']) && in_array((string) $all_configs['search_type'], ['1', '2'], true)) {
-            $all_configs['search_type'] = '0';
+        // These filtering controls are available in Agile Store Locator Pro.
+        foreach (['address_ddl', 'brand_special_cascade', 'and_filter', 'image_filter', 'image_filter_title', 'time_switch', 'show_opened'] as $pro_filter) {
+            $all_configs[$pro_filter] = '0';
         }
+        foreach (['filter_ddl', 'search_2'] as $pro_filter) {
+            $all_configs[$pro_filter] = '';
+        }
+        $all_configs['distance_control'] = '1';
+        $all_configs['tabs_layout'] = '0';
 
         //  Keep the local language vars synced with programmatic changes.
         if (isset($all_configs['lang']) && strlen($all_configs['lang']) <= 13) {
@@ -1713,12 +1821,17 @@ class App
         $this->enqueue_scripts($template, $script_atts);
 
         //  for the localization script
-        $this->script_name = '-script';
+        $this->script_name = (in_array($template, ['3', '4', '5'])) ? '-tmpl-'.$template : '-script';
 
         // MapLibre uses provider-specific runtime handles. Localized variables
         // must be attached to the handle that WordPress actually enqueues.
         if ('maplibre' === strtolower((string) $script_atts['map_vendor'])) {
-            $this->script_name = '-script-maplibre';
+            $this->script_name = ('3' === (string) $template) ? '-tmpl-3-maplibre' : '-script-maplibre';
+        }
+
+        //  List Template
+        if (strpos($template, 'list') !== false) {
+            $this->script_name = '-tmpl-list';
         }
 
         //Load the Style
@@ -1896,9 +2009,9 @@ class App
 
         //echo '<hr>Before: '. esc_html($all_configs['rewrite_slug']) .'<hr>';
         if (isset($all_configs['rewrite_slug']) && $all_configs['rewrite_slug']) {
-            
+
             $store_base_url = \AgileStoreLocator\Schema\Slug::get_store_base_url();
-            
+
             if ($store_base_url) {
                 $all_configs['rewrite_slug'] = $store_base_url;
             }
@@ -1919,6 +2032,7 @@ class App
             'additional_info' => '1',
             'distance_slider' => '1',
             'layout' => '0',
+            'results_layout' => 'left',
             'default_lat' => '-33.947128',
             'default_lng' => '25.591169',
             'map_layout' => '0',
@@ -1958,17 +2072,20 @@ class App
             'mobile_optimize'   => null,
             'mobile_load_bound' => null,
             'search_type' => '0',
+            'places_ui_kit' => '0',
             'search_destin' => '0',
             'full_height' => '',
             'map_language' => '',
             'map_region' => '',
             'sort_by' => '',
+            'show_sort' => '1',
             'distance_control' => '0',
             'dropdown_range' => '20,40,60,80,*100',
             'target_blank' => '1',
             'fit_bound' => '1',
             'info_y_offset' => '',
             'cat_sort' => 'ordr',
+            'filter_sort' => 'ordr',
             'direction_btn' => '1',
             'action_button_display' => 'icons',
             'print_btn' => '1',
@@ -1980,6 +2097,18 @@ class App
         ];
 
         $all_configs  = array_merge($default_options, $all_configs);
+
+        $dimension_template = $template === '0-legacy' ? '0' : $template;
+        $locator_dimensions = \AgileStoreLocator\Helper::customizer_dimensions($dimension_template, $all_configs);
+        if ($locator_dimensions['locator-height'] !== '' || $locator_dimensions['locator-phone-height'] !== '') {
+            $all_configs['full_height'] = '';
+        }
+        if ($locator_dimensions['locator-height'] !== '') $all_configs['css_class'] = ($all_configs['css_class'] ?? '') . ' sl-custom-height';
+        if ($locator_dimensions['locator-phone-height'] !== '') $all_configs['css_class'] = ($all_configs['css_class'] ?? '') . ' sl-custom-phone-height';
+        if ($locator_dimensions['locator-width'] !== '') {
+            $all_configs['full_width'] = '0';
+            $all_configs['css_class'] = ($all_configs['css_class'] ?? '') . ' sl-custom-width';
+        }
 
         //  Shortcode-overridable labels
         $all_configs['header_title'] = isset($atts['header_title'])
@@ -2198,6 +2327,11 @@ class App
         //  Code codes for the CSS
         $css_template = ($all_configs['template'] === '0-legacy') ? '0' : $all_configs['template'];
         $css_code .= \AgileStoreLocator\Helper::generate_tmpl_css($css_template);
+        $dimension_css = '';
+        foreach ($locator_dimensions as $key => $value) {
+            if ($value !== '') $dimension_css .= '--sl-' . $key . ':' . $value . ';';
+        }
+        if ($dimension_css !== '') $css_code .= 'body #asl-storelocator.asl-cont.asl-template-' . $template . '{' . $dimension_css . '}';
 
         $css_code .= '#asl-storelocator.asl-cont .sl-act-btns--icons .sl-act-btn-text {display: none;}';
         $css_code .= '#asl-storelocator.asl-cont .sl-act-btns--text i {display: none;}';
@@ -2269,15 +2403,101 @@ class App
         switch ($all_configs['template']) {
 
             case '0-legacy':
+
                 $template_file = 'template-frontend-0-legacy.php';
                 break;
 
+            case '7':
+
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $template_file = 'template-frontend-7.php';
+                break;
+
+            case '6':
+
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $template_file = 'template-frontend-6.php';
+                break;
+
+            case '5':
+
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $template_file = 'template-frontend-5.php';
+                break;
+
+            case '4':
+
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $template_file = 'template-frontend-4.php';
+                break;
+
+            case '3':
+
+                if ($all_configs['color_scheme_3'] < 0 && $all_configs['color_scheme_3'] > 9) {
+                    $all_configs['color_scheme_3'] = 0;
+                }
+
+                $template_file = 'template-frontend-3.php';
+                break;
+
+            case '2':
+                if ($all_configs['color_scheme_2'] < 0 && $all_configs['color_scheme_2'] > 9) {
+                    $all_configs['color_scheme_2'] = 0;
+                }
+
+                $template_file = 'template-frontend-2.php';
+                break;
+
+            case '1':
+                if ($all_configs['color_scheme_1'] < 0 && $all_configs['color_scheme_1'] > 9) {
+                    $all_configs['color_scheme_1'] = 0;
+                }
+
+                $template_file = 'template-frontend-1.php';
+                break;
+
+            case 'list':
+
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $atts['no_script'] = 0;
+                $template_file       = 'template-frontend-list.php';
+
+                break;
+
+            case 'list-2':
+
+                if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
+                    $all_configs['color_scheme'] = 0;
+                }
+
+                $atts['no_script'] = 0;
+                $template_file       = 'template-frontend-list-2.php';
+
+                break;
+
             default:
+
                 if ($all_configs['color_scheme'] < 0 && $all_configs['color_scheme'] > 9) {
                     $all_configs['color_scheme'] = 0;
                 }
 
                 $template_file = 'template-frontend-0.php';
+
                 break;
         }
 
@@ -2323,6 +2543,7 @@ class App
         $all_attributes   = apply_filters('asl_filter_locator_attributes', $all_attributes);
 
         $script_configs = $all_configs;
+        $script_configs['free_version'] = '1';
         if ($script_configs['template'] === '0-legacy') {
             $script_configs['template_variant'] = '0-legacy';
             $script_configs['template'] = '0';

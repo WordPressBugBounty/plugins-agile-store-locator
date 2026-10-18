@@ -375,21 +375,21 @@ if($level_mode === true){ ?>
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-distance_control"><?php echo esc_attr__('Distance Control','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
+                                                <div class="asl-distance-control-options">
+                                                    <div class="asl-wc-radio is-pro-locked">
                                                         <label for="asl-distance_control-0"><input type="radio"
                                                                 name="data[distance_control]" value="0"
-                                                                id="asl-distance_control-0"><?php echo esc_attr__('Slider','asl_locator') ?></label>
+                                                                id="asl-distance_control-0" disabled aria-disabled="true"><?php echo esc_attr__('Slider','asl_locator') ?><span class="asl-inline-pro-badge"><?php esc_html_e('PRO', 'asl_locator'); ?></span></label>
                                                     </div>
-                                                    <div class="asl-wc-radio">
+                                                    <div class="asl-wc-radio is-free-option">
                                                         <label for="asl-distance_control-1"><input type="radio"
                                                                 name="data[distance_control]" value="1"
-                                                                id="asl-distance_control-1"><?php echo esc_attr__('Dropdown','asl_locator') ?></label>
+                                                                id="asl-distance_control-1" checked><?php echo esc_attr__('Dropdown','asl_locator') ?></label>
                                                     </div>
-                                                    <div class="asl-wc-radio">
+                                                    <div class="asl-wc-radio is-pro-locked">
                                                         <label for="asl-distance_control-2"><input type="radio"
                                                                 name="data[distance_control]" value="2"
-                                                                id="asl-distance_control-2"><?php echo esc_attr__('Boundary Box','asl_locator') ?></label>
+                                                                id="asl-distance_control-2" disabled aria-disabled="true"><?php echo esc_attr__('Boundary Box','asl_locator') ?><span class="asl-inline-pro-badge"><?php esc_html_e('PRO', 'asl_locator'); ?></span></label>
                                                     </div>
                                                     <p class="help-p"><a class="text-muted" target="_blank"
                                                             href="https://agilestorelocator.com/wiki/set-radius-value-distance-range-slider/"><?php echo esc_attr__('Select the distance filter control','asl_locator') ?></a>
@@ -1623,21 +1623,21 @@ if($level_mode === true){ ?>
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
                                                     for="asl-tabs_layout"><?php echo esc_attr__('Tabs Layout','asl_locator') ?></label>
-                                                <div>
-                                                    <div class="asl-wc-radio">
+                                                <div class="asl-tabs-layout-options">
+                                                    <div class="asl-wc-radio is-free-option">
                                                         <label for="asl-tabs_layout-0"><input type="radio"
                                                                 name="data[tabs_layout]" value="0"
-                                                                id="asl-tabs_layout-0"><?php echo esc_attr__('Dropdowns','asl_locator') ?></label>
+                                                                id="asl-tabs_layout-0" checked><?php echo esc_attr__('Dropdowns','asl_locator') ?></label>
                                                     </div>
-                                                    <div class="asl-wc-radio">
+                                                    <div class="asl-wc-radio is-pro-locked">
                                                         <label for="asl-tabs_layout-1"><input type="radio"
                                                                 name="data[tabs_layout]" value="1"
-                                                                id="asl-tabs_layout-1"><?php echo esc_attr__('Clickable Tabs','asl_locator') ?></label>
+                                                                id="asl-tabs_layout-1" disabled aria-disabled="true"><?php echo esc_attr__('Clickable Tabs','asl_locator') ?><span class="asl-inline-pro-badge"><?php esc_html_e('PRO', 'asl_locator'); ?></span></label>
                                                     </div>
-                                                    <div class="asl-wc-radio">
+                                                    <div class="asl-wc-radio is-pro-locked">
                                                         <label for="asl-tabs_layout-2"><input type="radio"
                                                                 name="data[tabs_layout]" value="2"
-                                                                id="asl-tabs_layout-2"><?php echo esc_attr__('Checkboxes','asl_locator') ?></label>
+                                                                id="asl-tabs_layout-2" disabled aria-disabled="true"><?php echo esc_attr__('Checkboxes','asl_locator') ?><span class="asl-inline-pro-badge"><?php esc_html_e('PRO', 'asl_locator'); ?></span></label>
                                                     </div>
                                                     <p class="help-p">
                                                         <?php echo esc_attr__('Choose how category filters appear in the store locator.','asl_locator') ?>

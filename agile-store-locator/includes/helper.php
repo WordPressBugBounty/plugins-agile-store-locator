@@ -8,6 +8,13 @@ namespace AgileStoreLocator;
  */
 class Helper {
 
+  /** Return the saved Quick Style class for a locator template. */
+  public static function quick_style_class($template) {
+    $settings = json_decode(self::get_setting('ui-template', 'template-' . $template) ?: '{}', true);
+    $style = isset($settings['quick-style']) ? $settings['quick-style'] : 'default';
+    return 'sl-design-' . (in_array($style, ['default', 'modern'], true) ? $style : 'default') . '-tmpl';
+  }
+
   /**
    * [third_party_hooks Add the third party hooks to create the association with those plugins]
    * @param  [type] $configs [description]
@@ -509,6 +516,82 @@ class Helper {
    * @param array      $defaults Default colors keyed by setting name.
    * @return array
    */
+  public static function customizer_appearance_options() {
+    return [
+      'results_layout' => ['left', 'right', 'bottom', 'cards'],
+      'display_list' => ['1', '0'],
+      'full_height' => ['', 'full-height', 'full-height asl-fixed'],
+      'full_width' => ['0', '1'],
+      'tabs_layout' => ['0', '1', '2'],
+      'hide_search' => ['0', '1'],
+      'hide_logo' => ['0', '1'],
+      'hide_hours' => ['0', '1'],
+      'show_categories' => ['1', '0'],
+      'show_sort' => ['1', '0'],
+      'direction_btn' => ['1', '0'],
+      'slug_link' => ['0', '1'],
+      'action_button_display' => ['icons', 'text', 'both'],
+    ];
+  }
+
+  public static function customizer_layout_templates() {
+    return ['0', '1', '2', '3', '5', '6'];
+  }
+
+  public static function customizer_dimension_keys() {
+    return ['locator-height', 'locator-phone-height', 'locator-width'];
+  }
+
+  public static function valid_customizer_dimension($value) {
+    return is_string($value) && ($value === '' || (preg_match('/^(?:\d+(?:\.\d+)?|\.\d+)(?:px|vh|vw|rem|em|%|vmin|vmax)$/', $value) && (float) $value > 0));
+  }
+
+  public static function customizer_dimensions($template, $config = []) {
+    $saved = self::get_setting('ui-template', 'template-' . $template);
+    $saved = $saved ? json_decode($saved, true) : [];
+    $saved = is_array($saved) ? $saved : [];
+    $dimensions = [];
+    foreach (self::customizer_dimension_keys() as $key) {
+      $value = $config[$key] ?? ($saved[$key] ?? '');
+      $dimensions[$key] = self::valid_customizer_dimension($value) ? $value : '';
+    }
+    return $dimensions;
+  }
+
+  public static function valid_customizer_layout_value($key, $value, $template = null) {
+    if (!is_string($value)) return false;
+    if ($key === 'results-layout') return in_array($value, (string) $template === '0' ? ['', 'left', 'right', 'bottom', 'cards'] : ['', 'left', 'right'], true);
+    return in_array($key, ['list-width-sm', 'list-width-md', 'list-width-lg', 'list-width-xl'], true)
+      && ($value === '' || (ctype_digit($value) && (int) $value >= 30 && (int) $value <= 70));
+  }
+  public static function customizer_layout_attributes($template, $config, $list, $map) {
+    $saved = self::get_setting('ui-template', 'template-' . $template);
+    $saved = $saved ? json_decode($saved, true) : [];
+    $saved = is_array($saved) ? $saved : [];
+    $classes = []; $styles = []; $defaults = []; $side = [];
+    $list_size = 12; $map_size = 12;
+    foreach (['sm', 'md', 'lg', 'xl'] as $breakpoint) {
+      $list_size = isset($list[$breakpoint]) ? (int) $list[$breakpoint] : $list_size;
+      $map_size = isset($map[$breakpoint]) ? (int) $map[$breakpoint] : $map_size;
+      $side[$breakpoint] = $list_size > 0 && $list_size < 12 && $map_size > 0 && $map_size < 12;
+      $defaults[$breakpoint] = $side[$breakpoint] ? (int) round($list_size / ($list_size + $map_size) * 100) : 50;
+      if ($side[$breakpoint]) $classes[] = 'sl-layout-side-' . $breakpoint;
+      $key = 'list-width-' . $breakpoint;
+      // Custom list/map proportions are available in Agile Store Locator Pro.
+      $value = '';
+      // Keep both the list and map at least 30% wide, including older saved proportions.
+      if (is_string($value) && ctype_digit($value) && (int) $value >= 20 && (int) $value <= 80) $value = (string) min(70, max(30, (int) $value));
+      if (self::valid_customizer_layout_value($key, $value) && $value !== '' && $side[$breakpoint]) {
+        $classes[] = 'sl-proportion-' . $breakpoint;
+        $styles[] = '--sl-list-width-' . $breakpoint . ':' . (int) $value . '%';
+        $styles[] = '--sl-map-width-' . $breakpoint . ':' . (100 - (int) $value) . '%';
+      }
+    }
+    $layout = $config['results-layout'] ?? ($saved['results-layout'] ?? '');
+    $layout = self::valid_customizer_layout_value('results-layout', $layout, $template) ? $layout : '';
+    if (in_array($layout, ['left', 'right'], true)) $classes[] = 'sl-result-' . $layout;
+    return ['class' => implode(' ', $classes), 'style' => implode(';', $styles), 'defaults' => $defaults, 'side' => $side, 'layout' => $layout];
+  }
   public static function get_ui_template_colors($template = 0, $defaults = []) {
 
     $codes_json = self::get_setting('ui-template', 'template-'.$template);
@@ -541,6 +624,7 @@ class Helper {
       $color_html   = $class_prefix."-{$template} {";
 
       foreach ($color_codes as $key => $code) {
+        if ($key === 'quick-style' || $key === 'results-layout' || strpos($key, 'list-width-') === 0 || in_array($key, self::customizer_dimension_keys(), true)) continue;
         
         if($code) {
 

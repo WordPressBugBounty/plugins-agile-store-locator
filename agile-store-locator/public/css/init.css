@@ -1,2 +1,68 @@
 .asl-p-cont,
 .asl-cont {opacity: 0;}
+
+/* Keep prominent frontend actions legible across locator templates. */
+.asl-cont .btn-primary,
+.asl-cont .btn-secondary,
+.asl-cont .btn-success,
+.asl-cont button[type="submit"],
+.asl-cont input[type="submit"] {
+  font-size: 14px !important;
+}
+
+/* Per-template list/map proportions; stacked breakpoint grids keep their original widths. */
+@media(min-width:576px) and (max-width:767.98px){
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-sm:is(.sl-result-left,.sl-result-right) .asl-wrapper .sl-main-cont>.sl-row{flex-direction:row!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-sm .asl-wrapper .sl-main-cont .sl-proportion-list{width:var(--sl-list-width-sm)!important;max-width:var(--sl-list-width-sm)!important;flex:0 0 var(--sl-list-width-sm)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-sm .asl-wrapper .sl-main-cont .sl-proportion-map{width:var(--sl-map-width-sm)!important;max-width:var(--sl-map-width-sm)!important;flex:0 0 var(--sl-map-width-sm)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-sm.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-list{order:0!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-sm.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-map{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-sm.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-list{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-sm.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-map{order:0!important}
+}
+@media(min-width:768px) and (max-width:991.98px){
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-md:is(.sl-result-left,.sl-result-right) .asl-wrapper .sl-main-cont>.sl-row{flex-direction:row!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-md .asl-wrapper .sl-main-cont .sl-proportion-list{width:var(--sl-list-width-md)!important;max-width:var(--sl-list-width-md)!important;flex:0 0 var(--sl-list-width-md)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-md .asl-wrapper .sl-main-cont .sl-proportion-map{width:var(--sl-map-width-md)!important;max-width:var(--sl-map-width-md)!important;flex:0 0 var(--sl-map-width-md)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-md.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-list{order:0!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-md.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-map{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-md.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-list{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-md.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-map{order:0!important}
+}
+@media(min-width:992px) and (max-width:1199.98px){
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-lg:is(.sl-result-left,.sl-result-right) .asl-wrapper .sl-main-cont>.sl-row{flex-direction:row!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-lg .asl-wrapper .sl-main-cont .sl-proportion-list{width:var(--sl-list-width-lg)!important;max-width:var(--sl-list-width-lg)!important;flex:0 0 var(--sl-list-width-lg)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-lg .asl-wrapper .sl-main-cont .sl-proportion-map{width:var(--sl-map-width-lg)!important;max-width:var(--sl-map-width-lg)!important;flex:0 0 var(--sl-map-width-lg)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-lg.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-list{order:0!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-lg.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-map{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-lg.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-list{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-lg.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-map{order:0!important}
+}
+@media(min-width:1200px){
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-xl:is(.sl-result-left,.sl-result-right) .asl-wrapper .sl-main-cont>.sl-row{flex-direction:row!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-xl .asl-wrapper .sl-main-cont .sl-proportion-list{width:var(--sl-list-width-xl)!important;max-width:var(--sl-list-width-xl)!important;flex:0 0 var(--sl-list-width-xl)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-proportion-xl .asl-wrapper .sl-main-cont .sl-proportion-map{width:var(--sl-map-width-xl)!important;max-width:var(--sl-map-width-xl)!important;flex:0 0 var(--sl-map-width-xl)!important;min-width:0}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-xl.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-list{order:0!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-xl.sl-result-left .asl-wrapper .sl-main-cont .sl-proportion-map{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-xl.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-list{order:1!important}
+body #asl-storelocator.asl-cont:not(.map-full):not(.sl-search-only):not(.sl-results-bottom):not(.sl-results-cards):not(:has(.sl-panel-collapsed)).sl-layout-side-xl.sl-result-right .asl-wrapper .sl-main-cont .sl-proportion-map{order:0!important}
+}
+/* Fixed locator dimensions: list and map use the same requested height. */
+body #asl-storelocator.asl-cont.sl-custom-height{--sl-locator-active-height:var(--sl-locator-height)}
+body #asl-storelocator.asl-cont.sl-custom-width>.asl-wrapper>.sl-container,
+body #asl-storelocator.asl-cont.sl-custom-width>.asl-wrapper>.sl-container-fluid{width:var(--sl-locator-width)!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important}
+@media(min-width:768px){
+body #asl-storelocator.asl-cont.sl-custom-height #asl-map-canv,
+body #asl-storelocator.asl-cont.sl-custom-height .sl-main-cont .asl-panel-inner,
+body #asl-storelocator.asl-cont.sl-custom-height .sl-main-cont .sl-proportion-list{height:var(--sl-locator-active-height)!important;min-height:0!important;max-height:var(--sl-locator-active-height)!important;box-sizing:border-box}
+body #asl-storelocator.asl-cont.sl-custom-height .sl-main-cont{height:auto!important;min-height:0!important}
+body #asl-storelocator.asl-cont.sl-custom-height .sl-main-cont .asl-panel-inner{position:relative!important;top:0!important;bottom:auto!important}
+}
+@media(max-width:767px){
+body #asl-storelocator.asl-cont.sl-custom-phone-height{--sl-locator-active-height:var(--sl-locator-phone-height)}
+body #asl-storelocator.asl-cont:is(.sl-custom-height,.sl-custom-phone-height) #asl-map-canv,
+body #asl-storelocator.asl-cont:is(.sl-custom-height,.sl-custom-phone-height) .sl-main-cont .asl-panel-inner,
+body #asl-storelocator.asl-cont:is(.sl-custom-height,.sl-custom-phone-height) .sl-main-cont .sl-proportion-list{height:var(--sl-locator-active-height)!important;min-height:0!important;max-height:var(--sl-locator-active-height)!important;box-sizing:border-box}
+body #asl-storelocator.asl-cont:is(.sl-custom-height,.sl-custom-phone-height) .sl-main-cont{height:auto!important;min-height:0!important}
+body #asl-storelocator.asl-cont:is(.sl-custom-height,.sl-custom-phone-height) .sl-main-cont .asl-panel-inner{position:relative!important;top:0!important;bottom:auto!important}
+}

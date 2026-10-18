@@ -1,25 +1,24 @@
+#
 #, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Agile Store Locator\n"
-"POT-Creation-Date: 2026-09-15 00:08+0000\n"
+"POT-Creation-Date: 2026-10-17 22:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-WPHeader: agile-store-locator.php\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
-"Language: "
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-WPHeader: agile-store-locator.php\n"
 
 #: includes/admin/attribute.php:125
 msgid " added successfully"
@@ -700,9 +699,9 @@ msgstr ""
 
 #: includes/model/label.php:196
 msgid ""
-"Are you ready to Experience the Difference? Just fill out the form below and "
-"one of our helpful representatives will find your nearest dealer and get you "
-"in contact!"
+"Are you ready to Experience the Difference? Just fill out the form below and"
+" one of our helpful representatives will find your nearest dealer and get "
+"you in contact!"
 msgstr ""
 
 #: includes/admin/manager.php:346
@@ -989,7 +988,8 @@ msgid "Categories deleted successfully."
 msgstr ""
 
 #: admin/partials/categories.php:68
-msgid "Categories let you group stores and help visitors narrow their results."
+msgid ""
+"Categories let you group stores and help visitors narrow their results."
 msgstr ""
 
 #: admin/partials/categories.php:88 admin/partials/add_store.php:413
@@ -1095,8 +1095,8 @@ msgstr ""
 
 #: admin/partials/asl-faq.php:25
 msgid ""
-"Check that the store is enabled and has valid latitude and longitude values. "
-"If cache is enabled, refresh the JSON cache after saving your changes."
+"Check that the store is enabled and has valid latitude and longitude values."
+" If cache is enabled, refresh the JSON cache after saving your changes."
 msgstr ""
 
 #: admin/partials/user_setting.php:2462
@@ -1606,9 +1606,9 @@ msgstr ""
 
 #: admin/partials/asl-faq.php:9
 msgid ""
-"Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> shortcode,"
-" and publish the page. Your store locator will appear where the shortcode is "
-"placed."
+"Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> "
+"shortcode, and publish the page. Your store locator will appear where the "
+"shortcode is placed."
 msgstr ""
 
 #: admin/partials/dashboard.php:343
@@ -2148,8 +2148,8 @@ msgstr ""
 #: admin/partials/asl-faq.php:65
 msgid ""
 "Email <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. "
-"Include your WordPress version, Store Locator version, map option, page URL, "
-"and a screenshot or exact error message."
+"Include your WordPress version, Store Locator version, map option, page URL,"
+" and a screenshot or exact error message."
 msgstr ""
 
 #: admin/partials/user_setting.php:1986
@@ -2361,8 +2361,8 @@ msgstr ""
 
 #: admin/partials/user_setting.php:420
 msgid ""
-"Enter the search dropdown options values, comma separated. Add default value "
-"with * symbol."
+"Enter the search dropdown options values, comma separated. Add default value"
+" with * symbol."
 msgstr ""
 
 #: admin/partials/add_store.php:191 admin/partials/edit_store.php:211
@@ -2735,8 +2735,8 @@ msgstr ""
 
 #: admin/partials/user_setting.php:820
 msgid ""
-"Fine-tune search behavior, distance controls, category logic, analytics, and "
-"multilingual store data."
+"Fine-tune search behavior, distance controls, category logic, analytics, and"
+" multilingual store data."
 msgstr ""
 
 #: admin/partials/customize_map.php:64
@@ -2746,8 +2746,8 @@ msgstr ""
 #: admin/partials/asl-faq.php:61
 msgid ""
 "First confirm that the selected map option is configured correctly. For "
-"Google Maps, check the API key, billing status, allowed website address, and "
-"required APIs. You can also switch to the free map option under <b>ASL "
+"Google Maps, check the API key, billing status, allowed website address, and"
+" required APIs. You can also switch to the free map option under <b>ASL "
 "Settings → Maps</b>."
 msgstr ""
 
@@ -2991,9 +2991,9 @@ msgstr ""
 
 #: admin/partials/asl-faq.php:21
 msgid ""
-"Go to <b>Manage Stores → Add New Store</b>, enter the store name and address,"
-" confirm its location, and save it. You can also assign a category, marker, "
-"logo, opening hours, and contact details."
+"Go to <b>Manage Stores → Add New Store</b>, enter the store name and "
+"address, confirm its location, and save it. You can also assign a category, "
+"marker, logo, opening hours, and contact details."
 msgstr ""
 
 #: public/partials/_agile_modal.php:26
@@ -3059,9 +3059,9 @@ msgstr ""
 
 #: includes/vendors/borlabs.php:75
 msgid ""
-"Google Maps has been blocked.<br>Click on <strong>Load Store Locator</strong>"
-" to unblock Google Maps library.<br> further details about the <a "
-"href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" "
+"Google Maps has been blocked.<br>Click on <strong>Load Store "
+"Locator</strong> to unblock Google Maps library.<br> further details about "
+"the <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" "
 "rel=\"nofollow\">Google Maps Privacy Policy</a> . "
 msgstr ""
 
@@ -3458,8 +3458,8 @@ msgstr ""
 
 #: includes/admin/setting.php:150
 msgid ""
-"Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes "
-"are supported."
+"Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes"
+" are supported."
 msgstr ""
 
 #: admin/partials/import_store.php:441
@@ -3486,8 +3486,8 @@ msgstr ""
 
 #: admin/partials/user_setting.php:2229
 msgid ""
-"Keep customized template files safely in your active theme so plugin updates "
-"do not overwrite them."
+"Keep customized template files safely in your active theme so plugin updates"
+" do not overwrite them."
 msgstr ""
 
 #: includes/vendors/wpbakery/store-locator.php:167
@@ -3521,8 +3521,8 @@ msgstr ""
 
 #: admin/partials/labels.php:26
 msgid ""
-"Labels section can be used to change the labels of the frontend of the store "
-"locator widgets, enable the switch above to activate."
+"Labels section can be used to change the labels of the frontend of the store"
+" locator widgets, enable the switch above to activate."
 msgstr ""
 
 #: admin/partials/user_setting.php:2366 includes/admin/manager.php:1048
@@ -3768,7 +3768,8 @@ msgid "Locator shortcode"
 msgstr ""
 
 #: admin/partials/store-form-tab.php:43 admin/partials/add_store.php:399
-#: admin/partials/edit_store.php:437 admin/partials/bulk-edit-offcanvas.php:289
+#: admin/partials/edit_store.php:437
+#: admin/partials/bulk-edit-offcanvas.php:289
 msgid "Logo"
 msgstr ""
 
@@ -4042,7 +4043,8 @@ msgid "MapTiler API Key"
 msgstr ""
 
 #: admin/partials/store-form-tab.php:42 admin/partials/add_store.php:376
-#: admin/partials/edit_store.php:413 admin/partials/bulk-edit-offcanvas.php:264
+#: admin/partials/edit_store.php:413
+#: admin/partials/bulk-edit-offcanvas.php:264
 msgid "Marker"
 msgstr ""
 
@@ -5113,7 +5115,8 @@ msgid "Scan Area"
 msgstr ""
 
 #: admin/partials/import_store.php:272
-msgid "Scanning your uploaded files for stores missing latitude/longitude data"
+msgid ""
+"Scanning your uploaded files for stores missing latitude/longitude data"
 msgstr ""
 
 #: admin/partials/manage_store.php:228
@@ -5423,8 +5426,8 @@ msgstr ""
 
 #: admin/partials/user_setting.php:465
 msgid ""
-"Select either to display the geolocation button or the search button next to "
-"address search"
+"Select either to display the geolocation button or the search button next to"
+" address search"
 msgstr ""
 
 #: admin/partials/manage-cards.php:256 admin/partials/manage-cards.php:258
@@ -5519,8 +5522,8 @@ msgstr ""
 
 #: admin/partials/user_setting.php:1865
 msgid ""
-"Select the URL type of website link, page slug will only work when page slug "
-"is provided"
+"Select the URL type of website link, page slug will only work when page slug"
+" is provided"
 msgstr ""
 
 #: admin/partials/store-form-tab.php:97
@@ -5849,8 +5852,8 @@ msgstr ""
 
 #: admin/partials/user_setting.php:639
 msgid ""
-"Sort stores list randomly on the load of the Store Locator (Enabling it will "
-"disable Default Location Marker)"
+"Sort stores list randomly on the load of the Store Locator (Enabling it will"
+" disable Default Location Marker)"
 msgstr ""
 
 #: admin/partials/user_setting.php:611
@@ -6371,8 +6374,8 @@ msgstr ""
 #, php-format
 msgid ""
 "The default map type remains in <a href=\"%s\">ASL Settings</a>. Camera "
-"Control and Zoom Control (Old Style) are alternative navigation controls and "
-"cannot be enabled together."
+"Control and Zoom Control (Old Style) are alternative navigation controls and"
+" cannot be enabled together."
 msgstr ""
 
 #: admin/partials/dashboard.php:289
@@ -6403,8 +6406,8 @@ msgstr ""
 
 #: admin/partials/import_store.php:142
 msgid ""
-"The PHP mbstring extension is not installed. Import will not work without it."
-" Please ask your server admin to enable mbstring (or enable it in your "
+"The PHP mbstring extension is not installed. Import will not work without "
+"it. Please ask your server admin to enable mbstring (or enable it in your "
 "control panel)."
 msgstr ""
 
@@ -6446,8 +6449,8 @@ msgstr ""
 
 #: admin/partials/import_store.php:355
 msgid ""
-"This version supports CSV files with comma delimiters. For custom formats or "
-"technical support, contact our team at support@agilelogix.com"
+"This version supports CSV files with comma delimiters. For custom formats or"
+" technical support, contact our team at support@agilelogix.com"
 msgstr ""
 
 #: includes/model/label.php:154
@@ -6515,8 +6518,8 @@ msgstr ""
 
 #: admin/partials/labels.php:13
 msgid ""
-"To enable the label changing feature please enable the switch,<br> For multi-"
-"language translation, please disable it and follow the "
+"To enable the label changing feature please enable the switch,<br> For "
+"multi-language translation, please disable it and follow the "
 msgstr ""
 
 #: admin/partials/user_setting.php:505
@@ -6733,7 +6736,8 @@ msgstr ""
 
 #: admin/partials/import_store.php:158
 msgid ""
-"Update permissions (e.g., 755/775) or adjust ownership to allow write access."
+"Update permissions (e.g., 755/775) or adjust ownership to allow write "
+"access."
 msgstr ""
 
 #: admin/partials/bulk-edit-offcanvas.php:27
@@ -6855,8 +6859,8 @@ msgstr ""
 
 #: admin/partials/import_store.php:349
 msgid ""
-"Upload your CSV files for store import. Ensure your files follow the correct "
-"format."
+"Upload your CSV files for store import. Ensure your files follow the correct"
+" format."
 msgstr ""
 
 #: admin/partials/customize_map.php:214
@@ -6873,9 +6877,9 @@ msgstr ""
 
 #: admin/partials/asl-faq.php:37
 msgid ""
-"Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b> "
-"from the Store Locator menu. After creating them, assign them to stores from "
-"the store editor."
+"Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b>"
+" from the Store Locator menu. After creating them, assign them to stores "
+"from the store editor."
 msgstr ""
 
 #: admin/partials/user_setting.php:2609
@@ -7255,16 +7259,16 @@ msgstr ""
 #: admin/partials/asl-faq.php:57
 msgid ""
 "Yes, with the separate <a href=\"https://agilelogix.com/product/multi-store-"
-"addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">"
-"Multi Store Addon for WooCommerce</a>. It adds store selection, local pickup,"
-" location-based inventory, and distance-rate shipping."
+"addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Multi Store Addon for WooCommerce</a>. It adds store selection,"
+" local pickup, location-based inventory, and distance-rate shipping."
 msgstr ""
 
 #: admin/partials/asl-faq.php:41
 msgid ""
 "Yes, with the separate <a href=\"https://agilestorelocator.com/agile-sync-"
-"addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>. "
-"It automatically synchronizes store information between Google Sheets and "
+"addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>."
+" It automatically synchronizes store information between Google Sheets and "
 "Agile Store Locator."
 msgstr ""
 
@@ -7400,4 +7404,1560 @@ msgstr ""
 
 #: admin/partials/user_setting.php:935
 msgid "Zoom value when store list item is clicked"
+msgstr ""
+
+#: admin/partials/attribute_special.php:32
+msgid "New Speciality"
+msgstr ""
+
+#: admin/partials/attribute_special.php:62
+msgid "Upgrade Plugin To View Your Analytics"
+msgstr ""
+
+#: admin/partials/attribute_special.php:63
+msgid "License - $59"
+msgstr ""
+
+#: admin/partials/dashboard.php:83
+msgid "Personalize the locator design, layout, filters and appearance."
+msgstr ""
+
+#: admin/partials/dashboard.php:83
+msgid "Open Customizer"
+msgstr ""
+
+#: admin/partials/dashboard.php:101
+msgid "Configured"
+msgstr ""
+
+#: admin/partials/dashboard.php:101
+msgid "Recommended"
+msgstr ""
+
+#: admin/partials/dashboard.php:103
+msgid ""
+"Give every store its own page so customers can view details, share locations"
+" and get directions."
+msgstr ""
+
+#: admin/partials/dashboard.php:105 admin/partials/dashboard.php:492
+#: admin/partials/dashboard.php:627
+msgid "Update Page"
+msgstr ""
+
+#: admin/partials/dashboard.php:106
+msgid "Store Page Settings"
+msgstr ""
+
+#: admin/partials/dashboard.php:107
+msgid "Edit in WordPress"
+msgstr ""
+
+#: admin/partials/dashboard.php:110
+msgid "Unique URL"
+msgstr ""
+
+#: admin/partials/dashboard.php:110
+msgid "Each store gets its own page."
+msgstr ""
+
+#: admin/partials/dashboard.php:111
+msgid "Easy to Share"
+msgstr ""
+
+#: admin/partials/dashboard.php:111
+msgid "Share on social media or anywhere."
+msgstr ""
+
+#: admin/partials/dashboard.php:112
+msgid "Help customers plan their visit."
+msgstr ""
+
+#: admin/partials/dashboard.php:122 admin/partials/dashboard.php:468
+msgid "Downtown Store"
+msgstr ""
+
+#: admin/partials/dashboard.php:122
+msgid "Call Store"
+msgstr ""
+
+#: admin/partials/dashboard.php:327
+msgid "Connect your Google account or use an existing API key."
+msgstr ""
+
+#: admin/partials/dashboard.php:394
+msgid "Update Store Page"
+msgstr ""
+
+#: admin/partials/dashboard.php:394
+msgid "Create Store Page"
+msgstr ""
+
+#: admin/partials/dashboard.php:394
+msgid "Set up individual store detail pages on your website."
+msgstr ""
+
+#: admin/partials/dashboard.php:400
+msgid "Open page editor"
+msgstr ""
+
+#: admin/partials/dashboard.php:402
+msgid "This page is published. Updated options will take effect immediately."
+msgstr ""
+
+#: admin/partials/dashboard.php:406
+msgid "This will be used as the base title for store pages."
+msgstr ""
+
+#: admin/partials/dashboard.php:412
+msgid "Page options"
+msgstr ""
+
+#: admin/partials/dashboard.php:412
+msgid "Choose what information to show on each store page."
+msgstr ""
+
+#: admin/partials/dashboard.php:416
+msgid "Show map"
+msgstr ""
+
+#: admin/partials/dashboard.php:417
+msgid "Show business hours"
+msgstr ""
+
+#: admin/partials/dashboard.php:418
+msgid "Show closed days"
+msgstr ""
+
+#: admin/partials/dashboard.php:419
+msgid "Show descriptions"
+msgstr ""
+
+#: admin/partials/dashboard.php:420
+msgid "Show categories"
+msgstr ""
+
+#: admin/partials/dashboard.php:421
+msgid "Show country in address"
+msgstr ""
+
+#: admin/partials/dashboard.php:422
+msgid "Enable structured data"
+msgstr ""
+
+#: admin/partials/dashboard.php:423
+msgid "Use coordinates for directions"
+msgstr ""
+
+#: admin/partials/dashboard.php:437
+msgid "Display a map showing the store location."
+msgstr ""
+
+#: admin/partials/dashboard.php:438
+msgid "Display the store’s opening hours."
+msgstr ""
+
+#: admin/partials/dashboard.php:439
+msgid "Include days when the store is closed in business hours."
+msgstr ""
+
+#: admin/partials/dashboard.php:440
+msgid "Display the store descriptions when provided."
+msgstr ""
+
+#: admin/partials/dashboard.php:441
+msgid "Display the categories assigned to the store."
+msgstr ""
+
+#: admin/partials/dashboard.php:442
+msgid "Include the country in the store address."
+msgstr ""
+
+#: admin/partials/dashboard.php:443
+msgid "Add store structured data for search engines."
+msgstr ""
+
+#: admin/partials/dashboard.php:444
+msgid "Use latitude and longitude instead of the address for directions."
+msgstr ""
+
+#: admin/partials/dashboard.php:463
+msgid "Preview"
+msgstr ""
+
+#: admin/partials/dashboard.php:463
+msgid "Example layout with your selected options."
+msgstr ""
+
+#: admin/partials/dashboard.php:469
+msgid "123 Main Street, Dubai"
+msgstr ""
+
+#: admin/partials/dashboard.php:469
+msgid ", UAE"
+msgstr ""
+
+#: admin/partials/dashboard.php:470
+msgid "Open now"
+msgstr ""
+
+#: admin/partials/dashboard.php:471
+msgid "Sunday: Closed"
+msgstr ""
+
+#: admin/partials/dashboard.php:474
+msgid "Visit our friendly team for local advice and in-store services."
+msgstr ""
+
+#: admin/partials/dashboard.php:475
+msgid "Electronics"
+msgstr ""
+
+#: admin/partials/dashboard.php:475
+msgid "Accessories"
+msgstr ""
+
+#: admin/partials/dashboard.php:476
+msgid "Example store map"
+msgstr ""
+
+#: admin/partials/dashboard.php:477
+msgid "Directions use store coordinates."
+msgstr ""
+
+#: admin/partials/dashboard.php:480
+msgid ""
+"Illustrative preview. Your theme and store details determine the final "
+"appearance."
+msgstr ""
+
+#: admin/partials/dashboard.php:486
+msgid "Store shortcode"
+msgstr ""
+
+#: admin/partials/dashboard.php:486
+msgid ""
+"The page ID, URL slug and permalink rules will be configured automatically."
+msgstr ""
+
+#: admin/partials/dashboard.php:490
+msgid ""
+"Your page title and store shortcode options will be updated. The page URL, "
+"other content and publishing status will be preserved."
+msgstr ""
+
+#: admin/partials/dashboard.php:490
+msgid ""
+"A draft WordPress page will be created with the store shortcode. Review and "
+"publish it to make store details available to your customers."
+msgstr ""
+
+#: admin/partials/dashboard.php:596
+msgid "Copied"
+msgstr ""
+
+#: admin/partials/dashboard.php:597
+msgid "Shortcode copied."
+msgstr ""
+
+#: admin/partials/dashboard.php:599
+msgid "Unable to copy. Select and copy the shortcode manually."
+msgstr ""
+
+#: admin/partials/dashboard.php:616
+msgid "Updating…"
+msgstr ""
+
+#: admin/partials/dashboard.php:616
+msgid "Creating…"
+msgstr ""
+
+#: admin/partials/dashboard.php:625
+msgid "Unable to create the page."
+msgstr ""
+
+#: admin/partials/manage-cards.php:186
+msgid "Card 0"
+msgstr ""
+
+#: admin/partials/manage_leads.php:30
+msgid "Manage Leads"
+msgstr ""
+
+#: admin/partials/manage_leads.php:37
+msgid "Duration Selection"
+msgstr ""
+
+#: admin/partials/manage_leads.php:41
+msgid "Export Leads"
+msgstr ""
+
+#: admin/partials/manage_leads.php:44
+msgid "Export Dealers"
+msgstr ""
+
+#: admin/partials/manage_leads.php:62
+msgid "Search Lead Name"
+msgstr ""
+
+#: admin/partials/manage_leads.php:63
+msgid "Search Lead Phone"
+msgstr ""
+
+#: admin/partials/manage_leads.php:64
+msgid "Search Lead Email"
+msgstr ""
+
+#: admin/partials/manage_leads.php:66
+msgid "Search Store Title"
+msgstr ""
+
+#: admin/partials/manage_leads.php:72
+msgid "Lead Name"
+msgstr ""
+
+#: admin/partials/manage_leads.php:73
+msgid "Lead Phone"
+msgstr ""
+
+#: admin/partials/manage_leads.php:74
+msgid "Lead Email"
+msgstr ""
+
+#: admin/partials/manage_leads.php:77
+msgid "Dated"
+msgstr ""
+
+#: admin/partials/shortcode-popup-html.php:36
+#: admin/partials/user_setting.php:1354
+msgid "Template 0 (Legacy)"
+msgstr ""
+
+#: admin/partials/ui-customizer-dimensions.php:1
+msgid "Width or Height"
+msgstr ""
+
+#: admin/partials/ui-customizer-dimensions.php:18
+msgid "Height"
+msgstr ""
+
+#: admin/partials/ui-customizer-dimensions.php:18
+msgid "Height on phones"
+msgstr ""
+
+#: admin/partials/ui-customizer-dimensions.php:21
+msgid "Same"
+msgstr ""
+
+#: admin/partials/ui-customizer-dimensions.php:25
+msgid "e.g. 480px, 60vh"
+msgstr ""
+
+#: admin/partials/ui-customizer-dimensions.php:27
+msgid "Width"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:11
+msgid "Secondary accent color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:12
+msgid "Background of filter dropdown buttons"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:13
+msgid "Text and icon color of filter dropdown buttons"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:14
+msgid "Background of secondary action buttons"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:15
+msgid "Border color of primary action buttons"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:16
+msgid "Text and icon color of secondary action buttons"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:17
+msgid "Background behind store images; accepts transparent in Template 0"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:18
+msgid "Color of the locations count heading"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:19
+msgid "Text color of highlighted store rows"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:20
+msgid "Background of the location search input"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:21
+msgid "Text color of the location search input"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:22
+msgid "Placeholder color of the location search input"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:23
+msgid "Border color of the location search input"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:24
+msgid "Background of selected filter tabs"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:25
+msgid "Text color of selected filter tabs"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:26
+msgid "Border color of selected filter tabs"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:45
+msgid "Quick Style"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:56
+#: admin/partials/ui-customizer-filters.php:23
+#: admin/partials/ui-customizer-filters.php:35
+#: admin/partials/ui-customizer-filters.php:64
+#: admin/partials/ui-customizer-filters.php:71
+#: admin/partials/ui-customizer-layout.php:33
+#: admin/partials/ui-customizer-layout.php:44
+#: admin/partials/user_setting.php:382 admin/partials/user_setting.php:392
+#: admin/partials/user_setting.php:1635 admin/partials/user_setting.php:1640
+msgid "PRO"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:60
+msgid "Typography"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:67
+#, php-format
+msgid "Color for %s"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:70
+msgid "Corner radius of controls and cards, in pixels"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:71
+#, php-format
+msgid "Font size for %s, in pixels"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:6
+msgid "Enable Filters"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:6
+msgid "Show the advanced filter controls."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:8
+msgid "Show cascading Country, State and City dropdowns."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:9
+msgid "Search Inside Dropdowns"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:9
+msgid "Add a search box inside category and attribute dropdowns."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:10
+msgid "Brand–Speciality Cascade"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:10
+msgid "Limit Speciality options to the selected Brand."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:11
+msgid "Require All Categories"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:11
+msgid ""
+"When enabled, stores must belong to every selected category. Otherwise, "
+"matching any category is enough."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:12
+msgid "Category Images"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:12
+msgid "Show assigned icons in the category filter."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:13
+msgid "Category Image Labels"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:13
+msgid "Show category names alongside their icons."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:14
+msgid "Open Now Filter"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:14
+msgid "Let visitors display stores that are currently open."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:15
+msgid "Open Now by Default"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:15
+msgid "Initially display only stores that are currently open."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:16
+msgid "Distance Filter"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:16
+msgid "Let visitors restrict results by distance."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:32
+msgid "Filter Controls"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:35
+msgid "Choose Brand, Speciality and registered custom attribute filters."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:43
+msgid "Filter Option Order"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:43
+msgid ""
+"Sort category and attribute options alphabetically or by their custom order."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:44
+msgid "Custom order"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:44
+msgid "Alphabetical"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:53
+msgid "Selected Categories"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:53
+msgid "Select categories that are active when the locator loads."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:57
+msgid "Availability"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Distance Control Style"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Choose how visitors set the search distance."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Map Boundary"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:65
+msgid "Fixed Radius"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:65
+msgid ""
+"Restrict results to a fixed distance without a visitor-controlled radius."
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:69
+msgid "Secondary Search"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:71
+msgid "Secondary Store Search"
+msgstr ""
+
+#: admin/partials/ui-customizer-filters.php:71
+msgid "Choose the store fields searched by the secondary search box."
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:2
+msgid "Left"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:2
+msgid "Right"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:4
+msgid "Below Map"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:5
+msgid "Card Grid"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Sort By"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Directions Button"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Website Button"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:13
+#: admin/partials/ui-customizer-layout.php:49
+#: admin/partials/user_setting.php:1640
+msgid "Checkboxes"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1790
+msgid "Action Button Content"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1795
+msgid "Icons only"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1800
+msgid "Text only"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1805
+msgid "Icons and text"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:17
+#: admin/partials/ui-customizer-layout.php:18
+msgid "Result Layout"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:33
+msgid "List / Map Proportion"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:33
+msgid "Desktop"
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:36
+msgid "List and map stack on this screen size, each at 100% width."
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:38
+msgid "Result Layout is available for Templates 0, 1, 2, 3, 5 and 6."
+msgstr ""
+
+#: admin/partials/ui-customizer-layout.php:56
+msgid ""
+"Layout and proportions are saved for this template. Appearance settings also"
+" apply to your other store locators."
+msgstr ""
+
+#: admin/partials/ui-customizer.php:4
+msgid "UI Customizer"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:5
+msgid "Design the layout, filters and appearance of your store locator."
+msgstr ""
+
+#: admin/partials/ui-customizer.php:17
+msgid "Included"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:27
+msgid "List Template — Pro"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:28
+msgid "List Template 2 — Pro"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:41
+msgid "9 more templates in Pro"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:48
+msgid "Customizer settings"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:58
+msgid "Settings panel"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:61
+msgid "Design"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:62
+msgid "Customize your store locator in real time."
+msgstr ""
+
+#: admin/partials/ui-customizer.php:64
+msgid "Close settings panel"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:70
+msgid "Loading customizer..."
+msgstr ""
+
+#: admin/partials/ui-customizer.php:77
+msgid "Live store locator preview"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:79
+msgid "Preview device"
+msgstr ""
+
+#: admin/partials/ui-customizer.php:89
+msgid "Store locator live preview"
+msgstr ""
+
+#: admin/partials/user_setting.php:820
+msgid ""
+"Fine-tune search behavior, category logic, analytics, and multilingual store"
+" data."
+msgstr ""
+
+#: admin/partials/user_setting.php:1324
+msgid "Additional UI templates are a Pro feature"
+msgstr ""
+
+#: admin/partials/user_setting.php:1325
+msgid "Upgrade to use additional UI templates and InfoBox layouts."
+msgstr ""
+
+#: admin/partials/user_setting.php:1643
+msgid "Choose how category filters appear in the store locator."
+msgstr ""
+
+#: admin/partials/user_setting.php:1808
+msgid "Choose how action buttons appear in the store list."
+msgstr ""
+
+#: admin/partials/user_setting.php:1809
+msgid "(Supported in Template 0 Only)"
+msgstr ""
+
+#: includes/admin/dashboard.php:183
+msgid ""
+"The connected Store Page is missing or unavailable. Review its page ID in "
+"Store Page Settings."
+msgstr ""
+
+#: includes/admin/dashboard.php:187
+msgid ""
+"This page uses a page builder. Edit the store shortcode in the page editor "
+"to preserve its layout."
+msgstr ""
+
+#: includes/admin/dashboard.php:195
+msgid ""
+"This page uses a page builder or custom blocks. Edit the store shortcode in "
+"the page editor to preserve its layout."
+msgstr ""
+
+#: includes/admin/dashboard.php:200
+msgid ""
+"No store shortcode was found in the page content. Open the page editor to "
+"add or update it."
+msgstr ""
+
+#: includes/admin/dashboard.php:203
+msgid ""
+"This page contains multiple store shortcodes. Update the intended shortcode "
+"in the page editor."
+msgstr ""
+
+#: includes/admin/dashboard.php:209
+msgid ""
+"The store shortcode is not in a supported standalone format. Update it in "
+"the page editor."
+msgstr ""
+
+#: includes/admin/dashboard.php:262
+msgid "You cannot create pages."
+msgstr ""
+
+#: includes/admin/dashboard.php:281
+msgid "You cannot edit this page."
+msgstr ""
+
+#: includes/admin/dashboard.php:286
+msgid ""
+"The page changed since this dashboard was loaded. Reload the dashboard "
+"before updating it."
+msgstr ""
+
+#: includes/admin/dashboard.php:380
+msgid ""
+"The page exists, but its settings could not be saved. Connect it in Store "
+"Page Settings."
+msgstr ""
+
+#: includes/admin/google-connect.php:30
+msgid "Starting Google setup…"
+msgstr ""
+
+#: includes/admin/google-connect.php:31
+msgid "Continue Google setup on Agilelogix"
+msgstr ""
+
+#: includes/admin/google-connect.php:32
+msgid "Complete setup in the Agilelogix tab, then check the connection here."
+msgstr ""
+
+#: includes/admin/google-connect.php:33
+msgid "Checking the connection and server key…"
+msgstr ""
+
+#: includes/admin/google-connect.php:34
+msgid "The connection could not be completed. Please retry."
+msgstr ""
+
+#: includes/admin/google-connect.php:35
+msgid ""
+"Your keys are saved and the server key is verified. Reload this panel, then "
+"choose Save and Verify to finish Google Maps setup."
+msgstr ""
+
+#: includes/admin/google-connect.php:50
+msgid "Connect with Google"
+msgstr ""
+
+#: includes/admin/google-connect.php:50
+msgid "Secure & Automated"
+msgstr ""
+
+#: includes/admin/google-connect.php:50
+msgid "We’ll set up Google Maps for your website automatically."
+msgstr ""
+
+#: includes/admin/google-connect.php:52
+msgid "Creates restricted browser and server API keys"
+msgstr ""
+
+#: includes/admin/google-connect.php:52
+msgid "Enables required Google Maps APIs"
+msgstr ""
+
+#: includes/admin/google-connect.php:52
+msgid "Offers daily limits to help manage free usage"
+msgstr ""
+
+#: includes/admin/google-connect.php:52
+msgid "Secures keys for your website and server"
+msgstr ""
+
+#: includes/admin/google-connect.php:54
+msgid "Usage limits configured"
+msgstr ""
+
+#: includes/admin/google-connect.php:54
+msgid "Review in Google Cloud"
+msgstr ""
+
+#: includes/admin/google-connect.php:54
+msgid ""
+"Verified during setup. Changes in Google Cloud are not monitored. A $0 bill "
+"is not guaranteed."
+msgstr ""
+
+#: includes/admin/google-connect.php:56
+msgid "Your website"
+msgstr ""
+
+#: includes/admin/google-connect.php:57
+msgid "Include subdomains of this website"
+msgstr ""
+
+#: includes/admin/google-connect.php:59
+msgid "Connect Google Maps"
+msgstr ""
+
+#: includes/admin/google-connect.php:61
+msgid "Check connection"
+msgstr ""
+
+#: includes/admin/google-connect.php:63
+msgid "or"
+msgstr ""
+
+#: includes/admin/google-connect.php:63
+msgid "Enter API keys manually"
+msgstr ""
+
+#: includes/admin/google-connect.php:64
+msgid "Uses your Google Cloud project. Google bills usage directly to you."
+msgstr ""
+
+#: includes/admin/google-connect.php:66
+msgid "Reload and finish setup"
+msgstr ""
+
+#: includes/admin/google-connect.php:72
+msgid "Administrator access is required."
+msgstr ""
+
+#: includes/admin/google-connect.php:79
+msgid "The Google connection service requires a valid HTTPS URL."
+msgstr ""
+
+#: includes/admin/google-connect.php:84
+msgid ""
+"The Agilelogix Google connection service could not be reached. Please retry "
+"later."
+msgstr ""
+
+#: includes/admin/google-connect.php:86
+msgid ""
+"The Agilelogix Google connection service is unavailable or has not been "
+"deployed yet."
+msgstr ""
+
+#: includes/admin/google-connect.php:87
+msgid "Google setup could not continue."
+msgstr ""
+
+#: includes/admin/google-connect.php:98
+msgid "Please wait a few seconds before starting again."
+msgstr ""
+
+#: includes/admin/google-connect.php:111
+msgid "The connection service returned an invalid session."
+msgstr ""
+
+#: includes/admin/google-connect.php:113
+msgid "Could not save the temporary connection. Please retry."
+msgstr ""
+
+#: includes/admin/google-connect.php:120
+msgid "Connection expired. Please start Google setup again."
+msgstr ""
+
+#: includes/admin/google-connect.php:124
+msgid "Another connection check is running. Please retry shortly."
+msgstr ""
+
+#: includes/admin/google-connect.php:126
+msgid "The connection could not be saved. Please retry."
+msgstr ""
+
+#: includes/admin/google-connect.php:143
+msgid "Finish setup on Agilelogix first."
+msgstr ""
+
+#: includes/admin/google-connect.php:145
+msgid "The connection service returned an invalid key."
+msgstr ""
+
+#: includes/admin/google-connect.php:148
+msgid ""
+"Could not reach Google from this server. Existing keys were not changed."
+msgstr ""
+
+#: includes/admin/google-connect.php:150
+msgid ""
+"Google has not accepted the server key yet. Wait a few minutes for "
+"restrictions to propagate, then retry. If it still fails, check the public "
+"outbound IP addresses, billing and Geocoding API in Google Cloud. Existing "
+"keys were not changed."
+msgstr ""
+
+#: includes/admin/google-connect.php:152
+msgid ""
+"Google key settings are missing. Repair or update the plugin before "
+"connecting."
+msgstr ""
+
+#: includes/admin/google-connect.php:155
+msgid "Could not save Google keys. Please retry."
+msgstr ""
+
+#: includes/admin/google-connect.php:157
+msgid "Could not verify saved Google keys. Please retry."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:38
+msgid "Automatic setup is not configured on this site."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:64
+msgid "You are not allowed to configure Google Maps."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:65
+msgid "Google Maps authorization"
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:77
+msgid "Google authorization was cancelled or denied."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:81
+msgid "Google authorization could not be verified. Please try again."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:97
+msgid "Google did not return an access token."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:102
+msgid "Google Cloud authorization succeeded. Select a project to continue."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:136
+msgid "Select a Google Cloud project."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:142
+msgid "The selected Google Cloud project could not be verified."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:188
+msgid "Google created the key but did not return its resource name."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:193
+msgid "The generated API key could not be retrieved."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:198
+msgid "The key was created but could not be saved in WordPress."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:207
+msgid ""
+"Google Maps APIs and restrictions were configured. Verifying the generated "
+"key…"
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:215
+msgid "Google authorization expired. Please connect again."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:229
+msgid "Google did not return an operation identifier."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:241
+msgid "Google Cloud configuration is taking too long. Please try again."
+msgstr ""
+
+#: includes/admin/google-maps-authorization.php:252
+msgid "Google Cloud rejected the request."
+msgstr ""
+
+#: includes/admin/lead.php:68
+msgid "Leads deleted successfully."
+msgstr ""
+
+#: includes/admin/lead.php:68
+msgid "Lead deleted successfully."
+msgstr ""
+
+#: includes/admin/lead.php:93
+msgid "Lead Updated Successfully."
+msgstr ""
+
+#: includes/admin/manager.php:494
+msgid "Discard unsaved changes and load this template?"
+msgstr ""
+
+#: includes/admin/setting.php:655
+msgid "Cache JSON has been generated successfully for language "
+msgstr ""
+
+#: includes/admin/setting.php:657
+msgid "Cache JSON is disabled for language "
+msgstr ""
+
+#: includes/admin/setting.php:1056 includes/admin/setting.php:1731
+#: includes/admin/setting.php:1855
+msgid "Invalid template identifier."
+msgstr ""
+
+#: includes/admin/setting.php:1735
+msgid "Invalid Quick Style."
+msgstr ""
+
+#: includes/admin/setting.php:1741
+msgid "Enter a positive CSS size, for example 480px, 60vh or 100%."
+msgstr ""
+
+#: includes/admin/setting.php:1749
+msgid "List / Map Proportion is available in Agile Store Locator Pro."
+msgstr ""
+
+#: includes/admin/setting.php:1753
+msgid "Invalid list/map proportion."
+msgstr ""
+
+#: includes/admin/setting.php:1760
+msgid "Invalid appearance settings."
+msgstr ""
+
+#: includes/admin/setting.php:1766
+msgid "Invalid appearance setting."
+msgstr ""
+
+#: includes/admin/setting.php:1770
+msgid "Tabs Layout is available in Agile Store Locator Pro."
+msgstr ""
+
+#: includes/admin/setting.php:1777
+msgid "Invalid filter settings."
+msgstr ""
+
+#: includes/admin/setting.php:1785 includes/admin/setting.php:1798
+msgid "Invalid filter setting."
+msgstr ""
+
+#: includes/admin/setting.php:1816
+msgid "Unable to save appearance settings. Please try again."
+msgstr ""
+
+#: includes/admin/setting.php:1825
+msgid "Unable to save filter settings. Please try again."
+msgstr ""
+
+#: includes/admin/store-lite.php:672
+msgid "Error! Update id not found."
+msgstr ""
+
+#: includes/cron/store-cron.php:144
+msgid "Store Locator Cron Imported Files: "
+msgstr ""
+
+#: includes/frontend/app.php:104
+msgid "You cannot access this preview."
+msgstr ""
+
+#: includes/frontend/app.php:111
+msgid ""
+"The WooCommerce add-on preview requires a product page. You can edit and "
+"save its colors and fonts here."
+msgstr ""
+
+#: includes/frontend/app.php:111
+msgid "WooCommerce preview"
+msgstr ""
+
+#: includes/model/label.php:167
+msgid "Nearest"
+msgstr ""
+
+#: includes/model/label.php:278
+msgid "Browse by Category"
+msgstr ""
+
+#: includes/model/label.php:279
+msgid "Pick a Category to see Nearly Stores"
+msgstr ""
+
+#: includes/model/label.php:280
+msgid "within"
+msgstr ""
+
+#: includes/model/label.php:281
+msgid "mi"
+msgstr ""
+
+#: includes/model/label.php:282
+msgid "km"
+msgstr ""
+
+#: includes/model/lead.php:56
+msgid "Store Locator Lead Follow-up"
+msgstr ""
+
+#: includes/model/lead.php:65
+msgid "This is a follow-up email for the store: "
+msgstr ""
+
+#: includes/model/lead.php:66
+msgid "Full Name: "
+msgstr ""
+
+#: includes/model/lead.php:67
+msgid "Email Address: "
+msgstr ""
+
+#: includes/model/lead.php:68
+msgid "Phone: "
+msgstr ""
+
+#: includes/model/lead.php:69
+msgid "Postal Code: "
+msgstr ""
+
+#: includes/model/lead.php:73
+msgid "Message: "
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:3
+msgid "Action Btn Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:4
+msgid "Action Btn Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:5
+msgid "Action Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:6
+msgid "Action Sec Btn Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:7
+msgid "Action Sec Btn Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:8
+msgid "Action Sec Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:9
+msgid "Btn Bg Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:10
+msgid "Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:11
+msgid "Button Background"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:12
+msgid "Button Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:13
+msgid "Card Background"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:15
+msgid "Container Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:16
+msgid "Control Background"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:17
+msgid "Control Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:18
+msgid "Control Border Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:19
+msgid "Control Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:20
+msgid "Head Sub Title"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:21
+msgid "Head Title"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:22
+msgid "Header"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:23
+msgid "Header Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:24
+msgid "Header Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:25
+msgid "Heading Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:26
+msgid "Highlighted"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:27
+msgid "Highlighted Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:28
+msgid "Highlighted List Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:29
+msgid "Image Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:30
+msgid "Infobox A"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:31
+msgid "Infobox Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:32
+msgid "Infobox Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:33
+msgid "Input Background"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:34
+msgid "Input Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:35
+msgid "Input Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:36
+msgid "Input Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:37
+msgid "Label"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:38
+msgid "Label Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:39
+msgid "List Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:40
+msgid "List Font Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:41
+msgid "List Order Btn Bg Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:42
+msgid "List Order Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:43
+msgid "List Panel Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:44
+msgid "List Sub Title"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:45
+msgid "List Title"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:46
+msgid "Marker Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:47
+msgid "Panel Background"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:48
+msgid "Panel Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:49
+msgid "Panel Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:50
+msgid "Primary"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:51
+msgid "Search Bar Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:52
+msgid "Search Bar Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:53
+msgid "Search Bar Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:54
+msgid "Search Bar Placeholder"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:55
+msgid "Search Btn Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:56
+msgid "Search Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:57
+msgid "Search Text"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:58
+msgid "Secondary"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:59
+msgid "State Active Btn Bg Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:60
+msgid "State Active Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:61
+msgid "State Btn Bg Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:62
+msgid "State Btn Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:63
+msgid "State Label Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:64
+msgid "State Label Shadow Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:65
+msgid "Tab Selected Bg"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:66
+msgid "Tab Selected Border"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:67
+msgid "Tab Selected Color"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:123
+msgid "Dark"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:123
+msgid "Modern"
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:123
+msgid "Minimal"
+msgstr ""
+
+#: includes/admin/setting.php:1635
+msgid "Heading Font"
+msgstr ""
+
+#: includes/admin/setting.php:1636
+msgid "Heading Para Font"
+msgstr ""
+
+#: includes/admin/setting.php:1637
+msgid "Label Font"
+msgstr ""
+
+#: includes/admin/setting.php:1638
+msgid "Input Font"
+msgstr ""
+
+#: includes/admin/setting.php:1639
+msgid "Border Radius"
+msgstr ""
+
+#: includes/admin/setting.php:1640
+msgid "Category Tags Font"
+msgstr ""
+
+#: includes/admin/setting.php:1641
+msgid "Description Font"
+msgstr ""
+
+#: includes/admin/setting.php:1642
+msgid "Content Font"
+msgstr ""
+
+#: includes/admin/setting.php:1643
+msgid "Title Font"
+msgstr ""
+
+#: includes/admin/setting.php:1644
+msgid "Sub-title Font"
+msgstr ""
+
+#: includes/admin/setting.php:1645
+msgid "List Title Font"
+msgstr ""
+
+#: includes/admin/setting.php:1646
+msgid "Button Font"
+msgstr ""
+
+#: includes/admin/setting.php:1647
+msgid "State Btn Font"
+msgstr ""
+
+#: includes/admin/setting.php:1648
+msgid "State Label Font"
+msgstr ""
+
+#: includes/admin/setting.php:1649
+msgid "List Order Btn Font"
+msgstr ""
+
+#: includes/admin/setting.php:1650
+msgid "List Text Font"
+msgstr ""
+
+#: includes/admin/setting.php:1651
+msgid "Action Btn Font"
 msgstr ""

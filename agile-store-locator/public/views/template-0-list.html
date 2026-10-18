@@ -18,6 +18,12 @@
                         <a href="mailto:{{:email}}">{{:email}}</a>
                     </li>
                     {{/if}}
+                    {{if phone}}
+                    <li class="sl-phone">
+                        <i class="icon-mobile"></i>
+                        <a href="tel:{{:phone}}">{{:phone}}</a>
+                    </li>
+                    {{/if}}
                 </ul>
             </div>
             {{if path}}
@@ -48,7 +54,7 @@
         {{/if}}
         {{else}}
         {{if open_hours}}
-        <div class="sl-store-status-box mt-3">
+        <div class="sl-store-status-box mt-2">
             <ul>
                 <li class="sl-hours">
                     <i class="icon-clock"></i>
@@ -93,10 +99,6 @@
                 <button type="button" class="btn btn-asl s-direction" aria-label="Get directions"><i
                         class="icon-direction-outline" aria-hidden="true"></i><span
                         class="sl-act-btn-text">[Directions]</span></button>
-                {{if phone}}
-                <a class="btn btn-asl sl-phone-link" href="tel:{{:phone}}" aria-label="Call {{:title}}"><i
-                        class="icon-mobile-1" aria-hidden="true"></i><span class="sl-act-btn-text">[Phone]</span></a>
-                {{/if}}
                 {{if link}}
                 <a target="{{:target}}" class="btn btn-asl btn-asl-outline s-visit-website" href="{{:link}}"
                     aria-label="Visit {{:title}} website"><i class="icon-globe" aria-hidden="true"></i><span

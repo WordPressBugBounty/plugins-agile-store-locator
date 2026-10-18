@@ -3289,3 +3289,32 @@ body .asl-p-cont.asl-import-export-page .asl-import-stores-box .input-group {
 .asl-grid-categories .asl-category-color-preset:focus-visible {
   box-shadow: 0 0 0 2px #242424;
 }
+
+.asl-admin-tabs-page :is(.asl-distance-control-options, .asl-tabs-layout-options) .asl-wc-radio label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.asl-admin-tabs-page :is(.asl-distance-control-options, .asl-tabs-layout-options) .is-pro-locked label {
+  color: #78869a;
+  cursor: not-allowed;
+}
+
+.asl-admin-tabs-page :is(.asl-distance-control-options, .asl-tabs-layout-options) .is-pro-locked input {
+  opacity: .55;
+}
+
+.asl-admin-tabs-page .asl-inline-pro-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 5px;
+  border: 1px solid #d8b4fe;
+  border-radius: 4px;
+  background: #f5edff;
+  color: #6d28d9;
+  font-size: 8px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: .04em;
+}

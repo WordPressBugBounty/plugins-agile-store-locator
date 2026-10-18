@@ -34,8 +34,8 @@ class Setting extends Base
      */
     public function backup_template()
     {
-        $template  = isset($_REQUEST['template']) ? sanitize_text_field($_REQUEST['template']) : null;
-        $response  = \AgileStoreLocator\Helper::backup_template($template);
+        $template = isset($_REQUEST['template']) ? sanitize_text_field($_REQUEST['template']) : null;
+        $response = \AgileStoreLocator\Helper::backup_template($template);
 
         return $this->send_response($response);
     }
@@ -46,8 +46,8 @@ class Setting extends Base
      */
     public function remove_template()
     {
-        $template  = isset($_REQUEST['template']) ? sanitize_text_field($_REQUEST['template']) : null;
-        $response  = \AgileStoreLocator\Helper::remove_template($template);
+        $template = isset($_REQUEST['template']) ? sanitize_text_field($_REQUEST['template']) : null;
+        $response = \AgileStoreLocator\Helper::remove_template($template);
 
         return $this->send_response($response);
     }
@@ -76,10 +76,10 @@ class Setting extends Base
 
         // Data
         $content = isset($_POST['content']) ? stripslashes_deep($_POST['content']) : null;
-        $type    = isset($_POST['stype']) ? stripslashes_deep($_POST['stype']) : null;
+        $type = isset($_POST['stype']) ? stripslashes_deep($_POST['stype']) : null;
 
         //  Response
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
         //  When type is hidden
@@ -94,7 +94,7 @@ class Setting extends Base
                 $wpdb->insert($prefix . 'settings', $data_params);
             }
 
-            $response->msg     = esc_attr__('Settings has been updated.', 'asl_locator');
+            $response->msg = esc_attr__('Settings has been updated.', 'asl_locator');
             $response->success = true;
         }
 
@@ -110,25 +110,25 @@ class Setting extends Base
      * [save_setting save ASL Setting]
      * @return [type] [description]
      */
-  public function save_setting()
-  {
-      global $wpdb;
+    public function save_setting()
+    {
+        global $wpdb;
 
-      if (isset($_POST['dashboard_map_provider_setup']) && '1' === sanitize_text_field(wp_unslash($_POST['dashboard_map_provider_setup']))) {
-          return $this->save_dashboard_map_provider();
-      }
+        if (isset($_POST['dashboard_map_provider_setup']) && '1' === sanitize_text_field(wp_unslash($_POST['dashboard_map_provider_setup']))) {
+            return $this->save_dashboard_map_provider();
+        }
 
-        $response  = new \stdclass();
+        $response = new \stdclass();
 
         //  Settings data
-        $data_     = isset($_POST['data']) ? stripslashes_deep($_POST['data']) : [];
+        $data_ = isset($_POST['data']) ? stripslashes_deep($_POST['data']) : [];
 
         //  Custom Map Style
         $custom_map_style = isset($_POST['map_style']) ? wp_unslash($_POST['map_style']) : '';
         $custom_map_style = \AgileStoreLocator\Helper::sanitize_custom_map_style($custom_map_style, false);
 
         if ($custom_map_style === false) {
-            $response->msg     = esc_attr__('Invalid custom map style. Please provide a valid JSON array.', 'asl_locator');
+            $response->msg = esc_attr__('Invalid custom map style. Please provide a valid JSON array.', 'asl_locator');
             $response->success = false;
 
             return $this->send_response($response);
@@ -138,8 +138,17 @@ class Setting extends Base
         $remove_script_tag = isset($data_['remove_maps_script']) ? $data_['remove_maps_script'] : '0';
         unset($data_['remove_maps_script']);
 
+        if (isset($data_['results_layout'])) {
+            $data_['results_layout'] = in_array($data_['results_layout'], ['left', 'right', 'bottom', 'cards'], true)
+                ? $data_['results_layout'] : 'left';
+        }
+
+        // The free version supports the distance dropdown only.
+        $data_['distance_control'] = '1';
+        $data_['tabs_layout'] = '0';
+
         //  Config keys
-        $keys     =  array_keys($data_);
+        $keys = array_keys($data_);
 
         // Hava a value?
         if (isset($data_['country_restrict']) && $data_['country_restrict']) {
@@ -169,10 +178,10 @@ class Setting extends Base
             $updated = $wpdb->update(
                 ASL_PREFIX . 'configs',
                 ['value' => $data_[$key]],
-                ['key'   => $key]
+                ['key' => $key]
             );
 
-            if (0 === $updated && in_array($key, ['map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'search_provider', 'geoapify_api_key', 'mapbox_access_token', 'hide_search', 'action_button_display'], true)) {
+            if (0 === $updated && in_array($key, ['map_vendor', 'tile_provider', 'tile_provider_style', 'tile_provider_api_key', 'maplibre_style_url', 'search_provider', 'geoapify_api_key', 'mapbox_access_token', 'hide_search', 'action_button_display', 'results_layout'], true)) {
                 $exists = $wpdb->get_var($wpdb->prepare(
                     'SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s',
                     $key
@@ -180,11 +189,16 @@ class Setting extends Base
 
                 if (!$exists) {
                     $wpdb->insert(ASL_PREFIX . 'configs', [
-                        'key'   => $key,
+                        'key' => $key,
                         'value' => $data_[$key],
                     ]);
                 }
             }
+        }
+
+        //  register/de-register the lead cron job for the follow-ups
+        if (isset($data_['lead_follow_up'])) {
+            \AgileStoreLocator\Cron\LeadCron::schedule_cron($data_['lead_follow_up'], $data_);
         }
 
         //  register/de-register the schedule post jobs
@@ -238,16 +252,16 @@ class Setting extends Base
 
         update_option('asl-remove_maps_script', $remove_script_tag);
 
-        $response->msg     = esc_attr__('Setting has been updated successfully.', 'asl_locator');
+        $response->msg = esc_attr__('Setting has been updated successfully.', 'asl_locator');
         $response->success = true;
 
         //  Valid the Default Coordinates
-        $is_valid  = \AgileStoreLocator\Helper::validate_coordinate($data_['default_lat'], $data_['default_lng']);
+        $is_valid = \AgileStoreLocator\Helper::validate_coordinate($data_['default_lat'], $data_['default_lng']);
 
         //  is invalid?
         if (!$is_valid) {
             $response->msg .= '<br>' . esc_attr__('Error! Default Lat & Lng are invalid values, please try to swap them.', 'asl_locator');
-            $response->success  = false;
+            $response->success = false;
         }
 
         return $this->send_response($response);
@@ -308,7 +322,7 @@ class Setting extends Base
 
         return $this->send_response([
             'success' => true,
-            'msg'     => 'maplibre' === $provider
+            'msg' => 'maplibre' === $provider
                 ? esc_attr__('Free Maps enabled.', 'asl_locator')
                 : esc_attr__('Google Maps API key saved. Verifying configuration…', 'asl_locator'),
         ]);
@@ -323,30 +337,262 @@ class Setting extends Base
     {
         // List of valid ISO 3166-1 alpha-2 country codes
         $valid_countries = [
-            'AF', 'AX', 'AL', 'DZ', 'AS', 'AD', 'AO', 'AI', 'AQ', 'AG', 'AR', 'AM', 'AW', 'AU', 'AT', 'AZ',
-            'BS', 'BH', 'BD', 'BB', 'BY', 'BE', 'BZ', 'BJ', 'BM', 'BT', 'BO', 'BQ', 'BA', 'BW', 'BV', 'BR',
-            'IO', 'BN', 'BG', 'BF', 'BI', 'CV', 'KH', 'CM', 'CA', 'KY', 'CF', 'TD', 'CL', 'CN', 'CX', 'CC',
-            'CO', 'KM', 'CG', 'CD', 'CK', 'CR', 'HR', 'CU', 'CW', 'CY', 'CZ', 'DK', 'DJ', 'DM', 'DO', 'EC',
-            'EG', 'SV', 'GQ', 'ER', 'EE', 'SZ', 'ET', 'FK', 'FO', 'FJ', 'FI', 'FR', 'GF', 'PF', 'TF', 'GA',
-            'GM', 'GE', 'DE', 'GH', 'GI', 'GR', 'GL', 'GD', 'GP', 'GU', 'GT', 'GG', 'GN', 'GW', 'GY', 'HT',
-            'HM', 'VA', 'HN', 'HK', 'HU', 'IS', 'IN', 'ID', 'IR', 'IQ', 'IE', 'IM', 'IL', 'IT', 'JM', 'JP',
-            'JE', 'JO', 'KZ', 'KE', 'KI', 'KP', 'KR', 'KW', 'KG', 'LA', 'LV', 'LB', 'LS', 'LR', 'LY', 'LI',
-            'LT', 'LU', 'MO', 'MG', 'MW', 'MY', 'MV', 'ML', 'MT', 'MH', 'MQ', 'MR', 'MU', 'YT', 'MX', 'FM',
-            'MD', 'MC', 'MN', 'ME', 'MS', 'MA', 'MZ', 'MM', 'NA', 'NR', 'NP', 'NL', 'NC', 'NZ', 'NI', 'NE',
-            'NG', 'NU', 'NF', 'MK', 'MP', 'NO', 'OM', 'PK', 'PW', 'PS', 'PA', 'PG', 'PY', 'PE', 'PH', 'PN',
-            'PL', 'PT', 'PR', 'QA', 'RE', 'RO', 'RU', 'RW', 'BL', 'SH', 'KN', 'LC', 'MF', 'PM', 'VC', 'WS',
-            'SM', 'ST', 'SA', 'SN', 'RS', 'SC', 'SL', 'SG', 'SX', 'SK', 'SI', 'SB', 'SO', 'ZA', 'GS', 'SS',
-            'ES', 'LK', 'SD', 'SR', 'SJ', 'SE', 'CH', 'SY', 'TW', 'TJ', 'TZ', 'TH', 'TL', 'TG', 'TK', 'TO',
-            'TT', 'TN', 'TR', 'TM', 'TC', 'TV', 'UG', 'UA', 'AE', 'GB', 'US', 'UM', 'UY', 'UZ', 'VU', 'VE',
-            'VN', 'VG', 'VI', 'WF', 'EH', 'YE', 'ZM', 'ZW'
+            'AF',
+            'AX',
+            'AL',
+            'DZ',
+            'AS',
+            'AD',
+            'AO',
+            'AI',
+            'AQ',
+            'AG',
+            'AR',
+            'AM',
+            'AW',
+            'AU',
+            'AT',
+            'AZ',
+            'BS',
+            'BH',
+            'BD',
+            'BB',
+            'BY',
+            'BE',
+            'BZ',
+            'BJ',
+            'BM',
+            'BT',
+            'BO',
+            'BQ',
+            'BA',
+            'BW',
+            'BV',
+            'BR',
+            'IO',
+            'BN',
+            'BG',
+            'BF',
+            'BI',
+            'CV',
+            'KH',
+            'CM',
+            'CA',
+            'KY',
+            'CF',
+            'TD',
+            'CL',
+            'CN',
+            'CX',
+            'CC',
+            'CO',
+            'KM',
+            'CG',
+            'CD',
+            'CK',
+            'CR',
+            'HR',
+            'CU',
+            'CW',
+            'CY',
+            'CZ',
+            'DK',
+            'DJ',
+            'DM',
+            'DO',
+            'EC',
+            'EG',
+            'SV',
+            'GQ',
+            'ER',
+            'EE',
+            'SZ',
+            'ET',
+            'FK',
+            'FO',
+            'FJ',
+            'FI',
+            'FR',
+            'GF',
+            'PF',
+            'TF',
+            'GA',
+            'GM',
+            'GE',
+            'DE',
+            'GH',
+            'GI',
+            'GR',
+            'GL',
+            'GD',
+            'GP',
+            'GU',
+            'GT',
+            'GG',
+            'GN',
+            'GW',
+            'GY',
+            'HT',
+            'HM',
+            'VA',
+            'HN',
+            'HK',
+            'HU',
+            'IS',
+            'IN',
+            'ID',
+            'IR',
+            'IQ',
+            'IE',
+            'IM',
+            'IL',
+            'IT',
+            'JM',
+            'JP',
+            'JE',
+            'JO',
+            'KZ',
+            'KE',
+            'KI',
+            'KP',
+            'KR',
+            'KW',
+            'KG',
+            'LA',
+            'LV',
+            'LB',
+            'LS',
+            'LR',
+            'LY',
+            'LI',
+            'LT',
+            'LU',
+            'MO',
+            'MG',
+            'MW',
+            'MY',
+            'MV',
+            'ML',
+            'MT',
+            'MH',
+            'MQ',
+            'MR',
+            'MU',
+            'YT',
+            'MX',
+            'FM',
+            'MD',
+            'MC',
+            'MN',
+            'ME',
+            'MS',
+            'MA',
+            'MZ',
+            'MM',
+            'NA',
+            'NR',
+            'NP',
+            'NL',
+            'NC',
+            'NZ',
+            'NI',
+            'NE',
+            'NG',
+            'NU',
+            'NF',
+            'MK',
+            'MP',
+            'NO',
+            'OM',
+            'PK',
+            'PW',
+            'PS',
+            'PA',
+            'PG',
+            'PY',
+            'PE',
+            'PH',
+            'PN',
+            'PL',
+            'PT',
+            'PR',
+            'QA',
+            'RE',
+            'RO',
+            'RU',
+            'RW',
+            'BL',
+            'SH',
+            'KN',
+            'LC',
+            'MF',
+            'PM',
+            'VC',
+            'WS',
+            'SM',
+            'ST',
+            'SA',
+            'SN',
+            'RS',
+            'SC',
+            'SL',
+            'SG',
+            'SX',
+            'SK',
+            'SI',
+            'SB',
+            'SO',
+            'ZA',
+            'GS',
+            'SS',
+            'ES',
+            'LK',
+            'SD',
+            'SR',
+            'SJ',
+            'SE',
+            'CH',
+            'SY',
+            'TW',
+            'TJ',
+            'TZ',
+            'TH',
+            'TL',
+            'TG',
+            'TK',
+            'TO',
+            'TT',
+            'TN',
+            'TR',
+            'TM',
+            'TC',
+            'TV',
+            'UG',
+            'UA',
+            'AE',
+            'GB',
+            'US',
+            'UM',
+            'UY',
+            'UZ',
+            'VU',
+            'VE',
+            'VN',
+            'VG',
+            'VI',
+            'WF',
+            'EH',
+            'YE',
+            'ZM',
+            'ZW'
         ];
 
-        $countries             = explode(',', $country_restrict);
-        $valid                 = true;
+        $countries = explode(',', $country_restrict);
+        $valid = true;
         $countries_to_restrict = [];
 
         foreach ($countries as $country) {
-            $country                 = strtoupper(trim($country));
+            $country = strtoupper(trim($country));
             $countries_to_restrict[] = $country;
             if (!in_array($country, $valid_countries)) {
                 $valid = false;
@@ -355,7 +601,7 @@ class Setting extends Base
         }
 
         return [
-            'valid'            => $valid,
+            'valid' => $valid,
             'country_restrict' => implode(',', $countries_to_restrict)
         ];
     }
@@ -368,11 +614,11 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
         $cache_status = (isset($_REQUEST['status']) && $_REQUEST['status'] == '1') ? '1' : '0';
-        $cache_lang   = (isset($_REQUEST['asl-lang'])) ? sanitize_text_field($_REQUEST['asl-lang']) : null;
+        $cache_lang = (isset($_REQUEST['asl-lang'])) ? sanitize_text_field($_REQUEST['asl-lang']) : null;
 
         //  Todo, Make sure the folder exist?
         if (!file_exists(ASL_UPLOAD_DIR)) {
@@ -396,26 +642,26 @@ class Setting extends Base
         if ($cache_status == '1') {
             //  Generate the Output
             $public_request = new \AgileStoreLocator\Frontend\Request();
-            $output_result  = $public_request->load_stores(true, $cache_lang);
+            $output_result = $public_request->load_stores(true, $cache_lang);
 
             //  Save the output
-            $response->output   = file_put_contents(ASL_UPLOAD_DIR . $json_file, json_encode($output_result));
+            $response->output = file_put_contents(ASL_UPLOAD_DIR . $json_file, json_encode($output_result));
 
             //  When fails
             if (!$response->output) {
-                $response->path   = ASL_UPLOAD_DIR . $json_file;
+                $response->path = ASL_UPLOAD_DIR . $json_file;
             }
 
-            $response->msg      = esc_attr__('Cache JSON has been generated successfully for language ' . $cache_lang, 'asl_locator');
+            $response->msg = esc_attr__('Cache JSON has been generated successfully for language ' . $cache_lang, 'asl_locator');
         } else {
-            $response->msg      = esc_attr__('Cache JSON is disabled for language ' . $cache_lang, 'asl_locator');
+            $response->msg = esc_attr__('Cache JSON is disabled for language ' . $cache_lang, 'asl_locator');
         }
 
         //  Save the cache settings
         $this->change_options(true);
 
         //  Show as success
-        $response->success  = true;
+        $response->success = true;
 
         return $this->send_response($response);
     }
@@ -428,13 +674,13 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdClass();
+        $response = new \stdClass();
         $response->success = false;
 
         // Deep sanitize all POST data
-        $data_    = stripslashes_deep($_POST);
+        $data_ = stripslashes_deep($_POST);
         $template = isset($data_['template']) ? sanitize_key($data_['template']) : '';
-        $section  = isset($data_['section']) ? sanitize_key($data_['section']) : '';
+        $section = isset($data_['section']) ? sanitize_key($data_['section']) : '';
 
         // Validate inputs
         if (!$template || !$section) {
@@ -460,7 +706,7 @@ class Setting extends Base
                 )
             );
 
-            if ((int)$count >= 1) {
+            if ((int) $count >= 1) {
                 // Fetch saved content
                 $result = $wpdb->get_var(
                     $wpdb->prepare(
@@ -477,8 +723,7 @@ class Setting extends Base
 
                 if ($view_file_path) {
                     $html = file_get_contents($view_file_path);
-                }
-                else {
+                } else {
                     $response->error = esc_html__('Invalid template path.', 'asl_locator');
                     return $this->send_response($response);
                 }
@@ -492,16 +737,15 @@ class Setting extends Base
 
             if ($view_file_path) {
                 $html = file_get_contents($view_file_path);
-            }
-            else {
+            } else {
                 $response->error = esc_html__('Template file not found or invalid.', 'asl_locator');
                 return $this->send_response($response);
             }
         }
 
         if (!empty($html)) {
-            $response->html    = $html; // allow raw HTML from trusted editor
-            $response->msg     = esc_html__('HTML added in TextEditor', 'asl_locator');
+            $response->html = $html; // allow raw HTML from trusted editor
+            $response->msg = esc_html__('HTML added in TextEditor', 'asl_locator');
             $response->success = true;
         }
 
@@ -516,14 +760,14 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdClass();
+        $response = new \stdClass();
         $response->success = false;
 
         // Strip slashes and sanitize inputs
-        $data_    = stripslashes_deep($_POST);
+        $data_ = stripslashes_deep($_POST);
         $template = isset($data_['template']) ? sanitize_key($data_['template']) : '';
-        $section  = isset($data_['section']) ? sanitize_key($data_['section']) : '';
-        $html     = isset($data_['html']) ? trim($data_['html']) : '';
+        $section = isset($data_['section']) ? sanitize_key($data_['section']) : '';
+        $html = isset($data_['html']) ? trim($data_['html']) : '';
 
         // Basic validation
         if (empty($template) || empty($section) || empty($html)) {
@@ -553,29 +797,29 @@ class Setting extends Base
             );
 
             $data_params = [
-                'name'    => $template,
-                'type'    => $section,
+                'name' => $template,
+                'type' => $section,
                 'content' => ($html) // Only allow safe HTML
             ];
 
-            if ((int)$count >= 1) {
+            if ((int) $count >= 1) {
                 $wpdb->update(ASL_PREFIX . 'settings', $data_params, ['name' => $template, 'type' => $section]);
             } else {
                 $wpdb->insert(ASL_PREFIX . 'settings', $data_params);
             }
 
-            $response->msg     = esc_html__('Template Updated', 'asl_locator');
+            $response->msg = esc_html__('Template Updated', 'asl_locator');
             $response->success = true;
         }
 
         // CASE 2: Save as PHP file to theme
         else {
-            $filename  = sanitize_file_name($section) . '.php';
+            $filename = sanitize_file_name($section) . '.php';
             $file_path = STYLESHEETPATH . '/' . $filename;
 
             // Secure: prevent directory traversal
             $real_theme_path = realpath(STYLESHEETPATH);
-            $real_file_path  = realpath(dirname($file_path)) . '/' . $filename;
+            $real_file_path = realpath(dirname($file_path)) . '/' . $filename;
 
             if (!$real_file_path || !str_starts_with($real_file_path, $real_theme_path)) {
                 $response->error = esc_html__('Invalid template path.', 'asl_locator');
@@ -591,7 +835,7 @@ class Setting extends Base
             // Write file
             file_put_contents($real_file_path, $html);
 
-            $response->msg     = esc_html__('Cards Template Updated', 'asl_locator');
+            $response->msg = esc_html__('Cards Template Updated', 'asl_locator');
             $response->success = true;
         }
 
@@ -606,12 +850,12 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
         $data_ = stripslashes_deep($_POST);
         $template = isset($data_['template']) ? sanitize_key($data_['template']) : '';
-        $section  = isset($data_['section']) ? sanitize_key($data_['section']) : '';
+        $section = isset($data_['section']) ? sanitize_key($data_['section']) : '';
 
         if (!$template || !$section || !$this->is_allowed_customizer_section($template, $section)) {
             $response->error = esc_html__('Invalid template section.', 'asl_locator');
@@ -628,8 +872,8 @@ class Setting extends Base
         // include simple products HTML
         $html = file_get_contents($view_file_path);
 
-        $response->html    = $html;
-        $response->msg     = esc_attr__('Default template is loaded', 'asl_locator');
+        $response->html = $html;
+        $response->msg = esc_attr__('Default template is loaded', 'asl_locator');
         $response->success = true;
 
         return $this->send_response($response);
@@ -690,7 +934,7 @@ class Setting extends Base
         }
 
         $view_file_path = \AgileStoreLocator\Helper::get_customizer_file_path($template, $section);
-        $allowed_bases  = [ASL_PLUGIN_PATH . 'public/views'];
+        $allowed_bases = [ASL_PLUGIN_PATH . 'public/views'];
 
         if (defined('WP_PLUGIN_DIR')) {
             $allowed_bases[] = WP_PLUGIN_DIR;
@@ -732,6 +976,69 @@ class Setting extends Base
     }
 
     /**
+     * [add_cards_shortcode_presets Save Shortcode Presets]
+     * @return [type] [description]
+     */
+    public function cards_shortcode_presets()
+    {
+        $response = new \stdclass();
+        $response->success = false;
+        $db_action = $_POST['db_action'];
+        $shortcode_preset = $_POST['shortcode'];
+
+        // Retrive Shortcodes from DB
+        $cards_shortcode_presets = \AgileStoreLocator\Helper::get_setting('cards_shortcode_presets', 'cards_shortcode_presets');
+        $cards_shortcode_presets = $cards_shortcode_presets ? maybe_unserialize($cards_shortcode_presets) : [];
+
+        $target_key = array_search($shortcode_preset, $cards_shortcode_presets);
+        $shortcode_exist = $target_key !== false ? true : false;
+
+        switch ($db_action) {
+            case 'add':
+                $cards_shortcode_presets[] = $shortcode_preset;
+                $succss_msg = 'Shortcode Presets have been Successfully Saved!';
+                break;
+
+            case 'edit':
+                if ($shortcode_exist) {
+                    $cards_shortcode_presets[$target_key] = $_POST['updated_shortcode'];
+                    $succss_msg = 'Shortcode Presets have been Successfully Updated!';
+                } else {
+                    $cards_shortcode_presets[] = $_POST['updated_shortcode'];
+                    $succss_msg = 'Shortcode have not been found to edit!, added instead';
+                    // return $response;
+                }
+                break;
+
+            case 'delete':
+                if ($shortcode_exist) {
+                    unset($cards_shortcode_presets[$target_key]);
+                    $succss_msg = 'Shortcode Presets have been Successfully Deleted!';
+                } else {
+                    $succss_msg = 'Shortcode have not been found!';
+                    $response->msg = esc_attr__($succss_msg, 'asl_locator');
+                    return $response;
+                }
+                break;
+        }
+
+        // Remove Duplicate Items from Array
+        $cards_shortcode_presets = array_unique($cards_shortcode_presets);
+        // Reset Index Keys
+        $cards_shortcode_presets = array_values($cards_shortcode_presets);
+
+        $db_response = \AgileStoreLocator\Helper::set_setting(maybe_serialize($cards_shortcode_presets), 'cards_shortcode_presets', 'cards_shortcode_presets');
+
+        if ($db_response) {
+            $response->data = $cards_shortcode_presets[$target_key];
+            $response->success = true;
+            $response->msg = esc_attr__($succss_msg, 'asl_locator');
+        }
+
+        return $response;
+    }
+
+    /**
      * [load_ui_settings Load ASL Custom Template]
      * @return [type] [description]
      */
@@ -739,110 +1046,170 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
         $template = isset($_POST['template']) ? sanitize_text_field($_POST['template']) : '';
 
-        $colors   = [
-            'template-0'  => [
-                'primary'           => 'clr-primary',
-                'header'            => 'light-90',
-                'header-color'      => '',
-                'infobox-color'     => '',
-                'infobox-bg'        => '',
-                'infobox-a'         => 'clr-copy',
-                'search-text'         => 'clr-copy',
-                'search-btn-color'  => '',
-                'search-btn-bg'     => 'clr-copy',
-                'action-btn-color'  => '',
-                'action-btn-bg'     => 'clr-copy',
-                'color'             => '',
-                'list-bg'           => '',
-                'list-title'        => '',
-                'list-sub-title'    => '',
-                'highlighted'       => ''
+        $customizer_templates = \AgileStoreLocator\Helper::customizer_tmpls();
+        if (!isset($customizer_templates[$template]) || strpos($template, 'template-') !== 0) {
+            $response->error = esc_html__('Invalid template identifier.', 'asl_locator');
+            return $this->send_response($response);
+        }
+
+        $colors = [
+            'template-0' => [
+                'primary' => 'clr-primary',
+                'header' => 'light-90',
+                'header-color' => '',
+                'infobox-color' => '',
+                'infobox-bg' => '',
+                'infobox-a' => 'clr-copy',
+                'search-text' => 'clr-copy',
+                // 'search-btn-color' => '',
+                'search-btn-bg' => 'clr-copy',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'action-btn-border' => 'clr-copy',
+                'action-sec-btn-color' => 'clr-copy',
+                'action-sec-btn-bg' => '',
+                'action-sec-btn-border' => 'clr-copy',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => '',
+                'list-sub-title' => '',
+                'highlighted' => '',
+                'image-bg' => '',
+                'search-bar-color' => '',
+                'search-bar-bg' => '',
+                'search-bar-placeholder' => '',
+                'search-bar-border' => '',
+                'tab-selected-bg' => '',
+                'tab-selected-color' => '',
+                'tab-selected-border' => ''
+
+
             ],
             'template-1' => [
-                'primary'           => 'clr-primary',
-                'secondary'         => '',
-                'header'            => 'clr-copy',
-                'header-color'      => '',
-                'infobox-color'     => '',
-                'infobox-bg'        => '',
-                'infobox-a'         => 'clr-copy',
-                'search-btn-color'  => '',
-                'search-btn-bg'     => 'clr-copy',
-                'action-btn-color'  => '',
-                'action-btn-bg'     => 'clr-copy',
-                'color'             => '',
-                'list-bg'           => '',
-                'list-title'        => 'clr-copy',
-                'list-sub-title'    => '',
-                'highlighted'       => ''
+                'primary' => 'clr-primary',
+                'secondary' => '',
+                'header' => '',
+                'header-color' => '',
+                'infobox-color' => '',
+                'infobox-bg' => '',
+                'infobox-a' => 'clr-copy',
+                'search-btn-color' => '',
+                'search-btn-bg' => 'clr-copy',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'action-btn-border' => 'clr-copy',
+                'action-sec-btn-color' => 'clr-copy',
+                'action-sec-btn-bg' => '',
+                'color' => '',
+                'list-bg' => '',
+                'head-title' => '',
+                'list-title' => 'clr-copy',
+                'list-sub-title' => '',
+                'highlighted' => '',
+                'search-bar-color' => '',
+                'search-bar-bg' => '',
+                'search-bar-placeholder' => '',
+                'search-bar-border' => '',
+                'tab-selected-bg' => '',
+                'tab-selected-color' => '',
+                'control-color' => '',
+                'control-bg' => '',
             ],
             'template-2' => [
-                'primary'                => 'clr-primary',
-                'header'                 => 'clr-copy',
-                'header-color'           => '',
-                'infobox-color'          => '',
-                'infobox-bg'             => '',
-                'infobox-a'              => 'clr-copy',
-                'action-btn-color'       => '',
-                'action-btn-bg'          => 'clr-copy',
-                'color'                  => '',
-                'list-bg'                => '',
-                'list-title'             => 'clr-copy',
-                'list-sub-title'         => '',
-                'highlighted'            => '',
-                'highlighted-list-color' => 'clr-copy'
+                'primary' => 'clr-primary',
+                'header' => '',
+                'header-color' => '',
+                'infobox-color' => '',
+                'infobox-bg' => '',
+                'infobox-a' => 'clr-copy',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'action-sec-btn-color' => 'clr-copy',
+                'action-sec-btn-bg' => '',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => 'clr-copy',
+                'list-sub-title' => '',
+                'highlighted' => '',
+                'highlighted-list-color' => 'clr-copy',
+                'search-bar-color' => '',
+                'search-bar-bg' => '',
+                'search-bar-placeholder' => '',
+                'search-bar-border' => '',
             ],
             'template-3' => [
-                'primary'                 => 'clr-primary',
-                'infobox-color'           => '',
-                'infobox-bg'              => '',
-                'infobox-a'               => 'clr-copy',
-                'action-btn-color'        => '',
-                'action-btn-bg'           => 'clr-copy',
-                'color'                   => '',
-                'list-bg'                 => '',
-                'list-title'              => '',
-                'list-sub-title'          => '',
-                'highlighted'             => ''
+                'primary' => 'clr-primary',
+                'header' => '',
+                'header-color' => '',
+                'infobox-color' => '',
+                'infobox-bg' => '',
+                'infobox-a' => 'clr-copy',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => '',
+                'list-sub-title' => '',
+                'highlighted' => '',
+                'search-bar-color' => '',
+                'search-bar-bg' => '',
+                'search-bar-placeholder' => '',
+                'search-bar-border' => ''
             ],
-            'template-4'  => [
-                'primary'           => 'clr-primary',
-                'header'            => '',
-                'header-color'      => '',
-                'infobox-color'     => '',
-                'infobox-bg'        => '',
-                'infobox-a'         => 'clr-copy',
-                'action-btn-color'  => '',
-                'action-btn-bg'     => 'clr-copy',
-                'color'             => '',
-                'list-bg'           => '',
-                'list-title'        => '',
-                'list-sub-title'    => '',
-                'highlighted'       => ''
+            'template-4' => [
+                'primary' => 'clr-primary',
+                'header' => '',
+                'header-color' => '',
+                'infobox-color' => '',
+                'infobox-bg' => '',
+                'infobox-a' => 'clr-copy',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'action-btn-border' => 'clr-copy',
+                'action-sec-btn-color' => 'clr-copy',
+                'action-sec-btn-bg' => '',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => '',
+                'list-sub-title' => '',
+                'highlighted' => '',
+                'search-bar-color' => '',
+                'search-bar-bg' => '',
+                'search-bar-placeholder' => '',
+                'search-bar-border' => '',
+                'tab-selected-bg' => '',
+                'tab-selected-color' => '',
+                'control-color' => '',
+                'control-bg' => '',
             ],
-            'template-5'  => [
-                'primary'           => 'clr-primary',
-                'header'            => '',
-                'marker-color'      => 'clr-copy',
-                'header-color'      => '',
-                'head-sub-title'    => '',
-                'infobox-color'     => '',
-                'infobox-bg'        => '',
-                'infobox-a'         => 'clr-copy',
-                'action-btn-color'  => '',
-                'action-btn-bg'     => 'clr-copy',
-                'color'             => '',
-                'list-bg'           => '',
-                'list-title'        => '',
-                'list-sub-title'    => '',
-                'highlighted'       => ''
+            'template-5' => [
+                'primary' => 'clr-primary',
+                'header' => '',
+                'label' => '',
+                'marker-color' => 'clr-copy',
+                'header-color' => '',
+                'head-sub-title' => '',
+                'infobox-color' => '',
+                'infobox-bg' => '',
+                'infobox-a' => 'clr-copy',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => '',
+                'list-sub-title' => '',
+                'highlighted' => '',
+                'search-bar-color' => '',
+                'search-bar-bg' => '',
+                'search-bar-placeholder' => '',
+                'search-bar-border' => '',
             ],
-            'template-6'  => [
+            'template-6' => [
                 // 'primary'           => 'clr-primary',
                 // 'header'            => '',
                 // 'marker-color'      => 'clr-copy',
@@ -858,206 +1225,257 @@ class Setting extends Base
                 // 'list-title'        => '',
                 // 'list-sub-title'    => '',
                 // 'highlighted'       => ''
-                'primary'                   => 'clr-primary', 
-                'list-panel-bg'             => 'light-90',  
-                'btn-bg-color'              => 'clr-copy',  
-                'btn-color'                 => '',  
-                'heading-color'             => 'clr-copy',  
-                'input-color'               => '',  
-                'color'                     => 'clr-copy',  
-                'state-btn-color'           => 'clr-copy',  
-                'state-btn-bg-color'        => '',  
-                'state-active-btn-color'    => '',  
-                'state-active-btn-bg-color' => 'clr-copy',  
-                'state-label-shadow-color'  => 'clr-copy',  
-                'state-label-color'         => '',  
-                'list-bg'                   => '',  
-                'highlighted'               => '',  
-                'list-title'                => 'clr-copy',  
-                'list-order-btn-color'      => '',  
-                'list-order-btn-bg-color'   => 'clr-copy',  
-                'list-font-color'           => 'clr-copy',  
-                'action-btn-bg'             => 'clr-copy',  
-                'action-btn-color'          => '',  
+                'primary' => 'clr-primary',
+                'list-panel-bg' => 'light-90',
+                'btn-bg-color' => 'clr-copy',
+                'btn-color' => '',
+                'heading-color' => 'clr-copy',
+                'input-color' => '',
+                'color' => 'clr-copy',
+                'state-btn-color' => 'clr-copy',
+                'state-btn-bg-color' => '',
+                'state-active-btn-color' => '',
+                'state-active-btn-bg-color' => 'clr-copy',
+                'state-label-shadow-color' => 'clr-copy',
+                'state-label-color' => '',
+                'list-bg' => '',
+                'highlighted' => '',
+                'list-title' => 'clr-copy',
+                'list-order-btn-color' => '',
+                'list-order-btn-bg-color' => 'clr-copy',
+                'list-font-color' => 'clr-copy',
+                'action-btn-bg' => 'clr-copy',
+                'action-btn-color' => '',
             ],
             'template-list' => [
-                'primary'                 => 'clr-primary',
-                'action-btn-color'        => '',
-                'action-btn-bg'           => 'clr-copy',
-                'color'                   => '',
-                'list-bg'                 => '',
-                'list-title'              => ''
+                'primary' => 'clr-primary',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => ''
             ],
             'template-list-2' => [
-                'primary'           => 'clr-primary',
-                'panel-background'   => '',
-                'card-background'   => '',
-                'action-btn-color'  => '',
-                'action-btn-bg'     => 'clr-copy',
-                'color'             => '',
-                'list-bg'           => '',
-                'list-title'        => ''
+                'primary' => 'clr-primary',
+                'panel-background' => '',
+                'card-background' => '',
+                'action-btn-color' => '',
+                'action-btn-bg' => 'clr-copy',
+                'color' => '',
+                'list-bg' => '',
+                'list-title' => ''
             ],
-            'template-wc'  => [
-                'primary'                => 'clr-primary',
-                'button-color'           => '',
-                'button-background'      => 'clr-copy',
-                'label-color'            => '',
-                'control-color'          => '',
-                'control-background'     => '',
-                'control-border-color'   => '',
-                'input-color'            => '',
-                'input-background'       => ''
+            'template-wc' => [
+                'primary' => 'clr-primary',
+                'button-color' => '',
+                'button-background' => 'clr-copy',
+                'label-color' => '',
+                'control-color' => '',
+                'control-background' => '',
+                'control-border-color' => '',
+                'input-color' => '',
+                'input-background' => ''
             ],
         ];
 
-        $white                  = '#FFFFFF';
-        $black                  = '#000000';
-        $light_gray             = '#eeeeee';
+        $white = '#FFFFFF';
+        $black = '#000000';
+        $light_gray = '#eeeeee';
 
 
-        $tmpl_0_primary         = '#cb2800';
-        $tmpl_0_title_color     = '#32373c';
+        $tmpl_0_primary = '#cb2800';
+        $tmpl_0_title_color = '#32373c';
         $tmpl_0_sub_title_color = '#6a6a6a';
-        $tmpl_0_list_color      = '#555d66';
-        $tmpl_0_header_bg       = '#F7F7F7';
-        $tmpl_0_header_color    = '#32373c';
-        $tmpl_0_highlighted     = '#F7F7F7';
+        $tmpl_0_list_color = '#252823';
+        $tmpl_0_header_bg = '#F7F7F7';
+        $tmpl_0_header_color = '#252823';
+        $tmpl_0_highlighted = '#F7F7F7';
 
-        $tmpl_1_primary         = '#000000';
-        $tmpl_1_secondary       = '#EF5A28';
-        $tmpl_1_title_color     = '#32373c';
+        $tmpl_1_primary = '#06476d';
+        $tmpl_1_secondary = '#EF5A28';
+        $tmpl_1_title_color = $tmpl_1_primary;
         $tmpl_1_sub_title_color = '#6a6a6a';
-        $tmpl_1_list_color      = '#555d66';
-        $tmpl_1_header_bg       = $tmpl_1_primary;
-        $tmpl_1_highlighted     = '#F7F7F7';
+        $tmpl_1_list_color = '#555d66';
+        $tmpl_1_header_bg = $tmpl_1_primary;
+        $tmpl_1_highlighted = '#e6edf0';
 
-        $tmpl_2_primary         = '#cb2800';
-        $tmpl_2_secondary       = '#cb2800';
-        $tmpl_2_title_color     = '#32373c';
+        $tmpl_2_primary = '#cb2800';
+        $tmpl_2_secondary = '#cb2800';
+        $tmpl_2_title_color = '#32373c';
         $tmpl_2_sub_title_color = '#6a6a6a';
-        $tmpl_2_list_color      = '#555d66';
-        $tmpl_2_header_bg       = '#F7F7F7';
-        $tmpl_2_highlighted     = '#F7F7F7';
+        $tmpl_2_list_color = '#555d66';
+        $tmpl_2_header_bg = '#F7F7F7';
+        $tmpl_2_highlighted = '#F7F7F7';
 
-        $tmpl_3_primary         = '#cb2800';
-        $tmpl_3_title_color     = '#32373c';
+        $tmpl_3_primary = '#cb2800';
+        $tmpl_3_title_color = '#32373c';
         $tmpl_3_sub_title_color = '#6a6a6a';
-        $tmpl_3_list_color      = '#555d66';
-        $tmpl_3_header_bg       = '#F7F7F7';
-        $tmpl_3_highlighted     = '#F7F7F7';
+        $tmpl_3_list_color = '#555d66';
+        $tmpl_3_header_bg = '#F7F7F7';
+        $tmpl_3_highlighted = '#F7F7F7';
 
-        $tmpl_6_header_bg       = '#fff6ec';
-        $tmpl_6_primary         = '#002e5f';
-        $tmpl_6_input_color     = '#ffffff';
-        
+        $tmpl_6_header_bg = '#fff6ec';
+        $tmpl_6_primary = '#002e5f';
+        $tmpl_6_input_color = '#ffffff';
+
 
 
         //  the default colors that will load with the customizer
         $default_colors = [
-            'template-0'  => [
-                'primary'                => $tmpl_0_primary,
-                'header'                 => $tmpl_0_header_bg,
-                'header-color'           => $tmpl_0_header_color,
-                'infobox-color'          => $tmpl_0_list_color,
-                'infobox-bg'             => $white,
-                'infobox-a'              => $tmpl_0_primary,
-                'search-text'            => $tmpl_0_primary,
-                'search-btn-color'       => $white,
-                'search-btn-bg'          => $tmpl_0_primary,
-                'action-btn-color'       => $white,
-                'action-btn-bg'          => $tmpl_0_primary,
-                'color'                  => $tmpl_0_list_color,
-                'list-bg'                => $white,
-                'list-title'             => $tmpl_0_title_color,
-                'list-sub-title'         => $tmpl_0_sub_title_color,
-                'highlighted'            => $tmpl_0_highlighted,
-                'highlighted-list-color' => $tmpl_0_primary
+            'template-0' => [
+                'primary' => $tmpl_0_primary,
+                'header' => $tmpl_0_header_bg,
+                'header-color' => $tmpl_0_header_color,
+                'infobox-color' => $tmpl_0_list_color,
+                'infobox-bg' => $white,
+                'infobox-a' => $tmpl_0_primary,
+                'search-text' => $tmpl_0_primary,
+                // 'search-btn-color' => $white,
+                'search-btn-bg' => $tmpl_0_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_0_primary,
+                'action-btn-border' => $tmpl_0_primary,
+                'action-sec-btn-color' => $tmpl_0_primary,
+                'action-sec-btn-bg' => $white,
+                'action-sec-btn-border' => $tmpl_0_primary,
+                'color' => $tmpl_0_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_0_title_color,
+                'list-sub-title' => $tmpl_0_sub_title_color,
+                'highlighted' => $tmpl_0_highlighted,
+                'highlighted-list-color' => $tmpl_0_primary,
+                'image-bg' => $white,
+                'search-bar-color' => "#252823",
+                'search-bar-bg' => $white,
+                'search-bar-placeholder' => "#6f6f6f",
+                'search-bar-border' => "#e4e4e0",
+                'tab-selected-bg' => $tmpl_0_primary,
+                'tab-selected-border' => $white,
+                'tab-selected-color' => $white,
             ],
             'template-1' => [
-                'primary'                => $tmpl_1_primary,
-                'secondary'              => $tmpl_1_secondary,
-                'header'                 => $tmpl_1_header_bg,
-                'header-color'           => $tmpl_1_list_color,
-                'infobox-color'          => $tmpl_1_list_color,
-                'infobox-bg'             => $white,
-                'infobox-a'              => $tmpl_1_primary,
-                'search-btn-color'       => $white,
-                'search-btn-bg'          => $tmpl_1_primary,
-                'action-btn-color'       => $white,
-                'action-btn-bg'          => $tmpl_1_primary,
-                'color'                  => $tmpl_1_list_color,
-                'list-bg'                => $white,
-                'list-title'             => $tmpl_1_title_color,
-                'list-sub-title'         => $tmpl_1_sub_title_color,
-                'highlighted'            => $tmpl_1_highlighted,
-                'highlighted-list-color' => $tmpl_1_primary
+                'primary' => $tmpl_1_primary,
+                'secondary' => $tmpl_1_secondary,
+                'header' => $tmpl_1_primary,
+                'header-color' => $white,
+                'infobox-color' => $tmpl_1_list_color,
+                'infobox-bg' => $white,
+                'infobox-a' => $tmpl_1_primary,
+                'search-btn-color' => $white,
+                'search-btn-bg' => $tmpl_1_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_1_primary,
+                'action-btn-border' => $tmpl_1_primary,
+                'action-sec-btn-color' => $white,
+                'action-sec-btn-bg' => $tmpl_1_primary,
+                'color' => $tmpl_1_list_color,
+                'list-bg' => $white,
+                'head-title' => $white,
+                'list-title' => $tmpl_1_title_color,
+                'list-sub-title' => $tmpl_1_sub_title_color,
+                'highlighted' => $tmpl_1_highlighted,
+                'highlighted-list-color' => $tmpl_1_primary,
+                'search-bar-color' => $black,
+                'search-bar-bg' => $white,
+                'search-bar-placeholder' => "#6f6f6f",
+                'search-bar-border' => "#e4e4e0",
+                'tab-selected-bg' => $tmpl_1_secondary,
+                'tab-selected-color' => $white,
+                'control-color' => $white,
+                'control-bg' => $tmpl_1_primary,
             ],
             'template-2' => [
-                'primary'                => $tmpl_2_primary,
-                'header'                 => $tmpl_2_header_bg,
-                'header-color'           => $tmpl_2_list_color,
-                'infobox-color'          => $tmpl_2_list_color,
-                'infobox-bg'             => $white,
-                'infobox-a'              => $tmpl_2_primary,
-                'action-btn-color'       => $white,
-                'action-btn-bg'          => $tmpl_2_primary,
-                'color'                  => $tmpl_2_list_color,
-                'list-bg'                => $white,
-                'list-title'             => $tmpl_2_title_color,
-                'list-sub-title'         => $tmpl_2_sub_title_color,
-                'highlighted'            => $tmpl_2_highlighted,
-                'highlighted-list-color' => $tmpl_2_primary
+                'primary' => $tmpl_2_primary,
+                'header' => $white,
+                'header-color' => $black,
+                'infobox-color' => $tmpl_2_list_color,
+                'infobox-bg' => $white,
+                'infobox-a' => $tmpl_2_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_2_primary,
+                'action-sec-btn-color' => $white,
+                'action-sec-btn-bg' => $tmpl_2_primary,
+                'color' => $tmpl_2_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_2_title_color,
+                'list-sub-title' => $tmpl_2_sub_title_color,
+                'highlighted' => $tmpl_2_highlighted,
+                'highlighted-list-color' => $tmpl_2_primary,
+                'search-bar-color' => $black,
+                'search-bar-bg' => $white,
+                'search-bar-placeholder' => "#6f6f6f",
+                'search-bar-border' => "#e4e4e0",
             ],
-            'template-3'  => [
-                'primary'                => $tmpl_3_primary,
-                'header'                 => $tmpl_3_header_bg,
-                'header-color'           => $tmpl_3_primary,
-                'infobox-color'          => $tmpl_0_list_color,
-                'infobox-bg'             => $white,
-                'infobox-a'              => $tmpl_3_primary,
-                'action-btn-color'       => $white,
-                'action-btn-bg'          => $tmpl_3_primary,
-                'color'                  => $tmpl_3_list_color,
-                'list-bg'                => $white,
-                'list-title'             => $tmpl_3_title_color,
-                'list-sub-title'         => $tmpl_3_sub_title_color,
-                'highlighted'            => $tmpl_3_highlighted,
-                'highlighted-list-color' => $tmpl_3_primary
+            'template-3' => [
+                'primary' => $tmpl_3_primary,
+                'header' => $tmpl_3_header_bg,
+                'header-color' => $tmpl_3_primary,
+                'infobox-color' => $tmpl_3_list_color,
+                'infobox-bg' => $white,
+                'infobox-a' => $tmpl_3_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_3_primary,
+                'color' => $tmpl_3_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_3_title_color,
+                'list-sub-title' => $tmpl_3_sub_title_color,
+                'highlighted' => $tmpl_3_highlighted,
+                'highlighted-list-color' => $tmpl_3_primary,
+                'search-bar-color' => '#405263',
+                'search-bar-bg' => $white,
+                'search-bar-placeholder' => '#627384',
+                'search-bar-border' => '#e1e6eb'
             ],
-            'template-4'  => [
-                'primary'                => $tmpl_0_primary,
-                'header'                 => $tmpl_0_header_bg,
-                'header-color'           => $tmpl_0_header_color,
-                'infobox-color'          => $tmpl_0_list_color,
-                'infobox-bg'             => $white,
-                'infobox-a'              => $tmpl_0_primary,
-                'action-btn-color'       => $white,
-                'action-btn-bg'          => $tmpl_0_primary,
-                'color'                  => $tmpl_0_list_color,
-                'list-bg'                => $white,
-                'list-title'             => $tmpl_0_title_color,
-                'list-sub-title'         => $tmpl_0_sub_title_color,
-                'highlighted'            => $tmpl_0_highlighted,
-                'highlighted-list-color' => $tmpl_0_primary
+            'template-4' => [
+                'primary' => $tmpl_0_primary,
+                'header' => $tmpl_0_header_bg,
+                'header-color' => $tmpl_0_header_color,
+                'infobox-color' => $tmpl_0_list_color,
+                'infobox-bg' => $white,
+                'infobox-a' => $tmpl_0_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_0_primary,
+                'action-btn-border' => $tmpl_0_primary,
+                'action-sec-btn-color' => $tmpl_0_primary,
+                'action-sec-btn-bg' => $white,
+                'color' => $tmpl_0_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_0_title_color,
+                'list-sub-title' => $tmpl_0_sub_title_color,
+                'highlighted' => $tmpl_0_highlighted,
+                'highlighted-list-color' => $tmpl_0_primary,
+                'search-bar-color' => "#585858",
+                'search-bar-bg' => $white,
+                'search-bar-placeholder' => "#6f6f6f",
+                'search-bar-border' => "#e4e4e0",
+                'tab-selected-bg' => $tmpl_0_primary,
+                'tab-selected-color' => $white,
+                'control-color' => $white,
+                'control-bg' => $tmpl_0_primary,
             ],
-            'template-5'  => [
-                'primary'                => $tmpl_0_primary,
-                'header'                 => $white,
-                'marker-color'           => $tmpl_0_primary,
-                'head-sub-title'         => $tmpl_0_list_color,
-                'infobox-color'          => $tmpl_0_list_color,
-                'infobox-bg'             => $white,
-                'infobox-a'              => $tmpl_0_primary,
-                'action-btn-color'       => $white,
-                'action-btn-bg'          => $tmpl_0_primary,
-                'color'                  => $tmpl_0_list_color,
-                'list-bg'                => $white,
-                'list-title'             => $tmpl_0_title_color,
-                'highlighted'            => $tmpl_0_highlighted,
-                'highlighted-list-color' => $tmpl_0_primary
+            'template-5' => [
+                'primary' => $tmpl_0_primary,
+                'header' => $white,
+                'label' => $black,
+                'header-color' => $tmpl_0_primary,
+                'marker-color' => $tmpl_0_primary,
+                'head-sub-title' => $tmpl_0_list_color,
+                'infobox-color' => $tmpl_0_list_color,
+                'infobox-bg' => $white,
+                'infobox-a' => $tmpl_0_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_0_primary,
+                'color' => $tmpl_0_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_0_title_color,
+                'highlighted' => $tmpl_0_highlighted,
+                'highlighted-list-color' => $tmpl_0_primary,
+                'search-bar-color' => $black,
+                'search-bar-bg' => $white,
+                'search-bar-placeholder' => "#6f6f6f",
+                'search-bar-border' => "#e4e4e0",
             ],
-            'template-6'  => [
+            'template-6' => [
                 // 'primary'                => $tmpl_6_primary,
                 // 'header'                 => $tmpl_6_header_bg,
                 // 'marker-color'           => $tmpl_6_primary,
@@ -1073,169 +1491,173 @@ class Setting extends Base
                 // 'list-title'             => $tmpl_6_title_color,
                 // 'highlighted'            => $tmpl_6_highlighted,
                 // 'highlighted-list-color' => $tmpl_6_primary
-                'primary'                   => $tmpl_6_primary,
-                'list-panel-bg'             => $tmpl_6_header_bg,
-                'btn-bg-color'              => $tmpl_6_primary,
-                'btn-color'                 => $white,
-                'heading-color'             => $tmpl_6_primary,
-                'input-color'               => $tmpl_6_input_color,
-                'color'                     => $tmpl_6_primary,
-                'state-btn-color'           => $tmpl_6_primary,
-                'state-btn-bg-color'        => $white,
-                'state-active-btn-color'    => $white,
+                'primary' => $tmpl_6_primary,
+                'list-panel-bg' => $tmpl_6_header_bg,
+                'btn-bg-color' => $tmpl_6_primary,
+                'btn-color' => $white,
+                'heading-color' => $tmpl_6_primary,
+                'input-color' => $tmpl_6_input_color,
+                'color' => $tmpl_6_primary,
+                'state-btn-color' => $tmpl_6_primary,
+                'state-btn-bg-color' => $white,
+                'state-active-btn-color' => $white,
                 'state-active-btn-bg-color' => $tmpl_6_primary,
-                'state-label-shadow-color'  => $tmpl_6_primary,
-                'state-label-color'         => $white,
-                'list-bg'                   => $white,
-                'highlighted'               => $light_gray,
-                'list-title'                => $tmpl_6_primary,
-                'list-order-btn-color'      => $white,
-                'list-order-btn-bg-color'   => $tmpl_6_primary,
-                'list-font-color'           => $tmpl_6_primary,
-                'action-btn-bg'             => $tmpl_6_primary,
-                'action-btn-color'          => $white,
+                'state-label-shadow-color' => $tmpl_6_primary,
+                'state-label-color' => $white,
+                'list-bg' => $white,
+                'highlighted' => $light_gray,
+                'list-title' => $tmpl_6_primary,
+                'list-order-btn-color' => $white,
+                'list-order-btn-bg-color' => $tmpl_6_primary,
+                'list-font-color' => $tmpl_6_primary,
+                'action-btn-bg' => $tmpl_6_primary,
+                'action-btn-color' => $white,
             ],
-            'template-list'  => [
-                'primary'           => $tmpl_3_primary,
-                'action-btn-color'  => $white,
-                'action-btn-bg'     => $tmpl_3_primary,
-                'color'             => $tmpl_3_list_color,
-                'list-bg'           => $white,
-                'list-title'        => $tmpl_3_title_color,
-                'highlighted'       => $tmpl_3_highlighted
+            'template-list' => [
+                'primary' => $tmpl_3_primary,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_3_primary,
+                'color' => $tmpl_3_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_3_title_color,
+                'highlighted' => $tmpl_3_highlighted
             ],
-            'template-list-2'  => [
-                'primary'           => $tmpl_3_primary,
-                'panel-background'  =>  '#f8f9fb', 
-                'card-background'   => $white,
-                'action-btn-color'  => $white,
-                'action-btn-bg'     => $tmpl_3_primary,
-                'color'             => $tmpl_3_list_color,
-                'list-bg'           => $white,
-                'list-title'        => $tmpl_3_title_color,
-                'highlighted'       => $tmpl_3_highlighted
+            'template-list-2' => [
+                'primary' => $tmpl_3_primary,
+                'panel-background' => '#f8f9fb',
+                'card-background' => $white,
+                'action-btn-color' => $white,
+                'action-btn-bg' => $tmpl_3_primary,
+                'color' => $tmpl_3_list_color,
+                'list-bg' => $white,
+                'list-title' => $tmpl_3_title_color,
+                'highlighted' => $tmpl_3_highlighted
             ],
-            'template-wc'  => [
-                'primary'                => $tmpl_0_primary,
-                'button-color'           => $white,
-                'button-background'      => $tmpl_0_primary,
-                'label-color'            => '#010a10',
-                'control-color'          => '#010a10',
-                'control-background'     => $white,
-                'control-border-color'   => '#dee2e6',
-                'input-color'            => $black,
-                'input-background'       => $white
+            'template-wc' => [
+                'primary' => $tmpl_0_primary,
+                'button-color' => $white,
+                'button-background' => $tmpl_0_primary,
+                'label-color' => '#010a10',
+                'control-color' => '#010a10',
+                'control-background' => $white,
+                'control-border-color' => '#dee2e6',
+                'input-color' => $black,
+                'input-background' => $white
             ]
         ];
 
-        $default_fonts  = [
-            'template-0'  => [
-                'title-size'    => 14,
-                'font-size'     => 13,
-                'btn-size'      => 13,
-                'label-size'    => 13,
-                'input-size'    => 13,
-                'radius-size'   => 6
+        $default_fonts = [
+            'template-0' => [
+                'title-size' => 16,
+                'font-size' => 13,
+                'small-size' => 12,
+                'btn-size' => 13,
+                'label-size' => 14,
+                'input-size' => 16,
+                'radius-size' => 6
             ],
-            'template-1'  => [
-                'title-size'        => 18,
-                'sub-title-size'    => 15,
-                'font-size'     => 13,
-                'btn-size'      => 14,
-                'label-size'    => 16,
-                'input-size'    => 16
+            'template-1' => [
+                'title-size' => 18,
+                'sub-title-size' => 15,
+                'font-size' => 13,
+                'btn-size' => 14,
+                'label-size' => 14,
+                'input-size' => 16,
+                'radius-size' => 0
             ],
-            'template-2'  => [
-                'title-size'  => 16,
-                'font-size'   => 13,
-                'btn-size'    => 14,
-                'label-size'    => 16,
-                'input-size'    => 16
+            'template-2' => [
+                'title-size' => 16,
+                'font-size' => 13,
+                'btn-size' => 14,
+                'label-size' => 14,
+                'input-size' => 16
             ],
-            'template-3'  => [
-                'title-size'  => 15,
-                'font-size'   => 13,
-                'btn-size'    => 14,
-                'label-size'    => 16,
-                'input-size'    => 16
+            'template-3' => [
+                'title-size' => 15,
+                'font-size' => 13,
+                'btn-size' => 14,
+                'label-size' => 16,
+                'input-size' => 16,
+                'radius-size' => 0
+
             ],
-            'template-4'  => [
-                'heading-size'   => 20,
-                'font-size'   => 13,
-                'title-size'  => 15,
-                'btn-size'    => 14,
-                'label-size'  => 16,
-                'input-size'  => 16
+            'template-4' => [
+                'heading-size' => 20,
+                'font-size' => 13,
+                'title-size' => 15,
+                'btn-size' => 14,
+                'label-size' => 16,
+                'input-size' => 16
             ],
-            'template-5'  => [
-                'heading-size'      => 40,
-                'heading-sub-size'  => 22,
-                'font-size'         => 15,
-                'title-size'        => 22,
-                'btn-size'          => 15,
-                'input-size'        => 16,
-                'list-title-size'   => 22,
-                'tag-size'          => 13,
-                'small-size'        => 13
+            'template-5' => [
+                'heading-size' => 40,
+                'heading-sub-size' => 22,
+                'font-size' => 15,
+                'title-size' => 22,
+                'btn-size' => 15,
+                'input-size' => 16,
+                'list-title-size' => 22,
+                'tag-size' => 13,
+                'small-size' => 13
             ],
-            'template-6'  => [
-                'heading-size'         => 30, 
-                'state-btn-size'       => 16, 
-                'state-label-size'     => 20, 
-                'title-size'           => 22,
-                'font-size'            => 15,
-                'action-btn-size'      => 15,
-                'btn-size'             => 15, 
-                'tag-size'             => 13, 
-                'small-size'           => 13, 
+            'template-6' => [
+                'heading-size' => 30,
+                'state-btn-size' => 16,
+                'state-label-size' => 20,
+                'title-size' => 22,
+                'font-size' => 15,
+                'action-btn-size' => 15,
+                'btn-size' => 15,
+                'tag-size' => 13,
+                'small-size' => 13,
             ],
-            'template-list'  => [
-                'font-size'        => 13,
-                'title-size'       => 18,
-                'list-title-size'  => 18,
-                'btn-size'         => 13
+            'template-list' => [
+                'font-size' => 13,
+                'title-size' => 18,
+                'list-title-size' => 18,
+                'btn-size' => 13
             ],
-            'template-list-2'  => [
-                'font-size'        => 13,
-                'title-size'       => 18,
-                'list-title-size'  => 18,
-                'btn-size'         => 13
+            'template-list-2' => [
+                'font-size' => 13,
+                'title-size' => 18,
+                'list-title-size' => 18,
+                'btn-size' => 13
             ],
-            'template-wc'  => [
-                'font-size'         => 13,
-                'font-small-size'   => 10,
-                'title-size'        => 16,
-                'btn-size'          => 13
+            'template-wc' => [
+                'font-size' => 13,
+                'font-small-size' => 10,
+                'title-size' => 16,
+                'btn-size' => 13
             ]
         ];
 
         $font_labels = [
-            'heading-size'      => 'Heading Font',
-            'heading-sub-size'  => 'Heading Para Font',
-            'label-size'        => 'Label Font',
-            'input-size'        => 'Input Font',
-            'radius-size'     => 'Border Radius',
-            'tag-size'          => 'Category Tags Font',
-            'small-size'        => 'Description Font',
-            'font-size'         => 'Content Font',
-            'title-size'        => 'Title Font',
-            'sub-title-size'    => 'Sub-title Font',
-            'list-title-size'   => 'List Title Font',
-            'btn-size'                => 'Button Font',
-            'state-btn-size'          => 'State Btn Font',
-            'state-label-size'        => 'State Label Font',
-            'list-order-btn-size'     => 'List Order Btn Font',
-            'list-font-size'          => 'List Text Font',
-            'action-btn-size'         => 'Action Btn Font'
+            'heading-size' => __('Heading Font', 'asl_locator'),
+            'heading-sub-size' => __('Heading Para Font', 'asl_locator'),
+            'label-size' => __('Label Font', 'asl_locator'),
+            'input-size' => __('Input Font', 'asl_locator'),
+            'radius-size' => __('Border Radius', 'asl_locator'),
+            'tag-size' => __('Category Tags Font', 'asl_locator'),
+            'small-size' => __('Description Font', 'asl_locator'),
+            'font-size' => __('Content Font', 'asl_locator'),
+            'title-size' => __('Title Font', 'asl_locator'),
+            'sub-title-size' => __('Sub-title Font', 'asl_locator'),
+            'list-title-size' => __('List Title Font', 'asl_locator'),
+            'btn-size' => __('Button Font', 'asl_locator'),
+            'state-btn-size' => __('State Btn Font', 'asl_locator'),
+            'state-label-size' => __('State Label Font', 'asl_locator'),
+            'list-order-btn-size' => __('List Order Btn Font', 'asl_locator'),
+            'list-font-size' => __('List Text Font', 'asl_locator'),
+            'action-btn-size' => __('Action Btn Font', 'asl_locator')
 
         ];
 
-        $html     = '';
-        $fields   = '';
+        $html = '';
+        $fields = '';
 
         //  Only get the array of active default color
-        $default_colors  = $default_colors[$template];
-        $default_fonts   = $default_fonts[$template];
+        $default_colors = $default_colors[$template];
+        $default_fonts = $default_fonts[$template];
 
         $fields_settings = \AgileStoreLocator\Helper::get_setting('ui-template', $template);
 
@@ -1246,23 +1668,34 @@ class Setting extends Base
         $ui_settings = apply_filters(
             'asl_ui_settings',
             [
-                'colors'         => isset($colors[$template]) ? $colors[$template] : [],
+                'colors' => isset($colors[$template]) ? $colors[$template] : [],
                 'default_colors' => $default_colors,
-                'default_fonts'  => $default_fonts,
-                'font_labels'    => $font_labels,
-                'fields'         => $fields,
+                'default_fonts' => $default_fonts,
+                'font_labels' => $font_labels,
+                'fields' => $fields,
             ],
             $template
         );
 
         $colors[$template] = isset($ui_settings['colors']) && is_array($ui_settings['colors']) ? $ui_settings['colors'] : [];
-        $default_colors    = isset($ui_settings['default_colors']) && is_array($ui_settings['default_colors']) ? $ui_settings['default_colors'] : [];
-        $default_fonts     = isset($ui_settings['default_fonts']) && is_array($ui_settings['default_fonts']) ? $ui_settings['default_fonts'] : [];
-        $font_labels       = isset($ui_settings['font_labels']) && is_array($ui_settings['font_labels']) ? $ui_settings['font_labels'] : [];
-        $fields            = isset($ui_settings['fields']) ? $ui_settings['fields'] : $fields;
+        $default_colors = isset($ui_settings['default_colors']) && is_array($ui_settings['default_colors']) ? $ui_settings['default_colors'] : [];
+        $default_fonts = isset($ui_settings['default_fonts']) && is_array($ui_settings['default_fonts']) ? $ui_settings['default_fonts'] : [];
+        $font_labels = isset($ui_settings['font_labels']) && is_array($ui_settings['font_labels']) ? $ui_settings['font_labels'] : [];
+        $fields = isset($ui_settings['fields']) ? $ui_settings['fields'] : $fields;
 
         //  Start Stream
         ob_start();
+
+        $appearance_options = \AgileStoreLocator\Helper::customizer_appearance_options();
+        $appearance = \AgileStoreLocator\Helper::get_configs(array_keys($appearance_options));
+        foreach ($appearance_options as $key => $allowed) {
+            $appearance[$key] = isset($appearance[$key]) && in_array((string) $appearance[$key], $allowed, true) ? (string) $appearance[$key] : $allowed[0];
+        }
+
+        $filter_keys = ['advance_filter', 'hide_search', 'address_ddl', 'filter_ddl', 'ddl_search', 'filter_sort', 'brand_special_cascade', 'and_filter', 'image_filter', 'image_filter_title', 'select_category', 'time_switch', 'show_opened', 'distance_slider', 'distance_control', 'fixed_radius', 'search_2'];
+        $filter_settings = \AgileStoreLocator\Helper::get_configs($filter_keys);
+        $filter_controls = \AgileStoreLocator\Model\Attribute::get_controls();
+        $filter_categories = \AgileStoreLocator\Model\Category::get_categories('', 'category_name');
 
         // include ui customizer fields products HTML
         include ASL_PLUGIN_PATH . 'admin/partials/ui-customizer-fields.php';
@@ -1272,9 +1705,9 @@ class Setting extends Base
         //  Clean it
         ob_end_clean();
 
-        $response->html     = $html;
-        $response->msg      = esc_attr__('Template UI settings updated', 'asl_locator');
-        $response->success  = true;
+        $response->html = $html;
+        $response->msg = esc_attr__('Template UI settings updated', 'asl_locator');
+        $response->success = true;
 
         return $this->send_response($response);
     }
@@ -1287,24 +1720,116 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
-        $data_    = stripslashes_deep($_POST['sl_formData']);
+        $data_ = stripslashes_deep($_POST['sl_formData']);
         $template = sanitize_text_field($_POST['sl_template']);
 
-        $data     = json_encode($data_);
+        $customizer_templates = \AgileStoreLocator\Helper::customizer_tmpls();
+        if (!isset($customizer_templates[$template]) || strpos($template, 'template-') !== 0) {
+            $response->error = esc_html__('Invalid template identifier.', 'asl_locator');
+            return $this->send_response($response);
+        }
+        if (isset($data_['quick-style']) && !in_array($data_['quick-style'], ['default', 'modern'], true)) {
+            $response->error = esc_html__('Invalid Quick Style.', 'asl_locator');
+            return $this->send_response($response);
+        }
 
-      $saved = \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
+        foreach (\AgileStoreLocator\Helper::customizer_dimension_keys() as $key) {
+            if (array_key_exists($key, $data_) && !\AgileStoreLocator\Helper::valid_customizer_dimension($data_[$key])) {
+                $response->error = esc_html__('Enter a positive CSS size, for example 480px, 60vh or 100%.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
 
-      if (false === $saved) {
-          $response->error = esc_attr__('Unable to save the template settings.', 'asl_locator');
-          return $this->send_response($response);
-      }
+        $layout_keys = ['results-layout', 'list-width-sm', 'list-width-md', 'list-width-lg', 'list-width-xl'];
+        foreach ($layout_keys as $key) {
+            if (strpos($key, 'list-width-') === 0 && isset($data_[$key]) && $data_[$key] !== '') {
+                $response->error = esc_html__('List / Map Proportion is available in Agile Store Locator Pro.', 'asl_locator');
+                return $this->send_response($response);
+            }
+            if (isset($data_[$key]) && (!in_array(str_replace('template-', '', $template), \AgileStoreLocator\Helper::customizer_layout_templates(), true) || !\AgileStoreLocator\Helper::valid_customizer_layout_value($key, $data_[$key], str_replace('template-', '', $template)))) {
+                $response->error = esc_html__('Invalid list/map proportion.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
 
-      Dashboard::set_onboarding_step('customize_locator', true);
+        $appearance = isset($_POST['sl_appearance']) ? wp_unslash($_POST['sl_appearance']) : [];
+        if (!is_array($appearance)) {
+            $response->error = esc_html__('Invalid appearance settings.', 'asl_locator');
+            return $this->send_response($response);
+        }
+        $appearance_options = \AgileStoreLocator\Helper::customizer_appearance_options();
+        foreach ($appearance as $key => $value) {
+            if (!isset($appearance_options[$key]) || !is_string($value) || !in_array($value, $appearance_options[$key], true)) {
+                $response->error = esc_html__('Invalid appearance setting.', 'asl_locator');
+                return $this->send_response($response);
+            }
+            if ($key === 'tabs_layout' && $value !== '0') {
+                $response->error = esc_html__('Tabs Layout is available in Agile Store Locator Pro.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
 
-        $response->msg     = esc_attr__('Template updated', 'asl_locator');
+        $filters = isset($_POST['sl_filters']) ? wp_unslash($_POST['sl_filters']) : [];
+        if (!is_array($filters)) {
+            $response->error = esc_html__('Invalid filter settings.', 'asl_locator');
+            return $this->send_response($response);
+        }
+        $boolean_filters = ['advance_filter', 'hide_search', 'address_ddl', 'ddl_search', 'brand_special_cascade', 'and_filter', 'image_filter', 'image_filter_title', 'time_switch', 'show_opened', 'distance_slider'];
+        $allowed_filter_fields = array_column(\AgileStoreLocator\Model\Attribute::get_controls(), 'field');
+        $allowed_search_fields = ['title', 'street', 'city', 'state', 'postal_code', 'country', 'description', 'description_2'];
+        foreach ($filters as $key => $value) {
+            if (!is_string($value)) {
+                $response->error = esc_html__('Invalid filter setting.', 'asl_locator');
+                return $this->send_response($response);
+            }
+            $valid = in_array($key, $boolean_filters, true) ? in_array($value, ['0', '1'], true) : true;
+            if (in_array($key, ['address_ddl', 'brand_special_cascade', 'and_filter', 'image_filter', 'image_filter_title', 'time_switch', 'show_opened'], true)) $valid = $value === '0';
+            elseif ($key === 'filter_sort') $valid = in_array($value, ['ordr', 'name_'], true);
+            elseif ($key === 'distance_control') $valid = $value === '1';
+            elseif ($key === 'fixed_radius') $valid = $value === '' || (ctype_digit($value) && (int) $value > 0);
+            elseif ($key === 'filter_ddl') $valid = $value === '';
+            elseif ($key === 'search_2') $valid = $value === '';
+            elseif ($key === 'select_category') $valid = $value === '' || (bool) preg_match('/^\d+(?:,\d+)*$/', $value);
+            elseif (!in_array($key, array_merge($boolean_filters, ['filter_sort', 'distance_control', 'fixed_radius', 'filter_ddl', 'search_2', 'select_category']), true)) $valid = false;
+            if (!$valid) {
+                $response->error = esc_html__('Invalid filter setting.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+
+        $data = json_encode($data_);
+
+        $saved = \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
+
+        if (false === $saved) {
+            $response->error = esc_attr__('Unable to save the template settings.', 'asl_locator');
+            return $this->send_response($response);
+        }
+
+        foreach ($appearance as $key => $value) {
+            $exists = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s', $key));
+            $updated = $exists ? $wpdb->update(ASL_PREFIX . 'configs', ['value' => $value], ['key' => $key]) : $wpdb->insert(ASL_PREFIX . 'configs', ['key' => $key, 'value' => $value]);
+            if (false === $updated) {
+                $response->error = esc_html__('Unable to save appearance settings. Please try again.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+
+        foreach ($filters as $key => $value) {
+            $exists = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s', $key));
+            $updated = $exists ? $wpdb->update(ASL_PREFIX . 'configs', ['value' => $value], ['key' => $key]) : $wpdb->insert(ASL_PREFIX . 'configs', ['key' => $key, 'value' => $value]);
+            if (false === $updated) {
+                $response->error = esc_html__('Unable to save filter settings. Please try again.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+
+        Dashboard::set_onboarding_step('customize_locator', true);
+
+        $response->msg = esc_attr__('Template updated', 'asl_locator');
         $response->success = true;
 
         return $this->send_response($response);
@@ -1320,10 +1845,16 @@ class Setting extends Base
     {
         global $wpdb;
 
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
         $template = isset($_POST['template']) ? sanitize_text_field($_POST['template']) : '';
+
+        $customizer_templates = \AgileStoreLocator\Helper::customizer_tmpls();
+        if (!isset($customizer_templates[$template]) || strpos($template, 'template-') !== 0) {
+            $response->error = esc_html__('Invalid template identifier.', 'asl_locator');
+            return $this->send_response($response);
+        }
 
         if (empty($template)) {
             $response->error = esc_html__('Missing template identifier.', 'asl_locator');
@@ -1346,9 +1877,9 @@ class Setting extends Base
             return $this->send_response($response);
         }
 
-        $response->success  = true;
+        $response->success = true;
         $response->template = $template;
-        $response->msg      = esc_attr__('Template settings have been reset.', 'asl_locator');
+        $response->msg = esc_attr__('Template settings have been reset.', 'asl_locator');
 
         return $this->send_response($response);
     }
@@ -1362,7 +1893,7 @@ class Setting extends Base
         global $wpdb;
         $prefix = ASL_PREFIX;
 
-        $response          = new \stdclass();
+        $response = new \stdclass();
         $response->success = false;
 
         $fields = isset($_POST['fields']) ? ($_POST['fields']) : [];
@@ -1373,8 +1904,8 @@ class Setting extends Base
         foreach ($fields as $field_key => $field) {
             $field_key = strip_tags($field_key);
 
-            $field['type']  = strip_tags(sanitize_text_field($field['type']));
-            $field['name']  = strip_tags(sanitize_text_field($field['name']));
+            $field['type'] = strip_tags(sanitize_text_field($field['type']));
+            $field['name'] = strip_tags(sanitize_text_field($field['name']));
             $field['label'] = strip_tags(sanitize_text_field($field['label']));
             $field['section'] = isset($field['section']) && in_array($field['section'], ['address', 'other'], true)
                 ? $field['section']
@@ -1397,7 +1928,7 @@ class Setting extends Base
         $response->error = $wpdb->print_error();
         $response->error1 = $wpdb->last_error;*/
 
-        $response->msg     = esc_attr__('Fields has been updated successfully.', 'asl_locator');
+        $response->msg = esc_attr__('Fields has been updated successfully.', 'asl_locator');
         $response->success = true;
 
         return $this->send_response($response);
@@ -1410,11 +1941,11 @@ class Setting extends Base
      */
     public function reset_all_slugs()
     {
-        $response  = new \stdclass();
+        $response = new \stdclass();
 
         $counter = \AgileStoreLocator\Schema\Slug::regenerate_all_slugs();
 
-        $response->msg     = esc_attr__(" $counter Slugs has been updated.", 'asl_locator');
+        $response->msg = esc_attr__(" $counter Slugs has been updated.", 'asl_locator');
         $response->success = ($counter) ? true : false;
 
         return $this->send_response($response);
@@ -1426,13 +1957,13 @@ class Setting extends Base
      */
     public function import_configs()
     {
-        $response          = new \stdclass();
-        $response->title   = esc_attr__('Configuration Import', 'asl_locator');
+        $response = new \stdclass();
+        $response->title = esc_attr__('Configuration Import', 'asl_locator');
 
         // Must be an administrator
         if (current_user_can('administrator')) {
-            $jsonText          = isset($_POST['configs']) ? stripslashes_deep($_POST['configs']) : null;
-            $import_results    = ($jsonText) ? (\AgileStoreLocator\Model\Config::import_configuration($jsonText)) : false;
+            $jsonText = isset($_POST['configs']) ? stripslashes_deep($_POST['configs']) : null;
+            $import_results = ($jsonText) ? (\AgileStoreLocator\Model\Config::import_configuration($jsonText)) : false;
 
             //  Has imported or not?
             if ($import_results > 0) {
@@ -1454,14 +1985,14 @@ class Setting extends Base
      */
     public function export_configs()
     {
-        $response  = new \stdclass();
+        $response = new \stdclass();
 
         $response->configs = \AgileStoreLocator\Model\Config::export_config();
 
-        $response->message              = esc_attr__('Config exported successfully', 'asl_locator');
-        $response->copy_message         = esc_attr__('Copied successfully', 'asl_locator');
-        $response->export_text_content  = esc_attr__('Warning! Export includes all configuration including API keys, labels, customizations and maps related settings.', 'asl_locator');
-        $response->success              = true;
+        $response->message = esc_attr__('Config exported successfully', 'asl_locator');
+        $response->copy_message = esc_attr__('Copied successfully', 'asl_locator');
+        $response->export_text_content = esc_attr__('Warning! Export includes all configuration including API keys, labels, customizations and maps related settings.', 'asl_locator');
+        $response->success = true;
 
         return $this->send_response($response);
     }

@@ -1131,3 +1131,179 @@
     height: calc(100vh - 46px);
   }
 }
+
+.asl-maps-setup-shell .asl-google-connect { padding: 18px; border: 1px solid #dce3ec; border-radius: 10px; background: #f8fbff; }
+.asl-maps-setup-shell .asl-google-connect-heading { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+.asl-maps-setup-shell .asl-google-connect-icon { display: grid; place-items: center; flex: 0 0 36px; height: 36px; border-radius: 9px; color: #1769e8; background: #eaf3ff; }
+.asl-maps-setup-shell .asl-google-connect-icon svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.asl-maps-setup-shell .asl-google-connect-heading h6 { margin: 0 0 3px; color: #172033; font-size: 14px; font-weight: 750; }
+.asl-maps-setup-shell .asl-google-connect-heading p,.asl-maps-setup-shell .asl-google-connect-description { margin: 0; color: #667085; font-size: 12px; line-height: 1.6; }
+.asl-maps-setup-shell .asl-google-connect-site { display: grid; gap: 3px; margin: 14px 0 11px; padding: 10px 12px; border: 1px solid #e3e8ef; border-radius: 7px; background: #fff; }
+.asl-maps-setup-shell .asl-google-connect-site span { color: #667085; font-size: 10px; font-weight: 600; }
+.asl-maps-setup-shell .asl-google-connect-site strong { color: #344054; font-size: 12px; font-weight: 600; overflow-wrap: anywhere; }
+.asl-maps-setup-shell .asl-google-connect-subdomains { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 15px; color: #536176; font-size: 11px; line-height: 18px; cursor: pointer; }
+.asl-maps-setup-shell .asl-google-connect-subdomains input { flex: 0 0 16px; width: 16px; height: 16px; margin: 1px 0 0 !important; }
+.asl-maps-setup-shell .asl-google-connect-actions { display: grid; gap: 8px; }
+.asl-maps-setup-shell .asl-google-connect-actions .btn { display: flex; align-items: center; justify-content: center; gap: 7px; width: 100%; min-height: 40px; padding: 10px 12px; border-radius: 7px; font-size: 12px; font-weight: 700; line-height: 1.5; white-space: normal; text-decoration: none; }
+.asl-maps-setup-shell .asl-google-connect-actions .asl-google-connect-primary { color: #fff; background: #1769e8; border: 1px solid #1769e8; }
+.asl-maps-setup-shell .asl-google-connect-actions .asl-google-connect-primary:hover { color: #fff; background: #1258c5; border-color: #1258c5; }
+.asl-maps-setup-shell .asl-google-connect-actions .asl-google-connect-secondary { color: #344054; background: #fff; border: 1px solid #cfd7e2; }
+.asl-maps-setup-shell .asl-google-connect-actions .btn:focus-visible,.asl-maps-setup-shell .asl-google-connect a:focus-visible { outline: 2px solid #1769e8; outline-offset: 3px; }
+.asl-maps-setup-shell .asl-google-connect-actions .btn:disabled { opacity: .65; cursor: wait; }
+.asl-maps-setup-shell .asl-google-connect-note { margin: 10px 0 0; color: #667085; font-size: 11px; line-height: 1.5; }
+.asl-maps-setup-shell .asl-google-connect .asl-maps-feedback { margin: 12px 0 0; overflow-wrap: anywhere; }
+.asl-maps-setup-shell .asl-google-connect .asl-maps-guide { margin-top: 12px; }
+.asl-maps-setup-shell .asl-google-connect [hidden] { display: none !important; }
+.asl-maps-setup-shell .asl-google-connect-divider { display: flex; align-items: center; gap: 12px; margin: 22px 0 18px; color: #667085; font-size: 11px; }
+.asl-maps-setup-shell .asl-google-connect-divider::before,.asl-maps-setup-shell .asl-google-connect-divider::after { content: ''; flex: 1; height: 1px; background: #e3e8ef; }
+
+/* Setup-time quota verification, scoped to the Google Maps connection card. */
+.asl-maps-setup-shell .asl-google-connect-limits{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0;padding:12px;border:1px solid #dbe7f8;border-radius:10px;background:#f5f9ff}
+.asl-maps-setup-shell .asl-google-connect-limits-badge{display:inline-flex;padding:4px 9px;border-radius:20px;background:#e0eaff;color:#1849a9;font-size:11px;font-weight:600}
+.asl-maps-setup-shell .asl-google-connect-limits a{font-size:11px;color:#175cd3;text-decoration:none}
+.asl-maps-setup-shell .asl-google-connect-limits small{display:block;flex-basis:100%;font-size:11px;line-height:1.5;color:#667085}
+
+/* Google connection card. */
+.asl-maps-setup-shell .asl-google-connect{padding:16px;border:1px solid #d5e3ff;border-radius:11px;background:linear-gradient(135deg,#f8faff,#f1f6ff)}
+.asl-maps-setup-shell .asl-google-connect-heading{align-items:flex-start;gap:12px}.asl-maps-setup-shell .asl-google-connect-heading>div{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:5px}.asl-maps-setup-shell .asl-google-connect-heading h6{font-size:16px;font-weight:700;margin:0}.asl-maps-setup-shell .asl-google-connect-heading p{flex-basis:100%;margin-top:5px;color:#344054;font-size:13px}.asl-maps-setup-shell .asl-connect-secure{font-size:10px;color:#0654e8;border-radius:12px;padding:3px 7px;background:#e7efff;margin-left:auto;white-space:nowrap}.asl-maps-setup-shell .asl-google-connect-icon{background:white;flex-basis:48px;height:48px}.asl-maps-setup-shell .asl-connect-features{padding:13px 16px;margin:12px 0 17px;list-style:none;border:1px solid #dce7fb;border-radius:9px;font-size:13px;color:#344054}.asl-maps-setup-shell .asl-connect-features li{display:flex;gap:12px;align-items:center;margin:4px 0}.asl-maps-setup-shell .asl-connect-features li span{color:#00a838;font-size:21px;line-height:1;font-weight:700}.asl-maps-setup-shell .asl-google-connect-site{display:block;padding:0;border:0;background:none}.asl-maps-setup-shell .asl-google-connect-site>span{display:block;color:#101828;font-size:13px;font-weight:600;margin-bottom:6px}.asl-maps-setup-shell .asl-google-connect-site strong{display:block;border:1px solid #cfdbee;border-radius:7px;background:#eaf0f8;color:#63728b;padding:9px 12px;font-size:13px;font-weight:400;overflow-wrap:anywhere}.asl-maps-setup-shell .asl-google-connect-subdomains{font-size:13px;color:#101828;margin:12px 0}.asl-maps-setup-shell .asl-google-connect-actions{display:flex;flex-direction:column;gap:9px}.asl-maps-setup-shell .asl-google-connect-actions .btn{width:100%;min-height:47px;border-radius:8px;font-size:14px;font-weight:600}.asl-maps-setup-shell .asl-google-connect-actions .asl-google-connect-primary{background:#0650f5;border-color:#0650f5}.asl-maps-setup-shell .asl-google-connect-divider{margin:16px 0 12px;font-size:12px}.asl-maps-setup-shell .asl-connect-manual{width:100%;padding:11px;background:white;border:1px solid #cddbf0;border-radius:8px;color:#101828;font-size:13px;font-weight:600}.asl-maps-setup-shell #asl-manual-key-panel{margin-top:18px}.asl-maps-setup-shell #asl-manual-key-panel[hidden]{display:none!important}.asl-maps-setup-shell .asl-connect-manual:focus-visible{outline:2px solid #1769e8;outline-offset:3px}
+
+.asl-maps-setup-shell .asl-google-connect-icon .asl-cloud-mark{width:40px;height:36px;fill:none;stroke-width:7;stroke-linecap:round}
+
+/* Store page setup uses the bundled Bootstrap grid, cards and form switches. */
+.asl-create-locator-shell #asl-create-store-page {
+  width: min(820px, 100vw);
+}
+#asl-create-store-page .asl-create-locator-title > i { border-radius: 14px; flex-shrink: 0; }
+#asl-create-store-page .asl-create-locator-body { background: #fff; }
+#asl-create-store-page .asl-store-panel-card {
+  margin: 0;
+  max-width: none;
+  min-width: 0;
+  border: 1px solid #e0e7f0;
+  border-radius: 10px;
+  box-shadow: none;
+}
+#asl-create-store-page .asl-store-section-heading h6 { margin: 0 0 5px; font-size: 16px; font-weight: 700; color: #101828; }
+#asl-create-store-page .asl-store-section-heading p { margin: 0; font-size: 12px; line-height: 1.5; color: #667085; }
+#asl-create-store-page .asl-store-section-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #eaf3ff;
+  color: #1769e8;
+  font-size: 23px;
+}
+#asl-create-store-page fieldset { margin: 0; padding: 0; border: 0; }
+#asl-create-store-page .asl-store-option-row { min-height: 48px; }
+#asl-create-store-page .form-switch { padding-left: 46px; }
+#asl-create-store-page .form-switch .form-check-input {
+  width: 34px;
+  height: 20px;
+  margin-left: -46px;
+  margin-top: 0;
+  cursor: pointer;
+}
+#asl-create-store-page .form-check-label { font-size: 12px; line-height: 20px; color: #172033; cursor: pointer; }
+#asl-create-store-page .asl-store-option-help { flex: 0 0 16px; font-size: 16px; width: 16px; height: 16px; color: #7a8ca8; cursor: help; }
+#asl-create-store-page .asl-store-preview { background: #f2f7ff; }
+#asl-create-store-page .asl-store-sample { border: 1px solid #dfebfc; border-radius: 10px; background: #fff; overflow: hidden; box-shadow: 0 4px 16px rgba(30, 95, 190, .05); }
+#asl-create-store-page .asl-store-sample-browser { display: flex; gap: 6px; padding: 11px 13px; background: #eaf3ff; }
+#asl-create-store-page .asl-store-sample-browser i { width: 7px; height: 7px; border-radius: 50%; background: #b9d3f9; }
+#asl-create-store-page .asl-store-sample-art { border-radius: 7px; overflow: hidden; }
+#asl-create-store-page .asl-store-sample-art svg { display: block; width: 100%; height: auto; }
+#asl-create-store-page .asl-store-sample h6 { font-size: 16px; font-weight: 700; color: #101828; }
+#asl-create-store-page .asl-store-sample-line { display: flex; align-items: flex-start; gap: 8px; font-size: 10px; line-height: 1.5; margin: 0 0 9px; color: #344054; overflow-wrap: anywhere; }
+#asl-create-store-page .asl-store-sample-line .dashicons { flex: 0 0 16px; width: 16px; height: 16px; font-size: 16px; color: #1769e8; }
+#asl-create-store-page .asl-store-open { color: #16804a; background: #e9f8ef; padding: 2px 4px; border-radius: 5px; font-weight: 600; }
+#asl-create-store-page .asl-store-sample-muted { color: #667085; font-size: 10px; line-height: 1.5; }
+#asl-create-store-page .badge { font-weight: 500; font-size: 9px; padding: 6px 9px; }
+#asl-create-store-page .asl-store-sample-map { display: grid; place-items: center; height: 86px; border-radius: 7px; background-color: #e7ecef; background-image: linear-gradient(36deg, transparent 43%, #fff 44%, #fff 47%, transparent 48%), linear-gradient(115deg, transparent 35%, #fff 36%, #fff 39%, transparent 40%), repeating-linear-gradient(0deg, transparent 0 21px, #fff 22px 25px), repeating-linear-gradient(90deg, #d7ebd8 0 30px, #fff 31px 34px, transparent 35px 60px); }
+#asl-create-store-page .asl-store-sample-map .dashicons { color: #e34444; font-size: 32px; width: 32px; height: 32px; filter: drop-shadow(0 2px 1px #fff); }
+#asl-create-store-page [data-store-preview][hidden] { display: none !important; }
+#asl-create-store-page .asl-store-preview small { font-size: 10px; line-height: 1.5; }
+#asl-create-store-page .asl-store-shortcode-row pre { min-width: 0; padding: 12px; border: 1px solid #dce6f5; border-radius: 8px; background: #f8fafc; white-space: pre-wrap; overflow-wrap: anywhere; }
+#asl-create-store-page .asl-store-shortcode-row code { font-size: 11px; line-height: 1.8; color: #1d2939; background: transparent; padding: 0; }
+#asl-create-store-page .asl-store-shortcode-row .btn { flex-shrink: 0; font-size: 12px; }
+#asl-create-store-page .asl-store-shortcode-row .dashicons { font-size: 17px; width: 17px; height: 17px; }
+#asl-create-store-page .asl-store-next { border-color: #dfebfc; background: #f0f7ff; color: #526b91; border-radius: 10px; padding: 16px; }
+#asl-create-store-page .asl-store-next > .dashicons { flex-shrink: 0; color: #1769e8; }
+#asl-create-store-page .asl-store-next h6 { font-size: 13px; font-weight: 700; color: #1769e8; margin: 0 0 7px; }
+#asl-create-store-page .asl-store-next p { font-size: 12px; line-height: 1.6; }
+@media (max-width: 575.98px) {
+  #asl-create-store-page .asl-create-locator-head,
+  #asl-create-store-page .asl-create-locator-body,
+  #asl-create-store-page .asl-create-locator-footer { padding: 16px; }
+  #asl-create-store-page .asl-create-locator-title h5 { font-size: 17px; }
+  #asl-create-store-page .asl-store-shortcode-row { flex-wrap: wrap; }
+  #asl-create-store-page .asl-store-shortcode-row pre { flex-basis: 100%; }
+}
+#asl-create-store-page .asl-create-submit { background-color: #16a34a; border-color: #16a34a; }
+#asl-create-store-page .asl-create-submit:hover,
+#asl-create-store-page .asl-create-submit:focus { background-color: #138a3f; border-color: #138a3f; }
+#asl-create-store-page .asl-create-submit:focus-visible { outline: 3px solid #a7e5bd; outline-offset: 2px; }
+
+/* Store Pages dashboard feature card. */
+.asl-dashboard .asl-store-pages-card {
+  padding: 25px 28px;
+  overflow: hidden;
+  border: 1px solid #dce7fc;
+  border-radius: 12px;
+  background: radial-gradient(ellipse at 75% 110%, #dcecff 0, transparent 55%), linear-gradient(110deg, #fff 25%, #f5f8ff 100%);
+}
+.asl-store-pages-card h2 { color: #101828; font-size: 22px; font-weight: 750; }
+.asl-store-pages-card .asl-store-pages-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 20px; color: #168047; background: #e0f6e8; font-size: 10px; font-weight: 600; line-height: 1.2; }
+.asl-store-pages-badge .dashicons { width: 12px; height: 12px; font-size: 12px; }
+.asl-store-pages-card .asl-store-pages-description { max-width: 550px; margin: 0 0 14px; color: #60718c; font-size: 13px; line-height: 1.55; }
+.asl-store-pages-card .asl-store-pages-actions .btn { padding: 8px 13px; border-radius: 6px; font-size: 12px; font-weight: 600; box-shadow: none; }
+.asl-store-pages-card .asl-store-pages-actions .btn-primary { background: #1769e8; border-color: #1769e8; color: #fff; }
+.asl-store-pages-card .asl-store-pages-actions .btn-primary:hover { background: #1256c3; border-color: #1256c3; }
+.asl-store-pages-card .asl-store-pages-actions .btn-light { background: #e7f0ff; border-color: #e7f0ff; color: #1769e8; }
+.asl-store-pages-card .asl-store-pages-actions .btn-light:hover { background: #d8e7ff; border-color: #d8e7ff; }
+.asl-store-pages-card .asl-store-pages-actions .btn-link { color: #526986; font-weight: 500; text-decoration: none; }
+.asl-store-pages-actions .dashicons { width: 16px; height: 16px; font-size: 16px; }
+.asl-store-pages-card .asl-store-pages-benefits { padding-left: 0; }
+.asl-store-pages-benefits li { margin: 0; }
+.asl-store-pages-benefits strong { display: block; margin: 0 0 3px; color: #263853; font-size: 11px; font-weight: 650; }
+.asl-store-pages-benefits div > span { display: block; color: #73829b; font-size: 11px; line-height: 1.4; }
+.asl-store-pages-card .asl-store-benefit-icon { display: flex; justify-content: center; align-items: center; flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; font-size: 19px; }
+.asl-store-benefit-icon.blue { background: #e8f1ff; color: #1769e8; }
+.asl-store-benefit-icon.teal { background: #e1f7f5; color: #14aaa9; }
+.asl-store-benefit-icon.purple { background: #f0e9ff; color: #9555eb; }
+.asl-store-pages-art { position: relative; height: 195px; margin: 0 -5px 0 6px; }
+.asl-store-pages-art-map { position: absolute; inset: 15px -35px -30px 120px; transform: rotate(-14deg); border-radius: 16px; opacity: .85; background: repeating-linear-gradient(90deg, transparent 0 44px, #fff 45px 51px), repeating-linear-gradient(0deg, #e3e8f3 0 38px, #fff 39px 45px, #d7eedf 46px 83px, #fff 84px 90px); }
+.asl-store-pages-art-map > .dashicons { position: absolute; right: 65px; top: 70px; width: 56px; height: 56px; font-size: 56px; color: #f15c55; transform: rotate(14deg); filter: drop-shadow(0 3px 2px #fff); }
+.asl-store-pages-mini-browser { position: absolute; left: 0; top: 12px; width: 285px; border: 1px solid #d9e6fc; border-radius: 8px; background: #fff; overflow: hidden; box-shadow: 0 10px 24px #2467db12; }
+.asl-store-pages-browser-bar { display: flex; gap: 5px; padding: 9px; background: linear-gradient(100deg, #5a99fb, #d6e6ff); }
+.asl-store-pages-browser-bar i { width: 6px; height: 6px; background: #c9dfff; border-radius: 50%; }
+.asl-store-pages-mini-body { display: flex; gap: 12px; padding: 12px; }
+.asl-store-pages-card .asl-store-pages-building { width: 78px; height: 110px; flex: 0 0 78px; }
+.asl-store-pages-mini-details { flex: 1; min-width: 0; }
+.asl-store-pages-mini-details > strong { display: block; margin-bottom: 10px; font-size: 11px; color: #182943; }
+.asl-store-pages-skeleton { display: grid; gap: 6px; margin-bottom: 12px; }
+.asl-store-pages-skeleton i { display: block; height: 5px; border-radius: 4px; background: #dce3ee; }
+.asl-store-pages-skeleton i:nth-child(2) { width: 80%; }
+.asl-store-pages-skeleton i:nth-child(3) { width: 47%; }
+.asl-store-pages-mini-actions { display: flex; gap: 4px; }
+.asl-store-pages-mini-actions > span { display: flex; flex: 1; flex-direction: column; align-items: center; gap: 4px; padding: 6px 2px; background: #f7faff; border: 1px solid #eaf1fe; border-radius: 5px; color: #1769e8; font-size: 6px; white-space: nowrap; }
+.asl-store-pages-mini-actions .dashicons { width: 14px; height: 14px; font-size: 14px; }
+.asl-store-pages-url { position: absolute; top: 0; right: -3px; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #ffffffee; border: 1px solid #edf3ff; border-radius: 30px; color: #3c557d; font-size: 10px; box-shadow: 0 6px 18px #2467db0a; }
+.asl-store-pages-url .dashicons { color: #1769e8; font-size: 17px; width: 17px; height: 17px; }
+@media (max-width: 991.98px) {
+  .asl-store-pages-card .asl-store-pages-art { max-width: 440px; margin: 0 auto; }
+}
+@media (max-width: 575.98px) {
+  .asl-dashboard .asl-store-pages-card { padding: 20px; }
+  .asl-store-pages-card .asl-store-pages-art { height: 185px; margin: 0; }
+  .asl-store-pages-mini-browser { width: 255px; }
+  .asl-store-pages-url { padding: 8px 10px; right: 0; }
+}
+.asl-store-pages-card .asl-store-benefit-icon { min-height: 34px; align-self: flex-start; }
+.asl-store-pages-card .asl-store-pages-art-map > .dashicons { line-height: 1; }
+.asl-store-pages-card .asl-store-pages-art-map > svg { position: absolute; right: 60px; top: 65px; width: 44px; height: 55px; transform: rotate(14deg); }
+
+/* Apply the Bootstrap bottom spacing to the scope element itself. */
+.asl-dashboard .asl-p-cont.asl-store-pages-card.mb-4 { margin-bottom: 1.5rem !important; }

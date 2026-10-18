@@ -1,15 +1,16 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Agile Store Locator\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-17 21:35+0000\n"
+"PO-Revision-Date: 2026-10-17 21:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-04 14:14+0000\n"
-"PO-Revision-Date: 2026-09-15 14:04+0000\n"
-"Language: es_ES\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Loco https://localise.biz/\n"
 
@@ -75,17 +76,32 @@ msgstr "7 días"
 msgid "7 Days (Grouped)"
 msgstr "7 días (agrupados)"
 
-msgid "<b>Google Maps</b> is a familiar choice with Google search features, but it normally requires an API key and billing account. Choose the <b>free map option</b> when you want to display stores without relying on Google Maps."
-msgstr "<b>Google Maps</b> es una opción habitual en las búsquedas de Google, pero normalmente requiere una clave API y una cuenta de facturación. Elige la opción <b>mapa gratuito</b> cuando quieras mostrar tiendas sin depender de Google Maps."
+msgid ""
+"<b>Google Maps</b> is a familiar choice with Google search features, but it "
+"normally requires an API key and billing account. Choose the <b>free map "
+"option</b> when you want to display stores without relying on Google Maps."
+msgstr ""
+"<b>Google Maps</b> es una opción habitual en las búsquedas de Google, pero "
+"normalmente requiere una clave API y una cuenta de facturación. Elige la "
+"opción <b>mapa gratuito</b> cuando quieras mostrar tiendas sin depender de "
+"Google Maps."
 
-msgid "<p><a href=\"%verification_url%\" target=\"_blank\">Approve Store</a> to adding it in listing.</p>"
-msgstr "<p><a href=\"%verification_url%\" target=\"_blank\">Aprueba Store</a> para agregarlo en la lista.</p>"
+msgid ""
+"<p><a href=\"%verification_url%\" target=\"_blank\">Approve Store</a> to "
+"adding it in listing.</p>"
+msgstr ""
+"<p><a href=\"%verification_url%\" target=\"_blank\">Aprueba Store</a> para "
+"agregarlo en la lista.</p>"
 
 msgid "A Store Locator"
 msgstr "Un localizador de tiendas"
 
-msgid "A closer look at the additional tools and experiences available in the full version."
-msgstr "Un vistazo más detallado a las herramientas y funciones adicionales disponibles en la versión completa."
+msgid ""
+"A closer look at the additional tools and experiences available in the full "
+"version."
+msgstr ""
+"Un vistazo más detallado a las herramientas y funciones adicionales "
+"disponibles en la versión completa."
 
 msgid "A new WordPress page will be created"
 msgstr "Se creará una nueva página de WordPress."
@@ -184,7 +200,9 @@ msgid "Add a new store to your locator."
 msgstr "Añade una nueva tienda a tu localizador."
 
 msgid "Add a powerful location search box anywhere on your site."
-msgstr "Agregue un potente cuadro de búsqueda de ubicación en cualquier parte de su sitio web."
+msgstr ""
+"Agregue un potente cuadro de búsqueda de ubicación en cualquier parte de su "
+"sitio web."
 
 msgid "Add and manage extra features for stores."
 msgstr "Agregue y administre funciones adicionales para las tiendas."
@@ -192,8 +210,13 @@ msgstr "Agregue y administre funciones adicionales para las tiendas."
 msgid "Add at least one store to show on the map."
 msgstr "Añade al menos una tienda para que aparezca en el mapa."
 
-msgid "Add store selection, local pickup, location-based inventory, and distance-rate shipping to your WooCommerce experience."
-msgstr "Añade a tu experiencia WooCommerce la opción de selección de tienda, recogida local, inventario basado en la ubicación y envío con tarifas según la distancia."
+msgid ""
+"Add store selection, local pickup, location-based inventory, and distance-"
+"rate shipping to your WooCommerce experience."
+msgstr ""
+"Añade a tu experiencia WooCommerce la opción de selección de tienda, "
+"recogida local, inventario basado en la ubicación y envío con tarifas según "
+"la distancia."
 
 msgid "Add the [ASL_STORE] shortcode to the same page."
 msgstr "Agregue el código corto [ASL_STORE] a la misma página."
@@ -202,7 +225,9 @@ msgid "Add to Website"
 msgstr "Agregar al sitio web"
 
 msgid "Add your locator anywhere using the shortcode below."
-msgstr "Añade tu localizador en cualquier lugar usando el código corto que aparece a continuación."
+msgstr ""
+"Añade tu localizador en cualquier lugar usando el código corto que aparece a"
+" continuación."
 
 msgid "Add your store locator to a new WordPress page."
 msgstr "Agrega tu localizador de tiendas a una nueva página de WordPress."
@@ -223,10 +248,13 @@ msgid "Additional Details"
 msgstr "Detalles adicionales"
 
 msgid "Additional Dropdowns filters based on Brand and Specialities data."
-msgstr "Filtros desplegables adicionales basados en datos de marca y especialidades."
+msgstr ""
+"Filtros desplegables adicionales basados en datos de marca y especialidades."
 
 msgid "Additional templates and database search modes are available in Pro."
-msgstr "Hay plantillas adicionales y modos de búsqueda en base de datos disponibles en Pro."
+msgstr ""
+"Hay plantillas adicionales y modos de búsqueda en base de datos disponibles "
+"en Pro."
 
 msgid "Address"
 msgstr "DIRECCIÓN"
@@ -244,13 +272,17 @@ msgid "Address Search Region"
 msgstr "Región de búsqueda de direcciones"
 
 msgid "Address and geographic fields used to locate the store."
-msgstr "La dirección y los campos geográficos se utilizan para localizar la tienda."
+msgstr ""
+"La dirección y los campos geográficos se utilizan para localizar la tienda."
 
 msgid "Address search disabled"
 msgstr "Búsqueda de direcciones desactivada"
 
-msgid "Address search is unavailable because no geocoding provider is configured."
-msgstr "La búsqueda de direcciones no está disponible porque no hay ningún proveedor de geocodificación configurado."
+msgid ""
+"Address search is unavailable because no geocoding provider is configured."
+msgstr ""
+"La búsqueda de direcciones no está disponible porque no hay ningún proveedor"
+" de geocodificación configurado."
 
 msgid "Address — Automatic"
 msgstr "Dirección — Automática"
@@ -327,17 +359,30 @@ msgstr "Vista previa de las funciones de Agile Store Locator Pro"
 msgid "Agile Store Locator UI Customizer"
 msgstr "Personalizador de interfaz de usuario de Agile Store Locator"
 
-msgid "Agile Store Locator is a WordPress store finder with free OpenStreetMap and MapLibre maps, native Google Maps, and SEO-friendly location pages."
-msgstr "Agile Store Locator es un buscador de tiendas para WordPress con mapas gratuitos de OpenStreetMap y MapLibre, Google Maps nativo y páginas de ubicación optimizadas para SEO."
+msgid ""
+"Agile Store Locator is a WordPress store finder with free OpenStreetMap and "
+"MapLibre maps, native Google Maps, and SEO-friendly location pages."
+msgstr ""
+"Agile Store Locator es un buscador de tiendas para WordPress con mapas "
+"gratuitos de OpenStreetMap y MapLibre, Google Maps nativo y páginas de "
+"ubicación optimizadas para SEO."
 
 msgid "Agile Sync Addon"
 msgstr "Complemento de sincronización ágil"
 
-msgid "Agile Sync Addon: automatically synchronize Agile Store Locator with Google Sheets, Salesforce, Smartsheet, and REST APIs."
-msgstr "Complemento Agile Sync: sincroniza automáticamente Agile Store Locator con Google Sheets, Salesforce, Smartsheet y las API REST."
+msgid ""
+"Agile Sync Addon: automatically synchronize Agile Store Locator with Google "
+"Sheets, Salesforce, Smartsheet, and REST APIs."
+msgstr ""
+"Complemento Agile Sync: sincroniza automáticamente Agile Store Locator con "
+"Google Sheets, Salesforce, Smartsheet y las API REST."
 
-msgid "Agile Sync automates imports, maps custom fields, and helps keep store data up to date."
-msgstr "Agile Sync automatiza las importaciones, asigna campos personalizados y ayuda a mantener actualizados los datos de las tiendas."
+msgid ""
+"Agile Sync automates imports, maps custom fields, and helps keep store data "
+"up to date."
+msgstr ""
+"Agile Sync automatiza las importaciones, asigna campos personalizados y "
+"ayuda a mantener actualizados los datos de las tiendas."
 
 msgid "Agile Sync integration preview"
 msgstr "Vista previa de la integración de Agile Sync"
@@ -385,7 +430,9 @@ msgid "All selected"
 msgstr "Todos los seleccionados"
 
 msgid "Allow businesses to submit new store locations from the frontend."
-msgstr "Permitir a las empresas enviar nuevas ubicaciones de tiendas desde la interfaz de usuario."
+msgstr ""
+"Permitir a las empresas enviar nuevas ubicaciones de tiendas desde la "
+"interfaz de usuario."
 
 msgid "Already Reviewed"
 msgstr "Ya valorado"
@@ -459,8 +506,14 @@ msgstr "Aprobar"
 msgid "Approving..."
 msgstr "Aprobatorio..."
 
-msgid "Are you ready to Experience the Difference? Just fill out the form below and one of our helpful representatives will find your nearest dealer and get you in contact!"
-msgstr "¿Estás listo para experimentar la diferencia? ¡Solo tienes que completar el formulario a continuación y uno de nuestros representantes te encontrará el distribuidor más cercano y se pondrá en contacto contigo!"
+msgid ""
+"Are you ready to Experience the Difference? Just fill out the form below and"
+" one of our helpful representatives will find your nearest dealer and get "
+"you in contact!"
+msgstr ""
+"¿Estás listo para experimentar la diferencia? ¡Solo tienes que completar el "
+"formulario a continuación y uno de nuestros representantes te encontrará el "
+"distribuidor más cercano y se pondrá en contacto contigo!"
 
 msgid "Are you sure to delete all stores of all languages?"
 msgstr "¿Está seguro de eliminar todas las tiendas de todos los idiomas?"
@@ -474,8 +527,12 @@ msgstr "Estás seguro que quieres"
 msgid "Are you sure you want to remove all duplicate stores?"
 msgstr "¿Seguro que quieres eliminar todas las tiendas duplicadas?"
 
-msgid "Arrange the registration form, control field visibility and choose which values can be updated in bulk."
-msgstr "Configure el formulario de registro, controle la visibilidad de los campos y elija qué valores se pueden actualizar de forma masiva."
+msgid ""
+"Arrange the registration form, control field visibility and choose which "
+"values can be updated in bulk."
+msgstr ""
+"Configure el formulario de registro, controle la visibilidad de los campos y"
+" elija qué valores se pueden actualizar de forma masiva."
 
 msgid "Assets Backup Successfully, Download the Zip File."
 msgstr "Copia de seguridad de activos con éxito, descargue el archivo zip."
@@ -492,11 +549,20 @@ msgstr "Atributo"
 msgid "Attributes"
 msgstr "Atributos"
 
-msgid "Attributes add searchable store details; use the tabs to manage each attribute type."
-msgstr "Los atributos añaden detalles de la tienda que se pueden buscar; utilice las pestañas para gestionar cada tipo de atributo."
+msgid ""
+"Attributes add searchable store details; use the tabs to manage each "
+"attribute type."
+msgstr ""
+"Los atributos añaden detalles de la tienda que se pueden buscar; utilice las"
+" pestañas para gestionar cada tipo de atributo."
 
-msgid "Automatically fetch missing coordinates (Lat/Lng) for your stores using Google Geocoding API. Ensure your API key is validated before proceeding."
-msgstr "Obtén automáticamente las coordenadas faltantes (Latitud/Longitud) de tus tiendas mediante la API de geocodificación de Google. Asegúrate de que tu clave API esté validada antes de continuar."
+msgid ""
+"Automatically fetch missing coordinates (Lat/Lng) for your stores using "
+"Google Geocoding API. Ensure your API key is validated before proceeding."
+msgstr ""
+"Obtén automáticamente las coordenadas faltantes (Latitud/Longitud) de tus "
+"tiendas mediante la API de geocodificación de Google. Asegúrate de que tu "
+"clave API esté validada antes de continuar."
 
 msgid "Available"
 msgstr "Disponible"
@@ -552,8 +618,14 @@ msgstr "Respaldo"
 msgid "Backup Template"
 msgstr "Plantilla de copia de seguridad"
 
-msgid "Backup of templates is not need if you haven't customize the template via plugin editor, are you sure to backup Template into theme root directory?"
-msgstr "La copia de seguridad de las plantillas no es necesaria si no ha personalizado la plantilla a través del editor de complementos, ¿está seguro de hacer una copia de seguridad de la plantilla en el directorio raíz del tema?"
+msgid ""
+"Backup of templates is not need if you haven't customize the template via "
+"plugin editor, are you sure to backup Template into theme root directory?"
+msgstr ""
+"La copia de seguridad de las plantillas no es necesaria si no ha "
+"personalizado la plantilla a través del editor de complementos, ¿está seguro"
+" de hacer una copia de seguridad de la plantilla en el directorio raíz del "
+"tema?"
 
 msgid "Badge"
 msgstr "Insignia"
@@ -652,13 +724,18 @@ msgid "Can I use the store locator without paying for Google Maps?"
 msgstr "¿Puedo usar el localizador de tiendas sin pagar por Google Maps?"
 
 msgid "Can customers select a store during WooCommerce checkout?"
-msgstr "¿Pueden los clientes seleccionar una tienda durante el proceso de pago en WooCommerce?"
+msgstr ""
+"¿Pueden los clientes seleccionar una tienda durante el proceso de pago en "
+"WooCommerce?"
 
 msgid "Cancel"
 msgstr "Cancelar"
 
-msgid "Capture inquiries and route leads to the appropriate store automatically."
-msgstr "Captura las consultas y dirige los clientes potenciales a la tienda adecuada automáticamente."
+msgid ""
+"Capture inquiries and route leads to the appropriate store automatically."
+msgstr ""
+"Captura las consultas y dirige los clientes potenciales a la tienda adecuada"
+" automáticamente."
 
 msgid "Card Preview"
 msgstr "Vista previa de la tarjeta"
@@ -672,8 +749,11 @@ msgstr "Categorías"
 msgid "Categories deleted successfully."
 msgstr "Categorías eliminadas con éxito."
 
-msgid "Categories let you group stores and help visitors narrow their results."
-msgstr "Las categorías permiten agrupar tiendas y ayudan a los visitantes a filtrar los resultados."
+msgid ""
+"Categories let you group stores and help visitors narrow their results."
+msgstr ""
+"Las categorías permiten agrupar tiendas y ayudan a los visitantes a filtrar "
+"los resultados."
 
 msgid "Category"
 msgstr "Categoría"
@@ -706,7 +786,8 @@ msgid "Category icon is optional"
 msgstr "El icono de categoría es opcional."
 
 msgid "Category list changed. Reload the page and try again."
-msgstr "La lista de categorías ha cambiado. Recarga la página e inténtalo de nuevo."
+msgstr ""
+"La lista de categorías ha cambiado. Recarga la página e inténtalo de nuevo."
 
 msgid "Category name is required."
 msgstr "Se requiere el nombre de la categoría."
@@ -735,17 +816,27 @@ msgstr "Cambiar estado"
 msgid "Change layout, map and design."
 msgstr "Cambiar la maquetación, el mapa y el diseño."
 
-msgid "Change only the <mark>Primary</mark> color to automatically update the matching theme colors."
-msgstr "Cambia únicamente el color <mark>Primary</mark> para actualizar automáticamente los colores del tema correspondientes."
+msgid ""
+"Change only the <mark>Primary</mark> color to automatically update the "
+"matching theme colors."
+msgstr ""
+"Cambia únicamente el color <mark>Primary</mark> para actualizar "
+"automáticamente los colores del tema correspondientes."
 
 msgid "Changes are not published until you save."
 msgstr "Los cambios no se publican hasta que guardes."
 
 msgid "Changing this name can disconnect previously saved values."
-msgstr "Cambiar este nombre puede desconectar los valores guardados previamente."
+msgstr ""
+"Cambiar este nombre puede desconectar los valores guardados previamente."
 
-msgid "Check that the store is enabled and has valid latitude and longitude values. If cache is enabled, refresh the JSON cache after saving your changes."
-msgstr "Comprueba que la tienda esté habilitada y que contenga valores válidos de latitud y longitud. Si la caché está habilitada, actualiza la caché JSON después de guardar los cambios."
+msgid ""
+"Check that the store is enabled and has valid latitude and longitude values."
+" If cache is enabled, refresh the JSON cache after saving your changes."
+msgstr ""
+"Comprueba que la tienda esté habilitada y que contenga valores válidos de "
+"latitud y longitud. Si la caché está habilitada, actualiza la caché JSON "
+"después de guardar los cambios."
 
 msgid "Checkbox"
 msgstr "Caja"
@@ -772,13 +863,16 @@ msgid "Choose a KML or KMZ file to upload."
 msgstr "Seleccione un archivo KML o KMZ para cargar."
 
 msgid "Choose a feedback type and enter a message of up to 5,000 characters."
-msgstr "Elige un tipo de comentario e introduce un mensaje de hasta 5000 caracteres."
+msgstr ""
+"Elige un tipo de comentario e introduce un mensaje de hasta 5000 caracteres."
 
 msgid "Choose a map service"
 msgstr "Elija un servicio de mapas"
 
 msgid "Choose a predefined Google map theme or provide your own custom style."
-msgstr "Elige un tema de mapa de Google predefinido o proporciona tu propio estilo personalizado."
+msgstr ""
+"Elige un tema de mapa de Google predefinido o proporciona tu propio estilo "
+"personalizado."
 
 msgid "Choose a style supplied by the selected tile provider."
 msgstr "Elija un estilo ofrecido por el proveedor de azulejos seleccionado."
@@ -787,7 +881,8 @@ msgid "Choose a template file"
 msgstr "Seleccione un archivo de plantilla"
 
 msgid "Choose a tool, then draw directly on the map preview."
-msgstr "Elige una herramienta y dibuja directamente sobre la vista previa del mapa."
+msgstr ""
+"Elige una herramienta y dibuja directamente sobre la vista previa del mapa."
 
 msgid "Choose category color"
 msgstr "Elegir color de categoría"
@@ -796,7 +891,9 @@ msgid "Choose how directions and store links open."
 msgstr "Elige cómo se abren las indicaciones y los enlaces de las tiendas."
 
 msgid "Choose how store details appear when a visitor selects a marker."
-msgstr "Elige cómo se mostrarán los detalles de la tienda cuando un visitante seleccione un marcador."
+msgstr ""
+"Elige cómo se mostrarán los detalles de la tienda cuando un visitante "
+"seleccione un marcador."
 
 msgid "Choose how store results are arranged."
 msgstr "Elige cómo se muestran los resultados de la tienda."
@@ -808,34 +905,56 @@ msgid "Choose how users control the search distance."
 msgstr "Elige cómo los usuarios controlan la distancia de búsqueda."
 
 msgid "Choose how visitors find nearby stores and set distance controls."
-msgstr "Elige cómo encuentran los visitantes las tiendas cercanas y configura los controles de distancia."
+msgstr ""
+"Elige cómo encuentran los visitantes las tiendas cercanas y configura los "
+"controles de distancia."
 
-msgid "Choose page-specific options. Leave a field on Use saved setting to inherit the locator settings."
-msgstr "Elige opciones específicas de la página. Deja un campo en «Usar configuración guardada» para heredar la configuración del localizador."
+msgid ""
+"Choose page-specific options. Leave a field on Use saved setting to inherit "
+"the locator settings."
+msgstr ""
+"Elige opciones específicas de la página. Deja un campo en «Usar "
+"configuración guardada» para heredar la configuración del localizador."
 
 msgid "Choose the locator layout and which search controls appear."
 msgstr "Elige el diseño del localizador y qué controles de búsqueda aparecen."
 
-msgid "Choose the locator structure, layout and color scheme, then preview the selected design."
-msgstr "Seleccione la estructura, el diseño y la combinación de colores del localizador, y luego previsualice el diseño seleccionado."
+msgid ""
+"Choose the locator structure, layout and color scheme, then preview the "
+"selected design."
+msgstr ""
+"Seleccione la estructura, el diseño y la combinación de colores del "
+"localizador, y luego previsualice el diseño seleccionado."
 
 msgid "Choose the locator template you want to edit."
 msgstr "Seleccione la plantilla de localizador que desea editar."
 
-msgid "Choose the map engine and, for MapLibre, the service that supplies the map."
-msgstr "Seleccione el motor de mapas y, en el caso de MapLibre, el servicio que proporciona el mapa."
+msgid ""
+"Choose the map engine and, for MapLibre, the service that supplies the map."
+msgstr ""
+"Seleccione el motor de mapas y, en el caso de MapLibre, el servicio que "
+"proporciona el mapa."
 
 msgid "Choose the map service used by your store locator."
-msgstr "Seleccione el servicio de mapas que utiliza su localizador de tiendas."
+msgstr ""
+"Seleccione el servicio de mapas que utiliza su localizador de tiendas."
 
 msgid "Choose the search and filter controls shown to visitors."
-msgstr "Elige los controles de búsqueda y filtro que se muestran a los visitantes."
+msgstr ""
+"Elige los controles de búsqueda y filtro que se muestran a los visitantes."
 
-msgid "Choose what visitors can search and which address service provides results."
-msgstr "Elige qué pueden buscar los visitantes y qué servicio de direcciones proporciona los resultados."
+msgid ""
+"Choose what visitors can search and which address service provides results."
+msgstr ""
+"Elige qué pueden buscar los visitantes y qué servicio de direcciones "
+"proporciona los resultados."
 
-msgid "Choose what visitors search and, for addresses, which service supplies suggestions."
-msgstr "Elige qué buscan los visitantes y, para las direcciones, qué servicio ofrece sugerencias."
+msgid ""
+"Choose what visitors search and, for addresses, which service supplies "
+"suggestions."
+msgstr ""
+"Elige qué buscan los visitantes y, para las direcciones, qué servicio ofrece"
+" sugerencias."
 
 msgid "Choose where this field appears when editing a store."
 msgstr "Elige dónde aparece este campo al editar una tienda."
@@ -868,19 +987,28 @@ msgid "Clear image"
 msgstr "Imagen nítida"
 
 msgid "Click one corner, move the pointer, then click the opposite corner."
-msgstr "Haz clic en una esquina, mueve el puntero y luego haz clic en la esquina opuesta."
+msgstr ""
+"Haz clic en una esquina, mueve el puntero y luego haz clic en la esquina "
+"opuesta."
 
 msgid "Click the center, move the pointer, then click again to finish."
-msgstr "Haz clic en el centro, mueve el puntero y vuelve a hacer clic para finalizar."
+msgstr ""
+"Haz clic en el centro, mueve el puntero y vuelve a hacer clic para "
+"finalizar."
 
 msgid "Click the map or drag the marker to choose the center."
 msgstr "Haz clic en el mapa o arrastra el marcador para elegir el centro."
 
 msgid "Click to add line points, then select Finish Drawing or double-click."
-msgstr "Haz clic para añadir puntos de línea y, a continuación, selecciona Finalizar dibujo o haz doble clic."
+msgstr ""
+"Haz clic para añadir puntos de línea y, a continuación, selecciona Finalizar"
+" dibujo o haz doble clic."
 
-msgid "Click to add polygon points, then select Finish Drawing or double-click."
-msgstr "Haz clic para añadir puntos al polígono y, a continuación, selecciona Finalizar dibujo o haz doble clic."
+msgid ""
+"Click to add polygon points, then select Finish Drawing or double-click."
+msgstr ""
+"Haz clic para añadir puntos al polígono y, a continuación, selecciona "
+"Finalizar dibujo o haz doble clic."
 
 msgid "Clickable Tabs"
 msgstr "Pestañas en las que se puede hacer clic"
@@ -966,8 +1094,10 @@ msgstr "Configura funciones e integraciones opcionales para todo el sitio."
 msgid "Configure the map center, zoom and search type."
 msgstr "Configura el centro del mapa, el zoom y el tipo de búsqueda."
 
-msgid "Congratulations! your registered store has been approved and is live now!."
-msgstr "¡Felicidades! ¡Tu tienda registrada ha sido aprobada y ya está activa!."
+msgid ""
+"Congratulations! your registered store has been approved and is live now!."
+msgstr ""
+"¡Felicidades! ¡Tu tienda registrada ha sido aprobada y ya está activa!."
 
 msgid "Connect Salesforce, Google Sheets, Smartsheet, and REST APIs"
 msgstr "Conecta Salesforce, Google Sheets, Smartsheet y las API REST"
@@ -997,7 +1127,9 @@ msgid "Control how stores are sorted and loaded in the list."
 msgstr "Controla cómo se ordenan y cargan las tiendas en la lista."
 
 msgid "Control will show a switch to see opened stores at the current time"
-msgstr "El control mostrará un interruptor para ver las tiendas abiertas en este momento."
+msgstr ""
+"El control mostrará un interruptor para ver las tiendas abiertas en este "
+"momento."
 
 msgid "Coordinates"
 msgstr "Coordenadas"
@@ -1020,8 +1152,12 @@ msgstr "Copiar código corto"
 msgid "Copy shortcode"
 msgstr "Copiar código corto"
 
-msgid "Copy the shortcode and add it to any page using WordPress, Elementor, Divi, or another page builder."
-msgstr "Copia el código corto y añádelo a cualquier página que uses con WordPress, Elementor, Divi u otro creador de páginas."
+msgid ""
+"Copy the shortcode and add it to any page using WordPress, Elementor, Divi, "
+"or another page builder."
+msgstr ""
+"Copia el código corto y añádelo a cualquier página que uses con WordPress, "
+"Elementor, Divi u otro creador de páginas."
 
 msgid "Copy/Paste Monday Timing"
 msgstr "Copiar/pegar el horario del lunes"
@@ -1072,28 +1208,45 @@ msgid "Create a new category to organize your stores."
 msgstr "Crea una nueva categoría para organizar tus tiendas."
 
 msgid "Create a page for your store locator or add it manually."
-msgstr "Crea una página para el localizador de tiendas o agrégala manualmente."
+msgstr ""
+"Crea una página para el localizador de tiendas o agrégala manualmente."
 
 msgid "Create a support ticket by emailing us at "
 msgstr "Cree un ticket de soporte enviándonos un correo electrónico a"
 
 msgid "Create dedicated pages with complete information for each location."
-msgstr "Crea páginas específicas con información completa para cada ubicación."
+msgstr ""
+"Crea páginas específicas con información completa para cada ubicación."
 
-msgid "Create extra fields for your stores and choose which tab they appear in. These fields are also available through CSV import and export."
-msgstr "Crea campos adicionales para tus tiendas y elige en qué pestaña aparecerán. Estos campos también están disponibles mediante la importación y exportación de archivos CSV."
+msgid ""
+"Create extra fields for your stores and choose which tab they appear in. "
+"These fields are also available through CSV import and export."
+msgstr ""
+"Crea campos adicionales para tus tiendas y elige en qué pestaña aparecerán. "
+"Estos campos también están disponibles mediante la importación y exportación"
+" de archivos CSV."
 
 msgid "Create it!"
 msgstr "¡Créalo!"
 
-msgid "Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> shortcode, and publish the page. Your store locator will appear where the shortcode is placed."
-msgstr "Crea o edita una página de WordPress, añade el shortcode <b>[ASL_STORELOCATOR]</b> y publica la página. El localizador de tu tienda aparecerá donde hayas insertado el shortcode."
+msgid ""
+"Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> "
+"shortcode, and publish the page. Your store locator will appear where the "
+"shortcode is placed."
+msgstr ""
+"Crea o edita una página de WordPress, añade el shortcode "
+"<b>[ASL_STORELOCATOR]</b> y publica la página. El localizador de tu tienda "
+"aparecerá donde hayas insertado el shortcode."
 
 msgid "Create your first backup to protect template customizations."
-msgstr "Crea tu primera copia de seguridad para proteger las personalizaciones de la plantilla."
+msgstr ""
+"Crea tu primera copia de seguridad para proteger las personalizaciones de la"
+" plantilla."
 
 msgid "Create, customize and manage map markers for your store locator."
-msgstr "Crea, personaliza y gestiona los marcadores de mapa para el localizador de tiendas."
+msgstr ""
+"Crea, personaliza y gestiona los marcadores de mapa para el localizador de "
+"tiendas."
 
 msgid "Created On"
 msgstr "Creado en"
@@ -1255,7 +1408,8 @@ msgid "Deleting..."
 msgstr "Borrando..."
 
 msgid "Descending Order for the list, higher number on top."
-msgstr "Orden descendente de la lista, el número más alto en la parte superior."
+msgstr ""
+"Orden descendente de la lista, el número más alto en la parte superior."
 
 msgid "Description"
 msgstr "Descripción"
@@ -1272,14 +1426,26 @@ msgstr "Botón de dirección"
 msgid "Directions"
 msgstr "Direcciones"
 
-msgid "Directory is not writable, Category Image Upload will Fail, Make directory writable."
-msgstr "No se puede escribir en el directorio, la carga de la imagen de la categoría fallará, haga que se pueda escribir en el directorio."
+msgid ""
+"Directory is not writable, Category Image Upload will Fail, Make directory "
+"writable."
+msgstr ""
+"No se puede escribir en el directorio, la carga de la imagen de la categoría"
+" fallará, haga que se pueda escribir en el directorio."
 
-msgid "Directory is not writable, Logo Image upload will fail, make directory writable."
-msgstr "No se puede escribir en el directorio, la carga de la imagen del logotipo fallará, haga que se pueda escribir en el directorio."
+msgid ""
+"Directory is not writable, Logo Image upload will fail, make directory "
+"writable."
+msgstr ""
+"No se puede escribir en el directorio, la carga de la imagen del logotipo "
+"fallará, haga que se pueda escribir en el directorio."
 
-msgid "Directory is not writable, marker image upload will fail, make directory writable."
-msgstr "El directorio no se puede escribir, la carga de la imagen del marcador fallará, haga que el directorio se pueda escribir."
+msgid ""
+"Directory is not writable, marker image upload will fail, make directory "
+"writable."
+msgstr ""
+"El directorio no se puede escribir, la carga de la imagen del marcador "
+"fallará, haga que el directorio se pueda escribir."
 
 msgid "Directory not writable:"
 msgstr "Directorio no editable:"
@@ -1350,8 +1516,12 @@ msgstr "Descargar plantilla"
 msgid "Draft"
 msgstr "Borrador"
 
-msgid "Drag fields between sections to reorder them. Use each switch to show or hide optional fields."
-msgstr "Arrastra los campos entre secciones para reordenarlos. Usa cada interruptor para mostrar u ocultar los campos opcionales."
+msgid ""
+"Drag fields between sections to reorder them. Use each switch to show or "
+"hide optional fields."
+msgstr ""
+"Arrastra los campos entre secciones para reordenarlos. Usa cada interruptor "
+"para mostrar u ocultar los campos opcionales."
 
 msgid "Drag fields to reorder"
 msgstr "Arrastra los campos para reordenarlos."
@@ -1368,11 +1538,15 @@ msgstr "Dibujar la dirección con la API de rutas"
 msgid "Draw Shapes & Layers"
 msgstr "Dibujar formas y capas"
 
-msgid "Draw map areas, configure layers, and choose the controls shown to visitors."
-msgstr "Dibuja las áreas del mapa, configura las capas y elige los controles que se mostrarán a los visitantes."
+msgid ""
+"Draw map areas, configure layers, and choose the controls shown to visitors."
+msgstr ""
+"Dibuja las áreas del mapa, configura las capas y elige los controles que se "
+"mostrarán a los visitantes."
 
 msgid "Drawing tools and these map layers require Google Maps."
-msgstr "Las herramientas de dibujo y estas capas de mapas requieren Google Maps."
+msgstr ""
+"Las herramientas de dibujo y estas capas de mapas requieren Google Maps."
 
 msgid "Dropdown"
 msgstr "Desplegable"
@@ -1389,8 +1563,12 @@ msgstr "Menús desplegables para País, Estado y Ciudad."
 msgid "Dropdowns"
 msgstr "Menús desplegables"
 
-msgid "Due to the GDPR, we need your consent to load data from Google, more information in our privacy policy."
-msgstr "Debido al RGPD, necesitamos su consentimiento para cargar datos de Google. Encontrará más información en nuestra política de privacidad."
+msgid ""
+"Due to the GDPR, we need your consent to load data from Google, more "
+"information in our privacy policy."
+msgstr ""
+"Debido al RGPD, necesitamos su consentimiento para cargar datos de Google. "
+"Encontrará más información en nuestra política de privacidad."
 
 msgid "Duplicate"
 msgstr "Duplicado"
@@ -1416,8 +1594,12 @@ msgstr "Editar"
 msgid "Edit Store"
 msgstr "Editar tienda"
 
-msgid "Edit the store list or marker InfoBox HTML safely without changing the plugin template files."
-msgstr "Edite de forma segura el HTML del InfoBox de la lista de tiendas o marcadores sin modificar los archivos de plantilla del plugin."
+msgid ""
+"Edit the store list or marker InfoBox HTML safely without changing the "
+"plugin template files."
+msgstr ""
+"Edite de forma segura el HTML del InfoBox de la lista de tiendas o "
+"marcadores sin modificar los archivos de plantilla del plugin."
 
 msgid "Email"
 msgstr "Correo electrónico"
@@ -1425,8 +1607,16 @@ msgstr "Correo electrónico"
 msgid "Email (optional)"
 msgstr "Correo electrónico (opcional)"
 
-msgid "Email <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. Include your WordPress version, Store Locator version, map option, page URL, and a screenshot or exact error message."
-msgstr "Envía un correo electrónico a <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a> . Incluye tu versión de WordPress, la versión del Localizador de Tiendas, la opción de mapa, la URL de la página y una captura de pantalla o el mensaje de error exacto."
+msgid ""
+"Email <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. "
+"Include your WordPress version, Store Locator version, map option, page URL,"
+" and a screenshot or exact error message."
+msgstr ""
+"Envía un correo electrónico a <a "
+"href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a> . Incluye "
+"tu versión de WordPress, la versión del Localizador de Tiendas, la opción de"
+" mapa, la URL de la página y una captura de pantalla o el mensaje de error "
+"exacto."
 
 msgid "Email address"
 msgstr "Dirección de correo electrónico"
@@ -1434,8 +1624,13 @@ msgstr "Dirección de correo electrónico"
 msgid "Email address for your reply"
 msgstr "Dirección de correo electrónico para tu respuesta"
 
-msgid "Email address to recieve the email notification for stores registered through frontend form."
-msgstr "Dirección de correo electrónico para recibir notificaciones por correo electrónico de las tiendas registradas a través del formulario de la interfaz de usuario."
+msgid ""
+"Email address to recieve the email notification for stores registered "
+"through frontend form."
+msgstr ""
+"Dirección de correo electrónico para recibir notificaciones por correo "
+"electrónico de las tiendas registradas a través del formulario de la "
+"interfaz de usuario."
 
 msgid "Enable"
 msgstr "Permitir"
@@ -1447,16 +1642,27 @@ msgid "Enable Hook"
 msgstr "Habilitar gancho"
 
 msgid "Enable all kind of email alerts & notifications."
-msgstr "Habilita todo tipo de alertas y notificaciones por correo electrónico."
+msgstr ""
+"Habilita todo tipo de alertas y notificaciones por correo electrónico."
 
 msgid "Enable cron execution logs for CSV imports."
-msgstr "Habilitar los registros de ejecución de cron para las importaciones CSV."
+msgstr ""
+"Habilitar los registros de ejecución de cron para las importaciones CSV."
 
-msgid "Enable location or address search under <b>ASL Settings</b>. Visitors can then enter an address, city, or postal code to find the closest stores."
-msgstr "Habilite la búsqueda por ubicación o dirección en <b>Configuración de ASL</b>. Los visitantes podrán ingresar una dirección, ciudad o código postal para encontrar las tiendas más cercanas."
+msgid ""
+"Enable location or address search under <b>ASL Settings</b>. Visitors can "
+"then enter an address, city, or postal code to find the closest stores."
+msgstr ""
+"Habilite la búsqueda por ubicación o dirección en <b>Configuración de "
+"ASL</b>. Los visitantes podrán ingresar una dirección, ciudad o código "
+"postal para encontrar las tiendas más cercanas."
 
-msgid "Enable only the fields you want to replace. Other store data will remain unchanged."
-msgstr "Habilita únicamente los campos que deseas reemplazar. Los demás datos de la tienda permanecerán sin cambios."
+msgid ""
+"Enable only the fields you want to replace. Other store data will remain "
+"unchanged."
+msgstr ""
+"Habilita únicamente los campos que deseas reemplazar. Los demás datos de la "
+"tienda permanecerán sin cambios."
 
 msgid "Enable the Analytics"
 msgstr "Habilitar el análisis"
@@ -1470,8 +1676,12 @@ msgstr "Habilita el botón de enlace al sitio web."
 msgid "Enabled"
 msgstr "Activado"
 
-msgid "Enabling it will hide all your stores data if data is not assigned for the correct language"
-msgstr "Habilitar esta opción ocultará todos los datos de tus tiendas si los datos no están asignados al idioma correcto."
+msgid ""
+"Enabling it will hide all your stores data if data is not assigned for the "
+"correct language"
+msgstr ""
+"Habilitar esta opción ocultará todos los datos de tus tiendas si los datos "
+"no están asignados al idioma correcto."
 
 msgid "End Time"
 msgstr "Hora de finalización"
@@ -1483,7 +1693,8 @@ msgid "Enjoying Agile Store Locator?"
 msgstr "¿Te está gustando Agile Store Locator?"
 
 msgid "Enter 2 alphabet country, for multiple countries comma separated"
-msgstr "Ingrese dos países alfabéticos; para varios países, sepárelos con comas."
+msgstr ""
+"Ingrese dos países alfabéticos; para varios países, sepárelos con comas."
 
 msgid "Enter Description"
 msgstr "Introduzca la descripción"
@@ -1551,8 +1762,11 @@ msgstr "Introduzca el ID del marcador"
 msgid "Enter name"
 msgstr "Ingrese su nombre"
 
-msgid "Enter only the credentials required by the selected map and search services."
-msgstr "Introduzca únicamente las credenciales requeridas por los servicios de mapas y búsqueda seleccionados."
+msgid ""
+"Enter only the credentials required by the selected map and search services."
+msgstr ""
+"Introduzca únicamente las credenciales requeridas por los servicios de mapas"
+" y búsqueda seleccionados."
 
 msgid "Enter order"
 msgstr "Introduzca el pedido"
@@ -1572,8 +1786,12 @@ msgstr "Entrar en la calle"
 msgid "Enter the language code."
 msgstr "Introduzca el código de idioma."
 
-msgid "Enter the search dropdown options values, comma separated. Add default value with * symbol."
-msgstr "Introduzca los valores de las opciones del menú desplegable de búsqueda, separados por comas. Añada el valor predeterminado con el símbolo *."
+msgid ""
+"Enter the search dropdown options values, comma separated. Add default value"
+" with * symbol."
+msgstr ""
+"Introduzca los valores de las opciones del menú desplegable de búsqueda, "
+"separados por comas. Añada el valor predeterminado con el símbolo *."
 
 msgid "Enter the store location and contact information"
 msgstr "Ingrese la ubicación de la tienda y la información de contacto."
@@ -1621,13 +1839,19 @@ msgid "Error occurred while uploading image."
 msgstr "Ocurrió un error al cargar la imagen."
 
 msgid "Error! Default Lat & Lng are invalid values, please try to swap them."
-msgstr "¡Error! La latitud y la longitud predeterminadas son valores no válidos, intente cambiarlos."
+msgstr ""
+"¡Error! La latitud y la longitud predeterminadas son valores no válidos, "
+"intente cambiarlos."
 
 msgid "Error! Failed to upload the image."
 msgstr "¡Error! Error al cargar la imagen."
 
-msgid "Error! Failed to validate for the coordinates by the Google API, validate the Server API key."
-msgstr "¡Error! Error al validar las coordenadas por parte de la API de Google, valide la clave de la API del servidor."
+msgid ""
+"Error! Failed to validate for the coordinates by the Google API, validate "
+"the Server API key."
+msgstr ""
+"¡Error! Error al validar las coordenadas por parte de la API de Google, "
+"valide la clave de la API del servidor."
 
 msgid "Error! Lang is not defined."
 msgstr "¡Error! El idioma no está definido."
@@ -1636,7 +1860,8 @@ msgid "Error! Please select a logo image."
 msgstr "¡Error! Por favor, seleccione una imagen de logotipo."
 
 msgid "Error! Search and Map will not work due to missing API Key"
-msgstr "¡Error! La búsqueda y el mapa no funcionarán debido a que falta la clave API"
+msgstr ""
+"¡Error! La búsqueda y el mapa no funcionarán debido a que falta la clave API"
 
 msgid "Error! Store not found."
 msgstr "¡Error! Tienda no encontrada."
@@ -1692,8 +1917,12 @@ msgstr "Ejemplo: 20,40,60,80,*100"
 msgid "Example: Small, Medium, Large"
 msgstr "Ejemplo: Pequeño, Mediano, Grande"
 
-msgid "Excel/CSV import will fail until this directory is writable by the web server."
-msgstr "La importación de archivos Excel/CSV fallará hasta que el servidor web tenga permisos de escritura en este directorio."
+msgid ""
+"Excel/CSV import will fail until this directory is writable by the web "
+"server."
+msgstr ""
+"La importación de archivos Excel/CSV fallará hasta que el servidor web tenga"
+" permisos de escritura en este directorio."
 
 msgid "Explore Extension — $69"
 msgstr "Explorar extensión — $69"
@@ -1747,7 +1976,9 @@ msgid "Failed to Imported Assets."
 msgstr "No se pudieron importar los activos."
 
 msgid "Failed to import configuration, contact support for help."
-msgstr "No se pudo importar la configuración. Póngase en contacto con el servicio de asistencia para obtener ayuda."
+msgstr ""
+"No se pudo importar la configuración. Póngase en contacto con el servicio de"
+" asistencia para obtener ayuda."
 
 msgid "Fax"
 msgstr "Fax"
@@ -1808,8 +2039,12 @@ msgstr "Rellena los datos para añadir una nueva tienda a tu red."
 msgid "Fill in the details to update your store"
 msgstr "Rellena los datos para actualizar tu tienda."
 
-msgid "Fill up the form of your Store to register it for the approval by the administrator and it will list down in the Store Locator listing."
-msgstr "Rellena el formulario de tu tienda para registrarla y que el administrador la apruebe; así aparecerá en el listado del Localizador de Tiendas."
+msgid ""
+"Fill up the form of your Store to register it for the approval by the "
+"administrator and it will list down in the Store Locator listing."
+msgstr ""
+"Rellena el formulario de tu tienda para registrarla y que el administrador "
+"la apruebe; así aparecerá en el listado del Localizador de Tiendas."
 
 msgid "Filter & Export Leads"
 msgstr "Filtrar y exportar clientes potenciales"
@@ -1835,14 +2070,26 @@ msgstr "Encuentra un distribuidor"
 msgid "Find a Store Near You"
 msgstr "Encuentra una tienda cerca de ti"
 
-msgid "Fine-tune search behavior, distance controls, category logic, analytics, and multilingual store data."
-msgstr "Ajusta el comportamiento de búsqueda, los controles de distancia, la lógica de categorías, los análisis y los datos multilingües de las tiendas."
+msgid ""
+"Fine-tune search behavior, distance controls, category logic, analytics, and"
+" multilingual store data."
+msgstr ""
+"Ajusta el comportamiento de búsqueda, los controles de distancia, la lógica "
+"de categorías, los análisis y los datos multilingües de las tiendas."
 
 msgid "Finish Drawing"
 msgstr "Finalizar dibujo"
 
-msgid "First confirm that the selected map option is configured correctly. For Google Maps, check the API key, billing status, allowed website address, and required APIs. You can also switch to the free map option under <b>ASL Settings → Maps</b>."
-msgstr "Primero, verifique que la opción de mapa seleccionada esté configurada correctamente. Para Google Maps, compruebe la clave API, el estado de facturación, la dirección web permitida y las API necesarias. También puede cambiar a la opción de mapa gratuito en <b>Ajustes de ASL → Mapas</b>."
+msgid ""
+"First confirm that the selected map option is configured correctly. For "
+"Google Maps, check the API key, billing status, allowed website address, and"
+" required APIs. You can also switch to the free map option under <b>ASL "
+"Settings → Maps</b>."
+msgstr ""
+"Primero, verifique que la opción de mapa seleccionada esté configurada "
+"correctamente. Para Google Maps, compruebe la clave API, el estado de "
+"facturación, la dirección web permitida y las API necesarias. También puede "
+"cambiar a la opción de mapa gratuito en <b>Ajustes de ASL → Mapas</b>."
 
 msgid "Fit Bound Location"
 msgstr "Ubicación Fit Bound"
@@ -1862,8 +2109,12 @@ msgstr "Tamaño de fuente"
 msgid "Font size in pixels"
 msgstr "Tamaño de fuente en píxeles"
 
-msgid "For testing and light interactive use. Address search is configured separately and may still require an API key."
-msgstr "Para pruebas y uso interactivo básico. La búsqueda de direcciones se configura por separado y puede requerir una clave API."
+msgid ""
+"For testing and light interactive use. Address search is configured "
+"separately and may still require an API key."
+msgstr ""
+"Para pruebas y uso interactivo básico. La búsqueda de direcciones se "
+"configura por separado y puede requerir una clave API."
 
 msgid "Form Guide"
 msgstr "Guía de formularios"
@@ -1995,7 +2246,9 @@ msgid "Get Your Directions"
 msgstr "Obtenga sus indicaciones"
 
 msgid "Get more from your store locator with these powerful tools."
-msgstr "Sácale el máximo partido a tu localizador de tiendas con estas potentes herramientas."
+msgstr ""
+"Sácale el máximo partido a tu localizador de tiendas con estas potentes "
+"herramientas."
 
 msgid "Get your API key from"
 msgstr "Obtén tu clave API de"
@@ -2010,10 +2263,19 @@ msgid "Get your free API key from"
 msgstr "Obtén tu clave API gratuita de"
 
 msgid "Give customers a faster, location-aware shopping experience."
-msgstr "Ofrezca a sus clientes una experiencia de compra más rápida y basada en la ubicación."
+msgstr ""
+"Ofrezca a sus clientes una experiencia de compra más rápida y basada en la "
+"ubicación."
 
-msgid "Go to <b>Manage Stores → Add New Store</b>, enter the store name and address, confirm its location, and save it. You can also assign a category, marker, logo, opening hours, and contact details."
-msgstr "Ve a <b>Gestionar tiendas → Añadir nueva tienda</b>, introduce el nombre y la dirección de la tienda, confirma su ubicación y guárdala. También puedes asignarle una categoría, un marcador, un logotipo, el horario de apertura y los datos de contacto."
+msgid ""
+"Go to <b>Manage Stores → Add New Store</b>, enter the store name and "
+"address, confirm its location, and save it. You can also assign a category, "
+"marker, logo, opening hours, and contact details."
+msgstr ""
+"Ve a <b>Gestionar tiendas → Añadir nueva tienda</b>, introduce el nombre y "
+"la dirección de la tienda, confirma su ubicación y guárdala. También puedes "
+"asignarle una categoría, un marcador, un logotipo, el horario de apertura y "
+"los datos de contacto."
 
 msgid "Go to Contact Page"
 msgstr "Ir a la página de contacto"
@@ -2060,8 +2322,17 @@ msgstr "Clave API de Google Maps guardada. Verificando la configuración…"
 msgid "Google Maps connected successfully."
 msgstr "Google Maps se conectó correctamente."
 
-msgid "Google Maps has been blocked.<br>Click on <strong>Load Store Locator</strong> to unblock Google Maps library.<br> further details about the <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" rel=\"nofollow\">Google Maps Privacy Policy</a> . "
-msgstr "Google Maps ha sido bloqueado.<br> Haga clic en <strong>Cargar localizador de tiendas</strong> para desbloquear la biblioteca de Google Maps.<br> más detalles sobre la <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" rel=\"nofollow\">Política de privacidad de Google Maps</a> ."
+msgid ""
+"Google Maps has been blocked.<br>Click on <strong>Load Store "
+"Locator</strong> to unblock Google Maps library.<br> further details about "
+"the <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" "
+"rel=\"nofollow\">Google Maps Privacy Policy</a> . "
+msgstr ""
+"Google Maps ha sido bloqueado.<br> Haga clic en <strong>Cargar localizador "
+"de tiendas</strong> para desbloquear la biblioteca de Google Maps.<br> más "
+"detalles sobre la <a href=\"https://policies.google.com/privacy?hl=en\" "
+"target=\"_blank\" rel=\"nofollow\">Política de privacidad de Google Maps</a>"
+" ."
 
 msgid "Google Maps setup guide"
 msgstr "Guía de configuración de Google Maps"
@@ -2081,8 +2352,15 @@ msgstr "Falta la clave API del servidor de Google."
 msgid "Google Style"
 msgstr "Estilo de Google"
 
-msgid "Google newly launched advanced marker option, read the documentation guide about <a href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\">Google Advanced Markers</a>"
-msgstr "Google ha lanzado recientemente la opción de marcadores avanzados; consulta la guía de documentación sobre <a href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\" target=\"_blank\">los marcadores avanzados de Google.</a>"
+msgid ""
+"Google newly launched advanced marker option, read the documentation guide "
+"about <a href=\"https://agilestorelocator.com/wiki/google-advanced-"
+"markers/\">Google Advanced Markers</a>"
+msgstr ""
+"Google ha lanzado recientemente la opción de marcadores avanzados; consulta "
+"la guía de documentación sobre <a "
+"href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\" "
+"target=\"_blank\">los marcadores avanzados de Google.</a>"
 
 msgid "Grid"
 msgstr "Red"
@@ -2136,7 +2414,9 @@ msgid "Hide Search"
 msgstr "Ocultar búsqueda"
 
 msgid "Hide the main address search controls from the store locator."
-msgstr "Oculta los controles principales de búsqueda de direcciones del localizador de tiendas."
+msgstr ""
+"Oculta los controles principales de búsqueda de direcciones del localizador "
+"de tiendas."
 
 msgid "Home"
 msgstr "Hogar"
@@ -2160,7 +2440,8 @@ msgid "How do I add the store locator to my website?"
 msgstr "¿Cómo puedo añadir el localizador de tiendas a mi sitio web?"
 
 msgid "How do I change store markers, logos, and categories?"
-msgstr "¿Cómo puedo cambiar los marcadores, logotipos y categorías de la tienda?"
+msgstr ""
+"¿Cómo puedo cambiar los marcadores, logotipos y categorías de la tienda?"
 
 msgid "How do I change the colors and design?"
 msgstr "¿Cómo puedo cambiar los colores y el diseño?"
@@ -2189,8 +2470,11 @@ msgstr "¿Cómo importar un archivo CSV?"
 msgid "Hybrid"
 msgstr "Híbrido"
 
-msgid "I agree to terms and conditions and all the provided information is correct"
-msgstr "Acepto los términos y condiciones y toda la información proporcionada es correcta."
+msgid ""
+"I agree to terms and conditions and all the provided information is correct"
+msgstr ""
+"Acepto los términos y condiciones y toda la información proporcionada es "
+"correcta."
 
 msgid "I am only deactivating temporarily"
 msgstr "Solo estoy desactivándolo temporalmente"
@@ -2213,11 +2497,18 @@ msgstr "Icono"
 msgid "Icon (Optional)"
 msgstr "Icono (opcional)"
 
-msgid "If Agile Store Locator is helping you and your customers find locations easily, we'd appreciate a quick review on WordPress.org."
-msgstr "Si Agile Store Locator te está ayudando a ti y a tus clientes a encontrar ubicaciones fácilmente, agradeceríamos una reseña rápida en WordPress.org."
+msgid ""
+"If Agile Store Locator is helping you and your customers find locations "
+"easily, we'd appreciate a quick review on WordPress.org."
+msgstr ""
+"Si Agile Store Locator te está ayudando a ti y a tus clientes a encontrar "
+"ubicaciones fácilmente, agradeceríamos una reseña rápida en WordPress.org."
 
-msgid "If you have any problem with the plugin or suggestion, please email us at"
-msgstr "Si tiene algún problema con el plugin o alguna sugerencia, envíenos un correo electrónico a"
+msgid ""
+"If you have any problem with the plugin or suggestion, please email us at"
+msgstr ""
+"Si tiene algún problema con el plugin o alguna sugerencia, envíenos un "
+"correo electrónico a"
 
 msgid "If you like our Plugin, please rate us 5 stars."
 msgstr "Si te gusta nuestro plugin, por favor, califícanos con 5 estrellas."
@@ -2250,10 +2541,13 @@ msgid "Import Stores (Pro Version)"
 msgstr "Importar tiendas (versión Pro)"
 
 msgid "Import many stores at once with CSV file with geocoding API."
-msgstr "Importa varias tiendas a la vez con un archivo CSV mediante la API de geocodificación."
+msgstr ""
+"Importa varias tiendas a la vez con un archivo CSV mediante la API de "
+"geocodificación."
 
 msgid "Import stores in bulk or export your location data with ease."
-msgstr "Importa tiendas al por mayor o exporta tus datos de ubicación fácilmente."
+msgstr ""
+"Importa tiendas al por mayor o exporta tus datos de ubicación fácilmente."
 
 msgid "Import/Export Stores"
 msgstr "Tiendas de importación/exportación"
@@ -2313,7 +2607,8 @@ msgid "Invalid analytics request."
 msgstr "Solicitud de análisis no válida."
 
 msgid "Invalid custom map style. Please provide a valid JSON array."
-msgstr "Estilo de mapa personalizado no válido. Proporcione una matriz JSON válida."
+msgstr ""
+"Estilo de mapa personalizado no válido. Proporcione una matriz JSON válida."
 
 msgid "Invalid feedback submission."
 msgstr "Envío de comentarios no válido."
@@ -2333,14 +2628,24 @@ msgstr "Ruta de plantilla no válida."
 msgid "Invalid template section."
 msgstr "Sección de plantilla no válida."
 
-msgid "Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes are supported."
-msgstr "Valor no válido para la restricción de país. Solo se admiten los códigos de país ISO 3166-1 alfa-2."
+msgid ""
+"Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes"
+" are supported."
+msgstr ""
+"Valor no válido para la restricción de país. Solo se admiten los códigos de "
+"país ISO 3166-1 alfa-2."
 
 msgid "It may slow import process for a large CSV file with 5k+ rows."
-msgstr "Puede ralentizar el proceso de importación de un archivo CSV grande con más de 5k filas."
+msgstr ""
+"Puede ralentizar el proceso de importación de un archivo CSV grande con más "
+"de 5k filas."
 
-msgid "It only appear with dropdown control and overrides the search zoom value to fitbound"
-msgstr "Solo aparece con el control desplegable y anula el valor de zoom de búsqueda para ajustarlo."
+msgid ""
+"It only appear with dropdown control and overrides the search zoom value to "
+"fitbound"
+msgstr ""
+"Solo aparece con el control desplegable y anula el valor de zoom de búsqueda"
+" para ajustarlo."
 
 msgid "It only takes a minute and it means a lot to us. Thank you!"
 msgstr "Solo lleva un minuto y significa mucho para nosotros. ¡Gracias!"
@@ -2360,8 +2665,12 @@ msgstr "Archivo KML cargado con éxito."
 msgid "KML guide"
 msgstr "Guía KML"
 
-msgid "Keep customized template files safely in your active theme so plugin updates do not overwrite them."
-msgstr "Guarda los archivos de plantilla personalizados de forma segura en tu tema activo para que las actualizaciones de los plugins no los sobrescriban."
+msgid ""
+"Keep customized template files safely in your active theme so plugin updates"
+" do not overwrite them."
+msgstr ""
+"Guarda los archivos de plantilla personalizados de forma segura en tu tema "
+"activo para que las actualizaciones de los plugins no los sobrescriban."
 
 msgid "Kilometers"
 msgstr "kilómetros"
@@ -2378,14 +2687,23 @@ msgstr "Localizar su geoposición"
 msgid "Labels"
 msgstr "Etiquetas"
 
-msgid "Labels section can be used to change the labels of the frontend of the store locator widgets, enable the switch above to activate."
-msgstr "La sección de etiquetas se puede utilizar para cambiar las etiquetas de la interfaz de los widgets del localizador de tiendas; active el interruptor de arriba para activarlo."
+msgid ""
+"Labels section can be used to change the labels of the frontend of the store"
+" locator widgets, enable the switch above to activate."
+msgstr ""
+"La sección de etiquetas se puede utilizar para cambiar las etiquetas de la "
+"interfaz de los widgets del localizador de tiendas; active el interruptor de"
+" arriba para activarlo."
 
 msgid "Lang"
 msgstr "Lang"
 
-msgid "Large CSV files (5k+ rows) may take longer to process with these options enabled."
-msgstr "Los archivos CSV grandes (más de 5000 filas) pueden tardar más en procesarse con estas opciones activadas."
+msgid ""
+"Large CSV files (5k+ rows) may take longer to process with these options "
+"enabled."
+msgstr ""
+"Los archivos CSV grandes (más de 5000 filas) pueden tardar más en procesarse"
+" con estas opciones activadas."
 
 msgid "Lat"
 msgstr "Lat"
@@ -2418,7 +2736,9 @@ msgid "Learn about Agile Sync"
 msgstr "Más información sobre Agile Sync"
 
 msgid "Learn how to use multiple store locators with different templates"
-msgstr "¿Quieres aprender a usar varios localizadores de tiendas con diferentes plantillas?"
+msgstr ""
+"¿Quieres aprender a usar varios localizadores de tiendas con diferentes "
+"plantillas?"
 
 msgid "Learn more"
 msgstr "Más información"
@@ -2562,7 +2882,9 @@ msgid "Logos deleted Successfully."
 msgstr "Logotipos eliminados con éxito."
 
 msgid "Logos help visitors recognize stores and brands in your locator."
-msgstr "Los logotipos ayudan a los visitantes a reconocer las tiendas y marcas en tu localizador."
+msgstr ""
+"Los logotipos ayudan a los visitantes a reconocer las tiendas y marcas en tu"
+" localizador."
 
 msgid "Longitude"
 msgstr "Longitud"
@@ -2573,8 +2895,11 @@ msgstr "Color principal de la marca, botones y elementos destacados"
 msgid "Make categories and group stores."
 msgstr "Crea categorías y agrupa tiendas."
 
-msgid "Make the store locator full width 100% with respect to the parent container"
-msgstr "Hacer que el localizador de tiendas ocupe el 100% del ancho del contenedor principal."
+msgid ""
+"Make the store locator full width 100% with respect to the parent container"
+msgstr ""
+"Hacer que el localizador de tiendas ocupe el 100% del ancho del contenedor "
+"principal."
 
 msgid "Manage"
 msgstr "Administrar"
@@ -2610,7 +2935,9 @@ msgid "Manage Markers"
 msgstr "Administrar marcadores"
 
 msgid "Manage Markers will be replaced by the Category Icons"
-msgstr "La opción \"Gestionar marcadores\" será reemplazada por los iconos de categoría."
+msgstr ""
+"La opción \"Gestionar marcadores\" será reemplazada por los iconos de "
+"categoría."
 
 msgid "Manage Setup"
 msgstr "Gestionar la configuración"
@@ -2624,8 +2951,12 @@ msgstr "Administrar tiendas"
 msgid "Manage WooCommerce Inventory Across Multiple Stores"
 msgstr "Gestiona el inventario de WooCommerce en varias tiendas."
 
-msgid "Manage your stores, customize your locator and help customers find you easily."
-msgstr "Gestiona tus tiendas, personaliza tu localizador y ayuda a tus clientes a encontrarte fácilmente."
+msgid ""
+"Manage your stores, customize your locator and help customers find you "
+"easily."
+msgstr ""
+"Gestiona tus tiendas, personaliza tu localizador y ayuda a tus clientes a "
+"encontrarte fácilmente."
 
 msgid "Manage your uploaded KML overlays."
 msgstr "Gestiona las superposiciones KML que has subido."
@@ -2697,19 +3028,30 @@ msgid "Map has been updated successfully."
 msgstr "El mapa ha sido actualizado con éxito."
 
 msgid "Map preview is unavailable. You can still enter coordinates above."
-msgstr "La vista previa del mapa no está disponible. Aun así, puedes introducir las coordenadas arriba."
+msgstr ""
+"La vista previa del mapa no está disponible. Aun así, puedes introducir las "
+"coordenadas arriba."
 
 msgid "Map providers, tile providers and map styles guide"
-msgstr "Guía de proveedores de mapas, proveedores de teselas y estilos de mapas"
+msgstr ""
+"Guía de proveedores de mapas, proveedores de teselas y estilos de mapas"
 
 msgid "MapLibre"
 msgstr "MapLibre"
 
-msgid "MapLibre supports Zoom and Fullscreen. Camera, Street View, and Map Type controls require Google Maps and are disabled."
-msgstr "MapLibre admite zoom y pantalla completa. Los controles de cámara, Street View y tipo de mapa requieren Google Maps y están deshabilitados."
+msgid ""
+"MapLibre supports Zoom and Fullscreen. Camera, Street View, and Map Type "
+"controls require Google Maps and are disabled."
+msgstr ""
+"MapLibre admite zoom y pantalla completa. Los controles de cámara, Street "
+"View y tipo de mapa requieren Google Maps y están deshabilitados."
 
-msgid "MapLibre will use OpenStreetMap tiles so you can get started without a map API key."
-msgstr "MapLibre utilizará los mosaicos de OpenStreetMap, por lo que podrá empezar a usarlo sin necesidad de una clave API de mapas."
+msgid ""
+"MapLibre will use OpenStreetMap tiles so you can get started without a map "
+"API key."
+msgstr ""
+"MapLibre utilizará los mosaicos de OpenStreetMap, por lo que podrá empezar a"
+" usarlo sin necesidad de una clave API de mapas."
 
 msgid "MapTiler"
 msgstr "MapTiler"
@@ -2766,7 +3108,9 @@ msgid "Markers deleted successfully."
 msgstr "Marcadores eliminados con éxito."
 
 msgid "Markers help your visitors identify different store types on the map."
-msgstr "Los marcadores ayudan a tus visitantes a identificar los diferentes tipos de tiendas en el mapa."
+msgstr ""
+"Los marcadores ayudan a tus visitantes a identificar los diferentes tipos de"
+" tiendas en el mapa."
 
 msgid "Maybe Later"
 msgstr "Quizás más tarde"
@@ -2819,8 +3163,12 @@ msgstr "Selección de múltiples categorías"
 msgid "Name"
 msgstr "Nombre"
 
-msgid "Need help? Check our documentation for details on customizing your store locator."
-msgstr "¿Necesitas ayuda? Consulta nuestra documentación para obtener más información sobre cómo personalizar tu localizador de tiendas."
+msgid ""
+"Need help? Check our documentation for details on customizing your store "
+"locator."
+msgstr ""
+"¿Necesitas ayuda? Consulta nuestra documentación para obtener más "
+"información sobre cómo personalizar tu localizador de tiendas."
 
 msgid "Need help? We're here for you!"
 msgstr "¿Necesitas ayuda? ¡Estamos aquí para ayudarte!"
@@ -2901,7 +3249,8 @@ msgid "No categories available."
 msgstr "No hay categorías disponibles."
 
 msgid "No day selected for open hours update."
-msgstr "No se ha seleccionado ningún día para actualizar el horario de apertura."
+msgstr ""
+"No se ha seleccionado ningún día para actualizar el horario de apertura."
 
 msgid "No fields selected to update."
 msgstr "No se ha seleccionado ningún campo para actualizar."
@@ -2925,7 +3274,9 @@ msgid "No template backups yet"
 msgstr "Aún no hay copias de seguridad de las plantillas."
 
 msgid "No valid day selected for open hours update."
-msgstr "No se ha seleccionado ningún día válido para actualizar el horario de apertura."
+msgstr ""
+"No se ha seleccionado ningún día válido para actualizar el horario de "
+"apertura."
 
 msgid "None"
 msgstr "ninguna"
@@ -2975,8 +3326,12 @@ msgstr "Mostrar solo tiendas en la selección de búsqueda o filtro."
 msgid "Only administrators can update this template."
 msgstr "Solo los administradores pueden actualizar esta plantilla."
 
-msgid "Only simple options are currently visible. Enable Expert mode to view all settings."
-msgstr "Actualmente solo se muestran las opciones más sencillas. Active el modo experto para ver todas las configuraciones."
+msgid ""
+"Only simple options are currently visible. Enable Expert mode to view all "
+"settings."
+msgstr ""
+"Actualmente solo se muestran las opciones más sencillas. Active el modo "
+"experto para ver todas las configuraciones."
 
 msgid "Only stores in the selected categories will appear."
 msgstr "Solo aparecerán las tiendas de las categorías seleccionadas."
@@ -2990,8 +3345,14 @@ msgstr "Abierto las 24 horas"
 msgid "Open 24 Hours"
 msgstr "Abierto las 24 horas"
 
-msgid "Open <b>ASL Settings → Maps</b>, set the default location and zoom level, then save your settings. This is the area visitors see before starting a search."
-msgstr "Abre <b>Ajustes de ASL → Mapas</b>, configura la ubicación predeterminada y el nivel de zoom, y guarda los cambios. Esta es la zona que ven los visitantes antes de iniciar una búsqueda."
+msgid ""
+"Open <b>ASL Settings → Maps</b>, set the default location and zoom level, "
+"then save your settings. This is the area visitors see before starting a "
+"search."
+msgstr ""
+"Abre <b>Ajustes de ASL → Mapas</b>, configura la ubicación predeterminada y "
+"el nivel de zoom, y guarda los cambios. Esta es la zona que ven los "
+"visitantes antes de iniciar una búsqueda."
 
 msgid "Open Colors & Fonts Customizer"
 msgstr "Personalizador de colores y fuentes"
@@ -3021,7 +3382,9 @@ msgid "OpenStreetMap (No API Key)"
 msgstr "OpenStreetMap (sin clave API)"
 
 msgid "OpenStreetMap with Nominatim address geocoding. No API keys required."
-msgstr "OpenStreetMap con geocodificación de direcciones Nominatim. No se requieren claves API."
+msgstr ""
+"OpenStreetMap con geocodificación de direcciones Nominatim. No se requieren "
+"claves API."
 
 msgid "Opened Stores"
 msgstr "Tiendas abiertas"
@@ -3038,14 +3401,19 @@ msgstr "Código de idioma opcional de Google Maps, como en o ar."
 msgid "Optional Google Maps region code, such as US or AE."
 msgstr "Código de región opcional de Google Maps, como US o AE."
 
-msgid "Optional MapLibre style JSON URL. It overrides the selected preset and may contain {api_key} or {access_token}."
-msgstr "URL JSON opcional al estilo MapLibre. Sobrescribe la configuración preestablecida seleccionada y puede contener {api_key} o {access_token}."
+msgid ""
+"Optional MapLibre style JSON URL. It overrides the selected preset and may "
+"contain {api_key} or {access_token}."
+msgstr ""
+"URL JSON opcional al estilo MapLibre. Sobrescribe la configuración "
+"preestablecida seleccionada y puede contener {api_key} o {access_token}."
 
 msgid "Optional comma-separated country codes."
 msgstr "Códigos de país opcionales separados por comas."
 
 msgid "Optional comma-separated store IDs to show."
-msgstr "Identificadores de tienda opcionales separados por comas para mostrar."
+msgstr ""
+"Identificadores de tienda opcionales separados por comas para mostrar."
 
 msgid "Optional integration add-on"
 msgstr "Complemento de integración opcional"
@@ -3053,8 +3421,13 @@ msgstr "Complemento de integración opcional"
 msgid "Optional, dropdown and custom store information."
 msgstr "Información opcional, desplegable y personalizada de la tienda."
 
-msgid "Optional. Available placeholders: {street}, {city}, {state}, {postal_code}, {country}. Leave empty to use the default format."
-msgstr "Opcional. Marcadores de posición disponibles: {street}, {city}, {state}, {postal_code}, {country}. Déjelo en blanco para usar el formato predeterminado."
+msgid ""
+"Optional. Available placeholders: {street}, {city}, {state}, {postal_code}, "
+"{country}. Leave empty to use the default format."
+msgstr ""
+"Opcional. Marcadores de posición disponibles: {street}, {city}, {state}, "
+"{postal_code}, {country}. Déjelo en blanco para usar el formato "
+"predeterminado."
 
 msgid "Order"
 msgstr "Ordenar"
@@ -3071,8 +3444,12 @@ msgstr "Pestaña Otros detalles"
 msgid "Overlay Count"
 msgstr "Recuento de superposiciones"
 
-msgid "Override address search for this locator. Database search modes are available in Pro."
-msgstr "Sobrescribe la búsqueda de direcciones para este localizador. Los modos de búsqueda en base de datos están disponibles en Pro."
+msgid ""
+"Override address search for this locator. Database search modes are "
+"available in Pro."
+msgstr ""
+"Sobrescribe la búsqueda de direcciones para este localizador. Los modos de "
+"búsqueda en base de datos están disponibles en Pro."
 
 msgid "PHP Version"
 msgstr "Versión PHP"
@@ -3102,7 +3479,8 @@ msgid "Paste Configuration JSON"
 msgstr "Pegar configuración JSON"
 
 msgid "Paste URL for redirect of your store locator page"
-msgstr "Pegue la URL para la redirección de la página del localizador de su tienda"
+msgstr ""
+"Pegue la URL para la redirección de la página del localizador de su tienda"
 
 msgid "Paste your Google Maps API key"
 msgstr "Pega tu clave API de Google Maps"
@@ -3114,7 +3492,8 @@ msgid "Performance Note:"
 msgstr "Nota de rendimiento:"
 
 msgid "Personalize the locator colors to match your website."
-msgstr "Personaliza los colores del localizador para que coincidan con tu sitio web."
+msgstr ""
+"Personaliza los colores del localizador para que coincidan con tu sitio web."
 
 msgid "Phone"
 msgstr "Teléfono"
@@ -3141,7 +3520,9 @@ msgid "Please agree to register for store in the listing."
 msgstr "Por favor, acepte registrarse en la tienda que aparece en el listado."
 
 msgid "Please contact our team by phone or email for more information."
-msgstr "Para obtener más información, póngase en contacto con nuestro equipo por teléfono o correo electrónico."
+msgstr ""
+"Para obtener más información, póngase en contacto con nuestro equipo por "
+"teléfono o correo electrónico."
 
 msgid "Please correct the error in field"
 msgstr "Por favor, corrija el error en el campo"
@@ -3156,10 +3537,12 @@ msgid "Please enter a page title."
 msgstr "Por favor, introduzca un título para la página."
 
 msgid "Please enter a valid email address for your reply."
-msgstr "Introduce una dirección de correo electrónico válida para tu respuesta."
+msgstr ""
+"Introduce una dirección de correo electrónico válida para tu respuesta."
 
 msgid "Please enter a valid email address or leave it blank."
-msgstr "Introduce una dirección de correo electrónico válida o déjala en blanco."
+msgstr ""
+"Introduce una dirección de correo electrónico válida o déjala en blanco."
 
 msgid "Please enter message"
 msgstr "Por favor, introduzca un mensaje."
@@ -3230,8 +3613,11 @@ msgstr "Colores predefinidos"
 msgid "Preview on map"
 msgstr "Vista previa en el mapa"
 
-msgid "Preview the customer-facing tools included with the WooCommerce extension."
-msgstr "Vea una vista previa de las herramientas de cara al cliente incluidas en la extensión de WooCommerce."
+msgid ""
+"Preview the customer-facing tools included with the WooCommerce extension."
+msgstr ""
+"Vea una vista previa de las herramientas de cara al cliente incluidas en la "
+"extensión de WooCommerce."
 
 msgid "Previewing"
 msgstr "Vista previa"
@@ -3252,7 +3638,9 @@ msgid "Pro features"
 msgstr "Funciones de Pro"
 
 msgid "Provide the page-relative URL and the WordPress page ID."
-msgstr "1- Proporcione la URL relativa de la página y el ID de la página de WordPress."
+msgstr ""
+"1- Proporcione la URL relativa de la página y el ID de la página de "
+"WordPress."
 
 msgid "Provide your email if you would like a reply."
 msgstr "Indica tu correo electrónico si deseas una respuesta."
@@ -3458,8 +3846,13 @@ msgstr "Guardar plantilla"
 msgid "Save and Verify"
 msgstr "Guardar y verificar"
 
-msgid "Save the changed store or setting, then refresh the JSON cache if it is enabled. You may also need to clear your browser, WordPress, or CDN cache."
-msgstr "Guarda la tienda o configuración modificada y, si está habilitada, actualiza la caché JSON. También es posible que debas borrar la caché de tu navegador, WordPress o CDN."
+msgid ""
+"Save the changed store or setting, then refresh the JSON cache if it is "
+"enabled. You may also need to clear your browser, WordPress, or CDN cache."
+msgstr ""
+"Guarda la tienda o configuración modificada y, si está habilitada, actualiza"
+" la caché JSON. También es posible que debas borrar la caché de tu "
+"navegador, WordPress o CDN."
 
 msgid "Saving Store..."
 msgstr "Guardando tienda..."
@@ -3473,14 +3866,19 @@ msgstr "Ahorro…"
 msgid "Scan Area"
 msgstr "Analizar zona"
 
-msgid "Scanning your uploaded files for stores missing latitude/longitude data"
-msgstr "Analizando tus archivos subidos en busca de datos de latitud/longitud faltantes"
+msgid ""
+"Scanning your uploaded files for stores missing latitude/longitude data"
+msgstr ""
+"Analizando tus archivos subidos en busca de datos de latitud/longitud "
+"faltantes"
 
 msgid "Schedule"
 msgstr "Cronograma"
 
 msgid "Schedule stores to display on specified duration"
-msgstr "Programar las tiendas para que se muestren en un período de tiempo específico."
+msgstr ""
+"Programar las tiendas para que se muestren en un período de tiempo "
+"específico."
 
 msgid "Scroll Wheel"
 msgstr "rueda de desplazamiento"
@@ -3605,11 +4003,16 @@ msgstr "Buscar categorías"
 msgid "Search categories..."
 msgstr "Buscar categorías..."
 
-msgid "Search for a location, draw shapes, and preview layers and controls before saving."
-msgstr "Busca una ubicación, dibuja formas y previsualiza las capas y los controles antes de guardar."
+msgid ""
+"Search for a location, draw shapes, and preview layers and controls before "
+"saving."
+msgstr ""
+"Busca una ubicación, dibuja formas y previsualiza las capas y los controles "
+"antes de guardar."
 
 msgid "Search for a page or enter a relative URL such as /example-page/."
-msgstr "Busque una página o introduzca una URL relativa como /ejemplo-página/."
+msgstr ""
+"Busque una página o introduzca una URL relativa como /ejemplo-página/."
 
 msgid "Search for nearby location in your area."
 msgstr "Busca una ubicación cercana en tu zona."
@@ -3630,7 +4033,8 @@ msgid "Search!"
 msgstr "¡Buscar!"
 
 msgid "Search, organize, validate, and update all stores from one place."
-msgstr "Busca, organiza, valida y actualiza todas las tiendas desde un solo lugar."
+msgstr ""
+"Busca, organiza, valida y actualiza todas las tiendas desde un solo lugar."
 
 msgid "Search..."
 msgstr "Buscar..."
@@ -3650,8 +4054,12 @@ msgstr "Sección"
 msgid "See All Videos"
 msgstr "Ver todos los vídeos"
 
-msgid "See how customers find and interact with your stores during the selected period."
-msgstr "Descubre cómo los clientes encuentran tus tiendas e interactúan con ellas durante el período seleccionado."
+msgid ""
+"See how customers find and interact with your stores during the selected "
+"period."
+msgstr ""
+"Descubre cómo los clientes encuentran tus tiendas e interactúan con ellas "
+"durante el período seleccionado."
 
 msgid "See what you can do with Pro"
 msgstr "Descubre lo que puedes hacer con Pro"
@@ -3722,8 +4130,11 @@ msgstr "Seleccione una categoría"
 msgid "Select a drawing tool to begin."
 msgstr "Seleccione una herramienta de dibujo para comenzar."
 
-msgid "Select a provider style or optionally supply an advanced MapLibre style URL."
-msgstr "Seleccione un estilo de proveedor o, si lo prefiere, proporcione una URL de estilo MapLibre avanzada."
+msgid ""
+"Select a provider style or optionally supply an advanced MapLibre style URL."
+msgstr ""
+"Seleccione un estilo de proveedor o, si lo prefiere, proporcione una URL de "
+"estilo MapLibre avanzada."
 
 msgid "Select display option"
 msgstr "Seleccione la opción de visualización"
@@ -3731,8 +4142,12 @@ msgstr "Seleccione la opción de visualización"
 msgid "Select either 12 or 24 hours time format"
 msgstr "Seleccione el formato de hora de 12 o 24 horas"
 
-msgid "Select either to display the geolocation button or the search button next to address search"
-msgstr "Seleccione si desea mostrar el botón de geolocalización o el botón de búsqueda junto a la búsqueda de direcciones."
+msgid ""
+"Select either to display the geolocation button or the search button next to"
+" address search"
+msgstr ""
+"Seleccione si desea mostrar el botón de geolocalización o el botón de "
+"búsqueda junto a la búsqueda de direcciones."
 
 msgid "Select how you want the direction to work."
 msgstr "Seleccione cómo desea que funcione la dirección."
@@ -3741,16 +4156,23 @@ msgid "Select language"
 msgstr "Seleccionar idioma"
 
 msgid "Select one of the simple options below to continue."
-msgstr "Seleccione una de las opciones sencillas a continuación para continuar."
+msgstr ""
+"Seleccione una de las opciones sencillas a continuación para continuar."
 
 msgid "Select one or more categories. Leave empty to show all stores."
-msgstr "Selecciona una o más categorías. Déjalo vacío para mostrar todas las tiendas."
+msgstr ""
+"Selecciona una o más categorías. Déjalo vacío para mostrar todas las "
+"tiendas."
 
 msgid "Select or Upload Media"
 msgstr "Seleccione o cargue contenido multimedia."
 
-msgid "Select the URL type of website link, page slug will only work when page slug is provided"
-msgstr "Seleccione el tipo de URL del enlace del sitio web; el slug de la página solo funcionará si se proporciona el slug de la página."
+msgid ""
+"Select the URL type of website link, page slug will only work when page slug"
+" is provided"
+msgstr ""
+"Seleccione el tipo de URL del enlace del sitio web; el slug de la página "
+"solo funcionará si se proporciona el slug de la página."
 
 msgid "Select the base design for your store locator."
 msgstr "Seleccione el diseño base para su localizador de tiendas."
@@ -3759,10 +4181,13 @@ msgid "Select the distance filter control"
 msgstr "Seleccione el control del filtro de distancia"
 
 msgid "Select the distance unit to use on Store Locator"
-msgstr "Seleccione la unidad de distancia que desea utilizar en el Localizador de tiendas."
+msgstr ""
+"Seleccione la unidad de distancia que desea utilizar en el Localizador de "
+"tiendas."
 
 msgid "Select which fields are available in the bulk editor for stores."
-msgstr "Seleccione qué campos estarán disponibles en el editor masivo para tiendas."
+msgstr ""
+"Seleccione qué campos estarán disponibles en el editor masivo para tiendas."
 
 msgid "Select which part of the template to customize."
 msgstr "Selecciona qué parte de la plantilla deseas personalizar."
@@ -3785,14 +4210,25 @@ msgstr "Las tiendas seleccionadas se actualizaron correctamente."
 msgid "Send Feedback"
 msgstr "Enviar comentario"
 
-msgid "Send WPForms notifications to the relevant store owners through the Agile Store Locator integration."
-msgstr "Envía notificaciones de WPForms a los propietarios de las tiendas correspondientes a través de la integración de Agile Store Locator."
+msgid ""
+"Send WPForms notifications to the relevant store owners through the Agile "
+"Store Locator integration."
+msgstr ""
+"Envía notificaciones de WPForms a los propietarios de las tiendas "
+"correspondientes a través de la integración de Agile Store Locator."
 
-msgid "Send a copy of a Contact Form 7 email to the closest store, determined by the postal code submitted in the form."
-msgstr "Envíe una copia del correo electrónico del Formulario de Contacto 7 a la tienda más cercana, determinada por el código postal proporcionado en el formulario."
+msgid ""
+"Send a copy of a Contact Form 7 email to the closest store, determined by "
+"the postal code submitted in the form."
+msgstr ""
+"Envíe una copia del correo electrónico del Formulario de Contacto 7 a la "
+"tienda más cercana, determinada por el código postal proporcionado en el "
+"formulario."
 
 msgid "Send a follow-up notification to the dealer lead after 48 hours."
-msgstr "Enviar una notificación de seguimiento al responsable del concesionario después de 48 horas."
+msgstr ""
+"Enviar una notificación de seguimiento al responsable del concesionario "
+"después de 48 horas."
 
 msgid "Sending feedback…"
 msgstr "Enviando comentario…"
@@ -3818,20 +4254,34 @@ msgstr "Configura tu mapa"
 msgid "Set general options and preferences."
 msgstr "Configura las opciones y preferencias generales."
 
-msgid "Set max limit for items in grid or empty to display all (limited to 1000).\n                    "
-msgstr "Establezca un límite máximo para los elementos en la cuadrícula o vacío para mostrar todo (limitado a 1000).\n                    "
+msgid ""
+"Set max limit for items in grid or empty to display all (limited to 1000).\n"
+"                    "
+msgstr ""
+"Establezca un límite máximo para los elementos en la cuadrícula o vacío para mostrar todo (limitado a 1000).\n"
+"                    "
 
 msgid "Set store id"
 msgstr "Establecer ID de tienda"
 
-msgid "Set the initial map view, zoom behavior, language, controls, and Google map styling."
-msgstr "Configura la vista inicial del mapa, el comportamiento del zoom, el idioma, los controles y el estilo de Google Maps."
+msgid ""
+"Set the initial map view, zoom behavior, language, controls, and Google map "
+"styling."
+msgstr ""
+"Configura la vista inicial del mapa, el comportamiento del zoom, el idioma, "
+"los controles y el estilo de Google Maps."
 
 msgid "Set the stores opening and closing times for each day"
-msgstr "Establece los horarios de apertura y cierre de las tiendas para cada día."
+msgstr ""
+"Establece los horarios de apertura y cierre de las tiendas para cada día."
 
-msgid "Set your store locator default coordinates and zoom level using the marker below, drag the marker to pinpoint."
-msgstr "Establezca las coordenadas predeterminadas y el nivel de zoom del localizador de tiendas utilizando el marcador que aparece a continuación; arrastre el marcador para fijar la ubicación."
+msgid ""
+"Set your store locator default coordinates and zoom level using the marker "
+"below, drag the marker to pinpoint."
+msgstr ""
+"Establezca las coordenadas predeterminadas y el nivel de zoom del "
+"localizador de tiendas utilizando el marcador que aparece a continuación; "
+"arrastre el marcador para fijar la ubicación."
 
 msgid "Setting has been updated successfully."
 msgstr "La configuración se ha actualizado correctamente."
@@ -3858,7 +4308,9 @@ msgid "Shipping Methods"
 msgstr "Métodos de envío"
 
 msgid "Short guides to help you configure and manage your store locator."
-msgstr "Breves guías para ayudarte a configurar y gestionar tu localizador de tiendas."
+msgstr ""
+"Breves guías para ayudarte a configurar y gestionar tu localizador de "
+"tiendas."
 
 msgid "Shortcode"
 msgstr "Código corto"
@@ -3915,13 +4367,20 @@ msgid "Show no stores on the page load"
 msgstr "No se muestran tiendas en la carga de la página"
 
 msgid "Show or hide buttons in the store list and info window."
-msgstr "Muestra u oculta los botones en la lista de tiendas y en la ventana de información."
+msgstr ""
+"Muestra u oculta los botones en la lista de tiendas y en la ventana de "
+"información."
 
 msgid "Show store state wise"
 msgstr "Mostrar el estado de la tienda"
 
-msgid "Show the country in the address displayed on the store detail page. Directions and schema continue to use the full address."
-msgstr "Muestra el país en la dirección que aparece en la página de detalles de la tienda. Las indicaciones y el esquema siguen utilizando la dirección completa."
+msgid ""
+"Show the country in the address displayed on the store detail page. "
+"Directions and schema continue to use the full address."
+msgstr ""
+"Muestra el país en la dirección que aparece en la página de detalles de la "
+"tienda. Las indicaciones y el esquema siguen utilizando la dirección "
+"completa."
 
 msgid "Show/Hide Columns"
 msgstr "Mostrar/Ocultar columnas"
@@ -3930,7 +4389,9 @@ msgid "Show/Hide Zoom button in the infobox."
 msgstr "Mostrar/ocultar el botón de zoom en el cuadro de información."
 
 msgid "Show/Hide direction button in the listing and infobox."
-msgstr "Mostrar/ocultar el botón de dirección en el listado y en el cuadro de información."
+msgstr ""
+"Mostrar/ocultar el botón de dirección en el listado y en el cuadro de "
+"información."
 
 msgid "Simple free setup"
 msgstr "Configuración sencilla y gratuita"
@@ -3986,11 +4447,17 @@ msgstr "Ordenar aleatoriamente"
 msgid "Sort by"
 msgstr "Ordenar por"
 
-msgid "Sort stores list randomly on the load of the Store Locator (Enabling it will disable Default Location Marker)"
-msgstr "Ordena la lista de tiendas aleatoriamente al cargar el Localizador de tiendas (al habilitarlo, se desactivará el Marcador de ubicación predeterminado)."
+msgid ""
+"Sort stores list randomly on the load of the Store Locator (Enabling it will"
+" disable Default Location Marker)"
+msgstr ""
+"Ordena la lista de tiendas aleatoriamente al cargar el Localizador de "
+"tiendas (al habilitarlo, se desactivará el Marcador de ubicación "
+"predeterminado)."
 
 msgid "Sort your listing based on fields, default is Distance"
-msgstr "Ordena tu lista según los campos; por defecto, se utiliza la distancia."
+msgstr ""
+"Ordena tu lista según los campos; por defecto, se utiliza la distancia."
 
 msgid "Specialities"
 msgstr "Especialidades"
@@ -4092,7 +4559,9 @@ msgid "Store Locator Widget"
 msgstr "Widget de localización de tiendas"
 
 msgid "Store Locator will consider Default coordinates as the center point"
-msgstr "El localizador de tiendas considerará las coordenadas predeterminadas como el punto central."
+msgstr ""
+"El localizador de tiendas considerará las coordenadas predeterminadas como "
+"el punto central."
 
 msgid "Store Name — Pro"
 msgstr "Nombre de la tienda — Pro"
@@ -4235,8 +4704,11 @@ msgstr "Plantilla %s — Pro"
 msgid "Template 0"
 msgstr "Plantilla 0"
 
-msgid "Template 0 is available in Free. Additional templates are available in Pro."
-msgstr "La plantilla 0 está disponible en la versión gratuita. Hay plantillas adicionales disponibles en Pro."
+msgid ""
+"Template 0 is available in Free. Additional templates are available in Pro."
+msgstr ""
+"La plantilla 0 está disponible en la versión gratuita. Hay plantillas "
+"adicionales disponibles en Pro."
 
 msgid "Template Backup Guide"
 msgstr "Guía de copia de seguridad de plantillas"
@@ -4266,7 +4738,8 @@ msgid "Template List — Pro"
 msgstr "Lista de plantillas — Pro"
 
 msgid "Template UI settings updated"
-msgstr "Se actualizó la configuración de la interfaz de usuario de la plantilla"
+msgstr ""
+"Se actualizó la configuración de la interfaz de usuario de la plantilla"
 
 msgid "Template Updated"
 msgstr "Plantilla actualizada"
@@ -4316,23 +4789,49 @@ msgstr "área de texto"
 msgid "Thank you for your feedback!"
 msgstr "¡Gracias por tu comentario!"
 
-msgid "The <b>Internal Field Name</b> is generated automatically for new fields. Open <b>Advanced settings</b> only when you need to review it or add a CSS class."
-msgstr "El <b>Nombre del campo interno</b> se genera automáticamente para los campos nuevos. Abra <b>Configuración avanzada</b> solo cuando necesite revisarlo o agregar una clase CSS."
+msgid ""
+"The <b>Internal Field Name</b> is generated automatically for new fields. "
+"Open <b>Advanced settings</b> only when you need to review it or add a CSS "
+"class."
+msgstr ""
+"El <b>Nombre del campo interno</b> se genera automáticamente para los campos"
+" nuevos. Abra <b>Configuración avanzada</b> solo cuando necesite revisarlo o"
+" agregar una clase CSS."
 
-msgid "The KML file could not be previewed. Confirm that it is publicly accessible and valid."
-msgstr "No se pudo previsualizar el archivo KML. Confirme que es de acceso público y válido."
+msgid ""
+"The KML file could not be previewed. Confirm that it is publicly accessible "
+"and valid."
+msgstr ""
+"No se pudo previsualizar el archivo KML. Confirme que es de acceso público y"
+" válido."
 
-msgid "The PHP mbstring extension is not installed. Import will not work without it. Please ask your server admin to enable mbstring (or enable it in your control panel)."
-msgstr "La extensión PHP mbstring no está instalada. La importación no funcionará sin ella. Por favor, pídale al administrador de su servidor que habilite mbstring (o habilítela en su panel de control)."
+msgid ""
+"The PHP mbstring extension is not installed. Import will not work without "
+"it. Please ask your server admin to enable mbstring (or enable it in your "
+"control panel)."
+msgstr ""
+"La extensión PHP mbstring no está instalada. La importación no funcionará "
+"sin ella. Por favor, pídale al administrador de su servidor que habilite "
+"mbstring (o habilítela en su panel de control)."
 
 msgid "The default icon will be used when none is uploaded."
-msgstr "Se utilizará el icono predeterminado cuando no se haya subido ninguno."
+msgstr ""
+"Se utilizará el icono predeterminado cuando no se haya subido ninguno."
 
-msgid "The default map type remains in <a href=\"%s\">ASL Settings</a>. Camera Control and Zoom Control (Old Style) are alternative navigation controls and cannot be enabled together."
-msgstr "El tipo de mapa predeterminado permanece en <a href=\"%s\">la configuración de ASL</a> . El control de la cámara y el control de zoom (estilo antiguo) son controles de navegación alternativos y no se pueden habilitar simultáneamente."
+msgid ""
+"The default map type remains in <a href=\"%s\">ASL Settings</a>. Camera "
+"Control and Zoom Control (Old Style) are alternative navigation controls and"
+" cannot be enabled together."
+msgstr ""
+"El tipo de mapa predeterminado permanece en <a href=\"%s\">la configuración "
+"de ASL</a> . El control de la cámara y el control de zoom (estilo antiguo) "
+"son controles de navegación alternativos y no se pueden habilitar "
+"simultáneamente."
 
 msgid "The key must allow Maps JavaScript API requests from this website."
-msgstr "La clave debe permitir las solicitudes a la API de JavaScript de Mapas desde este sitio web."
+msgstr ""
+"La clave debe permitir las solicitudes a la API de JavaScript de Mapas desde"
+" este sitio web."
 
 msgid "The locator shortcode will be inserted"
 msgstr "Se insertará el código corto del localizador."
@@ -4341,10 +4840,12 @@ msgid "The map service could not be configured."
 msgstr "No se pudo configurar el servicio de mapas."
 
 msgid "The page connected to your store locator is no longer available."
-msgstr "La página vinculada a su localizador de tiendas ya no está disponible."
+msgstr ""
+"La página vinculada a su localizador de tiendas ya no está disponible."
 
 msgid "The page was created, but its setup status could not be saved."
-msgstr "La página se creó, pero no se pudo guardar su estado de configuración."
+msgstr ""
+"La página se creó, pero no se pudo guardar su estado de configuración."
 
 msgid "The plugin did not work as expected"
 msgstr "El plugin no funcionó como esperaba"
@@ -4353,10 +4854,14 @@ msgid "The plugin was difficult to set up or use"
 msgstr "El plugin era difícil de configurar o usar"
 
 msgid "The preview updates when you choose a template or color scheme."
-msgstr "La vista previa se actualiza al elegir una plantilla o combinación de colores."
+msgstr ""
+"La vista previa se actualiza al elegir una plantilla o combinación de "
+"colores."
 
 msgid "The process may take a few minutes for large datasets."
-msgstr "El proceso puede tardar unos minutos en el caso de conjuntos de datos grandes."
+msgstr ""
+"El proceso puede tardar unos minutos en el caso de conjuntos de datos "
+"grandes."
 
 msgid "The shortcode will be inserted into the page automatically."
 msgstr "El código corto se insertará automáticamente en la página."
@@ -4365,7 +4870,9 @@ msgid "Theme files"
 msgstr "Archivos de tema"
 
 msgid "These defaults can still be overridden by shortcode attributes."
-msgstr "Estos valores predeterminados aún pueden ser anulados mediante atributos de código corto."
+msgstr ""
+"Estos valores predeterminados aún pueden ser anulados mediante atributos de "
+"código corto."
 
 msgid "This Month"
 msgstr "Este mes"
@@ -4373,8 +4880,13 @@ msgstr "Este mes"
 msgid "This is the title visitors will see on your website."
 msgstr "Este es el título que verán los visitantes en su sitio web."
 
-msgid "This version supports CSV files with comma delimiters. For custom formats or technical support, contact our team at support@agilelogix.com"
-msgstr "Esta versión admite archivos CSV con delimitadores de coma. Para formatos personalizados o asistencia técnica, póngase en contacto con nuestro equipo en support@agilelogix.com."
+msgid ""
+"This version supports CSV files with comma delimiters. For custom formats or"
+" technical support, contact our team at support@agilelogix.com"
+msgstr ""
+"Esta versión admite archivos CSV con delimitadores de coma. Para formatos "
+"personalizados o asistencia técnica, póngase en contacto con nuestro equipo "
+"en support@agilelogix.com."
 
 msgid "Thur"
 msgstr "Jueves"
@@ -4397,8 +4909,12 @@ msgstr "Formato de tiempo"
 msgid "Time Switch"
 msgstr "Interruptor horario"
 
-msgid "Tip: Complete all steps to make your store locator live and help customers find you."
-msgstr "Consejo: Completa todos los pasos para activar tu localizador de tiendas y ayudar a los clientes a encontrarte."
+msgid ""
+"Tip: Complete all steps to make your store locator live and help customers "
+"find you."
+msgstr ""
+"Consejo: Completa todos los pasos para activar tu localizador de tiendas y "
+"ayudar a los clientes a encontrarte."
 
 msgid "Title"
 msgstr "Título"
@@ -4415,8 +4931,12 @@ msgstr "A"
 msgid "To change the category filter logic from OR to AND"
 msgstr "Para cambiar la lógica del filtro de categoría de OR a AND"
 
-msgid "To enable the label changing feature please enable the switch,<br> For multi-language translation, please disable it and follow the "
-msgstr "Para habilitar la función de cambio de etiquetas, active el interruptor.<br> Para la traducción multilingüe, desactívela y siga las instrucciones."
+msgid ""
+"To enable the label changing feature please enable the switch,<br> For "
+"multi-language translation, please disable it and follow the "
+msgstr ""
+"Para habilitar la función de cambio de etiquetas, active el interruptor.<br>"
+" Para la traducción multilingüe, desactívela y siga las instrucciones."
 
 msgid "To make the category selection mode"
 msgstr "Para hacer el modo de selección de categoría"
@@ -4431,16 +4951,23 @@ msgid "To show a limited number of stores."
 msgstr "Para mostrar un número limitado de tiendas."
 
 msgid "To show categories dropdown in tab options."
-msgstr "Para mostrar el menú desplegable de categorías en las opciones de la pestaña."
+msgstr ""
+"Para mostrar el menú desplegable de categorías en las opciones de la "
+"pestaña."
 
 msgid "To show only the current day hours or full week"
 msgstr "Para mostrar solo las horas del día actual o la semana completa."
 
-msgid "To show the additional fields on the template, please add the fields in the template as in this "
-msgstr "Para mostrar los campos adicionales en la plantilla, agregue los campos en la plantilla como se muestra aquí."
+msgid ""
+"To show the additional fields on the template, please add the fields in the "
+"template as in this "
+msgstr ""
+"Para mostrar los campos adicionales en la plantilla, agregue los campos en "
+"la plantilla como se muestra aquí."
 
 msgid "To show the description text either in listing or modal."
-msgstr "Para mostrar el texto descriptivo en una lista o en una ventana modal."
+msgstr ""
+"Para mostrar el texto descriptivo en una lista o en una ventana modal."
 
 msgid "Today"
 msgstr "Hoy"
@@ -4530,7 +5057,8 @@ msgid "Unable to save the template settings."
 msgstr "No se pudieron guardar los ajustes de la plantilla."
 
 msgid "Unable to send feedback. Your message is still here; please try again."
-msgstr "No se pudo enviar el comentario. Tu mensaje sigue aquí; inténtalo de nuevo."
+msgstr ""
+"No se pudo enviar el comentario. Tu mensaje sigue aquí; inténtalo de nuevo."
 
 msgid "Unavailable"
 msgstr "Indisponible"
@@ -4542,7 +5070,9 @@ msgid "Unlock more control with Pro"
 msgstr "Desbloquea más control con Pro"
 
 msgid "Unlock more ways to build, manage, and grow your store locator"
-msgstr "Desbloquea más formas de crear, gestionar y hacer crecer tu localizador de tiendas"
+msgstr ""
+"Desbloquea más formas de crear, gestionar y hacer crecer tu localizador de "
+"tiendas"
 
 msgid "Unsaved changes"
 msgstr "Cambios no guardados"
@@ -4574,8 +5104,12 @@ msgstr "Actualizar horario de apertura"
 msgid "Update Store"
 msgstr "Actualizar tienda"
 
-msgid "Update permissions (e.g., 755/775) or adjust ownership to allow write access."
-msgstr "Actualice los permisos (por ejemplo, 755/775) o ajuste la propiedad para permitir el acceso de escritura."
+msgid ""
+"Update permissions (e.g., 755/775) or adjust ownership to allow write "
+"access."
+msgstr ""
+"Actualice los permisos (por ejemplo, 755/775) o ajuste la propiedad para "
+"permitir el acceso de escritura."
 
 msgid "Update selected fields across multiple stores at once."
 msgstr "Actualizar los campos seleccionados en varias tiendas a la vez."
@@ -4584,7 +5118,8 @@ msgid "Updated Successfully"
 msgstr "Actualizado con éxito"
 
 msgid "Upgrade Plugin To Get Import/Export Feature"
-msgstr "Actualiza el plugin para obtener la función de importación/exportación."
+msgstr ""
+"Actualiza el plugin para obtener la función de importación/exportación."
 
 msgid "Upgrade to Pro"
 msgstr "Mejorar a Pro"
@@ -4593,34 +5128,56 @@ msgid "Upgrade to Pro and take your store locator to the next level."
 msgstr "Mejora a Pro y lleva tu localizador de tiendas al siguiente nivel."
 
 msgid "Upgrade to configure registration form sections and bulk edit fields."
-msgstr "Mejora a Pro para configurar las secciones del formulario de registro y editar campos en bloque."
+msgstr ""
+"Mejora a Pro para configurar las secciones del formulario de registro y "
+"editar campos en bloque."
 
 msgid "Upgrade to create and manage protected template backups."
-msgstr "Mejora a Pro para crear y gestionar copias de seguridad protegidas de plantillas."
+msgstr ""
+"Mejora a Pro para crear y gestionar copias de seguridad protegidas de "
+"plantillas."
 
 msgid "Upgrade to create and manage searchable store attributes."
 msgstr "Mejora a Pro para crear y gestionar atributos de tienda buscables."
 
-msgid "Upgrade to import stores in bulk, export store data, and manage CSV files."
-msgstr "Mejora a Pro para importar tiendas en bloque, exportar datos de tiendas y gestionar archivos CSV."
+msgid ""
+"Upgrade to import stores in bulk, export store data, and manage CSV files."
+msgstr ""
+"Mejora a Pro para importar tiendas en bloque, exportar datos de tiendas y "
+"gestionar archivos CSV."
 
 msgid "Upgrade to manage and refresh the high-performance store cache."
-msgstr "Mejora a Pro para gestionar y actualizar la caché de tiendas de alto rendimiento."
+msgstr ""
+"Mejora a Pro para gestionar y actualizar la caché de tiendas de alto "
+"rendimiento."
 
 msgid "Upgrade to route Contact Form 7 messages to the closest store."
-msgstr "Mejora a Pro para dirigir los mensajes de Contact Form 7 a la tienda más cercana."
+msgstr ""
+"Mejora a Pro para dirigir los mensajes de Contact Form 7 a la tienda más "
+"cercana."
 
 msgid "Upgrade to send WPForms notifications to the relevant stores."
-msgstr "Mejora a Pro para enviar notificaciones de WPForms a las tiendas correspondientes."
+msgstr ""
+"Mejora a Pro para enviar notificaciones de WPForms a las tiendas "
+"correspondientes."
 
 msgid "Upgrade to unlock detailed store performance insights."
-msgstr "Mejora a Pro para desbloquear información detallada sobre el rendimiento de las tiendas."
+msgstr ""
+"Mejora a Pro para desbloquear información detallada sobre el rendimiento de "
+"las tiendas."
 
-msgid "Upgrade to use tab layouts, additional UI templates, and InfoBox layouts."
-msgstr "Mejora a Pro para usar diseños de pestañas, plantillas de interfaz adicionales y diseños de InfoBox."
+msgid ""
+"Upgrade to use tab layouts, additional UI templates, and InfoBox layouts."
+msgstr ""
+"Mejora a Pro para usar diseños de pestañas, plantillas de interfaz "
+"adicionales y diseños de InfoBox."
 
-msgid "Upgrade without losing your stores or settings. Pro adds advanced layouts, management tools, analytics, integrations, and more."
-msgstr "Mejora sin perder tus tiendas ni tu configuración. Pro añade diseños avanzados, herramientas de gestión, análisis, integraciones y más."
+msgid ""
+"Upgrade without losing your stores or settings. Pro adds advanced layouts, "
+"management tools, analytics, integrations, and more."
+msgstr ""
+"Mejora sin perder tus tiendas ni tu configuración. Pro añade diseños "
+"avanzados, herramientas de gestión, análisis, integraciones y más."
 
 msgid "Upload"
 msgstr "Subir"
@@ -4652,8 +5209,12 @@ msgstr "Subir marcador"
 msgid "Upload and manage store logos."
 msgstr "Sube y gestiona los logotipos de la tienda."
 
-msgid "Upload your CSV files for store import. Ensure your files follow the correct format."
-msgstr "Sube tus archivos CSV para importarlos a la tienda. Asegúrate de que tus archivos tengan el formato correcto."
+msgid ""
+"Upload your CSV files for store import. Ensure your files follow the correct"
+" format."
+msgstr ""
+"Sube tus archivos CSV para importarlos a la tienda. Asegúrate de que tus "
+"archivos tengan el formato correcto."
 
 msgid "Uploaded KML Files (%d)"
 msgstr "Archivos KML subidos (%d)"
@@ -4661,8 +5222,14 @@ msgstr "Archivos KML subidos (%d)"
 msgid "Uploaded On"
 msgstr "Subido el"
 
-msgid "Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b> from the Store Locator menu. After creating them, assign them to stores from the store editor."
-msgstr "Utilice las opciones <b>Gestionar marcadores</b>, <b>Gestionar logotipos</b> y <b>Gestionar categorías</b> del menú Localizador de tiendas. Tras crearlas, asígnelas a las tiendas desde el editor de tiendas."
+msgid ""
+"Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b>"
+" from the Store Locator menu. After creating them, assign them to stores "
+"from the store editor."
+msgstr ""
+"Utilice las opciones <b>Gestionar marcadores</b>, <b>Gestionar logotipos</b>"
+" y <b>Gestionar categorías</b> del menú Localizador de tiendas. Tras "
+"crearlas, asígnelas a las tiendas desde el editor de tiendas."
 
 msgid "Use Default Location & Zoom"
 msgstr "Usar ubicación y zoom predeterminados"
@@ -4683,31 +5250,47 @@ msgid "Use Slider"
 msgstr "Usar el control deslizante"
 
 msgid "Use my location to find the closest Service Provider near me"
-msgstr "Usar mi ubicación para encontrar el proveedor de servicios más cercano cerca de mí"
+msgstr ""
+"Usar mi ubicación para encontrar el proveedor de servicios más cercano cerca"
+" de mí"
 
 msgid "Use saved setting"
 msgstr "Usar configuración guardada"
 
-msgid "Use the <b>Customizer</b> section in ASL Settings to change colors, fonts, labels, and templates. Preview your changes before showing them to visitors."
-msgstr "Utilice la sección <b>Personalizador</b> en la configuración de ASL para cambiar colores, fuentes, etiquetas y plantillas. Previsualice los cambios antes de mostrárselos a los visitantes."
+msgid ""
+"Use the <b>Customizer</b> section in ASL Settings to change colors, fonts, "
+"labels, and templates. Preview your changes before showing them to visitors."
+msgstr ""
+"Utilice la sección <b>Personalizador</b> en la configuración de ASL para "
+"cambiar colores, fuentes, etiquetas y plantillas. Previsualice los cambios "
+"antes de mostrárselos a los visitantes."
 
 msgid "Use the filters below each column to find specific attributes."
-msgstr "Utilice los filtros que aparecen debajo de cada columna para encontrar atributos específicos."
+msgstr ""
+"Utilice los filtros que aparecen debajo de cada columna para encontrar "
+"atributos específicos."
 
 msgid "Use the filters below each column to find specific logos."
-msgstr "Utilice los filtros que aparecen debajo de cada columna para encontrar logotipos específicos."
+msgstr ""
+"Utilice los filtros que aparecen debajo de cada columna para encontrar "
+"logotipos específicos."
 
 msgid "Use the filters below each column to find specific markers."
-msgstr "Utilice los filtros que aparecen debajo de cada columna para encontrar marcadores específicos."
+msgstr ""
+"Utilice los filtros que aparecen debajo de cada columna para encontrar "
+"marcadores específicos."
 
 msgid "User Center"
 msgstr "Centro de usuarios"
 
 msgid "User denied geo-location, check preferences."
-msgstr "El usuario ha denegado la geolocalización; compruebe sus preferencias."
+msgstr ""
+"El usuario ha denegado la geolocalización; compruebe sus preferencias."
 
 msgid "Using Elementor? Add a Shortcode widget and paste the shortcode above."
-msgstr "¿Utilizas Elementor? Añade un widget de código corto y pega el código corto de arriba."
+msgstr ""
+"¿Utilizas Elementor? Añade un widget de código corto y pega el código corto "
+"de arriba."
 
 msgid "Valid API Key"
 msgstr "Clave de API válida"
@@ -4718,8 +5301,14 @@ msgstr "Validar Coordenadas"
 msgid "Validate Key"
 msgstr "Validar clave"
 
-msgid "Validate your Google Server API key to ensure accurate coordinate fetching through Google Maps API. Proper validation is essential for successful imports."
-msgstr "Valida tu clave de API de Google Server para garantizar la obtención precisa de coordenadas a través de la API de Google Maps. Una validación adecuada es esencial para una importación exitosa."
+msgid ""
+"Validate your Google Server API key to ensure accurate coordinate fetching "
+"through Google Maps API. Proper validation is essential for successful "
+"imports."
+msgstr ""
+"Valida tu clave de API de Google Server para garantizar la obtención precisa"
+" de coordenadas a través de la API de Google Maps. Una validación adecuada "
+"es esencial para una importación exitosa."
 
 msgid "Validating..."
 msgstr "Validando..."
@@ -4808,17 +5397,40 @@ msgstr "Advertencia"
 msgid "Warning!"
 msgstr "¡Advertencia!"
 
-msgid "Warning! Export includes all configuration including API keys, labels, customizations and maps related settings."
-msgstr "¡Advertencia! La exportación incluye toda la configuración, incluidas las claves API, las etiquetas, las personalizaciones y los ajustes relacionados con los mapas."
+msgid ""
+"Warning! Export includes all configuration including API keys, labels, "
+"customizations and maps related settings."
+msgstr ""
+"¡Advertencia! La exportación incluye toda la configuración, incluidas las "
+"claves API, las etiquetas, las personalizaciones y los ajustes relacionados "
+"con los mapas."
 
-msgid "Warning! JSON cache loading preloads all the data to serve it with great speed, but everytime you make any changes you have to hit the \"Refresh Cache\" button, if your JSON file is cached by browser or CDN such as cloudflare change the Query Parameter value."
-msgstr "¡Advertencia! La carga de caché JSON precarga todos los datos para servirlos con gran velocidad, pero cada vez que realice algún cambio, deberá presionar el botón \"Actualizar caché\". Si su archivo JSON está almacenado en caché por el navegador o una CDN como Cloudflare, cambie el valor del parámetro de consulta."
+msgid ""
+"Warning! JSON cache loading preloads all the data to serve it with great "
+"speed, but everytime you make any changes you have to hit the \"Refresh "
+"Cache\" button, if your JSON file is cached by browser or CDN such as "
+"cloudflare change the Query Parameter value."
+msgstr ""
+"¡Advertencia! La carga de caché JSON precarga todos los datos para servirlos"
+" con gran velocidad, pero cada vez que realice algún cambio, deberá "
+"presionar el botón \"Actualizar caché\". Si su archivo JSON está almacenado "
+"en caché por el navegador o una CDN como Cloudflare, cambie el valor del "
+"parámetro de consulta."
 
-msgid "Warning! search will pinpoint the nearest available store, and will NOT center to actual location"
-msgstr "¡Advertencia! La búsqueda localizará la tienda disponible más cercana y NO se centrará en la ubicación real."
+msgid ""
+"Warning! search will pinpoint the nearest available store, and will NOT "
+"center to actual location"
+msgstr ""
+"¡Advertencia! La búsqueda localizará la tienda disponible más cercana y NO "
+"se centrará en la ubicación real."
 
-msgid "Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!"
-msgstr "¡Atención! La configuración existente se eliminará y se reemplazará, incluyendo las personalizaciones que haya realizado a través de la sección Personalizador."
+msgid ""
+"Warning! the existing configuration will be removed and replaced including "
+"the customizations that you have made through the Customizer section!"
+msgstr ""
+"¡Atención! La configuración existente se eliminará y se reemplazará, "
+"incluyendo las personalizaciones que haya realizado a través de la sección "
+"Personalizador."
 
 msgid "Watch :: Import Stores Tutorial"
 msgstr "Ver :: Tutorial de importación de tiendas"
@@ -4832,8 +5444,13 @@ msgstr "Ver en YouTube"
 msgid "Watch tutorial"
 msgstr "Mira el tutorial"
 
-msgid "We will respond as soon as possible to resolve your problem, please include (\"Store Locator\" in the Subject) to avoid the spam list."
-msgstr "Le responderemos lo antes posible para resolver su problema. Por favor, incluya (\"Localizador de tiendas\" en el asunto) para evitar que su solicitud termine en la lista de correo no deseado."
+msgid ""
+"We will respond as soon as possible to resolve your problem, please include "
+"(\"Store Locator\" in the Subject) to avoid the spam list."
+msgstr ""
+"Le responderemos lo antes posible para resolver su problema. Por favor, "
+"incluya (\"Localizador de tiendas\" en el asunto) para evitar que su "
+"solicitud termine en la lista de correo no deseado."
 
 msgid "Website"
 msgstr "Sitio web"
@@ -4862,8 +5479,12 @@ msgstr "miércoles"
 msgid "Welcome to Agile Store Locator"
 msgstr "Bienvenido al Localizador de Tiendas Agile"
 
-msgid "We’ll prepare a new page with the Agile Store Locator shortcode already added."
-msgstr "Prepararemos una nueva página con el código abreviado del Localizador de Tiendas Agile ya añadido."
+msgid ""
+"We’ll prepare a new page with the Agile Store Locator shortcode already "
+"added."
+msgstr ""
+"Prepararemos una nueva página con el código abreviado del Localizador de "
+"Tiendas Agile ya añadido."
 
 msgid "What happens next?"
 msgstr "¿Qué sucederá después?"
@@ -4910,17 +5531,47 @@ msgstr "Sí"
 msgid "Yes, Remove"
 msgstr "Sí, eliminar"
 
-msgid "Yes, with the separate <a href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">Multi Store Addon for WooCommerce</a>. It adds store selection, local pickup, location-based inventory, and distance-rate shipping."
-msgstr "Sí, con el complemento independiente <a href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">Multi Store Addon para WooCommerce</a> . Este complemento añade selección de tienda, recogida local, inventario basado en la ubicación y tarifas de envío según la distancia."
+msgid ""
+"Yes, with the separate <a href=\"https://agilelogix.com/product/multi-store-"
+"addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Multi Store Addon for WooCommerce</a>. It adds store selection,"
+" local pickup, location-based inventory, and distance-rate shipping."
+msgstr ""
+"Sí, con el complemento independiente <a "
+"href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">Multi Store Addon para "
+"WooCommerce</a> . Este complemento añade selección de tienda, recogida "
+"local, inventario basado en la ubicación y tarifas de envío según la "
+"distancia."
 
-msgid "Yes, with the separate <a href=\"https://agilestorelocator.com/agile-sync-addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>. It automatically synchronizes store information between Google Sheets and Agile Store Locator."
-msgstr "Sí, con el <a href=\"https://agilelogix.com/product/agile-sync-addon/\" target=\"_blank\" rel=\"noopener noreferrer\">complemento Agile Sync (que</a> se instala por separado). Este sincroniza automáticamente la información de las tiendas entre Google Sheets y Agile Store Locator."
+msgid ""
+"Yes, with the separate <a href=\"https://agilestorelocator.com/agile-sync-"
+"addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>."
+" It automatically synchronizes store information between Google Sheets and "
+"Agile Store Locator."
+msgstr ""
+"Sí, con el <a href=\"https://agilelogix.com/product/agile-sync-addon/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">complemento Agile Sync "
+"(que</a> se instala por separado). Este sincroniza automáticamente la "
+"información de las tiendas entre Google Sheets y Agile Store Locator."
 
-msgid "Yes. Open <b>ASL Settings → Maps</b> and select the free map option. It can display your stores without a Google Maps account. Some address-search features may still require a separate free or paid search service."
-msgstr "Sí. Abre <b>Ajustes de ASL → Mapas</b> y selecciona la opción de mapa gratuito. Podrás ver tus tiendas sin necesidad de una cuenta de Google Maps. Algunas funciones de búsqueda de direcciones podrían requerir un servicio de búsqueda gratuito o de pago."
+msgid ""
+"Yes. Open <b>ASL Settings → Maps</b> and select the free map option. It can "
+"display your stores without a Google Maps account. Some address-search "
+"features may still require a separate free or paid search service."
+msgstr ""
+"Sí. Abre <b>Ajustes de ASL → Mapas</b> y selecciona la opción de mapa "
+"gratuito. Podrás ver tus tiendas sin necesidad de una cuenta de Google Maps."
+" Algunas funciones de búsqueda de direcciones podrían requerir un servicio "
+"de búsqueda gratuito o de pago."
 
-msgid "Yes. Shortcode options let you filter the locator by categories, stores, or other values, so each page can display a different group of locations."
-msgstr "Sí. Las opciones de código corto permiten filtrar el localizador por categorías, tiendas u otros valores, de modo que cada página pueda mostrar un grupo diferente de ubicaciones."
+msgid ""
+"Yes. Shortcode options let you filter the locator by categories, stores, or "
+"other values, so each page can display a different group of locations."
+msgstr ""
+"Sí. Las opciones de código corto permiten filtrar el localizador por "
+"categorías, tiendas u otros valores, de modo que cada página pueda mostrar "
+"un grupo diferente de ubicaciones."
 
 msgid "You are not allowed to perform this action."
 msgstr "No tienes permiso para realizar esta acción."
@@ -4929,7 +5580,8 @@ msgid "You are not allowed to search pages."
 msgstr "No tienes permiso para buscar en las páginas."
 
 msgid "You can add, edit, delete and organize store details."
-msgstr "Puedes añadir, editar, eliminar y organizar los detalles de la tienda."
+msgstr ""
+"Puedes añadir, editar, eliminar y organizar los detalles de la tienda."
 
 msgid "You can also visit our contact page for assistance."
 msgstr "También puede visitar nuestra página de contacto para obtener ayuda."
@@ -4986,10 +5638,16 @@ msgid "Your map needs setup"
 msgstr "Tu mapa necesita configuración"
 
 msgid "Your selected map service is ready for the store locator."
-msgstr "El servicio de mapas que has seleccionado ya está listo para el localizador de tiendas."
+msgstr ""
+"El servicio de mapas que has seleccionado ya está listo para el localizador "
+"de tiendas."
 
-msgid "Your site could not send the email. Please check WordPress email delivery and try again."
-msgstr "Tu sitio no pudo enviar el correo electrónico. Comprueba la entrega de correo de WordPress e inténtalo de nuevo."
+msgid ""
+"Your site could not send the email. Please check WordPress email delivery "
+"and try again."
+msgstr ""
+"Tu sitio no pudo enviar el correo electrónico. Comprueba la entrega de "
+"correo de WordPress e inténtalo de nuevo."
 
 msgid "Zip Code"
 msgstr "Código postal"
@@ -5003,8 +5661,12 @@ msgstr "Botón de zoom"
 msgid "Zoom Control (Old Style)"
 msgstr "Control de zoom (estilo antiguo)"
 
-msgid "Zoom value when a search is performed, it works only when radius circle is disabled."
-msgstr "El valor de zoom al realizar una búsqueda solo funciona cuando el círculo de radio está desactivado."
+msgid ""
+"Zoom value when a search is performed, it works only when radius circle is "
+"disabled."
+msgstr ""
+"El valor de zoom al realizar una búsqueda solo funciona cuando el círculo de"
+" radio está desactivado."
 
 msgid "Zoom value when store list item is clicked"
 msgstr "Valor de zoom al hacer clic en el elemento de la lista de la tienda"
@@ -5075,6 +5737,1339 @@ msgstr "tiendas seleccionadas"
 msgid "support@agilelogix.com"
 msgstr "soporte@agilelogix.com"
 
-msgid "we will get back to you as soon as possible, please include (\"Store Locator\" in the Subject) to avoid the spam list."
-msgstr "nos pondremos en contacto con usted lo antes posible, incluya (\"Localizador de tiendas\" en el Asunto) para evitar la lista de spam."
+msgid ""
+"we will get back to you as soon as possible, please include (\"Store "
+"Locator\" in the Subject) to avoid the spam list."
+msgstr ""
+"nos pondremos en contacto con usted lo antes posible, incluya (\"Localizador"
+" de tiendas\" en el Asunto) para evitar la lista de spam."
 
+#: admin/partials/attribute_special.php:32
+msgid "New Speciality"
+msgstr "Nueva especialidad"
+
+#: admin/partials/attribute_special.php:62
+msgid "Upgrade Plugin To View Your Analytics"
+msgstr "Actualiza el plugin para ver tus estadísticas"
+
+#: admin/partials/attribute_special.php:63
+msgid "License - $59"
+msgstr "Licencia - 59 $"
+
+#: admin/partials/dashboard.php:83
+msgid "Personalize the locator design, layout, filters and appearance."
+msgstr ""
+"Personaliza el diseño, la distribución, los filtros y la apariencia del "
+"localizador."
+
+#: admin/partials/dashboard.php:83
+msgid "Open Customizer"
+msgstr "Abrir el personalizador"
+
+#: admin/partials/dashboard.php:101
+msgid "Configured"
+msgstr "Configurado"
+
+#: admin/partials/dashboard.php:101
+msgid "Recommended"
+msgstr "Recomendado"
+
+#: admin/partials/dashboard.php:103
+msgid ""
+"Give every store its own page so customers can view details, share locations"
+" and get directions."
+msgstr ""
+"Crea una página para cada tienda para que los clientes puedan consultar sus "
+"detalles, compartir ubicaciones y obtener indicaciones."
+
+#: admin/partials/dashboard.php:105 admin/partials/dashboard.php:492
+#: admin/partials/dashboard.php:627
+msgid "Update Page"
+msgstr "Actualizar página"
+
+#: admin/partials/dashboard.php:106
+msgid "Store Page Settings"
+msgstr "Ajustes de la página de tienda"
+
+#: admin/partials/dashboard.php:107
+msgid "Edit in WordPress"
+msgstr "Editar en WordPress"
+
+#: admin/partials/dashboard.php:110
+msgid "Unique URL"
+msgstr "URL única"
+
+#: admin/partials/dashboard.php:110
+msgid "Each store gets its own page."
+msgstr "Cada tienda tiene su propia página."
+
+#: admin/partials/dashboard.php:111
+msgid "Easy to Share"
+msgstr "Fácil de compartir"
+
+#: admin/partials/dashboard.php:111
+msgid "Share on social media or anywhere."
+msgstr "Comparte en redes sociales o en cualquier otro lugar."
+
+#: admin/partials/dashboard.php:112
+msgid "Help customers plan their visit."
+msgstr "Ayuda a los clientes a planificar su visita."
+
+#: admin/partials/dashboard.php:122 admin/partials/dashboard.php:468
+msgid "Downtown Store"
+msgstr "Tienda del centro"
+
+#: admin/partials/dashboard.php:122
+msgid "Call Store"
+msgstr "Llamar a la tienda"
+
+#: admin/partials/dashboard.php:327
+msgid "Connect your Google account or use an existing API key."
+msgstr "Conecta tu cuenta de Google o utiliza una clave de API existente."
+
+#: admin/partials/dashboard.php:394
+msgid "Update Store Page"
+msgstr "Actualizar página de tienda"
+
+#: admin/partials/dashboard.php:394
+msgid "Create Store Page"
+msgstr "Crear página de tienda"
+
+#: admin/partials/dashboard.php:394
+msgid "Set up individual store detail pages on your website."
+msgstr ""
+"Configura páginas individuales con los detalles de las tiendas en tu sitio "
+"web."
+
+#: admin/partials/dashboard.php:400
+msgid "Open page editor"
+msgstr "Abrir el editor de páginas"
+
+#: admin/partials/dashboard.php:402
+msgid "This page is published. Updated options will take effect immediately."
+msgstr ""
+"Esta página está publicada. Las opciones actualizadas se aplicarán "
+"inmediatamente."
+
+#: admin/partials/dashboard.php:406
+msgid "This will be used as the base title for store pages."
+msgstr "Se utilizará como título base para las páginas de tiendas."
+
+#: admin/partials/dashboard.php:412
+msgid "Page options"
+msgstr "Opciones de la página"
+
+#: admin/partials/dashboard.php:412
+msgid "Choose what information to show on each store page."
+msgstr "Elige qué información mostrar en la página de cada tienda."
+
+#: admin/partials/dashboard.php:416
+msgid "Show map"
+msgstr "Mostrar mapa"
+
+#: admin/partials/dashboard.php:417
+msgid "Show business hours"
+msgstr "Mostrar horario comercial"
+
+#: admin/partials/dashboard.php:418
+msgid "Show closed days"
+msgstr "Mostrar días de cierre"
+
+#: admin/partials/dashboard.php:419
+msgid "Show descriptions"
+msgstr "Mostrar descripciones"
+
+#: admin/partials/dashboard.php:420
+msgid "Show categories"
+msgstr "Mostrar categorías"
+
+#: admin/partials/dashboard.php:421
+msgid "Show country in address"
+msgstr "Mostrar país en la dirección"
+
+#: admin/partials/dashboard.php:422
+msgid "Enable structured data"
+msgstr "Activar datos estructurados"
+
+#: admin/partials/dashboard.php:423
+msgid "Use coordinates for directions"
+msgstr "Utilizar coordenadas para las indicaciones"
+
+#: admin/partials/dashboard.php:437
+msgid "Display a map showing the store location."
+msgstr "Muestra un mapa con la ubicación de la tienda."
+
+#: admin/partials/dashboard.php:438
+msgid "Display the store’s opening hours."
+msgstr "Muestra el horario de apertura de la tienda."
+
+#: admin/partials/dashboard.php:439
+msgid "Include days when the store is closed in business hours."
+msgstr ""
+"Incluye en el horario comercial los días en los que la tienda está cerrada."
+
+#: admin/partials/dashboard.php:440
+msgid "Display the store descriptions when provided."
+msgstr "Muestra las descripciones de la tienda, si las hay."
+
+#: admin/partials/dashboard.php:441
+msgid "Display the categories assigned to the store."
+msgstr "Muestra las categorías asignadas a la tienda."
+
+#: admin/partials/dashboard.php:442
+msgid "Include the country in the store address."
+msgstr "Incluye el país en la dirección de la tienda."
+
+#: admin/partials/dashboard.php:443
+msgid "Add store structured data for search engines."
+msgstr ""
+"Añade datos estructurados de las tiendas para los motores de búsqueda."
+
+#: admin/partials/dashboard.php:444
+msgid "Use latitude and longitude instead of the address for directions."
+msgstr ""
+"Utiliza la latitud y la longitud en lugar de la dirección para obtener "
+"indicaciones."
+
+#: admin/partials/dashboard.php:463
+msgid "Preview"
+msgstr "Vista previa"
+
+#: admin/partials/dashboard.php:463
+msgid "Example layout with your selected options."
+msgstr "Ejemplo de distribución con las opciones seleccionadas."
+
+#: admin/partials/dashboard.php:469
+msgid "123 Main Street, Dubai"
+msgstr "Calle Mayor 123, Dubái"
+
+#: admin/partials/dashboard.php:469
+msgid ", UAE"
+msgstr ", EAU"
+
+#: admin/partials/dashboard.php:470
+msgid "Open now"
+msgstr "Abierto ahora"
+
+#: admin/partials/dashboard.php:471
+msgid "Sunday: Closed"
+msgstr "Domingo: cerrado"
+
+#: admin/partials/dashboard.php:474
+msgid "Visit our friendly team for local advice and in-store services."
+msgstr ""
+"Visita a nuestro amable equipo para recibir asesoramiento local y servicios "
+"en tienda."
+
+#: admin/partials/dashboard.php:475
+msgid "Electronics"
+msgstr "Electrónica"
+
+#: admin/partials/dashboard.php:475
+msgid "Accessories"
+msgstr "Accesorios"
+
+#: admin/partials/dashboard.php:476
+msgid "Example store map"
+msgstr "Mapa de tienda de ejemplo"
+
+#: admin/partials/dashboard.php:477
+msgid "Directions use store coordinates."
+msgstr "Las indicaciones utilizan las coordenadas de la tienda."
+
+#: admin/partials/dashboard.php:480
+msgid ""
+"Illustrative preview. Your theme and store details determine the final "
+"appearance."
+msgstr ""
+"Vista previa orientativa. El tema y los detalles de las tiendas determinan "
+"la apariencia final."
+
+#: admin/partials/dashboard.php:486
+msgid "Store shortcode"
+msgstr "Shortcode de tienda"
+
+#: admin/partials/dashboard.php:486
+msgid ""
+"The page ID, URL slug and permalink rules will be configured automatically."
+msgstr ""
+"El ID de la página, el slug de la URL y las reglas de enlaces permanentes se"
+" configurarán automáticamente."
+
+#: admin/partials/dashboard.php:490
+msgid ""
+"Your page title and store shortcode options will be updated. The page URL, "
+"other content and publishing status will be preserved."
+msgstr ""
+"Se actualizarán el título de la página y las opciones del shortcode de "
+"tienda. Se conservarán la URL de la página, el resto del contenido y el "
+"estado de publicación."
+
+#: admin/partials/dashboard.php:490
+msgid ""
+"A draft WordPress page will be created with the store shortcode. Review and "
+"publish it to make store details available to your customers."
+msgstr ""
+"Se creará un borrador de página de WordPress con el shortcode de la tienda. "
+"Revísalo y publícalo para que tus clientes puedan consultar los detalles de "
+"las tiendas."
+
+#: admin/partials/dashboard.php:596
+msgid "Copied"
+msgstr "Copiado"
+
+#: admin/partials/dashboard.php:597
+msgid "Shortcode copied."
+msgstr "Shortcode copiado."
+
+#: admin/partials/dashboard.php:599
+msgid "Unable to copy. Select and copy the shortcode manually."
+msgstr "No se ha podido copiar. Selecciona y copia el shortcode manualmente."
+
+#: admin/partials/dashboard.php:616
+msgid "Updating…"
+msgstr "Actualizando…"
+
+#: admin/partials/dashboard.php:616
+msgid "Creating…"
+msgstr "Creando…"
+
+#: admin/partials/dashboard.php:625
+msgid "Unable to create the page."
+msgstr "No se ha podido crear la página."
+
+#: admin/partials/manage-cards.php:186
+msgid "Card 0"
+msgstr "Tarjeta 0"
+
+#: admin/partials/manage_leads.php:30
+msgid "Manage Leads"
+msgstr "Administrar clientes potenciales"
+
+#: admin/partials/manage_leads.php:37
+msgid "Duration Selection"
+msgstr "Selección de duración"
+
+#: admin/partials/manage_leads.php:41
+msgid "Export Leads"
+msgstr "Exportar clientes potenciales"
+
+#: admin/partials/manage_leads.php:44
+msgid "Export Dealers"
+msgstr "Distribuidores de exportación"
+
+#: admin/partials/manage_leads.php:62
+msgid "Search Lead Name"
+msgstr "Buscar nombre de cliente potencial"
+
+#: admin/partials/manage_leads.php:63
+msgid "Search Lead Phone"
+msgstr "Buscar teléfono de cliente potencial"
+
+#: admin/partials/manage_leads.php:64
+msgid "Search Lead Email"
+msgstr "Correo electrónico de cliente potencial de búsqueda"
+
+#: admin/partials/manage_leads.php:66
+msgid "Search Store Title"
+msgstr "Buscar título de la tienda"
+
+#: admin/partials/manage_leads.php:72
+msgid "Lead Name"
+msgstr "Nombre de cliente potencial"
+
+#: admin/partials/manage_leads.php:73
+msgid "Lead Phone"
+msgstr "Teléfono principal"
+
+#: admin/partials/manage_leads.php:74
+msgid "Lead Email"
+msgstr "Correo electrónico principal"
+
+#: admin/partials/manage_leads.php:77
+msgid "Dated"
+msgstr "Con fecha de"
+
+#: admin/partials/shortcode-popup-html.php:36
+#: admin/partials/user_setting.php:1354
+msgid "Template 0 (Legacy)"
+msgstr "Plantilla 0 (heredada)"
+
+#: admin/partials/ui-customizer-dimensions.php:1
+msgid "Width or Height"
+msgstr "Anchura o altura"
+
+#: admin/partials/ui-customizer-dimensions.php:18
+msgid "Height"
+msgstr "Altura"
+
+#: admin/partials/ui-customizer-dimensions.php:18
+msgid "Height on phones"
+msgstr "Altura en móviles"
+
+#: admin/partials/ui-customizer-dimensions.php:21
+msgid "Same"
+msgstr "Igual"
+
+#: admin/partials/ui-customizer-dimensions.php:25
+msgid "e.g. 480px, 60vh"
+msgstr "p. ej., 480px, 60vh"
+
+#: admin/partials/ui-customizer-dimensions.php:27
+msgid "Width"
+msgstr "Anchura"
+
+#: admin/partials/ui-customizer-fields.php:11
+msgid "Secondary accent color"
+msgstr "Color de acento secundario"
+
+#: admin/partials/ui-customizer-fields.php:12
+msgid "Background of filter dropdown buttons"
+msgstr "Fondo de los botones desplegables de los filtros"
+
+#: admin/partials/ui-customizer-fields.php:13
+msgid "Text and icon color of filter dropdown buttons"
+msgstr ""
+"Color del texto y los iconos de los botones desplegables de los filtros"
+
+#: admin/partials/ui-customizer-fields.php:14
+msgid "Background of secondary action buttons"
+msgstr "Fondo de los botones de acción secundarios"
+
+#: admin/partials/ui-customizer-fields.php:15
+msgid "Border color of primary action buttons"
+msgstr "Color del borde de los botones de acción principales"
+
+#: admin/partials/ui-customizer-fields.php:16
+msgid "Text and icon color of secondary action buttons"
+msgstr "Color del texto y los iconos de los botones de acción secundarios"
+
+#: admin/partials/ui-customizer-fields.php:17
+msgid "Background behind store images; accepts transparent in Template 0"
+msgstr ""
+"Fondo de las imágenes de las tiendas; admite transparent en la plantilla 0"
+
+#: admin/partials/ui-customizer-fields.php:18
+msgid "Color of the locations count heading"
+msgstr "Color del encabezado del número de ubicaciones"
+
+#: admin/partials/ui-customizer-fields.php:19
+msgid "Text color of highlighted store rows"
+msgstr "Color del texto de las filas de tiendas resaltadas"
+
+#: admin/partials/ui-customizer-fields.php:20
+msgid "Background of the location search input"
+msgstr "Fondo del campo de búsqueda de ubicación"
+
+#: admin/partials/ui-customizer-fields.php:21
+msgid "Text color of the location search input"
+msgstr "Color del texto del campo de búsqueda de ubicación"
+
+#: admin/partials/ui-customizer-fields.php:22
+msgid "Placeholder color of the location search input"
+msgstr "Color del texto de ejemplo del campo de búsqueda de ubicación"
+
+#: admin/partials/ui-customizer-fields.php:23
+msgid "Border color of the location search input"
+msgstr "Color del borde del campo de búsqueda de ubicación"
+
+#: admin/partials/ui-customizer-fields.php:24
+msgid "Background of selected filter tabs"
+msgstr "Fondo de las pestañas de filtros seleccionadas"
+
+#: admin/partials/ui-customizer-fields.php:25
+msgid "Text color of selected filter tabs"
+msgstr "Color del texto de las pestañas de filtros seleccionadas"
+
+#: admin/partials/ui-customizer-fields.php:26
+msgid "Border color of selected filter tabs"
+msgstr "Color del borde de las pestañas de filtros seleccionadas"
+
+#: admin/partials/ui-customizer-fields.php:45
+msgid "Quick Style"
+msgstr "Estilo rápido"
+
+#: admin/partials/ui-customizer-fields.php:56
+#: admin/partials/ui-customizer-filters.php:23
+#: admin/partials/ui-customizer-filters.php:35
+#: admin/partials/ui-customizer-filters.php:64
+#: admin/partials/ui-customizer-filters.php:71
+#: admin/partials/ui-customizer-layout.php:33
+#: admin/partials/ui-customizer-layout.php:44
+#: admin/partials/user_setting.php:382 admin/partials/user_setting.php:392
+#: admin/partials/user_setting.php:1635 admin/partials/user_setting.php:1640
+msgid "PRO"
+msgstr "PRO"
+
+#: admin/partials/ui-customizer-fields.php:60
+msgid "Typography"
+msgstr "Tipografía"
+
+#: admin/partials/ui-customizer-fields.php:67
+#, php-format
+msgid "Color for %s"
+msgstr "Color de %s"
+
+#: admin/partials/ui-customizer-fields.php:70
+msgid "Corner radius of controls and cards, in pixels"
+msgstr "Radio de las esquinas de los controles y las tarjetas, en píxeles"
+
+#: admin/partials/ui-customizer-fields.php:71
+#, php-format
+msgid "Font size for %s, in pixels"
+msgstr "Tamaño de fuente de %s, en píxeles"
+
+#: admin/partials/ui-customizer-filters.php:6
+msgid "Enable Filters"
+msgstr "Activar filtros"
+
+#: admin/partials/ui-customizer-filters.php:6
+msgid "Show the advanced filter controls."
+msgstr "Muestra los controles de filtros avanzados."
+
+#: admin/partials/ui-customizer-filters.php:8
+msgid "Show cascading Country, State and City dropdowns."
+msgstr "Muestra desplegables en cascada de país, provincia y ciudad."
+
+#: admin/partials/ui-customizer-filters.php:9
+msgid "Search Inside Dropdowns"
+msgstr "Búsqueda en los desplegables"
+
+#: admin/partials/ui-customizer-filters.php:9
+msgid "Add a search box inside category and attribute dropdowns."
+msgstr ""
+"Añade un cuadro de búsqueda en los desplegables de categorías y atributos."
+
+#: admin/partials/ui-customizer-filters.php:10
+msgid "Brand–Speciality Cascade"
+msgstr "Filtros en cascada de marca y especialidad"
+
+#: admin/partials/ui-customizer-filters.php:10
+msgid "Limit Speciality options to the selected Brand."
+msgstr "Limita las opciones de especialidad a la marca seleccionada."
+
+#: admin/partials/ui-customizer-filters.php:11
+msgid "Require All Categories"
+msgstr "Exigir todas las categorías"
+
+#: admin/partials/ui-customizer-filters.php:11
+msgid ""
+"When enabled, stores must belong to every selected category. Otherwise, "
+"matching any category is enough."
+msgstr ""
+"Si se activa, las tiendas deben pertenecer a todas las categorías "
+"seleccionadas. De lo contrario, basta con que coincidan con alguna "
+"categoría."
+
+#: admin/partials/ui-customizer-filters.php:12
+msgid "Category Images"
+msgstr "Imágenes de categorías"
+
+#: admin/partials/ui-customizer-filters.php:12
+msgid "Show assigned icons in the category filter."
+msgstr "Muestra los iconos asignados en el filtro de categorías."
+
+#: admin/partials/ui-customizer-filters.php:13
+msgid "Category Image Labels"
+msgstr "Etiquetas de las imágenes de categorías"
+
+#: admin/partials/ui-customizer-filters.php:13
+msgid "Show category names alongside their icons."
+msgstr "Muestra los nombres de las categorías junto a sus iconos."
+
+#: admin/partials/ui-customizer-filters.php:14
+msgid "Open Now Filter"
+msgstr "Filtro de abiertas ahora"
+
+#: admin/partials/ui-customizer-filters.php:14
+msgid "Let visitors display stores that are currently open."
+msgstr ""
+"Permite a los visitantes mostrar las tiendas que están abiertas en este "
+"momento."
+
+#: admin/partials/ui-customizer-filters.php:15
+msgid "Open Now by Default"
+msgstr "Abiertas ahora de forma predeterminada"
+
+#: admin/partials/ui-customizer-filters.php:15
+msgid "Initially display only stores that are currently open."
+msgstr ""
+"Muestra inicialmente solo las tiendas que están abiertas en este momento."
+
+#: admin/partials/ui-customizer-filters.php:16
+msgid "Distance Filter"
+msgstr "Filtro de distancia"
+
+#: admin/partials/ui-customizer-filters.php:16
+msgid "Let visitors restrict results by distance."
+msgstr "Permite a los visitantes limitar los resultados por distancia."
+
+#: admin/partials/ui-customizer-filters.php:32
+msgid "Filter Controls"
+msgstr "Controles de filtros"
+
+#: admin/partials/ui-customizer-filters.php:35
+msgid "Choose Brand, Speciality and registered custom attribute filters."
+msgstr ""
+"Elige los filtros de marca, especialidad y atributos personalizados "
+"registrados."
+
+#: admin/partials/ui-customizer-filters.php:43
+msgid "Filter Option Order"
+msgstr "Orden de las opciones de los filtros"
+
+#: admin/partials/ui-customizer-filters.php:43
+msgid ""
+"Sort category and attribute options alphabetically or by their custom order."
+msgstr ""
+"Ordena las opciones de categorías y atributos alfabéticamente o según su "
+"orden personalizado."
+
+#: admin/partials/ui-customizer-filters.php:44
+msgid "Custom order"
+msgstr "Orden personalizado"
+
+#: admin/partials/ui-customizer-filters.php:44
+msgid "Alphabetical"
+msgstr "Alfabético"
+
+#: admin/partials/ui-customizer-filters.php:53
+msgid "Selected Categories"
+msgstr "Categorías seleccionadas"
+
+#: admin/partials/ui-customizer-filters.php:53
+msgid "Select categories that are active when the locator loads."
+msgstr ""
+"Selecciona las categorías que estarán activas al cargar el localizador."
+
+#: admin/partials/ui-customizer-filters.php:57
+msgid "Availability"
+msgstr "Disponibilidad"
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Distance Control Style"
+msgstr "Estilo del control de distancia"
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Choose how visitors set the search distance."
+msgstr "Elige cómo pueden los visitantes establecer la distancia de búsqueda."
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Map Boundary"
+msgstr "Límites del mapa"
+
+#: admin/partials/ui-customizer-filters.php:65
+msgid "Fixed Radius"
+msgstr "Radio fijo"
+
+#: admin/partials/ui-customizer-filters.php:65
+msgid ""
+"Restrict results to a fixed distance without a visitor-controlled radius."
+msgstr ""
+"Limita los resultados a una distancia fija sin que el visitante pueda "
+"ajustar el radio."
+
+#: admin/partials/ui-customizer-filters.php:69
+msgid "Secondary Search"
+msgstr "Búsqueda secundaria"
+
+#: admin/partials/ui-customizer-filters.php:71
+msgid "Secondary Store Search"
+msgstr "Búsqueda secundaria de tiendas"
+
+#: admin/partials/ui-customizer-filters.php:71
+msgid "Choose the store fields searched by the secondary search box."
+msgstr ""
+"Elige los campos de las tiendas en los que buscará el cuadro de búsqueda "
+"secundario."
+
+#: admin/partials/ui-customizer-layout.php:2
+msgid "Left"
+msgstr "Izquierda"
+
+#: admin/partials/ui-customizer-layout.php:2
+msgid "Right"
+msgstr "Derecha"
+
+#: admin/partials/ui-customizer-layout.php:4
+msgid "Below Map"
+msgstr "Debajo del mapa"
+
+#: admin/partials/ui-customizer-layout.php:5
+msgid "Card Grid"
+msgstr "Cuadrícula de tarjetas"
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Sort By"
+msgstr "Mostrar ordenación"
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Directions Button"
+msgstr "Mostrar botón de indicaciones"
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Website Button"
+msgstr "Mostrar botón del sitio web"
+
+#: admin/partials/ui-customizer-layout.php:13
+#: admin/partials/ui-customizer-layout.php:49
+#: admin/partials/user_setting.php:1640
+msgid "Checkboxes"
+msgstr "Casillas de selección"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1790
+msgid "Action Button Content"
+msgstr "Contenido de los botones de acción"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1795
+msgid "Icons only"
+msgstr "Solo iconos"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1800
+msgid "Text only"
+msgstr "Solo texto"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1805
+msgid "Icons and text"
+msgstr "Iconos y texto"
+
+#: admin/partials/ui-customizer-layout.php:17
+#: admin/partials/ui-customizer-layout.php:18
+msgid "Result Layout"
+msgstr "Distribución de resultados"
+
+#: admin/partials/ui-customizer-layout.php:33
+msgid "List / Map Proportion"
+msgstr "Proporción de lista/mapa"
+
+#: admin/partials/ui-customizer-layout.php:33
+msgid "Desktop"
+msgstr "Escritorio"
+
+#: admin/partials/ui-customizer-layout.php:36
+msgid "List and map stack on this screen size, each at 100% width."
+msgstr ""
+"En este tamaño de pantalla, la lista y el mapa se apilan y cada uno ocupa el"
+" 100% del ancho."
+
+#: admin/partials/ui-customizer-layout.php:38
+msgid "Result Layout is available for Templates 0, 1, 2, 3, 5 and 6."
+msgstr ""
+"La distribución de resultados está disponible para las plantillas 0, 1, 2, "
+"3, 5 y 6."
+
+#: admin/partials/ui-customizer-layout.php:56
+msgid ""
+"Layout and proportions are saved for this template. Appearance settings also"
+" apply to your other store locators."
+msgstr ""
+"La distribución y las proporciones se guardan para esta plantilla. Los "
+"ajustes de apariencia también se aplican a tus otros localizadores de "
+"tiendas."
+
+#: admin/partials/ui-customizer.php:4
+msgid "UI Customizer"
+msgstr "Personalizador de interfaz"
+
+#: admin/partials/ui-customizer.php:5
+msgid "Design the layout, filters and appearance of your store locator."
+msgstr ""
+"Diseña la distribución, los filtros y la apariencia de tu localizador de "
+"tiendas."
+
+#: admin/partials/ui-customizer.php:17
+msgid "Included"
+msgstr "Incluido"
+
+#: admin/partials/ui-customizer.php:27
+msgid "List Template — Pro"
+msgstr "Plantilla de lista — Pro"
+
+#: admin/partials/ui-customizer.php:28
+msgid "List Template 2 — Pro"
+msgstr "Plantilla de lista 2 — Pro"
+
+#: admin/partials/ui-customizer.php:41
+msgid "9 more templates in Pro"
+msgstr "9 plantillas más en Pro"
+
+#: admin/partials/ui-customizer.php:48
+msgid "Customizer settings"
+msgstr "Ajustes del personalizador"
+
+#: admin/partials/ui-customizer.php:58
+msgid "Settings panel"
+msgstr "Panel de ajustes"
+
+#: admin/partials/ui-customizer.php:61
+msgid "Design"
+msgstr "Diseño"
+
+#: admin/partials/ui-customizer.php:62
+msgid "Customize your store locator in real time."
+msgstr "Personaliza tu localizador de tiendas en tiempo real."
+
+#: admin/partials/ui-customizer.php:64
+msgid "Close settings panel"
+msgstr "Cerrar el panel de ajustes"
+
+#: admin/partials/ui-customizer.php:70
+msgid "Loading customizer..."
+msgstr "Cargando el personalizador..."
+
+#: admin/partials/ui-customizer.php:77
+msgid "Live store locator preview"
+msgstr "Vista previa en directo del localizador de tiendas"
+
+#: admin/partials/ui-customizer.php:79
+msgid "Preview device"
+msgstr "Dispositivo de vista previa"
+
+#: admin/partials/ui-customizer.php:89
+msgid "Store locator live preview"
+msgstr "Vista previa en directo del localizador de tiendas"
+
+#: admin/partials/user_setting.php:820
+msgid ""
+"Fine-tune search behavior, category logic, analytics, and multilingual store"
+" data."
+msgstr ""
+"Ajusta el comportamiento de búsqueda, la lógica de las categorías, las "
+"estadísticas y los datos multilingües de las tiendas."
+
+#: admin/partials/user_setting.php:1324
+msgid "Additional UI templates are a Pro feature"
+msgstr "Las plantillas de interfaz adicionales son una función de Pro"
+
+#: admin/partials/user_setting.php:1325
+msgid "Upgrade to use additional UI templates and InfoBox layouts."
+msgstr ""
+"Actualiza a Pro para utilizar plantillas de interfaz y diseños de InfoBox "
+"adicionales."
+
+#: admin/partials/user_setting.php:1643
+msgid "Choose how category filters appear in the store locator."
+msgstr ""
+"Elige cómo se muestran los filtros de categorías en el localizador de "
+"tiendas."
+
+#: admin/partials/user_setting.php:1808
+msgid "Choose how action buttons appear in the store list."
+msgstr "Elige cómo se muestran los botones de acción en la lista de tiendas."
+
+#: admin/partials/user_setting.php:1809
+msgid "(Supported in Template 0 Only)"
+msgstr "(Solo compatible con la plantilla 0)"
+
+#: includes/admin/dashboard.php:183
+msgid ""
+"The connected Store Page is missing or unavailable. Review its page ID in "
+"Store Page Settings."
+msgstr ""
+"La página de tienda conectada no existe o no está disponible. Revisa su ID "
+"en los ajustes de la página de tienda."
+
+#: includes/admin/dashboard.php:187
+msgid ""
+"This page uses a page builder. Edit the store shortcode in the page editor "
+"to preserve its layout."
+msgstr ""
+"Esta página utiliza un maquetador. Edita el shortcode de tienda en el editor"
+" de páginas para conservar su distribución."
+
+#: includes/admin/dashboard.php:195
+msgid ""
+"This page uses a page builder or custom blocks. Edit the store shortcode in "
+"the page editor to preserve its layout."
+msgstr ""
+"Esta página utiliza un maquetador o bloques personalizados. Edita el "
+"shortcode de tienda en el editor de páginas para conservar su distribución."
+
+#: includes/admin/dashboard.php:200
+msgid ""
+"No store shortcode was found in the page content. Open the page editor to "
+"add or update it."
+msgstr ""
+"No se ha encontrado ningún shortcode de tienda en el contenido de la página."
+" Abre el editor de páginas para añadirlo o actualizarlo."
+
+#: includes/admin/dashboard.php:203
+msgid ""
+"This page contains multiple store shortcodes. Update the intended shortcode "
+"in the page editor."
+msgstr ""
+"Esta página contiene varios shortcodes de tienda. Actualiza el shortcode "
+"correspondiente en el editor de páginas."
+
+#: includes/admin/dashboard.php:209
+msgid ""
+"The store shortcode is not in a supported standalone format. Update it in "
+"the page editor."
+msgstr ""
+"El shortcode de tienda no tiene un formato independiente compatible. "
+"Actualízalo en el editor de páginas."
+
+#: includes/admin/dashboard.php:262
+msgid "You cannot create pages."
+msgstr "No puedes crear páginas."
+
+#: includes/admin/dashboard.php:281
+msgid "You cannot edit this page."
+msgstr "No puedes editar esta página."
+
+#: includes/admin/dashboard.php:286
+msgid ""
+"The page changed since this dashboard was loaded. Reload the dashboard "
+"before updating it."
+msgstr ""
+"La página ha cambiado desde que se cargó este escritorio. Recarga el "
+"escritorio antes de actualizarla."
+
+#: includes/admin/dashboard.php:380
+msgid ""
+"The page exists, but its settings could not be saved. Connect it in Store "
+"Page Settings."
+msgstr ""
+"La página existe, pero no se han podido guardar sus ajustes. Conéctala en "
+"los ajustes de la página de tienda."
+
+#: includes/admin/google-connect.php:30
+msgid "Starting Google setup…"
+msgstr "Iniciando la configuración de Google…"
+
+#: includes/admin/google-connect.php:31
+msgid "Continue Google setup on Agilelogix"
+msgstr "Continuar la configuración de Google en Agilelogix"
+
+#: includes/admin/google-connect.php:32
+msgid "Complete setup in the Agilelogix tab, then check the connection here."
+msgstr ""
+"Completa la configuración en la pestaña de Agilelogix y después comprueba la"
+" conexión aquí."
+
+#: includes/admin/google-connect.php:33
+msgid "Checking the connection and server key…"
+msgstr "Comprobando la conexión y la clave del servidor…"
+
+#: includes/admin/google-connect.php:34
+msgid "The connection could not be completed. Please retry."
+msgstr "No se ha podido completar la conexión. Vuelve a intentarlo."
+
+#: includes/admin/google-connect.php:35
+msgid ""
+"Your keys are saved and the server key is verified. Reload this panel, then "
+"choose Save and Verify to finish Google Maps setup."
+msgstr ""
+"Tus claves están guardadas y la clave del servidor está verificada. Recarga "
+"este panel y selecciona Guardar y verificar para finalizar la configuración "
+"de Google Maps."
+
+#: includes/admin/google-connect.php:50
+msgid "Connect with Google"
+msgstr "Conectar con Google"
+
+#: includes/admin/google-connect.php:50
+msgid "Secure & Automated"
+msgstr "Seguro y automatizado"
+
+#: includes/admin/google-connect.php:50
+msgid "We’ll set up Google Maps for your website automatically."
+msgstr "Configuraremos Google Maps automáticamente para tu sitio web."
+
+#: includes/admin/google-connect.php:52
+msgid "Creates restricted browser and server API keys"
+msgstr "Crea claves de API restringidas para el navegador y el servidor"
+
+#: includes/admin/google-connect.php:52
+msgid "Enables required Google Maps APIs"
+msgstr "Activa las API de Google Maps necesarias"
+
+#: includes/admin/google-connect.php:52
+msgid "Offers daily limits to help manage free usage"
+msgstr "Ofrece límites diarios para ayudar a gestionar el uso gratuito"
+
+#: includes/admin/google-connect.php:52
+msgid "Secures keys for your website and server"
+msgstr "Protege las claves para tu sitio web y servidor"
+
+#: includes/admin/google-connect.php:54
+msgid "Usage limits configured"
+msgstr "Límites de uso configurados"
+
+#: includes/admin/google-connect.php:54
+msgid "Review in Google Cloud"
+msgstr "Revisar en Google Cloud"
+
+#: includes/admin/google-connect.php:54
+msgid ""
+"Verified during setup. Changes in Google Cloud are not monitored. A $0 bill "
+"is not guaranteed."
+msgstr ""
+"Verificado durante la configuración. No se supervisan los cambios en Google "
+"Cloud. No se garantiza una factura de 0 $."
+
+#: includes/admin/google-connect.php:56
+msgid "Your website"
+msgstr "Tu sitio web"
+
+#: includes/admin/google-connect.php:57
+msgid "Include subdomains of this website"
+msgstr "Incluir los subdominios de este sitio web"
+
+#: includes/admin/google-connect.php:59
+msgid "Connect Google Maps"
+msgstr "Conectar Google Maps"
+
+#: includes/admin/google-connect.php:61
+msgid "Check connection"
+msgstr "Comprobar conexión"
+
+#: includes/admin/google-connect.php:63
+msgid "or"
+msgstr "o"
+
+#: includes/admin/google-connect.php:63
+msgid "Enter API keys manually"
+msgstr "Introducir las claves de API manualmente"
+
+#: includes/admin/google-connect.php:64
+msgid "Uses your Google Cloud project. Google bills usage directly to you."
+msgstr ""
+"Utiliza tu proyecto de Google Cloud. Google te factura el uso directamente."
+
+#: includes/admin/google-connect.php:66
+msgid "Reload and finish setup"
+msgstr "Recargar y finalizar la configuración"
+
+#: includes/admin/google-connect.php:72
+msgid "Administrator access is required."
+msgstr "Se requiere acceso de administrador."
+
+#: includes/admin/google-connect.php:79
+msgid "The Google connection service requires a valid HTTPS URL."
+msgstr "El servicio de conexión con Google requiere una URL HTTPS válida."
+
+#: includes/admin/google-connect.php:84
+msgid ""
+"The Agilelogix Google connection service could not be reached. Please retry "
+"later."
+msgstr ""
+"No se ha podido acceder al servicio de conexión con Google de Agilelogix. "
+"Vuelve a intentarlo más tarde."
+
+#: includes/admin/google-connect.php:86
+msgid ""
+"The Agilelogix Google connection service is unavailable or has not been "
+"deployed yet."
+msgstr ""
+"El servicio de conexión con Google de Agilelogix no está disponible o aún no"
+" se ha implementado."
+
+#: includes/admin/google-connect.php:87
+msgid "Google setup could not continue."
+msgstr "No se ha podido continuar con la configuración de Google."
+
+#: includes/admin/google-connect.php:98
+msgid "Please wait a few seconds before starting again."
+msgstr "Espera unos segundos antes de volver a empezar."
+
+#: includes/admin/google-connect.php:111
+msgid "The connection service returned an invalid session."
+msgstr "El servicio de conexión ha devuelto una sesión no válida."
+
+#: includes/admin/google-connect.php:113
+msgid "Could not save the temporary connection. Please retry."
+msgstr "No se ha podido guardar la conexión temporal. Vuelve a intentarlo."
+
+#: includes/admin/google-connect.php:120
+msgid "Connection expired. Please start Google setup again."
+msgstr "La conexión ha caducado. Inicia de nuevo la configuración de Google."
+
+#: includes/admin/google-connect.php:124
+msgid "Another connection check is running. Please retry shortly."
+msgstr ""
+"Ya hay otra comprobación de conexión en curso. Vuelve a intentarlo en unos "
+"instantes."
+
+#: includes/admin/google-connect.php:126
+msgid "The connection could not be saved. Please retry."
+msgstr "No se ha podido guardar la conexión. Vuelve a intentarlo."
+
+#: includes/admin/google-connect.php:143
+msgid "Finish setup on Agilelogix first."
+msgstr "Completa primero la configuración en Agilelogix."
+
+#: includes/admin/google-connect.php:145
+msgid "The connection service returned an invalid key."
+msgstr "El servicio de conexión ha devuelto una clave no válida."
+
+#: includes/admin/google-connect.php:148
+msgid ""
+"Could not reach Google from this server. Existing keys were not changed."
+msgstr ""
+"No se ha podido conectar con Google desde este servidor. Las claves "
+"existentes no se han modificado."
+
+#: includes/admin/google-connect.php:150
+msgid ""
+"Google has not accepted the server key yet. Wait a few minutes for "
+"restrictions to propagate, then retry. If it still fails, check the public "
+"outbound IP addresses, billing and Geocoding API in Google Cloud. Existing "
+"keys were not changed."
+msgstr ""
+"Google aún no ha aceptado la clave del servidor. Espera unos minutos a que "
+"se apliquen las restricciones y vuelve a intentarlo. Si el problema "
+"persiste, comprueba las direcciones IP públicas de salida, la facturación y "
+"la API de geocodificación en Google Cloud. Las claves existentes no se han "
+"modificado."
+
+#: includes/admin/google-connect.php:152
+msgid ""
+"Google key settings are missing. Repair or update the plugin before "
+"connecting."
+msgstr ""
+"Faltan los ajustes de las claves de Google. Repara o actualiza el plugin "
+"antes de conectarlo."
+
+#: includes/admin/google-connect.php:155
+msgid "Could not save Google keys. Please retry."
+msgstr "No se han podido guardar las claves de Google. Vuelve a intentarlo."
+
+#: includes/admin/google-connect.php:157
+msgid "Could not verify saved Google keys. Please retry."
+msgstr ""
+"No se han podido verificar las claves de Google guardadas. Vuelve a "
+"intentarlo."
+
+#: includes/admin/google-maps-authorization.php:38
+msgid "Automatic setup is not configured on this site."
+msgstr "La configuración automática no está habilitada en este sitio."
+
+#: includes/admin/google-maps-authorization.php:64
+msgid "You are not allowed to configure Google Maps."
+msgstr "No tienes permiso para configurar Google Maps."
+
+#: includes/admin/google-maps-authorization.php:65
+msgid "Google Maps authorization"
+msgstr "Autorización de Google Maps"
+
+#: includes/admin/google-maps-authorization.php:77
+msgid "Google authorization was cancelled or denied."
+msgstr "La autorización de Google se ha cancelado o denegado."
+
+#: includes/admin/google-maps-authorization.php:81
+msgid "Google authorization could not be verified. Please try again."
+msgstr ""
+"No se ha podido verificar la autorización de Google. Vuelve a intentarlo."
+
+#: includes/admin/google-maps-authorization.php:97
+msgid "Google did not return an access token."
+msgstr "Google no ha devuelto un token de acceso."
+
+#: includes/admin/google-maps-authorization.php:102
+msgid "Google Cloud authorization succeeded. Select a project to continue."
+msgstr ""
+"La autorización de Google Cloud se ha completado correctamente. Selecciona "
+"un proyecto para continuar."
+
+#: includes/admin/google-maps-authorization.php:136
+msgid "Select a Google Cloud project."
+msgstr "Selecciona un proyecto de Google Cloud."
+
+#: includes/admin/google-maps-authorization.php:142
+msgid "The selected Google Cloud project could not be verified."
+msgstr "No se ha podido verificar el proyecto de Google Cloud seleccionado."
+
+#: includes/admin/google-maps-authorization.php:188
+msgid "Google created the key but did not return its resource name."
+msgstr "Google ha creado la clave, pero no ha devuelto el nombre del recurso."
+
+#: includes/admin/google-maps-authorization.php:193
+msgid "The generated API key could not be retrieved."
+msgstr "No se ha podido obtener la clave de API generada."
+
+#: includes/admin/google-maps-authorization.php:198
+msgid "The key was created but could not be saved in WordPress."
+msgstr "La clave se ha creado, pero no se ha podido guardar en WordPress."
+
+#: includes/admin/google-maps-authorization.php:207
+msgid ""
+"Google Maps APIs and restrictions were configured. Verifying the generated "
+"key…"
+msgstr ""
+"Se han configurado las API de Google Maps y sus restricciones. Verificando "
+"la clave generada…"
+
+#: includes/admin/google-maps-authorization.php:215
+msgid "Google authorization expired. Please connect again."
+msgstr "La autorización de Google ha caducado. Vuelve a conectarte."
+
+#: includes/admin/google-maps-authorization.php:229
+msgid "Google did not return an operation identifier."
+msgstr "Google no ha devuelto un identificador de operación."
+
+#: includes/admin/google-maps-authorization.php:241
+msgid "Google Cloud configuration is taking too long. Please try again."
+msgstr ""
+"La configuración de Google Cloud está tardando demasiado. Vuelve a "
+"intentarlo."
+
+#: includes/admin/google-maps-authorization.php:252
+msgid "Google Cloud rejected the request."
+msgstr "Google Cloud ha rechazado la solicitud."
+
+#: includes/admin/lead.php:68
+msgid "Leads deleted successfully."
+msgstr "Clientes potenciales eliminados con éxito."
+
+#: includes/admin/lead.php:68
+msgid "Lead deleted successfully."
+msgstr "Cliente potencial eliminado con éxito."
+
+#: includes/admin/lead.php:93
+msgid "Lead Updated Successfully."
+msgstr "Cliente potencial actualizado con éxito."
+
+#: includes/admin/manager.php:494
+msgid "Discard unsaved changes and load this template?"
+msgstr "¿Descartar los cambios sin guardar y cargar esta plantilla?"
+
+#: includes/admin/setting.php:655
+msgid "Cache JSON has been generated successfully for language "
+msgstr "La caché JSON se ha generado correctamente para el idioma "
+
+#: includes/admin/setting.php:657
+msgid "Cache JSON is disabled for language "
+msgstr "La caché JSON está desactivada para el idioma "
+
+#: includes/admin/setting.php:1056 includes/admin/setting.php:1731
+#: includes/admin/setting.php:1855
+msgid "Invalid template identifier."
+msgstr "Identificador de plantilla no válido."
+
+#: includes/admin/setting.php:1735
+msgid "Invalid Quick Style."
+msgstr "Estilo rápido no válido."
+
+#: includes/admin/setting.php:1741
+msgid "Enter a positive CSS size, for example 480px, 60vh or 100%."
+msgstr "Introduce un tamaño CSS positivo, por ejemplo, 480px, 60vh o 100%."
+
+#: includes/admin/setting.php:1749
+msgid "List / Map Proportion is available in Agile Store Locator Pro."
+msgstr ""
+"La proporción de lista/mapa está disponible en Agile Store Locator Pro."
+
+#: includes/admin/setting.php:1753
+msgid "Invalid list/map proportion."
+msgstr "Proporción de lista/mapa no válida."
+
+#: includes/admin/setting.php:1760
+msgid "Invalid appearance settings."
+msgstr "Ajustes de apariencia no válidos."
+
+#: includes/admin/setting.php:1766
+msgid "Invalid appearance setting."
+msgstr "Ajuste de apariencia no válido."
+
+#: includes/admin/setting.php:1770
+msgid "Tabs Layout is available in Agile Store Locator Pro."
+msgstr ""
+"La distribución en pestañas está disponible en Agile Store Locator Pro."
+
+#: includes/admin/setting.php:1777
+msgid "Invalid filter settings."
+msgstr "Ajustes de filtros no válidos."
+
+#: includes/admin/setting.php:1785 includes/admin/setting.php:1798
+msgid "Invalid filter setting."
+msgstr "Ajuste de filtro no válido."
+
+#: includes/admin/setting.php:1816
+msgid "Unable to save appearance settings. Please try again."
+msgstr ""
+"No se han podido guardar los ajustes de apariencia. Vuelve a intentarlo."
+
+#: includes/admin/setting.php:1825
+msgid "Unable to save filter settings. Please try again."
+msgstr "No se han podido guardar los ajustes de filtros. Vuelve a intentarlo."
+
+#: includes/admin/store-lite.php:672
+msgid "Error! Update id not found."
+msgstr "¡Error! No se ha encontrado el ID de actualización."
+
+#: includes/cron/store-cron.php:144
+msgid "Store Locator Cron Imported Files: "
+msgstr "Store Locator Cron Archivos importados:"
+
+#: includes/frontend/app.php:104
+msgid "You cannot access this preview."
+msgstr "No puedes acceder a esta vista previa."
+
+#: includes/frontend/app.php:111
+msgid ""
+"The WooCommerce add-on preview requires a product page. You can edit and "
+"save its colors and fonts here."
+msgstr ""
+"La vista previa del complemento de WooCommerce requiere una página de "
+"producto. Puedes editar y guardar aquí sus colores y fuentes."
+
+#: includes/frontend/app.php:111
+msgid "WooCommerce preview"
+msgstr "Vista previa de WooCommerce"
+
+#: includes/model/label.php:167
+msgid "Nearest"
+msgstr "Más cercanas"
+
+#: includes/model/label.php:278
+msgid "Browse by Category"
+msgstr "Explorar por categoría"
+
+#: includes/model/label.php:279
+msgid "Pick a Category to see Nearly Stores"
+msgstr "Elige una categoría para ver las tiendas cercanas"
+
+#: includes/model/label.php:280
+msgid "within"
+msgstr "en un radio de"
+
+#: includes/model/label.php:281
+msgid "mi"
+msgstr "mi"
+
+#: includes/model/label.php:282
+msgid "km"
+msgstr "km"
+
+#: includes/model/lead.php:56
+msgid "Store Locator Lead Follow-up"
+msgstr "Localizador de tiendas Seguimiento de clientes potenciales"
+
+#: includes/model/lead.php:65
+msgid "This is a follow-up email for the store: "
+msgstr "Este es un correo electrónico de seguimiento para la tienda:"
+
+#: includes/model/lead.php:66
+msgid "Full Name: "
+msgstr "Nombre completo:"
+
+#: includes/model/lead.php:67
+msgid "Email Address: "
+msgstr "Dirección de correo electrónico:"
+
+#: includes/model/lead.php:68
+msgid "Phone: "
+msgstr "Teléfono:"
+
+#: includes/model/lead.php:69
+msgid "Postal Code: "
+msgstr "Código postal:"
+
+#: includes/model/lead.php:73
+msgid "Message: "
+msgstr "Mensaje:"

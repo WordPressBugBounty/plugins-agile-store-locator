@@ -170,7 +170,7 @@ class Manager extends Base {
     $asl_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
 
     if ('sl-ui-customizer' === $asl_page) {
-      wp_enqueue_style( 'asl_ui_customizer', ASL_URL_PATH . 'admin/css/ui-customizer.css', array(), $this->version, 'all' );
+      wp_enqueue_style( 'asl_ui_customizer', ASL_URL_PATH . 'admin/css/ui-customizer.css', array(), filemtime(ASL_PLUGIN_PATH . 'admin/css/ui-customizer.css'), 'all' );
       return;
     }
 
@@ -284,7 +284,7 @@ class Manager extends Base {
     wp_register_script( $this->AgileStoreLocator.'-dashboard', ASL_URL_PATH . 'admin/js/dashboard.js', array('jquery', $this->AgileStoreLocator.'-lib', $this->AgileStoreLocator.'-datetimepicker'), $this->version, false );
 
     // UI Customizer
-    wp_register_script( $this->AgileStoreLocator.'-ui-customizer', ASL_URL_PATH . 'admin/js/ui-customizer.js', array('jquery'), $this->version, true );
+    wp_register_script( $this->AgileStoreLocator.'-ui-customizer', ASL_URL_PATH . 'admin/js/ui-customizer.js', array('jquery'), filemtime(ASL_PLUGIN_PATH . 'admin/js/ui-customizer.js'), true );
   }
 
   /**
@@ -483,12 +483,15 @@ class Manager extends Base {
     wp_localize_script($this->AgileStoreLocator.'-ui-customizer', 'ASL_CUSTOMIZER', array(
       'ajaxUrl' => admin_url('admin-ajax.php'),
       'nonce'   => wp_create_nonce('asl-nounce'),
+      'previewUrl' => add_query_arg(array('asl-customizer-preview' => '1', '_wpnonce' => wp_create_nonce('asl-customizer-preview')), home_url('/')),
+      'template' => 'template-' . \AgileStoreLocator\Helper::get_configs('template'),
       'strings' => array(
         'loading'    => esc_html__('Loading…', 'asl_locator'),
         'saving'     => esc_html__('Saving…', 'asl_locator'),
         'saved'      => esc_html__('Settings saved successfully.', 'asl_locator'),
         'resetting'  => esc_html__('Resetting…', 'asl_locator'),
         'confirm'    => esc_html__('Reset this template to its default settings?', 'asl_locator'),
+        'discard'    => esc_html__('Discard unsaved changes and load this template?', 'asl_locator'),
         'loadFirst'  => esc_html__('Load a template before saving.', 'asl_locator'),
         'error'      => esc_html__('Something went wrong. Please try again.', 'asl_locator'),
       ),
@@ -630,7 +633,8 @@ class Manager extends Base {
 
     $all_configs = \AgileStoreLocator\Helper::get_configs([
       'api_key', 'map_vendor', 'tile_provider', 'geoapify_api_key',
-      'mapbox_access_token', 'tile_provider_api_key', 'maplibre_style_url'
+      'mapbox_access_token', 'tile_provider_api_key', 'maplibre_style_url',
+      'hide_hours', 'additional_info', 'show_categories', 'store_page_show_country', 'store_schema'
     ]);
     $all_stats = array();
     

@@ -4731,6 +4731,18 @@ var asl_engine = window['asl_engine'] || {};
         }
       }
 
+      // Keep Pro-only choices locked even when another settings script updates the form.
+      function enforceFreeLayoutControls() {
+        $form.find('#asl-distance_control-0, #asl-distance_control-2').prop('checked', false).prop('disabled', true);
+        $form.find('#asl-distance_control-1').prop('checked', true);
+        $form.find('#asl-tabs_layout-1, #asl-tabs_layout-2').prop('checked', false).prop('disabled', true);
+        $form.find('#asl-tabs_layout-0').prop('checked', true);
+      }
+
+      enforceFreeLayoutControls();
+
+      $form.on('change', 'input[name="data[distance_control]"], input[name="data[tabs_layout]"]', enforceFreeLayoutControls);
+
       // Present the two legacy search settings as one simple admin control.
       // The hidden fields keep saved data and frontend/shortcode behavior compatible.
       var $searchMode = $('#asl-search_mode'),
@@ -5008,6 +5020,8 @@ var asl_engine = window['asl_engine'] || {};
 
         if (!$form.validationEngine('validate')) return;
 
+        enforceFreeLayoutControls();
+
         var $btn = $(this);
 
         $btn.bootButton('loading');
@@ -5059,6 +5073,11 @@ var asl_engine = window['asl_engine'] || {};
 
 
         all_data = $.extend(all_data, data);
+
+        // Disabled radio inputs are omitted by form serialization, so send the
+        // supported Free values explicitly with every settings request.
+        all_data.data.distance_control = '1';
+        all_data.data.tabs_layout = '0';
 
 
         //  Save the custom Map

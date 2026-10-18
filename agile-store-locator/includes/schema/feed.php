@@ -75,7 +75,7 @@ class Feed {
    * @return [type] [description]
    */
   public function __clone(){
-    trigger_error('Clone is not allowed.', E_USER_ERROR);
+    throw new \LogicException('Clone is not allowed.');
   }
 
   /**

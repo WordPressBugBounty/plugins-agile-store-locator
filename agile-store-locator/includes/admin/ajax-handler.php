@@ -104,6 +104,7 @@ class AjaxHandler {
     $this->register_route('reset_custom_template', 'Setting', 'reset_custom_template');
 
     // Dashboard onboarding
+    $this->register_route('create_store_page', 'Dashboard', 'create_store_page');
     $this->register_route('create_locator_page', 'Dashboard', 'create_locator_page');
     $this->register_route('save_onboarding_step', 'Dashboard', 'save_onboarding_step');
     $this->register_route('complete_locator_manually', 'Dashboard', 'complete_locator_manually');

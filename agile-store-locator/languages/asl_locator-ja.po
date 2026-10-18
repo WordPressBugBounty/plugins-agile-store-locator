@@ -1,15 +1,16 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Agile Store Locator\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-17 21:35+0000\n"
+"PO-Revision-Date: 2026-10-17 21:49+0000\n"
 "Last-Translator: admin <this.zubair@gmail.com>\n"
 "Language-Team: Japanese\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-04 14:14+0000\n"
-"PO-Revision-Date: 2026-09-15 15:53+0000\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Loco https://localise.biz/\n"
 
@@ -74,16 +75,27 @@ msgstr "7日間"
 msgid "7 Days (Grouped)"
 msgstr "7日間（グループ化）"
 
-msgid "<b>Google Maps</b> is a familiar choice with Google search features, but it normally requires an API key and billing account. Choose the <b>free map option</b> when you want to display stores without relying on Google Maps."
-msgstr "<b>Google マップ</b>は Google の検索機能を活用できるおなじみの選択肢ですが、通常は API キーと請求先アカウントが必要です。Google マップを使わずに店舗を表示したい場合は、<b>無料の地図オプション</b>を選択してください。"
+msgid ""
+"<b>Google Maps</b> is a familiar choice with Google search features, but it "
+"normally requires an API key and billing account. Choose the <b>free map "
+"option</b> when you want to display stores without relying on Google Maps."
+msgstr ""
+"<b>Google マップ</b>は Google の検索機能を活用できるおなじみの選択肢ですが、通常は API "
+"キーと請求先アカウントが必要です。Google マップを使わずに店舗を表示したい場合は、<b>無料の地図オプション</b>を選択してください。"
 
-msgid "<p><a href=\"%verification_url%\" target=\"_blank\">Approve Store</a> to adding it in listing.</p>"
-msgstr "<p>一覧に追加するには、<a href=\"%verification_url%\" target=\"_blank\">店舗を承認</a>してください。</p>"
+msgid ""
+"<p><a href=\"%verification_url%\" target=\"_blank\">Approve Store</a> to "
+"adding it in listing.</p>"
+msgstr ""
+"<p>一覧に追加するには、<a href=\"%verification_url%\" "
+"target=\"_blank\">店舗を承認</a>してください。</p>"
 
 msgid "A Store Locator"
 msgstr "店舗検索機能"
 
-msgid "A closer look at the additional tools and experiences available in the full version."
+msgid ""
+"A closer look at the additional tools and experiences available in the full "
+"version."
 msgstr "完全版で利用できる追加ツールと機能の詳細をご紹介します。"
 
 msgid "A new WordPress page will be created"
@@ -191,7 +203,9 @@ msgstr "店舗の追加機能を作成・管理します。"
 msgid "Add at least one store to show on the map."
 msgstr "地図に表示するには、少なくとも1つの店舗を追加してください。"
 
-msgid "Add store selection, local pickup, location-based inventory, and distance-rate shipping to your WooCommerce experience."
+msgid ""
+"Add store selection, local pickup, location-based inventory, and distance-"
+"rate shipping to your WooCommerce experience."
 msgstr "WooCommerce に店舗選択、店舗受け取り、位置情報に基づく在庫管理、距離に応じた配送料金を追加します。"
 
 msgid "Add the [ASL_STORE] shortcode to the same page."
@@ -248,7 +262,8 @@ msgstr "店舗の位置を特定するための住所・地理情報フィール
 msgid "Address search disabled"
 msgstr "住所検索が無効です"
 
-msgid "Address search is unavailable because no geocoding provider is configured."
+msgid ""
+"Address search is unavailable because no geocoding provider is configured."
 msgstr "ジオコーディングプロバイダーが設定されていないため、住所検索は利用できません。"
 
 msgid "Address — Automatic"
@@ -326,16 +341,26 @@ msgstr "Agile Store Locator Pro 機能のプレビュー"
 msgid "Agile Store Locator UI Customizer"
 msgstr "Agile Store Locator UI カスタマイザー"
 
-msgid "Agile Store Locator is a WordPress store finder with free OpenStreetMap and MapLibre maps, native Google Maps, and SEO-friendly location pages."
-msgstr "Agile Store Locator は、無料の OpenStreetMap と MapLibre 地図、ネイティブの Google マップ、SEO に強い店舗ページを備えた WordPress 用の店舗検索プラグインです。"
+msgid ""
+"Agile Store Locator is a WordPress store finder with free OpenStreetMap and "
+"MapLibre maps, native Google Maps, and SEO-friendly location pages."
+msgstr ""
+"Agile Store Locator は、無料の OpenStreetMap と MapLibre 地図、ネイティブの Google マップ、SEO "
+"に強い店舗ページを備えた WordPress 用の店舗検索プラグインです。"
 
 msgid "Agile Sync Addon"
 msgstr "Agile Sync アドオン"
 
-msgid "Agile Sync Addon: automatically synchronize Agile Store Locator with Google Sheets, Salesforce, Smartsheet, and REST APIs."
-msgstr "Agile Sync アドオン：Agile Store Locator を Google スプレッドシート、Salesforce、Smartsheet、REST API と自動的に同期します。"
+msgid ""
+"Agile Sync Addon: automatically synchronize Agile Store Locator with Google "
+"Sheets, Salesforce, Smartsheet, and REST APIs."
+msgstr ""
+"Agile Sync アドオン：Agile Store Locator を Google "
+"スプレッドシート、Salesforce、Smartsheet、REST API と自動的に同期します。"
 
-msgid "Agile Sync automates imports, maps custom fields, and helps keep store data up to date."
+msgid ""
+"Agile Sync automates imports, maps custom fields, and helps keep store data "
+"up to date."
 msgstr "Agile Sync はインポートを自動化し、カスタムフィールドをマッピングして、店舗データを最新の状態に保つのに役立ちます。"
 
 msgid "Agile Sync integration preview"
@@ -458,7 +483,10 @@ msgstr "承認"
 msgid "Approving..."
 msgstr "承認中..."
 
-msgid "Are you ready to Experience the Difference? Just fill out the form below and one of our helpful representatives will find your nearest dealer and get you in contact!"
+msgid ""
+"Are you ready to Experience the Difference? Just fill out the form below and"
+" one of our helpful representatives will find your nearest dealer and get "
+"you in contact!"
 msgstr "違いを実感する準備はできましたか？以下のフォームにご記入いただくだけで、担当者が最寄りの取扱店をご案内し、ご連絡いたします！"
 
 msgid "Are you sure to delete all stores of all languages?"
@@ -473,7 +501,9 @@ msgstr "本当に"
 msgid "Are you sure you want to remove all duplicate stores?"
 msgstr "すべての重複店舗を削除してもよろしいですか？"
 
-msgid "Arrange the registration form, control field visibility and choose which values can be updated in bulk."
+msgid ""
+"Arrange the registration form, control field visibility and choose which "
+"values can be updated in bulk."
 msgstr "登録フォームの構成やフィールドの表示・非表示を設定し、一括更新できる項目を選択します。"
 
 msgid "Assets Backup Successfully, Download the Zip File."
@@ -491,11 +521,17 @@ msgstr "属性"
 msgid "Attributes"
 msgstr "属性"
 
-msgid "Attributes add searchable store details; use the tabs to manage each attribute type."
+msgid ""
+"Attributes add searchable store details; use the tabs to manage each "
+"attribute type."
 msgstr "属性を使うと、検索可能な店舗の詳細情報を追加できます。各属性タイプはタブから管理してください。"
 
-msgid "Automatically fetch missing coordinates (Lat/Lng) for your stores using Google Geocoding API. Ensure your API key is validated before proceeding."
-msgstr "Google ジオコーディング API を使って、店舗の不足している座標（緯度・経度）を自動取得します。実行前に API キーが有効であることを確認してください。"
+msgid ""
+"Automatically fetch missing coordinates (Lat/Lng) for your stores using "
+"Google Geocoding API. Ensure your API key is validated before proceeding."
+msgstr ""
+"Google ジオコーディング API を使って、店舗の不足している座標（緯度・経度）を自動取得します。実行前に API "
+"キーが有効であることを確認してください。"
 
 msgid "Available"
 msgstr "利用可能"
@@ -551,8 +587,11 @@ msgstr "バックアップ"
 msgid "Backup Template"
 msgstr "テンプレートをバックアップ"
 
-msgid "Backup of templates is not need if you haven't customize the template via plugin editor, are you sure to backup Template into theme root directory?"
-msgstr "プラグインエディターでテンプレートをカスタマイズしていない場合、バックアップは不要です。テンプレートをテーマのルートディレクトリにバックアップしてもよろしいですか？"
+msgid ""
+"Backup of templates is not need if you haven't customize the template via "
+"plugin editor, are you sure to backup Template into theme root directory?"
+msgstr ""
+"プラグインエディターでテンプレートをカスタマイズしていない場合、バックアップは不要です。テンプレートをテーマのルートディレクトリにバックアップしてもよろしいですか？"
 
 msgid "Badge"
 msgstr "バッジ"
@@ -656,7 +695,8 @@ msgstr "WooCommerce のチェックアウト時に、顧客は店舗を選択で
 msgid "Cancel"
 msgstr "キャンセル"
 
-msgid "Capture inquiries and route leads to the appropriate store automatically."
+msgid ""
+"Capture inquiries and route leads to the appropriate store automatically."
 msgstr "問い合わせを取得し、該当する店舗へ自動的に振り分けます。"
 
 msgid "Card Preview"
@@ -671,7 +711,8 @@ msgstr "カテゴリー"
 msgid "Categories deleted successfully."
 msgstr "カテゴリーを削除しました。"
 
-msgid "Categories let you group stores and help visitors narrow their results."
+msgid ""
+"Categories let you group stores and help visitors narrow their results."
 msgstr "カテゴリーを使うと店舗をグループ化し、訪問者が結果を絞り込みやすくなります。"
 
 msgid "Category"
@@ -734,7 +775,9 @@ msgstr "ステータスを変更"
 msgid "Change layout, map and design."
 msgstr "レイアウト、地図、デザインを変更します。"
 
-msgid "Change only the <mark>Primary</mark> color to automatically update the matching theme colors."
+msgid ""
+"Change only the <mark>Primary</mark> color to automatically update the "
+"matching theme colors."
 msgstr "<mark>プライマリー</mark>カラーのみを変更すると、関連するテーマカラーが自動的に更新されます。"
 
 msgid "Changes are not published until you save."
@@ -743,8 +786,11 @@ msgstr "保存するまで変更は公開されません。"
 msgid "Changing this name can disconnect previously saved values."
 msgstr "この名前を変更すると、以前保存した値との関連が失われる場合があります。"
 
-msgid "Check that the store is enabled and has valid latitude and longitude values. If cache is enabled, refresh the JSON cache after saving your changes."
-msgstr "店舗が有効になっており、緯度・経度の値が正しく設定されているか確認してください。キャッシュが有効な場合は、変更を保存した後にJSONキャッシュを更新してください。"
+msgid ""
+"Check that the store is enabled and has valid latitude and longitude values."
+" If cache is enabled, refresh the JSON cache after saving your changes."
+msgstr ""
+"店舗が有効になっており、緯度・経度の値が正しく設定されているか確認してください。キャッシュが有効な場合は、変更を保存した後にJSONキャッシュを更新してください。"
 
 msgid "Checkbox"
 msgstr "チェックボックス"
@@ -809,19 +855,24 @@ msgstr "ユーザーが検索範囲を操作する方法を選択します。"
 msgid "Choose how visitors find nearby stores and set distance controls."
 msgstr "訪問者が近くの店舗を見つける方法を選択し、距離の設定を行います。"
 
-msgid "Choose page-specific options. Leave a field on Use saved setting to inherit the locator settings."
+msgid ""
+"Choose page-specific options. Leave a field on Use saved setting to inherit "
+"the locator settings."
 msgstr "ページ固有のオプションを選択します。「保存済みの設定を使用」のままにすると、ロケーターの設定が引き継がれます。"
 
 msgid "Choose the locator layout and which search controls appear."
 msgstr "ロケーターのレイアウトと表示する検索コントロールを選択します。"
 
-msgid "Choose the locator structure, layout and color scheme, then preview the selected design."
+msgid ""
+"Choose the locator structure, layout and color scheme, then preview the "
+"selected design."
 msgstr "ロケーターの構成、レイアウト、配色を選択し、選んだデザインをプレビューします。"
 
 msgid "Choose the locator template you want to edit."
 msgstr "編集するロケーターのテンプレートを選択してください。"
 
-msgid "Choose the map engine and, for MapLibre, the service that supplies the map."
+msgid ""
+"Choose the map engine and, for MapLibre, the service that supplies the map."
 msgstr "地図エンジンを選択します。MapLibre の場合は、地図を提供するサービスも選択してください。"
 
 msgid "Choose the map service used by your store locator."
@@ -830,10 +881,13 @@ msgstr "店舗検索機能で使用する地図サービスを選択します。
 msgid "Choose the search and filter controls shown to visitors."
 msgstr "訪問者に表示する検索・フィルターのコントロールを選択します。"
 
-msgid "Choose what visitors can search and which address service provides results."
+msgid ""
+"Choose what visitors can search and which address service provides results."
 msgstr "訪問者が検索できる項目と、結果を提供する住所サービスを選択します。"
 
-msgid "Choose what visitors search and, for addresses, which service supplies suggestions."
+msgid ""
+"Choose what visitors search and, for addresses, which service supplies "
+"suggestions."
 msgstr "訪問者が検索する対象を選択します。住所の場合は、候補を提供するサービスも選択してください。"
 
 msgid "Choose where this field appears when editing a store."
@@ -878,7 +932,8 @@ msgstr "地図をクリックするか、マーカーをドラッグして中心
 msgid "Click to add line points, then select Finish Drawing or double-click."
 msgstr "クリックして線のポイントを追加し、「描画を終了」を選択するかダブルクリックしてください。"
 
-msgid "Click to add polygon points, then select Finish Drawing or double-click."
+msgid ""
+"Click to add polygon points, then select Finish Drawing or double-click."
 msgstr "クリックして多角形のポイントを追加し、「描画を終了」を選択するかダブルクリックしてください。"
 
 msgid "Clickable Tabs"
@@ -965,7 +1020,8 @@ msgstr "サイト全体のオプション機能や連携を設定します。"
 msgid "Configure the map center, zoom and search type."
 msgstr "地図の中心、ズーム、検索タイプを設定します。"
 
-msgid "Congratulations! your registered store has been approved and is live now!."
+msgid ""
+"Congratulations! your registered store has been approved and is live now!."
 msgstr "おめでとうございます！登録された店舗が承認され、公開されました！"
 
 msgid "Connect Salesforce, Google Sheets, Smartsheet, and REST APIs"
@@ -1019,7 +1075,9 @@ msgstr "ショートコードをコピー"
 msgid "Copy shortcode"
 msgstr "ショートコードをコピー"
 
-msgid "Copy the shortcode and add it to any page using WordPress, Elementor, Divi, or another page builder."
+msgid ""
+"Copy the shortcode and add it to any page using WordPress, Elementor, Divi, "
+"or another page builder."
 msgstr "ショートコードをコピーし、WordPress、Elementor、Divi などのページビルダーで任意のページに追加してください。"
 
 msgid "Copy/Paste Monday Timing"
@@ -1079,14 +1137,21 @@ msgstr "以下のアドレスにメールを送ってサポートチケットを
 msgid "Create dedicated pages with complete information for each location."
 msgstr "各店舗の詳細情報を掲載した専用ページを作成します。"
 
-msgid "Create extra fields for your stores and choose which tab they appear in. These fields are also available through CSV import and export."
+msgid ""
+"Create extra fields for your stores and choose which tab they appear in. "
+"These fields are also available through CSV import and export."
 msgstr "店舗用の追加フィールドを作成し、表示するタブを選択します。これらのフィールドは CSV のインポート・エクスポートでも利用できます。"
 
 msgid "Create it!"
 msgstr "作成する！"
 
-msgid "Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> shortcode, and publish the page. Your store locator will appear where the shortcode is placed."
-msgstr "WordPress ページを作成または編集し、<b>[ASL_STORELOCATOR]</b> ショートコードを追加してページを公開してください。ショートコードを配置した場所に店舗検索機能が表示されます。"
+msgid ""
+"Create or edit a WordPress page, add the <b>[ASL_STORELOCATOR]</b> "
+"shortcode, and publish the page. Your store locator will appear where the "
+"shortcode is placed."
+msgstr ""
+"WordPress ページを作成または編集し、<b>[ASL_STORELOCATOR]</b> "
+"ショートコードを追加してページを公開してください。ショートコードを配置した場所に店舗検索機能が表示されます。"
 
 msgid "Create your first backup to protect template customizations."
 msgstr "最初のバックアップを作成して、テンプレートのカスタマイズを保護しましょう。"
@@ -1271,13 +1336,19 @@ msgstr "経路ボタン"
 msgid "Directions"
 msgstr "経路"
 
-msgid "Directory is not writable, Category Image Upload will Fail, Make directory writable."
+msgid ""
+"Directory is not writable, Category Image Upload will Fail, Make directory "
+"writable."
 msgstr "ディレクトリに書き込み権限がないため、カテゴリー画像のアップロードに失敗します。書き込み可能に設定してください。"
 
-msgid "Directory is not writable, Logo Image upload will fail, make directory writable."
+msgid ""
+"Directory is not writable, Logo Image upload will fail, make directory "
+"writable."
 msgstr "ディレクトリに書き込み権限がないため、ロゴ画像のアップロードに失敗します。書き込み可能に設定してください。"
 
-msgid "Directory is not writable, marker image upload will fail, make directory writable."
+msgid ""
+"Directory is not writable, marker image upload will fail, make directory "
+"writable."
 msgstr "ディレクトリに書き込み権限がないため、マーカー画像のアップロードに失敗します。書き込み可能に設定してください。"
 
 msgid "Directory not writable:"
@@ -1349,7 +1420,9 @@ msgstr "テンプレートをダウンロード"
 msgid "Draft"
 msgstr "下書き"
 
-msgid "Drag fields between sections to reorder them. Use each switch to show or hide optional fields."
+msgid ""
+"Drag fields between sections to reorder them. Use each switch to show or "
+"hide optional fields."
 msgstr "セクション間でフィールドをドラッグして並べ替えます。各スイッチで任意のフィールドの表示・非表示を切り替えられます。"
 
 msgid "Drag fields to reorder"
@@ -1367,7 +1440,8 @@ msgstr "Route API で経路を描画"
 msgid "Draw Shapes & Layers"
 msgstr "図形とレイヤーを描画"
 
-msgid "Draw map areas, configure layers, and choose the controls shown to visitors."
+msgid ""
+"Draw map areas, configure layers, and choose the controls shown to visitors."
 msgstr "地図上のエリアを描画し、レイヤーを設定して、訪問者に表示するコントロールを選択します。"
 
 msgid "Drawing tools and these map layers require Google Maps."
@@ -1388,7 +1462,9 @@ msgstr "国・都道府県・市区町村のドロップダウンコントロー
 msgid "Dropdowns"
 msgstr "ドロップダウン"
 
-msgid "Due to the GDPR, we need your consent to load data from Google, more information in our privacy policy."
+msgid ""
+"Due to the GDPR, we need your consent to load data from Google, more "
+"information in our privacy policy."
 msgstr "GDPR により、Google からデータを読み込むにはお客様の同意が必要です。詳しくはプライバシーポリシーをご覧ください。"
 
 msgid "Duplicate"
@@ -1415,7 +1491,9 @@ msgstr "編集"
 msgid "Edit Store"
 msgstr "店舗を編集"
 
-msgid "Edit the store list or marker InfoBox HTML safely without changing the plugin template files."
+msgid ""
+"Edit the store list or marker InfoBox HTML safely without changing the "
+"plugin template files."
 msgstr "プラグインのテンプレートファイルを変更せずに、店舗リストやマーカーの InfoBox の HTML を安全に編集できます。"
 
 msgid "Email"
@@ -1424,8 +1502,14 @@ msgstr "メールアドレス"
 msgid "Email (optional)"
 msgstr "メールアドレス（任意）"
 
-msgid "Email <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. Include your WordPress version, Store Locator version, map option, page URL, and a screenshot or exact error message."
-msgstr "<a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a> までメールをお送りください。WordPress のバージョン、Store Locator のバージョン、地図オプション、ページの URL、スクリーンショットまたは正確なエラーメッセージを添えてください。"
+msgid ""
+"Email <a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a>. "
+"Include your WordPress version, Store Locator version, map option, page URL,"
+" and a screenshot or exact error message."
+msgstr ""
+"<a href=\"mailto:support@agilelogix.com\">support@agilelogix.com</a> "
+"までメールをお送りください。WordPress のバージョン、Store Locator のバージョン、地図オプション、ページの "
+"URL、スクリーンショットまたは正確なエラーメッセージを添えてください。"
 
 msgid "Email address"
 msgstr "メールアドレス"
@@ -1433,7 +1517,9 @@ msgstr "メールアドレス"
 msgid "Email address for your reply"
 msgstr "返信用のメールアドレス"
 
-msgid "Email address to recieve the email notification for stores registered through frontend form."
+msgid ""
+"Email address to recieve the email notification for stores registered "
+"through frontend form."
 msgstr "フロントエンドフォームから登録された店舗の通知メールを受け取るアドレス。"
 
 msgid "Enable"
@@ -1451,10 +1537,14 @@ msgstr "すべての種類のメールアラートと通知を有効にします
 msgid "Enable cron execution logs for CSV imports."
 msgstr "CSV インポート用の Cron 実行ログを有効にします。"
 
-msgid "Enable location or address search under <b>ASL Settings</b>. Visitors can then enter an address, city, or postal code to find the closest stores."
+msgid ""
+"Enable location or address search under <b>ASL Settings</b>. Visitors can "
+"then enter an address, city, or postal code to find the closest stores."
 msgstr "<b>ASL 設定</b>で位置情報または住所検索を有効にします。訪問者は住所、市区町村、郵便番号を入力して最寄りの店舗を見つけられます。"
 
-msgid "Enable only the fields you want to replace. Other store data will remain unchanged."
+msgid ""
+"Enable only the fields you want to replace. Other store data will remain "
+"unchanged."
 msgstr "置き換えたいフィールドのみを有効にしてください。それ以外の店舗データは変更されません。"
 
 msgid "Enable the Analytics"
@@ -1469,7 +1559,9 @@ msgstr "ウェブサイトリンクボタンを有効にします。"
 msgid "Enabled"
 msgstr "有効"
 
-msgid "Enabling it will hide all your stores data if data is not assigned for the correct language"
+msgid ""
+"Enabling it will hide all your stores data if data is not assigned for the "
+"correct language"
 msgstr "有効にすると、正しい言語にデータが割り当てられていないすべての店舗データが非表示になります"
 
 msgid "End Time"
@@ -1550,7 +1642,8 @@ msgstr "マーカーIDを入力"
 msgid "Enter name"
 msgstr "名前を入力"
 
-msgid "Enter only the credentials required by the selected map and search services."
+msgid ""
+"Enter only the credentials required by the selected map and search services."
 msgstr "選択した地図・検索サービスに必要な認証情報のみを入力してください。"
 
 msgid "Enter order"
@@ -1571,7 +1664,9 @@ msgstr "番地を入力"
 msgid "Enter the language code."
 msgstr "言語コードを入力してください。"
 
-msgid "Enter the search dropdown options values, comma separated. Add default value with * symbol."
+msgid ""
+"Enter the search dropdown options values, comma separated. Add default value"
+" with * symbol."
 msgstr "検索ドロップダウンの選択肢をカンマ区切りで入力してください。デフォルト値には * 記号を付けてください。"
 
 msgid "Enter the store location and contact information"
@@ -1625,7 +1720,9 @@ msgstr "エラー！ デフォルトの緯度・経度が無効な値です。�
 msgid "Error! Failed to upload the image."
 msgstr "エラー！ 画像のアップロードに失敗しました。"
 
-msgid "Error! Failed to validate for the coordinates by the Google API, validate the Server API key."
+msgid ""
+"Error! Failed to validate for the coordinates by the Google API, validate "
+"the Server API key."
 msgstr "エラー！ Google API による座標の検証に失敗しました。サーバー API キーを確認してください。"
 
 msgid "Error! Lang is not defined."
@@ -1691,7 +1788,9 @@ msgstr "例：20,40,60,80,*100"
 msgid "Example: Small, Medium, Large"
 msgstr "例：Small、Medium、Large"
 
-msgid "Excel/CSV import will fail until this directory is writable by the web server."
+msgid ""
+"Excel/CSV import will fail until this directory is writable by the web "
+"server."
 msgstr "このディレクトリに Web サーバーからの書き込み権限が付与されるまで、Excel/CSV のインポートは失敗します。"
 
 msgid "Explore Extension — $69"
@@ -1806,7 +1905,9 @@ msgstr "詳細を入力して、新しい店舗をネットワークに追加し
 msgid "Fill in the details to update your store"
 msgstr "詳細を入力して、店舗情報を更新してください"
 
-msgid "Fill up the form of your Store to register it for the approval by the administrator and it will list down in the Store Locator listing."
+msgid ""
+"Fill up the form of your Store to register it for the approval by the "
+"administrator and it will list down in the Store Locator listing."
 msgstr "店舗のフォームに入力して登録すると、管理者の承認後に店舗検索の一覧に表示されます。"
 
 msgid "Filter & Export Leads"
@@ -1833,14 +1934,23 @@ msgstr "販売店を探す"
 msgid "Find a Store Near You"
 msgstr "近くの店舗を探す"
 
-msgid "Fine-tune search behavior, distance controls, category logic, analytics, and multilingual store data."
+msgid ""
+"Fine-tune search behavior, distance controls, category logic, analytics, and"
+" multilingual store data."
 msgstr "検索の挙動、距離コントロール、カテゴリーのロジック、アナリティクス、多言語の店舗データを細かく調整します。"
 
 msgid "Finish Drawing"
 msgstr "描画を終了"
 
-msgid "First confirm that the selected map option is configured correctly. For Google Maps, check the API key, billing status, allowed website address, and required APIs. You can also switch to the free map option under <b>ASL Settings → Maps</b>."
-msgstr "まず、選択した地図オプションが正しく設定されているか確認してください。Google マップの場合は、API キー、請求状況、許可されたウェブサイトのアドレス、必要な API を確認してください。<b>ASL 設定 → 地図</b>から無料の地図オプションに切り替えることもできます。"
+msgid ""
+"First confirm that the selected map option is configured correctly. For "
+"Google Maps, check the API key, billing status, allowed website address, and"
+" required APIs. You can also switch to the free map option under <b>ASL "
+"Settings → Maps</b>."
+msgstr ""
+"まず、選択した地図オプションが正しく設定されているか確認してください。Google マップの場合は、API "
+"キー、請求状況、許可されたウェブサイトのアドレス、必要な API を確認してください。<b>ASL 設定 → "
+"地図</b>から無料の地図オプションに切り替えることもできます。"
 
 msgid "Fit Bound Location"
 msgstr "境界に合わせた位置"
@@ -1860,7 +1970,9 @@ msgstr "フォントサイズ"
 msgid "Font size in pixels"
 msgstr "フォントサイズ（ピクセル）"
 
-msgid "For testing and light interactive use. Address search is configured separately and may still require an API key."
+msgid ""
+"For testing and light interactive use. Address search is configured "
+"separately and may still require an API key."
 msgstr "テストや軽い用途に適しています。住所検索は別途設定が必要で、API キーが必要な場合があります。"
 
 msgid "Form Guide"
@@ -2010,8 +2122,13 @@ msgstr "無料のAPIキーの取得元："
 msgid "Give customers a faster, location-aware shopping experience."
 msgstr "位置情報を活用した、より快適なショッピング体験を顧客に提供します。"
 
-msgid "Go to <b>Manage Stores → Add New Store</b>, enter the store name and address, confirm its location, and save it. You can also assign a category, marker, logo, opening hours, and contact details."
-msgstr "<b>店舗管理 → 新しい店舗を追加</b>に移動し、店舗名と住所を入力して位置を確認し、保存してください。カテゴリー、マーカー、ロゴ、営業時間、連絡先情報も設定できます。"
+msgid ""
+"Go to <b>Manage Stores → Add New Store</b>, enter the store name and "
+"address, confirm its location, and save it. You can also assign a category, "
+"marker, logo, opening hours, and contact details."
+msgstr ""
+"<b>店舗管理 → "
+"新しい店舗を追加</b>に移動し、店舗名と住所を入力して位置を確認し、保存してください。カテゴリー、マーカー、ロゴ、営業時間、連絡先情報も設定できます。"
 
 msgid "Go to Contact Page"
 msgstr "お問い合わせページへ"
@@ -2058,8 +2175,16 @@ msgstr "Google Maps API キーを保存しました。設定を確認してい�
 msgid "Google Maps connected successfully."
 msgstr "Google マップの接続に成功しました。"
 
-msgid "Google Maps has been blocked.<br>Click on <strong>Load Store Locator</strong> to unblock Google Maps library.<br> further details about the <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" rel=\"nofollow\">Google Maps Privacy Policy</a> . "
-msgstr "Google マップはブロックされています。<br><strong>Store Locator を読み込む</strong>をクリックすると、Google マップライブラリのブロックが解除されます。<br> 詳細は<a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" rel=\"nofollow\">Google マップのプライバシーポリシー</a>をご覧ください。"
+msgid ""
+"Google Maps has been blocked.<br>Click on <strong>Load Store "
+"Locator</strong> to unblock Google Maps library.<br> further details about "
+"the <a href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" "
+"rel=\"nofollow\">Google Maps Privacy Policy</a> . "
+msgstr ""
+"Google マップはブロックされています。<br><strong>Store Locator "
+"を読み込む</strong>をクリックすると、Google マップライブラリのブロックが解除されます。<br> 詳細は<a "
+"href=\"https://policies.google.com/privacy?hl=en\" target=\"_blank\" "
+"rel=\"nofollow\">Google マップのプライバシーポリシー</a>をご覧ください。"
 
 msgid "Google Maps setup guide"
 msgstr "Google マップ設定ガイド"
@@ -2079,8 +2204,14 @@ msgstr "Google サーバー APIキーがありません。"
 msgid "Google Style"
 msgstr "Google スタイル"
 
-msgid "Google newly launched advanced marker option, read the documentation guide about <a href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\">Google Advanced Markers</a>"
-msgstr "Google が新たに高度なマーカーオプションを公開しました。詳しくは<a href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\">Google Advanced Markers</a>のドキュメントをご覧ください"
+msgid ""
+"Google newly launched advanced marker option, read the documentation guide "
+"about <a href=\"https://agilestorelocator.com/wiki/google-advanced-"
+"markers/\">Google Advanced Markers</a>"
+msgstr ""
+"Google が新たに高度なマーカーオプションを公開しました。詳しくは<a "
+"href=\"https://agilestorelocator.com/wiki/google-advanced-markers/\">Google "
+"Advanced Markers</a>のドキュメントをご覧ください"
 
 msgid "Grid"
 msgstr "グリッド"
@@ -2187,7 +2318,8 @@ msgstr "CSV ファイルをインポートするには？"
 msgid "Hybrid"
 msgstr "ハイブリッド"
 
-msgid "I agree to terms and conditions and all the provided information is correct"
+msgid ""
+"I agree to terms and conditions and all the provided information is correct"
 msgstr "利用規約に同意し、入力した情報がすべて正しいことを確認します"
 
 msgid "I am only deactivating temporarily"
@@ -2211,10 +2343,15 @@ msgstr "アイコン"
 msgid "Icon (Optional)"
 msgstr "アイコン（任意）"
 
-msgid "If Agile Store Locator is helping you and your customers find locations easily, we'd appreciate a quick review on WordPress.org."
-msgstr "Agile Store Locator がお客様やその顧客の店舗探しに役立っているようでしたら、WordPress.org での評価をいただけると幸いです。"
+msgid ""
+"If Agile Store Locator is helping you and your customers find locations "
+"easily, we'd appreciate a quick review on WordPress.org."
+msgstr ""
+"Agile Store Locator がお客様やその顧客の店舗探しに役立っているようでしたら、WordPress.org "
+"での評価をいただけると幸いです。"
 
-msgid "If you have any problem with the plugin or suggestion, please email us at"
+msgid ""
+"If you have any problem with the plugin or suggestion, please email us at"
 msgstr "プラグインに関する問題やご提案がございましたら、以下までメールをお送りください"
 
 msgid "If you like our Plugin, please rate us 5 stars."
@@ -2331,13 +2468,17 @@ msgstr "無効なテンプレートパスです。"
 msgid "Invalid template section."
 msgstr "無効なテンプレートセクションです。"
 
-msgid "Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes are supported."
+msgid ""
+"Invalid value for country restriction. Only ISO 3166-1 alpha-2 country codes"
+" are supported."
 msgstr "国の制限に無効な値が指定されています。ISO 3166-1 alpha-2 形式の国コードのみ使用できます。"
 
 msgid "It may slow import process for a large CSV file with 5k+ rows."
 msgstr "5,000行を超える大きな CSV ファイルの場合、インポート処理が遅くなることがあります。"
 
-msgid "It only appear with dropdown control and overrides the search zoom value to fitbound"
+msgid ""
+"It only appear with dropdown control and overrides the search zoom value to "
+"fitbound"
 msgstr "ドロップダウンコントロールと併用した場合のみ表示され、検索ズーム値を境界に合わせる設定で上書きします"
 
 msgid "It only takes a minute and it means a lot to us. Thank you!"
@@ -2358,7 +2499,9 @@ msgstr "KML ファイルをアップロードしました。"
 msgid "KML guide"
 msgstr "KML ガイド"
 
-msgid "Keep customized template files safely in your active theme so plugin updates do not overwrite them."
+msgid ""
+"Keep customized template files safely in your active theme so plugin updates"
+" do not overwrite them."
 msgstr "カスタマイズしたテンプレートファイルを有効なテーマ内に保存しておくと、プラグインの更新で上書きされません。"
 
 msgid "Kilometers"
@@ -2376,13 +2519,17 @@ msgstr "現在地を取得"
 msgid "Labels"
 msgstr "ラベル"
 
-msgid "Labels section can be used to change the labels of the frontend of the store locator widgets, enable the switch above to activate."
+msgid ""
+"Labels section can be used to change the labels of the frontend of the store"
+" locator widgets, enable the switch above to activate."
 msgstr "ラベルセクションでは、店舗検索ウィジェットのフロントエンドのラベルを変更できます。有効にするには上のスイッチをオンにしてください。"
 
 msgid "Lang"
 msgstr "言語"
 
-msgid "Large CSV files (5k+ rows) may take longer to process with these options enabled."
+msgid ""
+"Large CSV files (5k+ rows) may take longer to process with these options "
+"enabled."
 msgstr "これらのオプションを有効にすると、大きな CSV ファイル（5,000行以上）の処理に時間がかかる場合があります。"
 
 msgid "Lat"
@@ -2571,7 +2718,8 @@ msgstr "メインのブランドカラー、ボタン、ハイライト"
 msgid "Make categories and group stores."
 msgstr "カテゴリーを作成して店舗をグループ化します。"
 
-msgid "Make the store locator full width 100% with respect to the parent container"
+msgid ""
+"Make the store locator full width 100% with respect to the parent container"
 msgstr "親コンテナーに対して店舗検索機能の幅を100%にします"
 
 msgid "Manage"
@@ -2622,7 +2770,9 @@ msgstr "店舗を管理"
 msgid "Manage WooCommerce Inventory Across Multiple Stores"
 msgstr "複数店舗の WooCommerce 在庫を管理"
 
-msgid "Manage your stores, customize your locator and help customers find you easily."
+msgid ""
+"Manage your stores, customize your locator and help customers find you "
+"easily."
 msgstr "店舗を管理し、ロケーターをカスタマイズして、顧客が簡単に見つけられるようにします。"
 
 msgid "Manage your uploaded KML overlays."
@@ -2703,10 +2853,16 @@ msgstr "地図プロバイダー、タイルプロバイダー、地図スタイ
 msgid "MapLibre"
 msgstr "MapLibre"
 
-msgid "MapLibre supports Zoom and Fullscreen. Camera, Street View, and Map Type controls require Google Maps and are disabled."
-msgstr "MapLibre はズームと全画面表示に対応しています。カメラ、ストリートビュー、地図の種類のコントロールには Google マップが必要なため無効になっています。"
+msgid ""
+"MapLibre supports Zoom and Fullscreen. Camera, Street View, and Map Type "
+"controls require Google Maps and are disabled."
+msgstr ""
+"MapLibre はズームと全画面表示に対応しています。カメラ、ストリートビュー、地図の種類のコントロールには Google "
+"マップが必要なため無効になっています。"
 
-msgid "MapLibre will use OpenStreetMap tiles so you can get started without a map API key."
+msgid ""
+"MapLibre will use OpenStreetMap tiles so you can get started without a map "
+"API key."
 msgstr "MapLibre は OpenStreetMap のタイルを使用するため、地図の API キーなしで利用を開始できます。"
 
 msgid "MapTiler"
@@ -2817,7 +2973,9 @@ msgstr "複数カテゴリー選択"
 msgid "Name"
 msgstr "名前"
 
-msgid "Need help? Check our documentation for details on customizing your store locator."
+msgid ""
+"Need help? Check our documentation for details on customizing your store "
+"locator."
 msgstr "お困りですか？店舗検索機能のカスタマイズ方法については、ドキュメントをご覧ください。"
 
 msgid "Need help? We're here for you!"
@@ -2973,7 +3131,9 @@ msgstr "検索またはフィルター選択時のみ店舗を表示"
 msgid "Only administrators can update this template."
 msgstr "このテンプレートは管理者のみが更新できます。"
 
-msgid "Only simple options are currently visible. Enable Expert mode to view all settings."
+msgid ""
+"Only simple options are currently visible. Enable Expert mode to view all "
+"settings."
 msgstr "現在はシンプルなオプションのみ表示されています。すべての設定を表示するには、エキスパートモードを有効にしてください。"
 
 msgid "Only stores in the selected categories will appear."
@@ -2988,8 +3148,13 @@ msgstr "24時間営業"
 msgid "Open 24 Hours"
 msgstr "24時間営業"
 
-msgid "Open <b>ASL Settings → Maps</b>, set the default location and zoom level, then save your settings. This is the area visitors see before starting a search."
-msgstr "<b>ASL 設定 → 地図</b>を開き、デフォルトの位置とズームレベルを設定して保存してください。これは訪問者が検索を開始する前に表示されるエリアです。"
+msgid ""
+"Open <b>ASL Settings → Maps</b>, set the default location and zoom level, "
+"then save your settings. This is the area visitors see before starting a "
+"search."
+msgstr ""
+"<b>ASL 設定 → "
+"地図</b>を開き、デフォルトの位置とズームレベルを設定して保存してください。これは訪問者が検索を開始する前に表示されるエリアです。"
 
 msgid "Open Colors & Fonts Customizer"
 msgstr "色とフォントのカスタマイザーを開く"
@@ -3036,8 +3201,12 @@ msgstr "任意で Google マップの言語コードを指定します（例：e
 msgid "Optional Google Maps region code, such as US or AE."
 msgstr "任意で Google マップの地域コードを指定します（例：US、AE）。"
 
-msgid "Optional MapLibre style JSON URL. It overrides the selected preset and may contain {api_key} or {access_token}."
-msgstr "任意の MapLibre スタイル JSON URL。選択したプリセットを上書きし、{api_key} や {access_token} を含めることができます。"
+msgid ""
+"Optional MapLibre style JSON URL. It overrides the selected preset and may "
+"contain {api_key} or {access_token}."
+msgstr ""
+"任意の MapLibre スタイル JSON URL。選択したプリセットを上書きし、{api_key} や {access_token} "
+"を含めることができます。"
 
 msgid "Optional comma-separated country codes."
 msgstr "任意でカンマ区切りの国コードを指定します。"
@@ -3051,8 +3220,11 @@ msgstr "任意の連携アドオン"
 msgid "Optional, dropdown and custom store information."
 msgstr "任意項目、ドロップダウン、カスタム店舗情報。"
 
-msgid "Optional. Available placeholders: {street}, {city}, {state}, {postal_code}, {country}. Leave empty to use the default format."
-msgstr "任意項目です。使用できるプレースホルダー：{street}、{city}、{state}、{postal_code}、{country}。空欄にするとデフォルトの形式が使用されます。"
+msgid ""
+"Optional. Available placeholders: {street}, {city}, {state}, {postal_code}, "
+"{country}. Leave empty to use the default format."
+msgstr ""
+"任意項目です。使用できるプレースホルダー：{street}、{city}、{state}、{postal_code}、{country}。空欄にするとデフォルトの形式が使用されます。"
 
 msgid "Order"
 msgstr "順序"
@@ -3069,7 +3241,9 @@ msgstr "その他の詳細タブ"
 msgid "Overlay Count"
 msgstr "オーバーレイ数"
 
-msgid "Override address search for this locator. Database search modes are available in Pro."
+msgid ""
+"Override address search for this locator. Database search modes are "
+"available in Pro."
 msgstr "このロケーターの住所検索を上書きします。データベース検索モードは Pro 版で利用できます。"
 
 msgid "PHP Version"
@@ -3228,7 +3402,8 @@ msgstr "プリセットカラー"
 msgid "Preview on map"
 msgstr "地図でプレビュー"
 
-msgid "Preview the customer-facing tools included with the WooCommerce extension."
+msgid ""
+"Preview the customer-facing tools included with the WooCommerce extension."
 msgstr "WooCommerce 拡張機能に含まれる、顧客向けツールをプレビューします。"
 
 msgid "Previewing"
@@ -3456,8 +3631,12 @@ msgstr "テンプレートを保存"
 msgid "Save and Verify"
 msgstr "保存して確認"
 
-msgid "Save the changed store or setting, then refresh the JSON cache if it is enabled. You may also need to clear your browser, WordPress, or CDN cache."
-msgstr "変更した店舗や設定を保存し、JSON キャッシュが有効な場合は更新してください。ブラウザ、WordPress、CDN のキャッシュのクリアが必要な場合もあります。"
+msgid ""
+"Save the changed store or setting, then refresh the JSON cache if it is "
+"enabled. You may also need to clear your browser, WordPress, or CDN cache."
+msgstr ""
+"変更した店舗や設定を保存し、JSON キャッシュが有効な場合は更新してください。ブラウザ、WordPress、CDN "
+"のキャッシュのクリアが必要な場合もあります。"
 
 msgid "Saving Store..."
 msgstr "店舗を保存中..."
@@ -3471,7 +3650,8 @@ msgstr "保存中…"
 msgid "Scan Area"
 msgstr "エリアを検索"
 
-msgid "Scanning your uploaded files for stores missing latitude/longitude data"
+msgid ""
+"Scanning your uploaded files for stores missing latitude/longitude data"
 msgstr "アップロードされたファイルから緯度・経度が不足している店舗をスキャンしています"
 
 msgid "Schedule"
@@ -3603,7 +3783,9 @@ msgstr "カテゴリーを検索"
 msgid "Search categories..."
 msgstr "カテゴリーを検索..."
 
-msgid "Search for a location, draw shapes, and preview layers and controls before saving."
+msgid ""
+"Search for a location, draw shapes, and preview layers and controls before "
+"saving."
 msgstr "場所を検索し、図形を描画して、保存する前にレイヤーとコントロールをプレビューします。"
 
 msgid "Search for a page or enter a relative URL such as /example-page/."
@@ -3648,7 +3830,9 @@ msgstr "セクション"
 msgid "See All Videos"
 msgstr "すべての動画を見る"
 
-msgid "See how customers find and interact with your stores during the selected period."
+msgid ""
+"See how customers find and interact with your stores during the selected "
+"period."
 msgstr "選択した期間における、顧客の店舗の見つけ方や利用状況を確認できます。"
 
 msgid "See what you can do with Pro"
@@ -3720,7 +3904,8 @@ msgstr "カテゴリーを選択"
 msgid "Select a drawing tool to begin."
 msgstr "開始するには描画ツールを選択してください。"
 
-msgid "Select a provider style or optionally supply an advanced MapLibre style URL."
+msgid ""
+"Select a provider style or optionally supply an advanced MapLibre style URL."
 msgstr "プロバイダーのスタイルを選択するか、任意で高度な MapLibre スタイル URL を指定してください。"
 
 msgid "Select display option"
@@ -3729,7 +3914,9 @@ msgstr "表示オプションを選択"
 msgid "Select either 12 or 24 hours time format"
 msgstr "12時間表示または24時間表示を選択してください"
 
-msgid "Select either to display the geolocation button or the search button next to address search"
+msgid ""
+"Select either to display the geolocation button or the search button next to"
+" address search"
 msgstr "住所検索の隣に位置情報ボタンまたは検索ボタンのどちらを表示するか選択してください"
 
 msgid "Select how you want the direction to work."
@@ -3747,7 +3934,9 @@ msgstr "1つ以上のカテゴリーを選択してください。空欄にす�
 msgid "Select or Upload Media"
 msgstr "メディアを選択またはアップロード"
 
-msgid "Select the URL type of website link, page slug will only work when page slug is provided"
+msgid ""
+"Select the URL type of website link, page slug will only work when page slug"
+" is provided"
 msgstr "ウェブサイトリンクのURLタイプを選択してください。ページスラッグはページスラッグが指定されている場合のみ機能します"
 
 msgid "Select the base design for your store locator."
@@ -3783,10 +3972,14 @@ msgstr "選択した店舗を更新しました。"
 msgid "Send Feedback"
 msgstr "フィードバックを送信"
 
-msgid "Send WPForms notifications to the relevant store owners through the Agile Store Locator integration."
+msgid ""
+"Send WPForms notifications to the relevant store owners through the Agile "
+"Store Locator integration."
 msgstr "Agile Store Locator の連携機能を通じて、該当する店舗オーナーに WPForms の通知を送信します。"
 
-msgid "Send a copy of a Contact Form 7 email to the closest store, determined by the postal code submitted in the form."
+msgid ""
+"Send a copy of a Contact Form 7 email to the closest store, determined by "
+"the postal code submitted in the form."
 msgstr "フォームに入力された郵便番号に基づき、Contact Form 7 のメールのコピーを最寄りの店舗に送信します。"
 
 msgid "Send a follow-up notification to the dealer lead after 48 hours."
@@ -3816,19 +4009,27 @@ msgstr "地図を設定"
 msgid "Set general options and preferences."
 msgstr "一般的なオプションと設定を行います。"
 
-msgid "Set max limit for items in grid or empty to display all (limited to 1000).\n                    "
-msgstr "グリッド内の項目の上限数を設定するか、空欄にしてすべて表示します（上限1,000件）。\n                    "
+msgid ""
+"Set max limit for items in grid or empty to display all (limited to 1000).\n"
+"                    "
+msgstr ""
+"グリッド内の項目の上限数を設定するか、空欄にしてすべて表示します（上限1,000件）。\n"
+"                    "
 
 msgid "Set store id"
 msgstr "店舗IDを設定"
 
-msgid "Set the initial map view, zoom behavior, language, controls, and Google map styling."
+msgid ""
+"Set the initial map view, zoom behavior, language, controls, and Google map "
+"styling."
 msgstr "初期の地図表示、ズームの挙動、言語、コントロール、Google マップのスタイルを設定します。"
 
 msgid "Set the stores opening and closing times for each day"
 msgstr "曜日ごとに店舗の開店・閉店時間を設定します"
 
-msgid "Set your store locator default coordinates and zoom level using the marker below, drag the marker to pinpoint."
+msgid ""
+"Set your store locator default coordinates and zoom level using the marker "
+"below, drag the marker to pinpoint."
 msgstr "下のマーカーを使って、店舗検索機能のデフォルトの座標とズームレベルを設定してください。マーカーをドラッグして位置を指定します。"
 
 msgid "Setting has been updated successfully."
@@ -3918,7 +4119,9 @@ msgstr "店舗リストと情報ウィンドウのボタンを表示または非
 msgid "Show store state wise"
 msgstr "都道府県別に店舗を表示"
 
-msgid "Show the country in the address displayed on the store detail page. Directions and schema continue to use the full address."
+msgid ""
+"Show the country in the address displayed on the store detail page. "
+"Directions and schema continue to use the full address."
 msgstr "店舗詳細ページに表示される住所に国名を含めます。経路とスキーマには引き続き完全な住所が使用されます。"
 
 msgid "Show/Hide Columns"
@@ -3984,7 +4187,9 @@ msgstr "ランダムに並べ替え"
 msgid "Sort by"
 msgstr "並べ替え"
 
-msgid "Sort stores list randomly on the load of the Store Locator (Enabling it will disable Default Location Marker)"
+msgid ""
+"Sort stores list randomly on the load of the Store Locator (Enabling it will"
+" disable Default Location Marker)"
 msgstr "Store Locator の読み込み時に店舗リストをランダムに並べ替えます（有効にするとデフォルトの位置マーカーが無効になります）"
 
 msgid "Sort your listing based on fields, default is Distance"
@@ -4233,7 +4438,8 @@ msgstr "テンプレート %s — Pro"
 msgid "Template 0"
 msgstr "テンプレート 0"
 
-msgid "Template 0 is available in Free. Additional templates are available in Pro."
+msgid ""
+"Template 0 is available in Free. Additional templates are available in Pro."
 msgstr "テンプレート 0 は無料版で利用できます。追加のテンプレートは Pro 版で利用できます。"
 
 msgid "Template Backup Guide"
@@ -4314,20 +4520,37 @@ msgstr "テキストエリア"
 msgid "Thank you for your feedback!"
 msgstr "フィードバックをありがとうございます！"
 
-msgid "The <b>Internal Field Name</b> is generated automatically for new fields. Open <b>Advanced settings</b> only when you need to review it or add a CSS class."
-msgstr "<b>内部フィールド名</b>は新しいフィールドに対して自動的に生成されます。確認したい場合や CSS クラスを追加したい場合のみ、<b>詳細設定</b>を開いてください。"
+msgid ""
+"The <b>Internal Field Name</b> is generated automatically for new fields. "
+"Open <b>Advanced settings</b> only when you need to review it or add a CSS "
+"class."
+msgstr ""
+"<b>内部フィールド名</b>は新しいフィールドに対して自動的に生成されます。確認したい場合や CSS "
+"クラスを追加したい場合のみ、<b>詳細設定</b>を開いてください。"
 
-msgid "The KML file could not be previewed. Confirm that it is publicly accessible and valid."
+msgid ""
+"The KML file could not be previewed. Confirm that it is publicly accessible "
+"and valid."
 msgstr "KML ファイルをプレビューできませんでした。公開アクセス可能で有効なファイルか確認してください。"
 
-msgid "The PHP mbstring extension is not installed. Import will not work without it. Please ask your server admin to enable mbstring (or enable it in your control panel)."
-msgstr "PHP の mbstring 拡張機能がインストールされていません。これがないとインポートは機能しません。サーバー管理者に mbstring の有効化を依頼するか、コントロールパネルで有効にしてください。"
+msgid ""
+"The PHP mbstring extension is not installed. Import will not work without "
+"it. Please ask your server admin to enable mbstring (or enable it in your "
+"control panel)."
+msgstr ""
+"PHP の mbstring 拡張機能がインストールされていません。これがないとインポートは機能しません。サーバー管理者に mbstring "
+"の有効化を依頼するか、コントロールパネルで有効にしてください。"
 
 msgid "The default icon will be used when none is uploaded."
 msgstr "アップロードされていない場合は、デフォルトのアイコンが使用されます。"
 
-msgid "The default map type remains in <a href=\"%s\">ASL Settings</a>. Camera Control and Zoom Control (Old Style) are alternative navigation controls and cannot be enabled together."
-msgstr "デフォルトの地図タイプは<a href=\"%s\">ASL 設定</a>のままです。カメラコントロールとズームコントロール（旧スタイル）は代替のナビゲーションコントロールであり、同時に有効にすることはできません。"
+msgid ""
+"The default map type remains in <a href=\"%s\">ASL Settings</a>. Camera "
+"Control and Zoom Control (Old Style) are alternative navigation controls and"
+" cannot be enabled together."
+msgstr ""
+"デフォルトの地図タイプは<a href=\"%s\">ASL "
+"設定</a>のままです。カメラコントロールとズームコントロール（旧スタイル）は代替のナビゲーションコントロールであり、同時に有効にすることはできません。"
 
 msgid "The key must allow Maps JavaScript API requests from this website."
 msgstr "このキーは、本ウェブサイトからの Maps JavaScript API リクエストを許可する必要があります。"
@@ -4371,8 +4594,12 @@ msgstr "今月"
 msgid "This is the title visitors will see on your website."
 msgstr "これは訪問者がウェブサイトで目にするタイトルです。"
 
-msgid "This version supports CSV files with comma delimiters. For custom formats or technical support, contact our team at support@agilelogix.com"
-msgstr "このバージョンはカンマ区切りの CSV ファイルに対応しています。カスタム形式や技術サポートについては、support@agilelogix.com までお問い合わせください"
+msgid ""
+"This version supports CSV files with comma delimiters. For custom formats or"
+" technical support, contact our team at support@agilelogix.com"
+msgstr ""
+"このバージョンはカンマ区切りの CSV ファイルに対応しています。カスタム形式や技術サポートについては、support@agilelogix.com "
+"までお問い合わせください"
 
 msgid "Thur"
 msgstr "木曜日"
@@ -4395,7 +4622,9 @@ msgstr "時間形式"
 msgid "Time Switch"
 msgstr "時間切り替え"
 
-msgid "Tip: Complete all steps to make your store locator live and help customers find you."
+msgid ""
+"Tip: Complete all steps to make your store locator live and help customers "
+"find you."
 msgstr "ヒント：すべての手順を完了すると、店舗検索機能が公開され、顧客があなたを見つけやすくなります。"
 
 msgid "Title"
@@ -4413,8 +4642,11 @@ msgstr "に"
 msgid "To change the category filter logic from OR to AND"
 msgstr "カテゴリーフィルターのロジックを OR から AND に変更するには"
 
-msgid "To enable the label changing feature please enable the switch,<br> For multi-language translation, please disable it and follow the "
-msgstr "ラベル変更機能を有効にするには、スイッチをオンにしてください。<br>多言語翻訳を行う場合は、スイッチをオフにして以下の手順に従ってください "
+msgid ""
+"To enable the label changing feature please enable the switch,<br> For "
+"multi-language translation, please disable it and follow the "
+msgstr ""
+"ラベル変更機能を有効にするには、スイッチをオンにしてください。<br>多言語翻訳を行う場合は、スイッチをオフにして以下の手順に従ってください "
 
 msgid "To make the category selection mode"
 msgstr "カテゴリー選択モードにするには"
@@ -4434,7 +4666,9 @@ msgstr "タブオプションにカテゴリーのドロップダウンを表示
 msgid "To show only the current day hours or full week"
 msgstr "当日の営業時間のみ、または週全体を表示するには"
 
-msgid "To show the additional fields on the template, please add the fields in the template as in this "
+msgid ""
+"To show the additional fields on the template, please add the fields in the "
+"template as in this "
 msgstr "テンプレートに追加フィールドを表示するには、以下のようにテンプレートにフィールドを追加してください "
 
 msgid "To show the description text either in listing or modal."
@@ -4572,7 +4806,9 @@ msgstr "営業時間を更新"
 msgid "Update Store"
 msgstr "店舗を更新"
 
-msgid "Update permissions (e.g., 755/775) or adjust ownership to allow write access."
+msgid ""
+"Update permissions (e.g., 755/775) or adjust ownership to allow write "
+"access."
 msgstr "権限（例：755/775）を更新するか、所有者を変更して書き込みアクセスを許可してください。"
 
 msgid "Update selected fields across multiple stores at once."
@@ -4599,7 +4835,8 @@ msgstr "アップグレードすると、保護されたテンプレートバッ
 msgid "Upgrade to create and manage searchable store attributes."
 msgstr "アップグレードすると、検索可能な店舗属性を作成・管理できます。"
 
-msgid "Upgrade to import stores in bulk, export store data, and manage CSV files."
+msgid ""
+"Upgrade to import stores in bulk, export store data, and manage CSV files."
 msgstr "アップグレードすると、店舗の一括インポート、店舗データのエクスポート、CSV ファイルの管理ができます。"
 
 msgid "Upgrade to manage and refresh the high-performance store cache."
@@ -4614,10 +4851,13 @@ msgstr "アップグレードすると、該当する店舗へ WPForms の通知
 msgid "Upgrade to unlock detailed store performance insights."
 msgstr "アップグレードすると、店舗パフォーマンスの詳細な分析を利用できます。"
 
-msgid "Upgrade to use tab layouts, additional UI templates, and InfoBox layouts."
+msgid ""
+"Upgrade to use tab layouts, additional UI templates, and InfoBox layouts."
 msgstr "アップグレードすると、タブレイアウト、追加のUIテンプレート、InfoBox レイアウトを利用できます。"
 
-msgid "Upgrade without losing your stores or settings. Pro adds advanced layouts, management tools, analytics, integrations, and more."
+msgid ""
+"Upgrade without losing your stores or settings. Pro adds advanced layouts, "
+"management tools, analytics, integrations, and more."
 msgstr "店舗や設定を失うことなくアップグレードできます。Pro では、高度なレイアウト、管理ツール、アナリティクス、連携機能などが追加されます。"
 
 msgid "Upload"
@@ -4650,7 +4890,9 @@ msgstr "マーカーをアップロード"
 msgid "Upload and manage store logos."
 msgstr "店舗のロゴをアップロード・管理します。"
 
-msgid "Upload your CSV files for store import. Ensure your files follow the correct format."
+msgid ""
+"Upload your CSV files for store import. Ensure your files follow the correct"
+" format."
 msgstr "店舗インポート用の CSV ファイルをアップロードしてください。正しい形式であることを確認してください。"
 
 msgid "Uploaded KML Files (%d)"
@@ -4659,8 +4901,13 @@ msgstr "アップロード済みの KML ファイル（%d）"
 msgid "Uploaded On"
 msgstr "アップロード日"
 
-msgid "Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b> from the Store Locator menu. After creating them, assign them to stores from the store editor."
-msgstr "Store Locator メニューの<b>マーカー管理</b>、<b>ロゴ管理</b>、<b>カテゴリー管理</b>を使用してください。作成後、店舗エディターから各店舗に割り当てられます。"
+msgid ""
+"Use <b>Manage Markers</b>, <b>Manage Logos</b>, and <b>Manage Categories</b>"
+" from the Store Locator menu. After creating them, assign them to stores "
+"from the store editor."
+msgstr ""
+"Store Locator "
+"メニューの<b>マーカー管理</b>、<b>ロゴ管理</b>、<b>カテゴリー管理</b>を使用してください。作成後、店舗エディターから各店舗に割り当てられます。"
 
 msgid "Use Default Location & Zoom"
 msgstr "デフォルトの位置とズームを使用"
@@ -4686,8 +4933,12 @@ msgstr "現在地を使用して、最寄りのサービスプロバイダーを
 msgid "Use saved setting"
 msgstr "保存済みの設定を使用"
 
-msgid "Use the <b>Customizer</b> section in ASL Settings to change colors, fonts, labels, and templates. Preview your changes before showing them to visitors."
-msgstr "ASL 設定内の<b>カスタマイザー</b>セクションを使って、色、フォント、ラベル、テンプレートを変更できます。訪問者に表示する前に変更内容をプレビューしてください。"
+msgid ""
+"Use the <b>Customizer</b> section in ASL Settings to change colors, fonts, "
+"labels, and templates. Preview your changes before showing them to visitors."
+msgstr ""
+"ASL "
+"設定内の<b>カスタマイザー</b>セクションを使って、色、フォント、ラベル、テンプレートを変更できます。訪問者に表示する前に変更内容をプレビューしてください。"
 
 msgid "Use the filters below each column to find specific attributes."
 msgstr "各列の下にあるフィルターを使って、特定の属性を見つけられます。"
@@ -4716,8 +4967,13 @@ msgstr "座標を検証"
 msgid "Validate Key"
 msgstr "キーを検証"
 
-msgid "Validate your Google Server API key to ensure accurate coordinate fetching through Google Maps API. Proper validation is essential for successful imports."
-msgstr "Google マップ API を通じて正確に座標を取得するため、Google サーバー APIキーを検証してください。インポートを成功させるには、適切な検証が不可欠です。"
+msgid ""
+"Validate your Google Server API key to ensure accurate coordinate fetching "
+"through Google Maps API. Proper validation is essential for successful "
+"imports."
+msgstr ""
+"Google マップ API を通じて正確に座標を取得するため、Google サーバー "
+"APIキーを検証してください。インポートを成功させるには、適切な検証が不可欠です。"
 
 msgid "Validating..."
 msgstr "検証中..."
@@ -4806,16 +5062,29 @@ msgstr "警告"
 msgid "Warning!"
 msgstr "警告！"
 
-msgid "Warning! Export includes all configuration including API keys, labels, customizations and maps related settings."
+msgid ""
+"Warning! Export includes all configuration including API keys, labels, "
+"customizations and maps related settings."
 msgstr "警告！エクスポートには、APIキー、ラベル、カスタマイズ、地図関連の設定を含むすべての設定が含まれます。"
 
-msgid "Warning! JSON cache loading preloads all the data to serve it with great speed, but everytime you make any changes you have to hit the \"Refresh Cache\" button, if your JSON file is cached by browser or CDN such as cloudflare change the Query Parameter value."
-msgstr "警告！JSON キャッシュを読み込むとすべてのデータが事前に読み込まれ、高速に表示できます。ただし、変更を加えるたびに「キャッシュを更新」ボタンを押す必要があります。JSON ファイルがブラウザや Cloudflare のような CDN にキャッシュされている場合は、クエリパラメーターの値を変更してください。"
+msgid ""
+"Warning! JSON cache loading preloads all the data to serve it with great "
+"speed, but everytime you make any changes you have to hit the \"Refresh "
+"Cache\" button, if your JSON file is cached by browser or CDN such as "
+"cloudflare change the Query Parameter value."
+msgstr ""
+"警告！JSON "
+"キャッシュを読み込むとすべてのデータが事前に読み込まれ、高速に表示できます。ただし、変更を加えるたびに「キャッシュを更新」ボタンを押す必要があります。JSON"
+" ファイルがブラウザや Cloudflare のような CDN にキャッシュされている場合は、クエリパラメーターの値を変更してください。"
 
-msgid "Warning! search will pinpoint the nearest available store, and will NOT center to actual location"
+msgid ""
+"Warning! search will pinpoint the nearest available store, and will NOT "
+"center to actual location"
 msgstr "警告！検索は最寄りの利用可能な店舗を特定するもので、実際の位置を中心にするものではありません"
 
-msgid "Warning! the existing configuration will be removed and replaced including the customizations that you have made through the Customizer section!"
+msgid ""
+"Warning! the existing configuration will be removed and replaced including "
+"the customizations that you have made through the Customizer section!"
 msgstr "警告！カスタマイザーセクションで行ったカスタマイズを含め、既存の設定はすべて削除され、置き換えられます！"
 
 msgid "Watch :: Import Stores Tutorial"
@@ -4830,8 +5099,11 @@ msgstr "YouTube で見る"
 msgid "Watch tutorial"
 msgstr "チュートリアルを見る"
 
-msgid "We will respond as soon as possible to resolve your problem, please include (\"Store Locator\" in the Subject) to avoid the spam list."
-msgstr "問題を解決するため、できるだけ早くご返信いたします。件名に「Store Locator」を含めていただくと、迷惑メールと判定されるのを防げます。"
+msgid ""
+"We will respond as soon as possible to resolve your problem, please include "
+"(\"Store Locator\" in the Subject) to avoid the spam list."
+msgstr ""
+"問題を解決するため、できるだけ早くご返信いたします。件名に「Store Locator」を含めていただくと、迷惑メールと判定されるのを防げます。"
 
 msgid "Website"
 msgstr "ウェブサイト"
@@ -4860,7 +5132,9 @@ msgstr "水曜日"
 msgid "Welcome to Agile Store Locator"
 msgstr "Agile Store Locator へようこそ"
 
-msgid "We’ll prepare a new page with the Agile Store Locator shortcode already added."
+msgid ""
+"We’ll prepare a new page with the Agile Store Locator shortcode already "
+"added."
 msgstr "Agile Store Locator のショートコードがあらかじめ追加された新しいページをご用意します。"
 
 msgid "What happens next?"
@@ -4908,17 +5182,40 @@ msgstr "はい"
 msgid "Yes, Remove"
 msgstr "はい、削除する"
 
-msgid "Yes, with the separate <a href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">Multi Store Addon for WooCommerce</a>. It adds store selection, local pickup, location-based inventory, and distance-rate shipping."
-msgstr "はい、別売りの<a href=\"https://agilelogix.com/product/multi-store-addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">Multi Store Addon for WooCommerce</a> をご利用いただけます。店舗選択、店舗受け取り、位置情報に基づく在庫管理、距離に応じた配送料金を追加します。"
+msgid ""
+"Yes, with the separate <a href=\"https://agilelogix.com/product/multi-store-"
+"addons-for-woocommerce/\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Multi Store Addon for WooCommerce</a>. It adds store selection,"
+" local pickup, location-based inventory, and distance-rate shipping."
+msgstr ""
+"はい、別売りの<a href=\"https://agilelogix.com/product/multi-store-addons-for-"
+"woocommerce/\" target=\"_blank\" rel=\"noopener noreferrer\">Multi Store "
+"Addon for WooCommerce</a> "
+"をご利用いただけます。店舗選択、店舗受け取り、位置情報に基づく在庫管理、距離に応じた配送料金を追加します。"
 
-msgid "Yes, with the separate <a href=\"https://agilestorelocator.com/agile-sync-addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>. It automatically synchronizes store information between Google Sheets and Agile Store Locator."
-msgstr "はい、別売りの<a href=\"https://agilestorelocator.com/agile-sync-addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync アドオン</a>をご利用いただけます。Google スプレッドシートと Agile Store Locator の間で店舗情報を自動的に同期します。"
+msgid ""
+"Yes, with the separate <a href=\"https://agilestorelocator.com/agile-sync-"
+"addon/\" target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync Addon</a>."
+" It automatically synchronizes store information between Google Sheets and "
+"Agile Store Locator."
+msgstr ""
+"はい、別売りの<a href=\"https://agilestorelocator.com/agile-sync-addon/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">Agile Sync "
+"アドオン</a>をご利用いただけます。Google スプレッドシートと Agile Store Locator の間で店舗情報を自動的に同期します。"
 
-msgid "Yes. Open <b>ASL Settings → Maps</b> and select the free map option. It can display your stores without a Google Maps account. Some address-search features may still require a separate free or paid search service."
-msgstr "はい。<b>ASL 設定 → 地図</b>を開き、無料の地図オプションを選択してください。Google マップのアカウントがなくても店舗を表示できます。一部の住所検索機能には、別途無料または有料の検索サービスが必要になる場合があります。"
+msgid ""
+"Yes. Open <b>ASL Settings → Maps</b> and select the free map option. It can "
+"display your stores without a Google Maps account. Some address-search "
+"features may still require a separate free or paid search service."
+msgstr ""
+"はい。<b>ASL 設定 → 地図</b>を開き、無料の地図オプションを選択してください。Google "
+"マップのアカウントがなくても店舗を表示できます。一部の住所検索機能には、別途無料または有料の検索サービスが必要になる場合があります。"
 
-msgid "Yes. Shortcode options let you filter the locator by categories, stores, or other values, so each page can display a different group of locations."
-msgstr "はい。ショートコードのオプションを使うと、カテゴリー、店舗、その他の値でロケーターを絞り込めるため、ページごとに異なる店舗グループを表示できます。"
+msgid ""
+"Yes. Shortcode options let you filter the locator by categories, stores, or "
+"other values, so each page can display a different group of locations."
+msgstr ""
+"はい。ショートコードのオプションを使うと、カテゴリー、店舗、その他の値でロケーターを絞り込めるため、ページごとに異なる店舗グループを表示できます。"
 
 msgid "You are not allowed to perform this action."
 msgstr "この操作を実行する権限がありません。"
@@ -4986,7 +5283,9 @@ msgstr "地図の設定が必要です"
 msgid "Your selected map service is ready for the store locator."
 msgstr "選択した地図サービスは店舗検索機能で利用できる状態です。"
 
-msgid "Your site could not send the email. Please check WordPress email delivery and try again."
+msgid ""
+"Your site could not send the email. Please check WordPress email delivery "
+"and try again."
 msgstr "サイトからメールを送信できませんでした。WordPress のメール配信設定を確認し、もう一度お試しください。"
 
 msgid "Zip Code"
@@ -5001,7 +5300,9 @@ msgstr "ズームボタン"
 msgid "Zoom Control (Old Style)"
 msgstr "ズームコントロール（旧スタイル）"
 
-msgid "Zoom value when a search is performed, it works only when radius circle is disabled."
+msgid ""
+"Zoom value when a search is performed, it works only when radius circle is "
+"disabled."
 msgstr "検索実行時のズーム値です。半径の円が無効な場合のみ機能します。"
 
 msgid "Zoom value when store list item is clicked"
@@ -5073,6 +5374,1232 @@ msgstr "件の店舗を選択中"
 msgid "support@agilelogix.com"
 msgstr "support@agilelogix.com"
 
-msgid "we will get back to you as soon as possible, please include (\"Store Locator\" in the Subject) to avoid the spam list."
+msgid ""
+"we will get back to you as soon as possible, please include (\"Store "
+"Locator\" in the Subject) to avoid the spam list."
 msgstr "できるだけ早くご連絡いたします。迷惑メールと判定されないよう、件名に「Store Locator」を含めてください。"
 
+#: admin/partials/attribute_special.php:32
+msgid "New Speciality"
+msgstr "新しい専門分野"
+
+#: admin/partials/attribute_special.php:62
+msgid "Upgrade Plugin To View Your Analytics"
+msgstr "統計情報を表示するにはプラグインをアップグレードしてください"
+
+#: admin/partials/attribute_special.php:63
+msgid "License - $59"
+msgstr "ライセンス - 59ドル"
+
+#: admin/partials/dashboard.php:83
+msgid "Personalize the locator design, layout, filters and appearance."
+msgstr "店舗検索のデザイン、レイアウト、フィルター、表示をカスタマイズします。"
+
+#: admin/partials/dashboard.php:83
+msgid "Open Customizer"
+msgstr "カスタマイザーを開く"
+
+#: admin/partials/dashboard.php:101
+msgid "Configured"
+msgstr "設定済み"
+
+#: admin/partials/dashboard.php:101
+msgid "Recommended"
+msgstr "推奨"
+
+#: admin/partials/dashboard.php:103
+msgid ""
+"Give every store its own page so customers can view details, share locations"
+" and get directions."
+msgstr "店舗ごとに専用ページを作成し、お客様が店舗情報の確認、場所の共有、ルート検索を行えるようにします。"
+
+#: admin/partials/dashboard.php:105 admin/partials/dashboard.php:492
+#: admin/partials/dashboard.php:627
+msgid "Update Page"
+msgstr "ページを更新"
+
+#: admin/partials/dashboard.php:106
+msgid "Store Page Settings"
+msgstr "店舗ページの設定"
+
+#: admin/partials/dashboard.php:107
+msgid "Edit in WordPress"
+msgstr "WordPressで編集"
+
+#: admin/partials/dashboard.php:110
+msgid "Unique URL"
+msgstr "固有のURL"
+
+#: admin/partials/dashboard.php:110
+msgid "Each store gets its own page."
+msgstr "各店舗に専用のページを作成します。"
+
+#: admin/partials/dashboard.php:111
+msgid "Easy to Share"
+msgstr "簡単に共有"
+
+#: admin/partials/dashboard.php:111
+msgid "Share on social media or anywhere."
+msgstr "ソーシャルメディアなどで共有できます。"
+
+#: admin/partials/dashboard.php:112
+msgid "Help customers plan their visit."
+msgstr "お客様の来店計画をサポートします。"
+
+#: admin/partials/dashboard.php:122 admin/partials/dashboard.php:468
+msgid "Downtown Store"
+msgstr "中心街の店舗"
+
+#: admin/partials/dashboard.php:122
+msgid "Call Store"
+msgstr "店舗に電話する"
+
+#: admin/partials/dashboard.php:327
+msgid "Connect your Google account or use an existing API key."
+msgstr "Googleアカウントを接続するか、既存のAPIキーを使用してください。"
+
+#: admin/partials/dashboard.php:394
+msgid "Update Store Page"
+msgstr "店舗ページを更新"
+
+#: admin/partials/dashboard.php:394
+msgid "Create Store Page"
+msgstr "店舗ページを作成"
+
+#: admin/partials/dashboard.php:394
+msgid "Set up individual store detail pages on your website."
+msgstr "ウェブサイトに店舗ごとの詳細ページを設定します。"
+
+#: admin/partials/dashboard.php:400
+msgid "Open page editor"
+msgstr "ページエディターを開く"
+
+#: admin/partials/dashboard.php:402
+msgid "This page is published. Updated options will take effect immediately."
+msgstr "このページは公開済みです。更新したオプションはすぐに反映されます。"
+
+#: admin/partials/dashboard.php:406
+msgid "This will be used as the base title for store pages."
+msgstr "店舗ページの基本タイトルとして使用されます。"
+
+#: admin/partials/dashboard.php:412
+msgid "Page options"
+msgstr "ページオプション"
+
+#: admin/partials/dashboard.php:412
+msgid "Choose what information to show on each store page."
+msgstr "各店舗ページに表示する情報を選択します。"
+
+#: admin/partials/dashboard.php:416
+msgid "Show map"
+msgstr "地図を表示"
+
+#: admin/partials/dashboard.php:417
+msgid "Show business hours"
+msgstr "営業時間を表示"
+
+#: admin/partials/dashboard.php:418
+msgid "Show closed days"
+msgstr "休業日を表示"
+
+#: admin/partials/dashboard.php:419
+msgid "Show descriptions"
+msgstr "説明を表示"
+
+#: admin/partials/dashboard.php:420
+msgid "Show categories"
+msgstr "カテゴリーを表示"
+
+#: admin/partials/dashboard.php:421
+msgid "Show country in address"
+msgstr "住所に国名を表示"
+
+#: admin/partials/dashboard.php:422
+msgid "Enable structured data"
+msgstr "構造化データを有効化"
+
+#: admin/partials/dashboard.php:423
+msgid "Use coordinates for directions"
+msgstr "ルート案内に座標を使用"
+
+#: admin/partials/dashboard.php:437
+msgid "Display a map showing the store location."
+msgstr "店舗の場所を示す地図を表示します。"
+
+#: admin/partials/dashboard.php:438
+msgid "Display the store’s opening hours."
+msgstr "店舗の営業時間を表示します。"
+
+#: admin/partials/dashboard.php:439
+msgid "Include days when the store is closed in business hours."
+msgstr "営業時間に店舗の休業日も表示します。"
+
+#: admin/partials/dashboard.php:440
+msgid "Display the store descriptions when provided."
+msgstr "店舗の説明がある場合に表示します。"
+
+#: admin/partials/dashboard.php:441
+msgid "Display the categories assigned to the store."
+msgstr "店舗に割り当てられたカテゴリーを表示します。"
+
+#: admin/partials/dashboard.php:442
+msgid "Include the country in the store address."
+msgstr "店舗の住所に国名を含めます。"
+
+#: admin/partials/dashboard.php:443
+msgid "Add store structured data for search engines."
+msgstr "検索エンジン向けに店舗の構造化データを追加します。"
+
+#: admin/partials/dashboard.php:444
+msgid "Use latitude and longitude instead of the address for directions."
+msgstr "ルート案内には住所ではなく緯度と経度を使用します。"
+
+#: admin/partials/dashboard.php:463
+msgid "Preview"
+msgstr "プレビュー"
+
+#: admin/partials/dashboard.php:463
+msgid "Example layout with your selected options."
+msgstr "選択したオプションを使用したレイアウト例です。"
+
+#: admin/partials/dashboard.php:469
+msgid "123 Main Street, Dubai"
+msgstr "ドバイ、メインストリート123"
+
+#: admin/partials/dashboard.php:469
+msgid ", UAE"
+msgstr "、アラブ首長国連邦"
+
+#: admin/partials/dashboard.php:470
+msgid "Open now"
+msgstr "現在営業中"
+
+#: admin/partials/dashboard.php:471
+msgid "Sunday: Closed"
+msgstr "日曜日：休業"
+
+#: admin/partials/dashboard.php:474
+msgid "Visit our friendly team for local advice and in-store services."
+msgstr "地域に関するご相談や店内サービスをご希望の方は、お気軽にスタッフにお声がけください。"
+
+#: admin/partials/dashboard.php:475
+msgid "Electronics"
+msgstr "電化製品"
+
+#: admin/partials/dashboard.php:475
+msgid "Accessories"
+msgstr "アクセサリー"
+
+#: admin/partials/dashboard.php:476
+msgid "Example store map"
+msgstr "店舗地図のサンプル"
+
+#: admin/partials/dashboard.php:477
+msgid "Directions use store coordinates."
+msgstr "ルート案内には店舗の座標を使用します。"
+
+#: admin/partials/dashboard.php:480
+msgid ""
+"Illustrative preview. Your theme and store details determine the final "
+"appearance."
+msgstr "参考用のプレビューです。最終的な表示はテーマと店舗情報によって決まります。"
+
+#: admin/partials/dashboard.php:486
+msgid "Store shortcode"
+msgstr "店舗ショートコード"
+
+#: admin/partials/dashboard.php:486
+msgid ""
+"The page ID, URL slug and permalink rules will be configured automatically."
+msgstr "ページID、URLスラッグ、パーマリンクのルールは自動で設定されます。"
+
+#: admin/partials/dashboard.php:490
+msgid ""
+"Your page title and store shortcode options will be updated. The page URL, "
+"other content and publishing status will be preserved."
+msgstr "ページタイトルと店舗ショートコードのオプションが更新されます。ページURL、その他の内容、公開状態は保持されます。"
+
+#: admin/partials/dashboard.php:490
+msgid ""
+"A draft WordPress page will be created with the store shortcode. Review and "
+"publish it to make store details available to your customers."
+msgstr ""
+"店舗ショートコードを含むWordPressページの下書きを作成します。内容を確認して公開すると、お客様が店舗情報を閲覧できるようになります。"
+
+#: admin/partials/dashboard.php:596
+msgid "Copied"
+msgstr "コピーしました"
+
+#: admin/partials/dashboard.php:597
+msgid "Shortcode copied."
+msgstr "ショートコードをコピーしました。"
+
+#: admin/partials/dashboard.php:599
+msgid "Unable to copy. Select and copy the shortcode manually."
+msgstr "コピーできませんでした。ショートコードを選択して手動でコピーしてください。"
+
+#: admin/partials/dashboard.php:616
+msgid "Updating…"
+msgstr "更新中…"
+
+#: admin/partials/dashboard.php:616
+msgid "Creating…"
+msgstr "作成中…"
+
+#: admin/partials/dashboard.php:625
+msgid "Unable to create the page."
+msgstr "ページを作成できませんでした。"
+
+#: admin/partials/manage-cards.php:186
+msgid "Card 0"
+msgstr "カード0"
+
+#: admin/partials/manage_leads.php:30
+msgid "Manage Leads"
+msgstr "見込み客を管理"
+
+#: admin/partials/manage_leads.php:37
+msgid "Duration Selection"
+msgstr "期間の選択"
+
+#: admin/partials/manage_leads.php:41
+msgid "Export Leads"
+msgstr "見込み客をエクスポート"
+
+#: admin/partials/manage_leads.php:44
+msgid "Export Dealers"
+msgstr "販売店をエクスポート"
+
+#: admin/partials/manage_leads.php:62
+msgid "Search Lead Name"
+msgstr "見込み客名を検索"
+
+#: admin/partials/manage_leads.php:63
+msgid "Search Lead Phone"
+msgstr "見込み客の電話番号を検索"
+
+#: admin/partials/manage_leads.php:64
+msgid "Search Lead Email"
+msgstr "見込み客のメールアドレスを検索"
+
+#: admin/partials/manage_leads.php:66
+msgid "Search Store Title"
+msgstr "店舗名を検索"
+
+#: admin/partials/manage_leads.php:72
+msgid "Lead Name"
+msgstr "見込み客名"
+
+#: admin/partials/manage_leads.php:73
+msgid "Lead Phone"
+msgstr "見込み客の電話番号"
+
+#: admin/partials/manage_leads.php:74
+msgid "Lead Email"
+msgstr "見込み客のメールアドレス"
+
+#: admin/partials/manage_leads.php:77
+msgid "Dated"
+msgstr "日付"
+
+#: admin/partials/shortcode-popup-html.php:36
+#: admin/partials/user_setting.php:1354
+msgid "Template 0 (Legacy)"
+msgstr "テンプレート0（旧版）"
+
+#: admin/partials/ui-customizer-dimensions.php:1
+msgid "Width or Height"
+msgstr "幅または高さ"
+
+#: admin/partials/ui-customizer-dimensions.php:18
+msgid "Height"
+msgstr "高さ"
+
+#: admin/partials/ui-customizer-dimensions.php:18
+msgid "Height on phones"
+msgstr "スマートフォンでの高さ"
+
+#: admin/partials/ui-customizer-dimensions.php:21
+msgid "Same"
+msgstr "同じ"
+
+#: admin/partials/ui-customizer-dimensions.php:25
+msgid "e.g. 480px, 60vh"
+msgstr "例：480px、60vh"
+
+#: admin/partials/ui-customizer-dimensions.php:27
+msgid "Width"
+msgstr "幅"
+
+#: admin/partials/ui-customizer-fields.php:11
+msgid "Secondary accent color"
+msgstr "セカンダリアクセントカラー"
+
+#: admin/partials/ui-customizer-fields.php:12
+msgid "Background of filter dropdown buttons"
+msgstr "フィルタードロップダウンボタンの背景"
+
+#: admin/partials/ui-customizer-fields.php:13
+msgid "Text and icon color of filter dropdown buttons"
+msgstr "フィルタードロップダウンボタンのテキストとアイコンの色"
+
+#: admin/partials/ui-customizer-fields.php:14
+msgid "Background of secondary action buttons"
+msgstr "セカンダリアクションボタンの背景"
+
+#: admin/partials/ui-customizer-fields.php:15
+msgid "Border color of primary action buttons"
+msgstr "プライマリアクションボタンの枠線の色"
+
+#: admin/partials/ui-customizer-fields.php:16
+msgid "Text and icon color of secondary action buttons"
+msgstr "セカンダリアクションボタンのテキストとアイコンの色"
+
+#: admin/partials/ui-customizer-fields.php:17
+msgid "Background behind store images; accepts transparent in Template 0"
+msgstr "店舗画像の背景。テンプレート0ではtransparentを指定できます"
+
+#: admin/partials/ui-customizer-fields.php:18
+msgid "Color of the locations count heading"
+msgstr "店舗数の見出しの色"
+
+#: admin/partials/ui-customizer-fields.php:19
+msgid "Text color of highlighted store rows"
+msgstr "強調表示された店舗行のテキストの色"
+
+#: admin/partials/ui-customizer-fields.php:20
+msgid "Background of the location search input"
+msgstr "場所検索入力欄の背景"
+
+#: admin/partials/ui-customizer-fields.php:21
+msgid "Text color of the location search input"
+msgstr "場所検索入力欄のテキストの色"
+
+#: admin/partials/ui-customizer-fields.php:22
+msgid "Placeholder color of the location search input"
+msgstr "場所検索入力欄のプレースホルダーの色"
+
+#: admin/partials/ui-customizer-fields.php:23
+msgid "Border color of the location search input"
+msgstr "場所検索入力欄の枠線の色"
+
+#: admin/partials/ui-customizer-fields.php:24
+msgid "Background of selected filter tabs"
+msgstr "選択したフィルタータブの背景"
+
+#: admin/partials/ui-customizer-fields.php:25
+msgid "Text color of selected filter tabs"
+msgstr "選択したフィルタータブのテキストの色"
+
+#: admin/partials/ui-customizer-fields.php:26
+msgid "Border color of selected filter tabs"
+msgstr "選択したフィルタータブの枠線の色"
+
+#: admin/partials/ui-customizer-fields.php:45
+msgid "Quick Style"
+msgstr "クイックスタイル"
+
+#: admin/partials/ui-customizer-fields.php:56
+#: admin/partials/ui-customizer-filters.php:23
+#: admin/partials/ui-customizer-filters.php:35
+#: admin/partials/ui-customizer-filters.php:64
+#: admin/partials/ui-customizer-filters.php:71
+#: admin/partials/ui-customizer-layout.php:33
+#: admin/partials/ui-customizer-layout.php:44
+#: admin/partials/user_setting.php:382 admin/partials/user_setting.php:392
+#: admin/partials/user_setting.php:1635 admin/partials/user_setting.php:1640
+msgid "PRO"
+msgstr "PRO"
+
+#: admin/partials/ui-customizer-fields.php:60
+msgid "Typography"
+msgstr "文字設定"
+
+#: admin/partials/ui-customizer-fields.php:67
+#, php-format
+msgid "Color for %s"
+msgstr "%sの色"
+
+#: admin/partials/ui-customizer-fields.php:70
+msgid "Corner radius of controls and cards, in pixels"
+msgstr "コントロールとカードの角丸の半径（ピクセル）"
+
+#: admin/partials/ui-customizer-fields.php:71
+#, php-format
+msgid "Font size for %s, in pixels"
+msgstr "%sのフォントサイズ（ピクセル）"
+
+#: admin/partials/ui-customizer-filters.php:6
+msgid "Enable Filters"
+msgstr "フィルターを有効化"
+
+#: admin/partials/ui-customizer-filters.php:6
+msgid "Show the advanced filter controls."
+msgstr "詳細フィルターのコントロールを表示します。"
+
+#: admin/partials/ui-customizer-filters.php:8
+msgid "Show cascading Country, State and City dropdowns."
+msgstr "国、都道府県、市区町村の連動するドロップダウンを表示します。"
+
+#: admin/partials/ui-customizer-filters.php:9
+msgid "Search Inside Dropdowns"
+msgstr "ドロップダウン内を検索"
+
+#: admin/partials/ui-customizer-filters.php:9
+msgid "Add a search box inside category and attribute dropdowns."
+msgstr "カテゴリーと属性のドロップダウン内に検索ボックスを追加します。"
+
+#: admin/partials/ui-customizer-filters.php:10
+msgid "Brand–Speciality Cascade"
+msgstr "ブランドと専門分野の連動フィルター"
+
+#: admin/partials/ui-customizer-filters.php:10
+msgid "Limit Speciality options to the selected Brand."
+msgstr "専門分野の選択肢を、選択したブランドに対応するものに限定します。"
+
+#: admin/partials/ui-customizer-filters.php:11
+msgid "Require All Categories"
+msgstr "すべてのカテゴリーへの一致を必須にする"
+
+#: admin/partials/ui-customizer-filters.php:11
+msgid ""
+"When enabled, stores must belong to every selected category. Otherwise, "
+"matching any category is enough."
+msgstr "有効にすると、選択したすべてのカテゴリーに属する店舗のみが表示されます。無効の場合は、いずれかのカテゴリーに一致すれば表示されます。"
+
+#: admin/partials/ui-customizer-filters.php:12
+msgid "Category Images"
+msgstr "カテゴリー画像"
+
+#: admin/partials/ui-customizer-filters.php:12
+msgid "Show assigned icons in the category filter."
+msgstr "カテゴリーフィルターに割り当てられたアイコンを表示します。"
+
+#: admin/partials/ui-customizer-filters.php:13
+msgid "Category Image Labels"
+msgstr "カテゴリー画像のラベル"
+
+#: admin/partials/ui-customizer-filters.php:13
+msgid "Show category names alongside their icons."
+msgstr "アイコンと一緒にカテゴリー名を表示します。"
+
+#: admin/partials/ui-customizer-filters.php:14
+msgid "Open Now Filter"
+msgstr "営業中フィルター"
+
+#: admin/partials/ui-customizer-filters.php:14
+msgid "Let visitors display stores that are currently open."
+msgstr "現在営業中の店舗を表示できるようにします。"
+
+#: admin/partials/ui-customizer-filters.php:15
+msgid "Open Now by Default"
+msgstr "デフォルトで営業中の店舗を表示"
+
+#: admin/partials/ui-customizer-filters.php:15
+msgid "Initially display only stores that are currently open."
+msgstr "初期表示では現在営業中の店舗のみを表示します。"
+
+#: admin/partials/ui-customizer-filters.php:16
+msgid "Distance Filter"
+msgstr "距離フィルター"
+
+#: admin/partials/ui-customizer-filters.php:16
+msgid "Let visitors restrict results by distance."
+msgstr "距離で検索結果を絞り込めるようにします。"
+
+#: admin/partials/ui-customizer-filters.php:32
+msgid "Filter Controls"
+msgstr "フィルターコントロール"
+
+#: admin/partials/ui-customizer-filters.php:35
+msgid "Choose Brand, Speciality and registered custom attribute filters."
+msgstr "ブランド、専門分野、登録済みのカスタム属性のフィルターを選択します。"
+
+#: admin/partials/ui-customizer-filters.php:43
+msgid "Filter Option Order"
+msgstr "フィルターの選択肢の順序"
+
+#: admin/partials/ui-customizer-filters.php:43
+msgid ""
+"Sort category and attribute options alphabetically or by their custom order."
+msgstr "カテゴリーと属性の選択肢を名前順またはカスタム順で並べ替えます。"
+
+#: admin/partials/ui-customizer-filters.php:44
+msgid "Custom order"
+msgstr "カスタム順"
+
+#: admin/partials/ui-customizer-filters.php:44
+msgid "Alphabetical"
+msgstr "名前順"
+
+#: admin/partials/ui-customizer-filters.php:53
+msgid "Selected Categories"
+msgstr "選択済みのカテゴリー"
+
+#: admin/partials/ui-customizer-filters.php:53
+msgid "Select categories that are active when the locator loads."
+msgstr "店舗検索の読み込み時に有効にするカテゴリーを選択します。"
+
+#: admin/partials/ui-customizer-filters.php:57
+msgid "Availability"
+msgstr "営業状況"
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Distance Control Style"
+msgstr "距離選択の表示形式"
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Choose how visitors set the search distance."
+msgstr "利用者が検索距離を設定する方法を選択します。"
+
+#: admin/partials/ui-customizer-filters.php:64
+msgid "Map Boundary"
+msgstr "地図の表示範囲"
+
+#: admin/partials/ui-customizer-filters.php:65
+msgid "Fixed Radius"
+msgstr "固定半径"
+
+#: admin/partials/ui-customizer-filters.php:65
+msgid ""
+"Restrict results to a fixed distance without a visitor-controlled radius."
+msgstr "利用者が半径を変更できないようにして、検索結果を固定距離内に限定します。"
+
+#: admin/partials/ui-customizer-filters.php:69
+msgid "Secondary Search"
+msgstr "補助検索"
+
+#: admin/partials/ui-customizer-filters.php:71
+msgid "Secondary Store Search"
+msgstr "店舗の補助検索"
+
+#: admin/partials/ui-customizer-filters.php:71
+msgid "Choose the store fields searched by the secondary search box."
+msgstr "補助検索ボックスで検索する店舗情報の項目を選択します。"
+
+#: admin/partials/ui-customizer-layout.php:2
+msgid "Left"
+msgstr "左"
+
+#: admin/partials/ui-customizer-layout.php:2
+msgid "Right"
+msgstr "右"
+
+#: admin/partials/ui-customizer-layout.php:4
+msgid "Below Map"
+msgstr "地図の下"
+
+#: admin/partials/ui-customizer-layout.php:5
+msgid "Card Grid"
+msgstr "カードグリッド"
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Sort By"
+msgstr "並べ替えを表示"
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Directions Button"
+msgstr "ルート案内ボタンを表示"
+
+#: admin/partials/ui-customizer-layout.php:10
+msgid "Show Website Button"
+msgstr "ウェブサイトボタンを表示"
+
+#: admin/partials/ui-customizer-layout.php:13
+#: admin/partials/ui-customizer-layout.php:49
+#: admin/partials/user_setting.php:1640
+msgid "Checkboxes"
+msgstr "チェックボックス"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1790
+msgid "Action Button Content"
+msgstr "アクションボタンの内容"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1795
+msgid "Icons only"
+msgstr "アイコンのみ"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1800
+msgid "Text only"
+msgstr "テキストのみ"
+
+#: admin/partials/ui-customizer-layout.php:14
+#: admin/partials/user_setting.php:1805
+msgid "Icons and text"
+msgstr "アイコンとテキスト"
+
+#: admin/partials/ui-customizer-layout.php:17
+#: admin/partials/ui-customizer-layout.php:18
+msgid "Result Layout"
+msgstr "検索結果のレイアウト"
+
+#: admin/partials/ui-customizer-layout.php:33
+msgid "List / Map Proportion"
+msgstr "一覧と地図の比率"
+
+#: admin/partials/ui-customizer-layout.php:33
+msgid "Desktop"
+msgstr "デスクトップ"
+
+#: admin/partials/ui-customizer-layout.php:36
+msgid "List and map stack on this screen size, each at 100% width."
+msgstr "この画面サイズでは、一覧と地図がそれぞれ幅100%で縦に並びます。"
+
+#: admin/partials/ui-customizer-layout.php:38
+msgid "Result Layout is available for Templates 0, 1, 2, 3, 5 and 6."
+msgstr "検索結果のレイアウトは、テンプレート0、1、2、3、5、6で利用できます。"
+
+#: admin/partials/ui-customizer-layout.php:56
+msgid ""
+"Layout and proportions are saved for this template. Appearance settings also"
+" apply to your other store locators."
+msgstr "レイアウトと比率はこのテンプレート用に保存されます。表示設定は他の店舗検索にも適用されます。"
+
+#: admin/partials/ui-customizer.php:4
+msgid "UI Customizer"
+msgstr "UIカスタマイザー"
+
+#: admin/partials/ui-customizer.php:5
+msgid "Design the layout, filters and appearance of your store locator."
+msgstr "店舗検索のレイアウト、フィルター、表示を設定します。"
+
+#: admin/partials/ui-customizer.php:17
+msgid "Included"
+msgstr "含まれています"
+
+#: admin/partials/ui-customizer.php:27
+msgid "List Template — Pro"
+msgstr "一覧テンプレート — Pro"
+
+#: admin/partials/ui-customizer.php:28
+msgid "List Template 2 — Pro"
+msgstr "一覧テンプレート2 — Pro"
+
+#: admin/partials/ui-customizer.php:41
+msgid "9 more templates in Pro"
+msgstr "Proではさらに9種類のテンプレートを利用できます"
+
+#: admin/partials/ui-customizer.php:48
+msgid "Customizer settings"
+msgstr "カスタマイザーの設定"
+
+#: admin/partials/ui-customizer.php:58
+msgid "Settings panel"
+msgstr "設定パネル"
+
+#: admin/partials/ui-customizer.php:61
+msgid "Design"
+msgstr "デザイン"
+
+#: admin/partials/ui-customizer.php:62
+msgid "Customize your store locator in real time."
+msgstr "店舗検索をリアルタイムでカスタマイズできます。"
+
+#: admin/partials/ui-customizer.php:64
+msgid "Close settings panel"
+msgstr "設定パネルを閉じる"
+
+#: admin/partials/ui-customizer.php:70
+msgid "Loading customizer..."
+msgstr "カスタマイザーを読み込み中..."
+
+#: admin/partials/ui-customizer.php:77
+msgid "Live store locator preview"
+msgstr "店舗検索のライブプレビュー"
+
+#: admin/partials/ui-customizer.php:79
+msgid "Preview device"
+msgstr "プレビューする端末"
+
+#: admin/partials/ui-customizer.php:89
+msgid "Store locator live preview"
+msgstr "店舗検索のライブプレビュー"
+
+#: admin/partials/user_setting.php:820
+msgid ""
+"Fine-tune search behavior, category logic, analytics, and multilingual store"
+" data."
+msgstr "検索動作、カテゴリーの条件、統計情報、多言語の店舗データを細かく設定します。"
+
+#: admin/partials/user_setting.php:1324
+msgid "Additional UI templates are a Pro feature"
+msgstr "追加のUIテンプレートはProの機能です"
+
+#: admin/partials/user_setting.php:1325
+msgid "Upgrade to use additional UI templates and InfoBox layouts."
+msgstr "追加のUIテンプレートとInfoBoxレイアウトを使用するには、アップグレードしてください。"
+
+#: admin/partials/user_setting.php:1643
+msgid "Choose how category filters appear in the store locator."
+msgstr "店舗検索でのカテゴリーフィルターの表示方法を選択します。"
+
+#: admin/partials/user_setting.php:1808
+msgid "Choose how action buttons appear in the store list."
+msgstr "店舗一覧でのアクションボタンの表示方法を選択します。"
+
+#: admin/partials/user_setting.php:1809
+msgid "(Supported in Template 0 Only)"
+msgstr "（テンプレート0のみ対応）"
+
+#: includes/admin/dashboard.php:183
+msgid ""
+"The connected Store Page is missing or unavailable. Review its page ID in "
+"Store Page Settings."
+msgstr "関連付けられた店舗ページが見つからないか、利用できません。店舗ページの設定でページIDを確認してください。"
+
+#: includes/admin/dashboard.php:187
+msgid ""
+"This page uses a page builder. Edit the store shortcode in the page editor "
+"to preserve its layout."
+msgstr "このページはページビルダーを使用しています。レイアウトを保持するため、ページエディターで店舗ショートコードを編集してください。"
+
+#: includes/admin/dashboard.php:195
+msgid ""
+"This page uses a page builder or custom blocks. Edit the store shortcode in "
+"the page editor to preserve its layout."
+msgstr ""
+"このページはページビルダーまたはカスタムブロックを使用しています。レイアウトを保持するため、ページエディターで店舗ショートコードを編集してください。"
+
+#: includes/admin/dashboard.php:200
+msgid ""
+"No store shortcode was found in the page content. Open the page editor to "
+"add or update it."
+msgstr "ページの内容に店舗ショートコードが見つかりません。ページエディターを開いて追加または更新してください。"
+
+#: includes/admin/dashboard.php:203
+msgid ""
+"This page contains multiple store shortcodes. Update the intended shortcode "
+"in the page editor."
+msgstr "このページには店舗ショートコードが複数あります。ページエディターで対象のショートコードを更新してください。"
+
+#: includes/admin/dashboard.php:209
+msgid ""
+"The store shortcode is not in a supported standalone format. Update it in "
+"the page editor."
+msgstr "店舗ショートコードが対応する単独の形式になっていません。ページエディターで更新してください。"
+
+#: includes/admin/dashboard.php:262
+msgid "You cannot create pages."
+msgstr "ページを作成する権限がありません。"
+
+#: includes/admin/dashboard.php:281
+msgid "You cannot edit this page."
+msgstr "このページを編集する権限がありません。"
+
+#: includes/admin/dashboard.php:286
+msgid ""
+"The page changed since this dashboard was loaded. Reload the dashboard "
+"before updating it."
+msgstr "このダッシュボードの読み込み後にページが変更されました。更新する前にダッシュボードを再読み込みしてください。"
+
+#: includes/admin/dashboard.php:380
+msgid ""
+"The page exists, but its settings could not be saved. Connect it in Store "
+"Page Settings."
+msgstr "ページは存在しますが、設定を保存できませんでした。店舗ページの設定で関連付けてください。"
+
+#: includes/admin/google-connect.php:30
+msgid "Starting Google setup…"
+msgstr "Googleの設定を開始しています…"
+
+#: includes/admin/google-connect.php:31
+msgid "Continue Google setup on Agilelogix"
+msgstr "AgilelogixでGoogleの設定を続ける"
+
+#: includes/admin/google-connect.php:32
+msgid "Complete setup in the Agilelogix tab, then check the connection here."
+msgstr "Agilelogixのタブで設定を完了してから、ここで接続を確認してください。"
+
+#: includes/admin/google-connect.php:33
+msgid "Checking the connection and server key…"
+msgstr "接続とサーバーキーを確認しています…"
+
+#: includes/admin/google-connect.php:34
+msgid "The connection could not be completed. Please retry."
+msgstr "接続を完了できませんでした。もう一度お試しください。"
+
+#: includes/admin/google-connect.php:35
+msgid ""
+"Your keys are saved and the server key is verified. Reload this panel, then "
+"choose Save and Verify to finish Google Maps setup."
+msgstr ""
+"キーは保存済みで、サーバーキーは検証済みです。このパネルを再読み込みし、「保存して検証」を選択してGoogle Mapsの設定を完了してください。"
+
+#: includes/admin/google-connect.php:50
+msgid "Connect with Google"
+msgstr "Googleで接続"
+
+#: includes/admin/google-connect.php:50
+msgid "Secure & Automated"
+msgstr "安全な自動設定"
+
+#: includes/admin/google-connect.php:50
+msgid "We’ll set up Google Maps for your website automatically."
+msgstr "ウェブサイト用のGoogle Mapsを自動で設定します。"
+
+#: includes/admin/google-connect.php:52
+msgid "Creates restricted browser and server API keys"
+msgstr "ブラウザー用とサーバー用に制限付きのAPIキーを作成します"
+
+#: includes/admin/google-connect.php:52
+msgid "Enables required Google Maps APIs"
+msgstr "必要なGoogle Maps APIを有効にします"
+
+#: includes/admin/google-connect.php:52
+msgid "Offers daily limits to help manage free usage"
+msgstr "無料利用の管理に役立つ1日あたりの上限を設定します"
+
+#: includes/admin/google-connect.php:52
+msgid "Secures keys for your website and server"
+msgstr "ウェブサイトとサーバーのキーを保護します"
+
+#: includes/admin/google-connect.php:54
+msgid "Usage limits configured"
+msgstr "利用上限を設定済み"
+
+#: includes/admin/google-connect.php:54
+msgid "Review in Google Cloud"
+msgstr "Google Cloudで確認"
+
+#: includes/admin/google-connect.php:54
+msgid ""
+"Verified during setup. Changes in Google Cloud are not monitored. A $0 bill "
+"is not guaranteed."
+msgstr "設定時に検証済みです。Google Cloudでの変更は監視されません。請求額が0ドルになることを保証するものではありません。"
+
+#: includes/admin/google-connect.php:56
+msgid "Your website"
+msgstr "あなたのウェブサイト"
+
+#: includes/admin/google-connect.php:57
+msgid "Include subdomains of this website"
+msgstr "このウェブサイトのサブドメインを含める"
+
+#: includes/admin/google-connect.php:59
+msgid "Connect Google Maps"
+msgstr "Google Mapsに接続"
+
+#: includes/admin/google-connect.php:61
+msgid "Check connection"
+msgstr "接続を確認"
+
+#: includes/admin/google-connect.php:63
+msgid "or"
+msgstr "または"
+
+#: includes/admin/google-connect.php:63
+msgid "Enter API keys manually"
+msgstr "APIキーを手動で入力"
+
+#: includes/admin/google-connect.php:64
+msgid "Uses your Google Cloud project. Google bills usage directly to you."
+msgstr "お使いのGoogle Cloudプロジェクトを使用します。利用料金はGoogleから直接請求されます。"
+
+#: includes/admin/google-connect.php:66
+msgid "Reload and finish setup"
+msgstr "再読み込みして設定を完了"
+
+#: includes/admin/google-connect.php:72
+msgid "Administrator access is required."
+msgstr "管理者権限が必要です。"
+
+#: includes/admin/google-connect.php:79
+msgid "The Google connection service requires a valid HTTPS URL."
+msgstr "Google接続サービスには有効なHTTPS URLが必要です。"
+
+#: includes/admin/google-connect.php:84
+msgid ""
+"The Agilelogix Google connection service could not be reached. Please retry "
+"later."
+msgstr "AgilelogixのGoogle接続サービスに接続できませんでした。後でもう一度お試しください。"
+
+#: includes/admin/google-connect.php:86
+msgid ""
+"The Agilelogix Google connection service is unavailable or has not been "
+"deployed yet."
+msgstr "AgilelogixのGoogle接続サービスは利用できないか、まだ導入されていません。"
+
+#: includes/admin/google-connect.php:87
+msgid "Google setup could not continue."
+msgstr "Googleの設定を続行できませんでした。"
+
+#: includes/admin/google-connect.php:98
+msgid "Please wait a few seconds before starting again."
+msgstr "数秒待ってからやり直してください。"
+
+#: includes/admin/google-connect.php:111
+msgid "The connection service returned an invalid session."
+msgstr "接続サービスから無効なセッションが返されました。"
+
+#: includes/admin/google-connect.php:113
+msgid "Could not save the temporary connection. Please retry."
+msgstr "一時的な接続を保存できませんでした。もう一度お試しください。"
+
+#: includes/admin/google-connect.php:120
+msgid "Connection expired. Please start Google setup again."
+msgstr "接続の有効期限が切れました。Googleの設定を最初からやり直してください。"
+
+#: includes/admin/google-connect.php:124
+msgid "Another connection check is running. Please retry shortly."
+msgstr "別の接続確認が実行中です。しばらくしてからもう一度お試しください。"
+
+#: includes/admin/google-connect.php:126
+msgid "The connection could not be saved. Please retry."
+msgstr "接続を保存できませんでした。もう一度お試しください。"
+
+#: includes/admin/google-connect.php:143
+msgid "Finish setup on Agilelogix first."
+msgstr "先にAgilelogixで設定を完了してください。"
+
+#: includes/admin/google-connect.php:145
+msgid "The connection service returned an invalid key."
+msgstr "接続サービスから無効なキーが返されました。"
+
+#: includes/admin/google-connect.php:148
+msgid ""
+"Could not reach Google from this server. Existing keys were not changed."
+msgstr "このサーバーからGoogleに接続できませんでした。既存のキーは変更されていません。"
+
+#: includes/admin/google-connect.php:150
+msgid ""
+"Google has not accepted the server key yet. Wait a few minutes for "
+"restrictions to propagate, then retry. If it still fails, check the public "
+"outbound IP addresses, billing and Geocoding API in Google Cloud. Existing "
+"keys were not changed."
+msgstr ""
+"Googleはまだサーバーキーを受け付けていません。制限が反映されるまで数分待ってから、もう一度お試しください。問題が続く場合は、Google "
+"Cloudで送信元の公開IPアドレス、請求設定、Geocoding APIを確認してください。既存のキーは変更されていません。"
+
+#: includes/admin/google-connect.php:152
+msgid ""
+"Google key settings are missing. Repair or update the plugin before "
+"connecting."
+msgstr "Googleキーの設定がありません。接続する前にプラグインを修復または更新してください。"
+
+#: includes/admin/google-connect.php:155
+msgid "Could not save Google keys. Please retry."
+msgstr "Googleキーを保存できませんでした。もう一度お試しください。"
+
+#: includes/admin/google-connect.php:157
+msgid "Could not verify saved Google keys. Please retry."
+msgstr "保存済みのGoogleキーを検証できませんでした。もう一度お試しください。"
+
+#: includes/admin/google-maps-authorization.php:38
+msgid "Automatic setup is not configured on this site."
+msgstr "このサイトでは自動設定が有効になっていません。"
+
+#: includes/admin/google-maps-authorization.php:64
+msgid "You are not allowed to configure Google Maps."
+msgstr "Google Mapsを設定する権限がありません。"
+
+#: includes/admin/google-maps-authorization.php:65
+msgid "Google Maps authorization"
+msgstr "Google Mapsの認可"
+
+#: includes/admin/google-maps-authorization.php:77
+msgid "Google authorization was cancelled or denied."
+msgstr "Googleの認可がキャンセルされたか、拒否されました。"
+
+#: includes/admin/google-maps-authorization.php:81
+msgid "Google authorization could not be verified. Please try again."
+msgstr "Googleの認可を検証できませんでした。もう一度お試しください。"
+
+#: includes/admin/google-maps-authorization.php:97
+msgid "Google did not return an access token."
+msgstr "Googleからアクセストークンが返されませんでした。"
+
+#: includes/admin/google-maps-authorization.php:102
+msgid "Google Cloud authorization succeeded. Select a project to continue."
+msgstr "Google Cloudの認可が完了しました。続行するにはプロジェクトを選択してください。"
+
+#: includes/admin/google-maps-authorization.php:136
+msgid "Select a Google Cloud project."
+msgstr "Google Cloudプロジェクトを選択してください。"
+
+#: includes/admin/google-maps-authorization.php:142
+msgid "The selected Google Cloud project could not be verified."
+msgstr "選択したGoogle Cloudプロジェクトを検証できませんでした。"
+
+#: includes/admin/google-maps-authorization.php:188
+msgid "Google created the key but did not return its resource name."
+msgstr "Googleはキーを作成しましたが、リソース名を返しませんでした。"
+
+#: includes/admin/google-maps-authorization.php:193
+msgid "The generated API key could not be retrieved."
+msgstr "生成されたAPIキーを取得できませんでした。"
+
+#: includes/admin/google-maps-authorization.php:198
+msgid "The key was created but could not be saved in WordPress."
+msgstr "キーは作成されましたが、WordPressに保存できませんでした。"
+
+#: includes/admin/google-maps-authorization.php:207
+msgid ""
+"Google Maps APIs and restrictions were configured. Verifying the generated "
+"key…"
+msgstr "Google Maps APIと制限を設定しました。生成されたキーを検証しています…"
+
+#: includes/admin/google-maps-authorization.php:215
+msgid "Google authorization expired. Please connect again."
+msgstr "Googleの認可の有効期限が切れました。再接続してください。"
+
+#: includes/admin/google-maps-authorization.php:229
+msgid "Google did not return an operation identifier."
+msgstr "Googleから操作識別子が返されませんでした。"
+
+#: includes/admin/google-maps-authorization.php:241
+msgid "Google Cloud configuration is taking too long. Please try again."
+msgstr "Google Cloudの設定に時間がかかりすぎています。もう一度お試しください。"
+
+#: includes/admin/google-maps-authorization.php:252
+msgid "Google Cloud rejected the request."
+msgstr "Google Cloudがリクエストを拒否しました。"
+
+#: includes/admin/lead.php:68
+msgid "Leads deleted successfully."
+msgstr "見込み客情報を削除しました。"
+
+#: includes/admin/lead.php:68
+msgid "Lead deleted successfully."
+msgstr "見込み客情報を削除しました。"
+
+#: includes/admin/lead.php:93
+msgid "Lead Updated Successfully."
+msgstr "見込み客情報を更新しました。"
+
+#: includes/admin/manager.php:494
+msgid "Discard unsaved changes and load this template?"
+msgstr "未保存の変更を破棄して、このテンプレートを読み込みますか？"
+
+#: includes/admin/setting.php:655
+msgid "Cache JSON has been generated successfully for language "
+msgstr "次の言語のJSONキャッシュを生成しました： "
+
+#: includes/admin/setting.php:657
+msgid "Cache JSON is disabled for language "
+msgstr "次の言語のJSONキャッシュは無効です： "
+
+#: includes/admin/setting.php:1056 includes/admin/setting.php:1731
+#: includes/admin/setting.php:1855
+msgid "Invalid template identifier."
+msgstr "テンプレート識別子が無効です。"
+
+#: includes/admin/setting.php:1735
+msgid "Invalid Quick Style."
+msgstr "クイックスタイルが無効です。"
+
+#: includes/admin/setting.php:1741
+msgid "Enter a positive CSS size, for example 480px, 60vh or 100%."
+msgstr "480px、60vh、100%など、正のCSSサイズを入力してください。"
+
+#: includes/admin/setting.php:1749
+msgid "List / Map Proportion is available in Agile Store Locator Pro."
+msgstr "一覧と地図の比率はAgile Store Locator Proで設定できます。"
+
+#: includes/admin/setting.php:1753
+msgid "Invalid list/map proportion."
+msgstr "一覧と地図の比率が無効です。"
+
+#: includes/admin/setting.php:1760
+msgid "Invalid appearance settings."
+msgstr "表示設定が無効です。"
+
+#: includes/admin/setting.php:1766
+msgid "Invalid appearance setting."
+msgstr "表示設定の項目が無効です。"
+
+#: includes/admin/setting.php:1770
+msgid "Tabs Layout is available in Agile Store Locator Pro."
+msgstr "タブレイアウトはAgile Store Locator Proで利用できます。"
+
+#: includes/admin/setting.php:1777
+msgid "Invalid filter settings."
+msgstr "フィルター設定が無効です。"
+
+#: includes/admin/setting.php:1785 includes/admin/setting.php:1798
+msgid "Invalid filter setting."
+msgstr "フィルター設定の項目が無効です。"
+
+#: includes/admin/setting.php:1816
+msgid "Unable to save appearance settings. Please try again."
+msgstr "表示設定を保存できませんでした。もう一度お試しください。"
+
+#: includes/admin/setting.php:1825
+msgid "Unable to save filter settings. Please try again."
+msgstr "フィルター設定を保存できませんでした。もう一度お試しください。"
+
+#: includes/admin/store-lite.php:672
+msgid "Error! Update id not found."
+msgstr "エラー！更新IDが見つかりません。"
+
+#: includes/cron/store-cron.php:144
+msgid "Store Locator Cron Imported Files: "
+msgstr "Store Locator の Cron でインポートされたファイル： "
+
+#: includes/frontend/app.php:104
+msgid "You cannot access this preview."
+msgstr "このプレビューにアクセスする権限がありません。"
+
+#: includes/frontend/app.php:111
+msgid ""
+"The WooCommerce add-on preview requires a product page. You can edit and "
+"save its colors and fonts here."
+msgstr "WooCommerceアドオンのプレビューには商品ページが必要です。ここで色とフォントを編集して保存できます。"
+
+#: includes/frontend/app.php:111
+msgid "WooCommerce preview"
+msgstr "WooCommerceプレビュー"
+
+#: includes/model/label.php:167
+msgid "Nearest"
+msgstr "近い順"
+
+#: includes/model/label.php:278
+msgid "Browse by Category"
+msgstr "カテゴリーから探す"
+
+#: includes/model/label.php:279
+msgid "Pick a Category to see Nearly Stores"
+msgstr "カテゴリーを選択して近くの店舗を表示"
+
+#: includes/model/label.php:280
+msgid "within"
+msgstr "以内"
+
+#: includes/model/label.php:281
+msgid "mi"
+msgstr "マイル"
+
+#: includes/model/label.php:282
+msgid "km"
+msgstr "km"
+
+#: includes/model/lead.php:56
+msgid "Store Locator Lead Follow-up"
+msgstr "Store Locator 見込み客フォローアップ"
+
+#: includes/model/lead.php:65
+msgid "This is a follow-up email for the store: "
+msgstr "これは店舗へのフォローアップメールです： "
+
+#: includes/model/lead.php:66
+msgid "Full Name: "
+msgstr "氏名： "
+
+#: includes/model/lead.php:67
+msgid "Email Address: "
+msgstr "メールアドレス： "
+
+#: includes/model/lead.php:68
+msgid "Phone: "
+msgstr "電話番号： "
+
+#: includes/model/lead.php:69
+msgid "Postal Code: "
+msgstr "郵便番号： "
+
+#: includes/model/lead.php:73
+msgid "Message: "
+msgstr "メッセージ： "

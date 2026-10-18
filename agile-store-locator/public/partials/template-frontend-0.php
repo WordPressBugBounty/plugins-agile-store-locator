@@ -24,6 +24,7 @@ $search_type_class = ($all_configs['search_type'] == '1') ? 'asl-search-name' : 
 $panel_order = (isset($all_configs['map_top'])) ? $all_configs['map_top'] : '2';
 
 $ddl_class_grid = ($all_configs['search_2']) ? 'pol-lg-4 pol-md-6 pol-sm-12' : 'pol-lg-4 pol-md-6 pol-sm-12';
+$tsw_class_grid = ($all_configs['search_2']) ? 'pol-lg-2 pol-md-3 pol-sm-12' : 'pol-lg-2 pol-md-3 pol-sm-12';
 $adv_class_grid = ($all_configs['search_2']) ? 'pol-lg-8 pol-md-7' : 'pol-lg-8 pol-md-7';
 // $controls = \AgileStoreLocator\Model\Attribute::get_controls();
 
@@ -31,6 +32,13 @@ $ddl_class = '';
 
 
 $class = (isset($all_configs['css_class'])) ? ' ' . $all_configs['css_class'] : '';
+$layout_attrs = \AgileStoreLocator\Helper::customizer_layout_attributes('0', $all_configs, $list_column, $map_column);
+$class .= ' ' . $layout_attrs['class'];
+if ($layout_attrs['layout'] !== '') $all_configs['results_layout'] = $layout_attrs['layout'];
+
+$results_layout = isset($all_configs['results_layout']) && in_array($all_configs['results_layout'], ['left', 'right', 'bottom', 'cards'], true)
+    ? $all_configs['results_layout'] : 'left';
+$class .= ' sl-results-' . $results_layout;
 
 if ($all_configs['display_list'] == '0' || $all_configs['first_load'] == '3' || $all_configs['first_load'] == '4')
     $class .= ' map-full';
@@ -49,6 +57,9 @@ if (isset($all_configs['full_map']))
 
 if ($all_configs['advance_filter'] == '0')
     $class .= ' no-asl-filters';
+
+if ($all_configs['advance_filter'] == '1' && $all_configs['layout'] == '1')
+    $class .= ' asl-adv-lay1';
 
 if ($all_configs['tabs_layout'] == '0') {
     $ddl_class .= ' asl-dropdown-ddl';
@@ -89,6 +100,12 @@ if ($all_configs['tabs_layout'] == '1') {
         }
     }
 
+    foreach ($filter_ddl as $key => $label) {
+        if (!empty($all_attributes[$key])) {
+            $tabs_controls['attribute:' . $key] = count($all_attributes[$key]);
+        }
+    }
+
     $tabs_control_keys = array_keys($tabs_controls);
     $last_tabs_control = count($tabs_control_keys) - 1;
 
@@ -116,7 +133,7 @@ $get_ddl_grid_class = function ($control_key) use ($all_configs, $ddl_class_grid
 //add Full height
 $class .= ' ' . $all_configs['full_height'];
 
-$layout_code = '0';
+$layout_code = ($all_configs['layout'] == '1' || $all_configs['layout'] == '2') ? '1' : '0';
 $default_addr = (isset($all_configs['default-addr'])) ? $all_configs['default-addr'] : '';
 $container_class = (isset($all_configs['full_width']) && $all_configs['full_width']) ? 'sl-container-fluid' : 'sl-container';
 
@@ -139,6 +156,14 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
         height: 450px;
     }
 
+    .asl-cont .onoffswitch .onoffswitch-label .onoffswitch-switch:before {
+        content: "<?php echo asl_esc_lbl('open') ?>" !important;
+    }
+
+    .asl-cont .onoffswitch .onoffswitch-label .onoffswitch-switch:after {
+        content: "<?php echo asl_esc_lbl('all') ?>" !important;
+    }
+
     @media (max-width: 767px) {
         #asl-storelocator.asl-cont .asl-panel {
             order:
@@ -158,8 +183,8 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
         cursor: pointer;
     }
 </style>
-<div id="asl-storelocator"
-    class="storelocator-main asl-cont asl-template-0 asl-layout-<?php echo esc_attr($layout_code); ?> asl-bg-<?php echo esc_attr($all_configs['color_scheme'] . $class); ?> asl-text-<?php echo esc_attr($all_configs['font_color_scheme']) ?>">
+<div id="asl-storelocator" style="<?php echo esc_attr($layout_attrs['style']); ?>" data-sl-layout-defaults="<?php echo esc_attr(wp_json_encode($layout_attrs['defaults'])); ?>" data-sl-layout-side="<?php echo esc_attr(wp_json_encode($layout_attrs['side'])); ?>"
+    class="storelocator-main asl-cont <?php echo esc_attr(\AgileStoreLocator\Helper::quick_style_class('0')); ?> asl-template-0 asl-layout-<?php echo esc_attr($layout_code); ?> asl-bg-<?php echo esc_attr($all_configs['color_scheme'] . $class); ?> asl-text-<?php echo esc_attr($all_configs['font_color_scheme']) ?>">
     <div class="asl-wrapper">
         <div class="<?php echo esc_attr($container_class) ?>">
             <?php if ($all_configs['gdpr'] == '1'): ?>
@@ -230,6 +255,20 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
                                             </div>
                                         <?php endif; ?>
                                     <?php endif ?>
+                                    <?php if ($filter_ddl): ?>
+                                        <?php foreach ($filter_ddl as $key => $label): ?>
+                                            <?php if (empty($all_attributes[$key])) continue; ?>
+                                            <div
+                                                class="<?php echo esc_attr($get_ddl_grid_class('attribute:' . $key)) ?> <?php echo esc_attr($ddl_class) ?> asl-ddl-filters asl-ddl-filter-<?php echo esc_attr($key) ?>">
+                                                <div class="asl-filter-cntrl">
+                                                    <label class="asl-cntrl-lbl"
+                                                        for="asl-<?php echo esc_attr($key) ?>"><?php echo esc_attr($label) ?></label>
+                                                    <div class="sl-dropdown-cont" id="<?php echo esc_attr($key) ?>_filter">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                     <div class="<?php echo esc_attr($ddl_class_grid) ?> range_filter asl-ddl-filters hide">
                                         <div class="rangeFilter asl-filter-cntrl">
                                             <label for="asl-radius-slide"
@@ -240,6 +279,23 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
                                                     id="asl-dist-unit"><?php echo asl_esc_lbl('km') ?></span></span>
                                         </div>
                                     </div>
+                                    <?php if (!empty($all_configs['time_switch'])): ?>
+                                        <div class="<?php echo esc_attr($tsw_class_grid) ?> Status_filter">
+                                            <div class="asl-filter-cntrl">
+                                                <span class="asl-cntrl-lbl"><?php echo asl_esc_lbl('status') ?></span>
+                                                <div class="onoffswitch">
+                                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox"
+                                                        id="asl-open-close" checked>
+                                                    <label aria-label="<?php echo asl_esc_lbl('time_switch_label') ?>"
+                                                        title="<?php echo asl_esc_lbl('time_switch_label') ?>"
+                                                        class="onoffswitch-label" for="asl-open-close">
+                                                        <span class="onoffswitch-inner"></span>
+                                                        <span class="onoffswitch-switch"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +306,7 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
                 <div class="pol-12">
                     <div class="sl-main-cont">
                         <div class="sl-row no-gutters sl-main-row">
-                            <div id="asl-panel" class="asl-panel <?php echo esc_attr($list_class) ?> asl_locator-panel">
+                            <div id="asl-panel" class="asl-panel sl-proportion-list <?php echo esc_attr($list_class) ?> asl_locator-panel">
                                 <div class="asl-overlay" id="map-loading">
                                     <div class="white"></div>
                                     <div class="sl-loading">
@@ -295,19 +351,21 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
                                                 aria-label="<?php echo asl_esc_lbl('print') ?>"><span><?php echo asl_esc_lbl('print') ?></span><span
                                                     class="asl-print"></span></a>
                                         <?php endif; ?>
-                                        <div class="sl-list-sort">
-                                            <label for="asl-list-sort"><?php echo asl_esc_lbl('sort_by') ?></label>
-                                            <div class="position-relative">
-                                                <span class="sl-caret"></span>
-                                                <select id="asl-list-sort" class="sl-sort-select">
-                                                    <option value="nearest" selected><?php echo asl_esc_lbl('nearest') ?></option>
-                                                    <option value="title"><?php echo asl_esc_lbl('title') ?></option>
-                                                    <option value="city"><?php echo asl_esc_lbl('cities') ?></option>
-                                                    <option value="state"><?php echo asl_esc_lbl('states') ?></option>
-                                                    <option value="cat"><?php echo asl_esc_lbl('categories_tab') ?></option>
-                                                </select>
+                                        <?php if ($layout_code === '0' && (!isset($all_configs['show_sort']) || $all_configs['show_sort'] !== '0')): ?>
+                                            <div class="sl-list-sort">
+                                                <label for="asl-list-sort"><?php echo asl_esc_lbl('sort_by') ?></label>
+                                                <div class="position-relative">
+                                                    <span class="sl-caret"></span>
+                                                    <select id="asl-list-sort" class="sl-sort-select">
+                                                        <option value="nearest" selected><?php echo asl_esc_lbl('nearest') ?></option>
+                                                        <option value="title"><?php echo asl_esc_lbl('title') ?></option>
+                                                        <option value="city"><?php echo asl_esc_lbl('cities') ?></option>
+                                                        <option value="state"><?php echo asl_esc_lbl('states') ?></option>
+                                                        <option value="cat"><?php echo asl_esc_lbl('categories_tab') ?></option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="sl-main-cont-box">
                                         <div id="asl-list" class="sl-list-wrapper">
@@ -326,7 +384,7 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
                                     </div>
                                 </div>
                             </div>
-                            <div class="<?php echo esc_attr($map_class) ?> asl-map">
+                            <div class="<?php echo esc_attr($map_class) ?> asl-map sl-proportion-map">
                                 <div class="map-image">
                                     <div id="asl-map-canv" class="asl-map-canv"></div>
                                     <?php include ASL_PLUGIN_PATH . 'public/partials/_agile_modal.php'; ?>
@@ -337,7 +395,6 @@ $btn_text = ($all_configs['geo_button'] == '1') ? asl_esc_lbl('current_location'
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <!-- This plugin is developed by "Agile Store Locator for WordPress" https://agilestorelocator.com -->

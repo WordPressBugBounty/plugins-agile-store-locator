@@ -294,9 +294,6 @@ class Reader extends base
      */
     public function getData($pFilename)
     {
-        ini_set('auto_detect_line_endings', TRUE);
-
-
         $output_encoding = 'UTF-8';//UTF-16LE
         $input_encoding  = 'UTF-8';
 
