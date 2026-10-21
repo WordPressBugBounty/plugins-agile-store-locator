@@ -12,6 +12,7 @@ if ($asl_onboarding['add_to_website'] !== $asl_locator_setup['completed']) {
 }
 $asl_maplibre_credentials = [
     'osm'      => true,
+    'openfreemap' => true,
     'geoapify' => !empty($all_configs['geoapify_api_key']),
     'mapbox'   => !empty($all_configs['mapbox_access_token']),
     'maptiler' => !empty($all_configs['tile_provider_api_key']),

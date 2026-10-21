@@ -41,6 +41,9 @@ class Field {
 
         switch ($this->type) {
 
+            case 'social':
+                return $this->renderSocialField();
+
             case 'text':
                 return $this->renderTextField();
 
@@ -170,6 +173,17 @@ class Field {
      * [renderTextField description]
      * @return [type] [description]
      */
+    protected function renderSocialField() {
+        return sprintf(
+            '<div class="sl-form-group sl-group"><label class="control-label" for="sl-%1$s">%2$s</label><input type="url" id="sl-%1$s" name="%3$s" class="form-control %4$s" value="%5$s" placeholder="https://"></div>',
+            esc_attr($this->name),
+            esc_html($this->label),
+            esc_attr($this->field_name),
+            $this->require ? 'validate[required,custom[url]]' : 'validate[custom[url]]',
+            esc_attr($this->value)
+        );
+    }
+
     protected function renderTextField() {
 
         $require_field = ($this->require)? 'validate[required]': '';

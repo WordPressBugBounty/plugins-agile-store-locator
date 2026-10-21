@@ -7049,3 +7049,298 @@ msgstr "Codice Postale:"
 #: includes/model/lead.php:73
 msgid "Message: "
 msgstr "Messaggio:"
+
+#: admin/partials/ui-customizer-map.php:9
+msgid "OpenStreetMap"
+msgstr "OpenStreetMap"
+
+#: admin/partials/ui-customizer-map.php:10
+msgid "OpenFreeMap"
+msgstr "OpenFreeMap"
+
+#: admin/partials/ui-customizer-map.php:17
+msgid "Liberty"
+msgstr "Liberty"
+
+#: admin/partials/ui-customizer-map.php:17
+#: admin/partials/ui-customizer-map.php:20
+msgid "Bright"
+msgstr "Luminoso"
+
+#: admin/partials/ui-customizer-map.php:17
+#: admin/partials/ui-customizer-map.php:18
+msgid "Positron"
+msgstr "Positron"
+
+#: admin/partials/ui-customizer-map.php:17
+msgid "Fiord"
+msgstr "Fiord"
+
+#: admin/partials/ui-customizer-map.php:18
+msgid "Bright Smooth"
+msgstr "Liscio brillante"
+
+#: admin/partials/ui-customizer-map.php:18
+msgid "OSM Carto"
+msgstr "OSM Carto"
+
+#: admin/partials/ui-customizer-map.php:18
+msgid "Dark Matter"
+msgstr "Dark Matter"
+
+#: admin/partials/ui-customizer-map.php:19
+#: admin/partials/ui-customizer-map.php:20
+msgid "Streets"
+msgstr "Strade"
+
+#: admin/partials/ui-customizer-map.php:19
+msgid "Outdoors"
+msgstr "All'aperto"
+
+#: admin/partials/ui-customizer-map.php:19
+msgid "Light"
+msgstr "Luce"
+
+#: admin/partials/ui-customizer-map.php:19
+msgid "Satellite Streets"
+msgstr "Strade satellitari"
+
+#: admin/partials/ui-customizer-map.php:20
+msgid "Basic"
+msgstr "Essenziale"
+
+#: admin/partials/ui-customizer-map.php:20
+msgid "Outdoor"
+msgstr "All'aperto"
+
+#: admin/partials/ui-customizer-map.php:20
+msgid "Topographic"
+msgstr "Topografico"
+
+#: admin/partials/ui-customizer-map.php:33
+#: admin/partials/ui-customizer-map.php:84
+msgid "Category Markers"
+msgstr "Indicatori di categoria"
+
+#: admin/partials/ui-customizer-map.php:33
+#: admin/partials/ui-customizer-map.php:84
+msgid "Use assigned category icons instead of regular store markers."
+msgstr ""
+"Utilizza le icone delle categorie assegnate invece dei normali indicatori di"
+" negozio."
+
+#: admin/partials/ui-customizer-map.php:34
+msgid "Marker Hover Title"
+msgstr "Titolo al passaggio del mouse sull'indicatore"
+
+#: admin/partials/ui-customizer-map.php:34
+msgid "Show the store name and categories when a marker is hovered."
+msgstr ""
+"Mostra il nome e le categorie del negozio quando si passa il mouse su un "
+"indicatore."
+
+#: admin/partials/ui-customizer-map.php:35
+msgid "Marker Labels"
+msgstr "Etichette di segnalazione"
+
+#: admin/partials/ui-customizer-map.php:35
+msgid "Number store markers to match their order in distance results."
+msgstr ""
+"Numerare gli indicatori di memorizzazione in modo che corrispondano al loro "
+"ordine nei risultati della distanza."
+
+#: admin/partials/ui-customizer-map.php:36
+msgid "Visitor Location Marker"
+msgstr "Indicatore di posizione del visitatore"
+
+#: admin/partials/ui-customizer-map.php:36
+msgid "Show the visitor’s searched or detected location on the map."
+msgstr "Mostra la posizione cercata o rilevata dal visitatore sulla mappa."
+
+#: admin/partials/ui-customizer-map.php:37
+msgid "Search Radius Circle"
+msgstr "Cerchio del raggio di ricerca"
+
+#: admin/partials/ui-customizer-map.php:37
+msgid "Draw the selected search radius around the visitor’s location."
+msgstr ""
+"Disegna il raggio di ricerca selezionato attorno alla posizione del "
+"visitatore."
+
+#: admin/partials/ui-customizer-map.php:38
+#: admin/partials/ui-customizer-map.php:102
+msgid "Marker Clustering"
+msgstr "Clustering dei marcatori"
+
+#: admin/partials/ui-customizer-map.php:38
+msgid "Group nearby store markers while the map is zoomed out."
+msgstr ""
+"Raggruppa gli indicatori di negozi nelle vicinanze mentre la mappa viene "
+"ingrandita."
+
+#: admin/partials/ui-customizer-map.php:39
+msgid "Fit Map to Results"
+msgstr "Adatta la mappa ai risultati"
+
+#: admin/partials/ui-customizer-map.php:39
+msgid "Automatically frame the stores currently shown in the results."
+msgstr ""
+"Inquadra automaticamente i negozi attualmente visualizzati nei risultati."
+
+#: admin/partials/ui-customizer-map.php:52
+msgid "Zoom level"
+msgstr "Livello di zoom"
+
+#: admin/partials/ui-customizer-map.php:61
+msgid "Current Provider"
+msgstr "Fornitore attuale"
+
+#: admin/partials/ui-customizer-map.php:61
+msgid "The map provider is configured in the main Maps settings."
+msgstr ""
+"Il fornitore della mappa è configurato nelle impostazioni principali di "
+"Mappe."
+
+#: admin/partials/ui-customizer-map.php:62
+msgid "Manage provider"
+msgstr "Gestisci fornitore"
+
+#: admin/partials/ui-customizer-map.php:66
+msgid "Choose the visual style supplied by the active map provider."
+msgstr "Scegli lo stile visivo fornito dal fornitore della mappa attiva."
+
+#: admin/partials/ui-customizer-map.php:70
+msgid "Google map styling remains available in the Map Customizer."
+msgstr ""
+"Lo stile della mappa di Google rimane disponibile nel personalizzatore di "
+"mappa."
+
+#: admin/partials/ui-customizer-map.php:72
+msgid "This provider does not offer selectable preset styles."
+msgstr "Questo fornitore non offre stili preimpostati selezionabili."
+
+#: admin/partials/ui-customizer-map.php:77
+msgid "Store Markers"
+msgstr "Memorizza i marcatori"
+
+#: admin/partials/ui-customizer-map.php:78
+msgid ""
+"Selected markers, labels and clustering are unavailable while Google "
+"Advanced Markers are enabled."
+msgstr ""
+"I marcatori, le etichette e il clustering selezionati non sono disponibili "
+"mentre i marcatori avanzati di Google sono abilitati."
+
+#: admin/partials/ui-customizer-map.php:80
+msgid "Selected Store Marker"
+msgstr "Indicatore del negozio selezionato"
+
+#: admin/partials/ui-customizer-map.php:80
+msgid ""
+"Choose the marker shown for the selected store, or select None to disable "
+"it."
+msgstr ""
+"Scegli l'indicatore mostrato per il negozio selezionato o seleziona Nessuno "
+"per disabilitarlo."
+
+#: admin/partials/ui-customizer-map.php:92
+msgid "Visitor Location"
+msgstr "Posizione del visitatore"
+
+#: admin/partials/ui-customizer-map.php:95
+msgid "Visitor Marker Icon"
+msgstr "Icona del marcatore visitatore"
+
+#: admin/partials/ui-customizer-map.php:95
+msgid "Choose the marker used for the visitor’s location."
+msgstr "Scegli l'indicatore utilizzato per la posizione del visitatore."
+
+#: admin/partials/ui-customizer-map.php:96
+msgid "Default marker"
+msgstr "Indicatore predefinito"
+
+#: admin/partials/ui-customizer-map.php:104
+msgid "Cluster Until Zoom"
+msgstr "Raggruppa fino allo zoom"
+
+#: admin/partials/ui-customizer-map.php:104
+msgid "Set the zoom level where markers stop being grouped."
+msgstr ""
+"Imposta il livello di zoom in cui i marcatori smettono di essere "
+"raggruppati."
+
+#: admin/partials/ui-customizer-map.php:105
+msgid "Cluster Area Size"
+msgstr "Dimensioni dell'area del cluster"
+
+#: admin/partials/ui-customizer-map.php:105
+msgid "Adjust how close markers must be before they form a cluster."
+msgstr ""
+"Regola quanto devono essere vicini i marcatori prima che formino un cluster."
+
+#: admin/partials/ui-customizer-map.php:109
+msgid "Zoom Behavior"
+msgstr "Comportamento dello zoom"
+
+#: admin/partials/ui-customizer-map.php:111
+msgid "Initial Zoom"
+msgstr "Zoom iniziale"
+
+#: admin/partials/ui-customizer-map.php:111
+msgid "Set the zoom level when the locator first loads."
+msgstr "Imposta il livello di zoom al primo caricamento del localizzatore."
+
+#: admin/partials/ui-customizer-map.php:112
+msgid "Store Selection Zoom"
+msgstr "Zoom selezione negozio"
+
+#: admin/partials/ui-customizer-map.php:112
+msgid "Set the zoom level after a visitor selects a store."
+msgstr ""
+"Imposta il livello di zoom dopo che un visitatore ha selezionato un negozio."
+
+#: admin/partials/ui-customizer-map.php:113
+msgid "Search Result Zoom"
+msgstr "Zoom dei risultati della ricerca"
+
+#: admin/partials/ui-customizer-map.php:113
+msgid "Set the zoom level after an address search."
+msgstr "Imposta il livello di zoom dopo la ricerca di un indirizzo."
+
+#: admin/partials/ui-customizer-map.php:116
+msgid "Scroll Wheel Zoom"
+msgstr "Zoom della rotella di scorrimento"
+
+#: admin/partials/ui-customizer-map.php:116
+msgid "Choose whether scrolling over the locator zooms the map."
+msgstr "Scegli se scorrendo sul localizzatore ingrandisci la mappa."
+
+#: admin/partials/ui-customizer-map.php:116
+msgid "Provider default"
+msgstr "Impostazione predefinita del fornitore"
+
+#: admin/partials/ui-customizer-map.php:117
+msgid "Open Map Customization"
+msgstr "Apri Personalizzazione mappa"
+
+#: admin/partials/user_setting.php:169
+msgid "OpenFreeMap (No API Key)"
+msgstr ""
+
+#: includes/admin/setting.php:1810
+msgid "Invalid map settings."
+msgstr ""
+
+#: includes/admin/setting.php:1820 includes/admin/setting.php:1833
+msgid "Invalid map setting."
+msgstr ""
+
+#: includes/admin/setting.php:1872
+msgid "Unable to save map settings. Please try again."
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:124
+#: admin/partials/ui-customizer-map.php:17
+#: admin/partials/ui-customizer-map.php:19
+msgid "Dark"
+msgstr "Scuro"

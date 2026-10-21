@@ -6,7 +6,7 @@ Tags: wordpress store locator, store locator wordpress, store finder, where to b
 Requires at least: 3.3.2
 Tested up to: 7.1
 Donate link: https://agilelogix.com/product/agile-store-locator/?utm_source=wordpress-org&utm_medium=plugin&utm_campaign=free-version&utm_content=upgrade-link
-Stable tag: 1.8.8
+Stable tag: 1.8.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -430,6 +430,12 @@ Installation of this plugin is pretty easy.
 == Upgrade Notice ==
 
 == Changelog ==
+
+= 1.8.9 =
+* Added a Social Link custom field type with platform selection and automatic field names and icons.
+* Added URL inputs for social links on store forms.
+* Prevented duplicate social-platform selection with visible validation and server-side checks.
+* Added support for custom social links and icon classes while preserving existing social fields.
 
 = 1.8.8 =
 - Redesigned the UI Customizer with dedicated Design, Layout, and Filters panels and a larger responsive live preview

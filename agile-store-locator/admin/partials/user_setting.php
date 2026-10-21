@@ -166,6 +166,7 @@ if($level_mode === true){ ?>
                                                 <div class="form-group-inner">
                                                     <select class="form-control" name="data[tile_provider]" id="asl-tile_provider">
                                                         <option value="osm"><?php echo esc_html__('OpenStreetMap (No API Key)','asl_locator') ?></option>
+                                                        <option value="openfreemap"><?php echo esc_html__('OpenFreeMap (No API Key)','asl_locator') ?></option>
                                                         <option value="geoapify"><?php echo esc_html__('Geoapify','asl_locator') ?></option>
                                                         <option value="mapbox"><?php echo esc_html__('Mapbox','asl_locator') ?></option>
                                                         <option value="maptiler"><?php echo esc_html__('MapTiler','asl_locator') ?></option>
@@ -990,11 +991,11 @@ if($level_mode === true){ ?>
 <div class="col-md-6 col-sm-6 col-12 mb-5 sl-complx">
                                             <div class="form-group d-lg-flex d-md-block">
                                                 <label class="custom-control-label"
-                                                    for="asl-category_marker"><?php echo esc_attr__('Category Marker','asl_locator') ?></label>
+                                                    for="asl-category_marker"><?php echo esc_attr__('Category Marker','asl_locator') ?><span class="asl-inline-pro-badge"><?php esc_html_e('PRO', 'asl_locator'); ?></span></label>
                                                 <div class="form-group-inner">
                                                     <label class="switch" for="asl-category_marker"><input
                                                             type="checkbox" value="1" class="custom-control-input"
-                                                            name="data[category_marker]" id="asl-category_marker"><span
+                                                            name="data[category_marker]" id="asl-category_marker" disabled aria-disabled="true"><span
                                                             class="slider round"></span></label>
                                                     <p class="help-p"><a
                                                             href="https://agilestorelocator.com/wiki/enable-category-markers/"
@@ -2486,6 +2487,7 @@ if($level_mode === true){ ?>
                                                 <?php
 
                                        $field_types = [
+                                          'social' => esc_attr__('Social Link', 'asl_locator'),
                                           'text'      => esc_attr__('Text', 'asl_locator'),
                                           'textarea'  => esc_attr__('Textarea', 'asl_locator'),
                                           'richtext'   => esc_attr__('Rich Textarea', 'asl_locator'),
@@ -2524,6 +2526,15 @@ if($level_mode === true){ ?>
                                                                 placeholder="<?php echo esc_attr__('Example: Small, Medium, Large', 'asl_locator'); ?>"
                                                                 class="asl-attr-options form-control validate[funcCall[ASLValidateOptions]]">
                                                             <small class="form-text text-muted"><?php echo esc_html__('Separate each choice with a comma.', 'asl_locator'); ?></small>
+                                                        </div>
+                                                        <div class="asl-social-platform-group <?php echo $field_type === 'social' ? '' : 'd-none'; ?> mb-2">
+                                                            <label class="small font-weight-bold"><?php esc_html_e('Platform', 'asl_locator'); ?></label>
+                                                            <select class="form-control asl-social-platform">
+                                                                <?php foreach (\AgileStoreLocator\Helper::social_platforms() as $platform_key => $platform): ?>
+                                                                    <option value="<?php echo esc_attr($platform_key); ?>" <?php selected($field['platform'] ?? 'custom', $platform_key); ?>><?php echo esc_html($platform['label']); ?></option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                            <small class="form-text text-muted"><?php esc_html_e('Choose Custom to use your own label and icon class in Advanced settings.', 'asl_locator'); ?></small>
                                                         </div>
                                                         <details class="asl-field-advanced">
                                                             <summary><?php echo esc_html__('Advanced settings', 'asl_locator'); ?></summary>
@@ -2653,9 +2664,27 @@ var ASL_Instance = {
         plugin_url: '<?php echo ASL_URL_PATH ?>',
         tmpls: <?php echo wp_json_encode($cust_tmpls) ?>
     },
+    asl_social_platforms = <?php echo wp_json_encode(\AgileStoreLocator\Helper::social_platforms()); ?>,
     asl_configs = <?php echo wp_json_encode($all_configs); ?>;
 
 window.addEventListener("load", function() {
-    asl_engine.pages.user_setting(asl_configs);
+    function showSettingsHashTab() {
+        var hash = window.location.hash;
+        var $tab = jQuery('.asl-tabs .nav-pills a[data-toggle="pill"]').filter(function() {
+            return jQuery(this).attr('href') === hash;
+        }).first();
+
+        if ($tab.length) {
+            $tab.trigger('click');
+        }
+    }
+
+    showSettingsHashTab();
+    try {
+        asl_engine.pages.user_setting(asl_configs);
+    } finally {
+        window.setTimeout(showSettingsHashTab, 0);
+    }
+    window.addEventListener('hashchange', showSettingsHashTab);
 });
 </script>

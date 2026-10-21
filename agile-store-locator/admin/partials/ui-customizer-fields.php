@@ -95,7 +95,7 @@ $color_descriptions = [
 ];
 
 // Keep every registered template setting, including fields supplied by extensions.
-$groups = ['design' => [], 'layout' => [], 'filters' => []];
+$groups = ['design' => [], 'layout' => [], 'filters' => [], 'map' => []];
 foreach ($colors[$template] as $key => $type) {
     $groups['design'][$key] = ['color', $type];
 }
@@ -107,6 +107,7 @@ foreach ($default_fonts as $key => $value) {
 <section id="asl-pane-<?php echo esc_attr($group); ?>" class="asl-customizer-pane <?php echo $group === 'design' ? 'is-active' : ''; ?>" role="tabpanel" aria-labelledby="asl-tab-<?php echo esc_attr($group); ?>" <?php echo $group === 'design' ? '' : 'hidden'; ?>>
 <?php if ($group === 'layout') { include ASL_PLUGIN_PATH . 'admin/partials/ui-customizer-layout.php'; } ?>
 <?php if ($group === 'filters') { include ASL_PLUGIN_PATH . 'admin/partials/ui-customizer-filters.php'; } ?>
+<?php if ($group === 'map') { include ASL_PLUGIN_PATH . 'admin/partials/ui-customizer-map.php'; } ?>
 <?php if ($group === 'design') : ?>
   <?php $quick_style = isset($fields->{'quick-style'}) && in_array($fields->{'quick-style'}, ['default', 'modern'], true) ? $fields->{'quick-style'} : 'default'; ?>
   <input type="hidden" name="quick-style" value="<?php echo esc_attr($quick_style); ?>">

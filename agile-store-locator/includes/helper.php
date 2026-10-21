@@ -2102,10 +2102,24 @@ class Helper {
    * [social_icons Include the social Icons HTML]
    * @return [type] [description]
    */
+  public static function social_platforms() {
+    return [
+      'facebook'  => ['label' => 'Facebook', 'name' => 'facebook_url', 'css_class' => 'icon-facebook'],
+      'instagram' => ['label' => 'Instagram', 'name' => 'instagram_url', 'css_class' => 'icon-instagram'],
+      'linkedin'  => ['label' => 'LinkedIn', 'name' => 'linkedin_url', 'css_class' => 'icon-linkedin'],
+      'youtube'   => ['label' => 'YouTube', 'name' => 'youtube_url', 'css_class' => 'icon-youtube'],
+      'twitter'   => ['label' => 'X (Twitter)', 'name' => 'twitter_url', 'css_class' => 'icon-twitter'],
+      'custom'    => ['label' => __('Custom', 'asl_locator'), 'name' => '', 'css_class' => 'icon-link'],
+    ];
+  }
+
+  /** Render social links, including legacy custom fields ending in _url. */
   public static function social_icons() {
 
     // Get the custom fields
     $fields = self::get_custom_fields();
+    $platforms = self::social_platforms();
+    $legacy_icons = array_column($platforms, 'css_class', 'name');
 
     $icons  = [];
 
@@ -2113,8 +2127,8 @@ class Helper {
 
     foreach($fields as $social_field) {
         
-      //   have _url?
-      if(strpos($social_field['name'], '_url')) {
+      // Explicit social fields and legacy URL fields.
+      if(($social_field['type'] ?? '') === 'social' || preg_match('/_url$/', $social_field['name'])) {
 
         $icons[] = $social_field;
       }
@@ -2123,7 +2137,9 @@ class Helper {
     //  When have icons
     if(count($icons) > 0) {
 
-      $html .= '<ul class="sl-social-icon mt-3">';
+      $icon_conditions = array_column($icons, 'name');
+
+      $html .= '{{if '.implode(' || ', $icon_conditions).'}}<ul class="sl-social-icon mt-3">';
       
       foreach($icons as $icon) {
 
@@ -2131,43 +2147,15 @@ class Helper {
         $icon_label = esc_attr($icon['label']);
         $css_class  = (isset($icon['css_class']) && $icon['css_class'])? esc_attr($icon['css_class']): '';
 
-        //  CSS Class
-        if(!$css_class) {
-
-          //  Pre-built icons
-          switch ($icon_name) {
-            
-            case 'facebook_url':
-              
-              $css_class = 'icon-facebook';
-              break;
-            
-            case 'twitter_url':
-              
-              $css_class = 'icon-twitter';
-              break;
-
-            case 'instagram_url':
-              
-              $css_class = 'icon-instagram';
-              break;
-
-            case 'linkedin_url':
-              
-              $css_class = 'icon-linkedin';
-              break;
-            
-            case 'youtube_url':
-              
-              $css_class = 'icon-youtube';
-              break;
-          }
+        if (!$css_class) {
+          $platform = $icon['platform'] ?? '';
+          $css_class = esc_attr($platforms[$platform]['css_class'] ?? ($legacy_icons[$icon['name']] ?? 'icon-link'));
         }
 
-        $html .= '{{if '.$icon_name.'}}<li><a target="_blank" href="{{:'.$icon_name.'}}"><i class="'.$css_class.'"></i><span class="sr-only">'.$icon_label.'</span></a></li>{{/if}}';
+        $html .= '{{if '.$icon_name.'}}<li><a target="_blank" rel="noopener noreferrer" href="{{:'.$icon_name.'}}"><i class="'.$css_class.'"></i><span class="sr-only">'.$icon_label.'</span></a></li>{{/if}}';
       }
 
-      $html .= '</ul>';
+      $html .= '</ul>{{/if}}';
     }
 
     return $html;    
@@ -2287,6 +2275,24 @@ class Helper {
 
         // include simple products HTML
         $content = file_get_contents($file_path);
+      }
+
+      // Add marker labels to every store-list template from one shared point.
+      // Ignore commented examples and preserve templates that already position the label themselves.
+      if ($tmpl_type === 'list' && (string) $template_id !== '5') {
+        $active_content = preg_replace('/<!--.*?-->/s', '', $content);
+
+        if (strpos($active_content, 'sl-location-letter') === false) {
+          $label_html = '{{if label}}<span class="sl-location-letter">{{:label}}</span>{{/if}}';
+          $content    = preg_replace('/(<(?:a|p|h[1-6])\b[^>]*>)(\s*){{:title}}/i', '$1$2' . $label_html . '{{:title}}', $content, 1);
+        } elseif (strpos($active_content, '{{if label}}') === false) {
+          $content = preg_replace(
+            '/(<div\b[^>]*class=["\'][^"\']*\bsl-location-letter\b[^"\']*["\'][^>]*>.*?<\/div>)/is',
+            '{{if label}}$1{{/if}}',
+            $content,
+            1
+          );
+        }
       }
 
       //  Add the Social Icons

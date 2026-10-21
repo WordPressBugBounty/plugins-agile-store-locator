@@ -45,6 +45,10 @@ class CustomField extends Field {
         }
 
         foreach ($schema as $field_name => $field) {
+            if (($field['type'] ?? '') === 'social' && isset($values[$field_name])) {
+                $values[$field_name] = is_scalar($values[$field_name]) ? esc_url_raw($values[$field_name], ['http', 'https']) : '';
+                continue;
+            }
             if (($field['type'] ?? '') !== 'page_link' || !isset($values[$field_name])) {
                 continue;
             }

@@ -6603,3 +6603,275 @@ msgstr "郵便番号： "
 #: includes/model/lead.php:73
 msgid "Message: "
 msgstr "メッセージ： "
+
+#: admin/partials/ui-customizer-map.php:9
+msgid "OpenStreetMap"
+msgstr "OpenStreetMap"
+
+#: admin/partials/ui-customizer-map.php:10
+msgid "OpenFreeMap"
+msgstr "OpenFreeMap"
+
+#: admin/partials/ui-customizer-map.php:17
+msgid "Liberty"
+msgstr "Liberty"
+
+#: admin/partials/ui-customizer-map.php:17
+#: admin/partials/ui-customizer-map.php:20
+msgid "Bright"
+msgstr "明るい"
+
+#: admin/partials/ui-customizer-map.php:17
+#: admin/partials/ui-customizer-map.php:18
+msgid "Positron"
+msgstr "Positron"
+
+#: admin/partials/ui-customizer-map.php:17
+msgid "Fiord"
+msgstr "Fiord"
+
+#: admin/partials/ui-customizer-map.php:18
+msgid "Bright Smooth"
+msgstr "ブライトスムース"
+
+#: admin/partials/ui-customizer-map.php:18
+msgid "OSM Carto"
+msgstr "OSM Carto"
+
+#: admin/partials/ui-customizer-map.php:18
+msgid "Dark Matter"
+msgstr "Dark Matter"
+
+#: admin/partials/ui-customizer-map.php:19
+#: admin/partials/ui-customizer-map.php:20
+msgid "Streets"
+msgstr "街路"
+
+#: admin/partials/ui-customizer-map.php:19
+msgid "Outdoors"
+msgstr "アウトドア"
+
+#: admin/partials/ui-customizer-map.php:19
+msgid "Light"
+msgstr "ライト"
+
+#: admin/partials/ui-customizer-map.php:19
+msgid "Satellite Streets"
+msgstr "サテライトストリート"
+
+#: admin/partials/ui-customizer-map.php:20
+msgid "Basic"
+msgstr "基本"
+
+#: admin/partials/ui-customizer-map.php:20
+msgid "Outdoor"
+msgstr "アウトドア"
+
+#: admin/partials/ui-customizer-map.php:20
+msgid "Topographic"
+msgstr "地形図"
+
+#: admin/partials/ui-customizer-map.php:33
+#: admin/partials/ui-customizer-map.php:84
+msgid "Category Markers"
+msgstr "カテゴリマーカー"
+
+#: admin/partials/ui-customizer-map.php:33
+#: admin/partials/ui-customizer-map.php:84
+msgid "Use assigned category icons instead of regular store markers."
+msgstr "通常のストア マーカーの代わりに、割り当てられたカテゴリ アイコンを使用します。"
+
+#: admin/partials/ui-customizer-map.php:34
+msgid "Marker Hover Title"
+msgstr "マーカーホバータイトル"
+
+#: admin/partials/ui-customizer-map.php:34
+msgid "Show the store name and categories when a marker is hovered."
+msgstr "マーカーを重ねると店舗名とカテゴリーを表示します。"
+
+#: admin/partials/ui-customizer-map.php:35
+msgid "Marker Labels"
+msgstr "マーカーラベル"
+
+#: admin/partials/ui-customizer-map.php:35
+msgid "Number store markers to match their order in distance results."
+msgstr "距離結果での順序と一致するようにストア マーカーに番号を付けます。"
+
+#: admin/partials/ui-customizer-map.php:36
+msgid "Visitor Location Marker"
+msgstr "訪問者の位置マーカー"
+
+#: admin/partials/ui-customizer-map.php:36
+msgid "Show the visitor’s searched or detected location on the map."
+msgstr "訪問者の検索または検出された位置を地図上に表示します。"
+
+#: admin/partials/ui-customizer-map.php:37
+msgid "Search Radius Circle"
+msgstr "検索半径円"
+
+#: admin/partials/ui-customizer-map.php:37
+msgid "Draw the selected search radius around the visitor’s location."
+msgstr "訪問者の位置を中心に選択した検索半径を描画します。"
+
+#: admin/partials/ui-customizer-map.php:38
+#: admin/partials/ui-customizer-map.php:102
+msgid "Marker Clustering"
+msgstr "マーカーのクラスタリング"
+
+#: admin/partials/ui-customizer-map.php:38
+msgid "Group nearby store markers while the map is zoomed out."
+msgstr "地図をズームアウトしているときに、近くの店舗マーカーをグループ化します。"
+
+#: admin/partials/ui-customizer-map.php:39
+msgid "Fit Map to Results"
+msgstr "マップを結果に合わせる"
+
+#: admin/partials/ui-customizer-map.php:39
+msgid "Automatically frame the stores currently shown in the results."
+msgstr "現在結果に表示されている店舗を自動的にフレーム化します。"
+
+#: admin/partials/ui-customizer-map.php:52
+msgid "Zoom level"
+msgstr "ズームレベル"
+
+#: admin/partials/ui-customizer-map.php:61
+msgid "Current Provider"
+msgstr "現在のプロバイダー"
+
+#: admin/partials/ui-customizer-map.php:61
+msgid "The map provider is configured in the main Maps settings."
+msgstr "マッププロバイダーはメインのマップ設定で構成されます。"
+
+#: admin/partials/ui-customizer-map.php:62
+msgid "Manage provider"
+msgstr "プロバイダーの管理"
+
+#: admin/partials/ui-customizer-map.php:66
+msgid "Choose the visual style supplied by the active map provider."
+msgstr "アクティブなマップ プロバイダーによって提供される表示スタイルを選択します。"
+
+#: admin/partials/ui-customizer-map.php:70
+msgid "Google map styling remains available in the Map Customizer."
+msgstr "Google マップのスタイルは引き続きマップ カスタマイザーで利用できます。"
+
+#: admin/partials/ui-customizer-map.php:72
+msgid "This provider does not offer selectable preset styles."
+msgstr "このプロバイダーは、選択可能なプリセット スタイルを提供しません。"
+
+#: admin/partials/ui-customizer-map.php:77
+msgid "Store Markers"
+msgstr "ストアマーカー"
+
+#: admin/partials/ui-customizer-map.php:78
+msgid ""
+"Selected markers, labels and clustering are unavailable while Google "
+"Advanced Markers are enabled."
+msgstr "Google アドバンスト マーカーが有効になっている間は、選択したマーカー、ラベル、クラスタリングは使用できません。"
+
+#: admin/partials/ui-customizer-map.php:80
+msgid "Selected Store Marker"
+msgstr "選択したストアマーカー"
+
+#: admin/partials/ui-customizer-map.php:80
+msgid ""
+"Choose the marker shown for the selected store, or select None to disable "
+"it."
+msgstr "選択したストアに表示されるマーカーを選択するか、[なし] を選択して無効にします。"
+
+#: admin/partials/ui-customizer-map.php:92
+msgid "Visitor Location"
+msgstr "訪問者の位置"
+
+#: admin/partials/ui-customizer-map.php:95
+msgid "Visitor Marker Icon"
+msgstr "訪問者マーカーアイコン"
+
+#: admin/partials/ui-customizer-map.php:95
+msgid "Choose the marker used for the visitor’s location."
+msgstr "訪問者の位置に使用するマーカーを選択します。"
+
+#: admin/partials/ui-customizer-map.php:96
+msgid "Default marker"
+msgstr "デフォルトのマーカー"
+
+#: admin/partials/ui-customizer-map.php:104
+msgid "Cluster Until Zoom"
+msgstr "ズームまでクラスター化"
+
+#: admin/partials/ui-customizer-map.php:104
+msgid "Set the zoom level where markers stop being grouped."
+msgstr "マーカーがグループ化されなくなるズーム レベルを設定します。"
+
+#: admin/partials/ui-customizer-map.php:105
+msgid "Cluster Area Size"
+msgstr "クラスター領域のサイズ"
+
+#: admin/partials/ui-customizer-map.php:105
+msgid "Adjust how close markers must be before they form a cluster."
+msgstr "マーカーがクラスターを形成する前に、マーカーがどの程度近づく必要があるかを調整します。"
+
+#: admin/partials/ui-customizer-map.php:109
+msgid "Zoom Behavior"
+msgstr "ズーム動作"
+
+#: admin/partials/ui-customizer-map.php:111
+msgid "Initial Zoom"
+msgstr "初期ズーム"
+
+#: admin/partials/ui-customizer-map.php:111
+msgid "Set the zoom level when the locator first loads."
+msgstr "ロケーターが最初に読み込まれるときにズーム レベルを設定します。"
+
+#: admin/partials/ui-customizer-map.php:112
+msgid "Store Selection Zoom"
+msgstr "ストア選択ズーム"
+
+#: admin/partials/ui-customizer-map.php:112
+msgid "Set the zoom level after a visitor selects a store."
+msgstr "訪問者が店舗を選択した後にズーム レベルを設定します。"
+
+#: admin/partials/ui-customizer-map.php:113
+msgid "Search Result Zoom"
+msgstr "検索結果のズーム"
+
+#: admin/partials/ui-customizer-map.php:113
+msgid "Set the zoom level after an address search."
+msgstr "住所検索後のズームレベルを設定します。"
+
+#: admin/partials/ui-customizer-map.php:116
+msgid "Scroll Wheel Zoom"
+msgstr "スクロール ホイール ズーム"
+
+#: admin/partials/ui-customizer-map.php:116
+msgid "Choose whether scrolling over the locator zooms the map."
+msgstr "ロケーターをスクロールして地図をズームするかどうかを選択します。"
+
+#: admin/partials/ui-customizer-map.php:116
+msgid "Provider default"
+msgstr "プロバイダーのデフォルト"
+
+#: admin/partials/ui-customizer-map.php:117
+msgid "Open Map Customization"
+msgstr "オープンマップのカスタマイズ"
+
+#: admin/partials/user_setting.php:169
+msgid "OpenFreeMap (No API Key)"
+msgstr ""
+
+#: includes/admin/setting.php:1810
+msgid "Invalid map settings."
+msgstr ""
+
+#: includes/admin/setting.php:1820 includes/admin/setting.php:1833
+msgid "Invalid map setting."
+msgstr ""
+
+#: includes/admin/setting.php:1872
+msgid "Unable to save map settings. Please try again."
+msgstr ""
+
+#: admin/partials/ui-customizer-fields.php:124
+#: admin/partials/ui-customizer-map.php:17
+#: admin/partials/ui-customizer-map.php:19
+msgid "Dark"
+msgstr "ダーク"

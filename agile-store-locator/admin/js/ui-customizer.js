@@ -4,11 +4,11 @@
   if (!$root.length || typeof ASL_CUSTOMIZER === 'undefined') return;
   var $fields = $('#asl-fields-section'), $load = $('#btn-asl-load_uitemp'), $save = $('#btn-asl-save_uitemp'), $reset = $('#btn-asl-reset_uitemp'), $notice = $('#asl-customizer-notice');
   var template = '', activeTab = 'design', dirty = false, loading = false, frame = document.getElementById('asl-live-preview');
-  var appearanceBaseline = {}, filterBaseline = {}, previewTimer, mapResizeTimer, activeDevice = 'desktop';
+  var appearanceBaseline = {}, filterBaseline = {}, mapBaseline = {}, previewTimer, mapResizeTimer, activeDevice = 'desktop';
   function request(action, data) { return $.ajax({url: ASL_CUSTOMIZER.ajaxUrl, method: 'POST', dataType: 'json', data: $.extend({action: 'asl_ajax_handler', 'sl-action': action, 'asl-nounce': ASL_CUSTOMIZER.nonce}, data || {})}); }
   function message(text, type) { $notice.attr('class', 'asl-customizer__notice is-' + (type || 'success')).text(text).prop('hidden', false); clearTimeout(message.timer); message.timer = setTimeout(function () {$notice.prop('hidden', true);}, 4500); }
   function busy($button, state, text) { if (!$button.data('label')) $button.data('label', $button.html()); $button.prop('disabled', state).toggleClass('is-busy', state).html(state ? '<span class="spinner is-active"></span>' + text : $button.data('label')); }
-  function serialize() { var data = {}; $('#frm-asl-ui-customizer').serializeArray().forEach(function (field) {if (field.name.indexOf('appearance[') !== 0 && field.name.indexOf('filters[') !== 0 && field.name.indexOf('ui-') !== 0) data[field.name] = field.value;}); return data; }
+  function serialize() { var data = {}; $('#frm-asl-ui-customizer').serializeArray().forEach(function (field) {if (field.name.indexOf('appearance[') !== 0 && field.name.indexOf('filters[') !== 0 && field.name.indexOf('map[') !== 0 && field.name.indexOf('ui-') !== 0) data[field.name] = field.value;}); return data; }
   function layoutData() { var data = {}; $fields.find('[data-asl-layout]').each(function () {data[this.name] = this.value;}); return data; }
   function dimensionData() {var data = {}; $fields.find('[data-asl-dimension]').each(function () {data[this.name] = this.value.trim().toLowerCase();}); return data;}
   function validDimension(value) {return value === '' || (/^(?:\d+(?:\.\d+)?|\.\d+)(?:px|vh|vw|rem|em|%|vmin|vmax)$/.test(value) && parseFloat(value) > 0);}
@@ -135,6 +135,15 @@
     $.each(data, function (key, value) {if ($.isArray(value)) data[key] = value.join(',');});
     return data;
   }
+  function serializeMapSettings() {
+    var data = {};
+    $fields.find('[data-asl-map]').each(function () {
+      var match = this.name && this.name.match(/^map\[([^\]]+)\]/);
+      if (!match) return;
+      data[match[1]] = this.type === 'checkbox' ? (this.checked ? '1' : '0') : this.value;
+    });
+    return data;
+  }
   function syncFilterDependencies() {
     var filters = serializeFilters(), hasBrand = (filters.filter_ddl || '').split(',').indexOf('brand') !== -1, hasSpecial = (filters.filter_ddl || '').split(',').indexOf('special') !== -1;
     $fields.find('[data-filter-setting="brand_special_cascade"]').toggle(hasBrand && hasSpecial || $fields.find('[data-filter-setting="brand_special_cascade"]').is('[data-asl-locked]'));
@@ -142,7 +151,18 @@
     $fields.find('[data-filter-setting="show_opened"]').toggle(filters.time_switch === '1' || $fields.find('[data-filter-setting="show_opened"]').is('[data-asl-locked]'));
     $('#asl-filter-distance_control, #asl-filter-fixed_radius').closest('.asl-filter-setting').toggle(filters.distance_slider === '1');
   }
-  function snapshot() { return JSON.stringify({design: serialize(), appearance: serializeAppearance(), filters: serializeFilters()}); }
+  function syncMapDependencies() {
+    var settings = serializeMapSettings();
+    $fields.find('[data-map-setting="geo_marker_id"]').toggle(settings.geo_marker === '1');
+    $fields.find('[data-map-setting="cluster_max_zoom"], [data-map-setting="cluster_grid_size"]').toggle(settings.cluster === '1');
+    $fields.find('.asl-map-range').each(function () {
+      var min = Number(this.min), max = Number(this.max), value = Number(this.value), percent = max > min ? (value - min) / (max - min) * 100 : 0;
+      this.style.background = 'linear-gradient(to right,#1677df 0%,#1677df ' + percent + '%,#e5eaf1 ' + percent + '%,#e5eaf1 100%)';
+      $(this).closest('.asl-map-range-control').find('[data-asl-map-range-value]').text(value);
+      this.setAttribute('aria-valuetext', 'Zoom level ' + value);
+    });
+  }
+  function snapshot() { return JSON.stringify({design: serialize(), appearance: serializeAppearance(), filters: serializeFilters(), map: serializeMapSettings()}); }
   function reloadPreview() {
     clearTimeout(previewTimer);
     if (!template) return;
@@ -150,6 +170,7 @@
     url.searchParams.set('template', template.replace(/^template-/, ''));
     $.each(serializeAppearance(), function (key, value) {url.searchParams.set('appearance[' + key + ']', value);});
     $.each(serializeFilters(), function (key, value) {url.searchParams.set('filters[' + key + ']', value);});
+    $.each(serializeMapSettings(), function (key, value) {url.searchParams.set('map[' + key + ']', value);});
     $.each(layoutData(), function (key, value) {url.searchParams.set('locator_layout[' + key + ']', value);});
     $.each(dimensionData(), function (key, value) {if (validDimension(value)) url.searchParams.set('locator_dimensions[' + key + ']', value);});
     frame.src = url.href;
@@ -158,8 +179,10 @@
   function syncPrimaryColorLinks() {
     if (template !== 'template-0') return;
     var quickStyle = $fields.find('[name="quick-style"]').val();
+    var tabUsesPrimary = quickStyle === 'default' || quickStyle === 'dark';
     $fields.find('[name="header-color"]').siblings('.colorpicker').toggleClass('clr-copy', quickStyle === 'modern');
     $fields.find('[name="header"]').siblings('.colorpicker').toggleClass('light-90', quickStyle !== 'dark' && quickStyle !== 'modern');
+    $fields.find('[name="tab-selected-bg"], [name="tab-selected-border"]').siblings('.colorpicker').toggleClass('clr-copy', tabUsesPrimary);
   }
   function updatePreview() {
     var doc;
@@ -216,7 +239,9 @@
       dirty = false;
       appearanceBaseline = serializeAppearance();
       filterBaseline = serializeFilters();
+      mapBaseline = serializeMapSettings();
       syncFilterDependencies();
+      syncMapDependencies();
       syncDimensionControls();
       syncProportion();
       reloadPreview();
@@ -238,13 +263,14 @@
     var form = document.getElementById('frm-asl-ui-customizer'), invalid = form.querySelector(':invalid');
     if (invalid) { showTab($(invalid).closest('.asl-customizer-pane').attr('id').replace('asl-pane-', ''), true); form.reportValidity(); return; }
     var data = serialize();
-    var appearance = serializeAppearance(), filters = serializeFilters(), changedAppearance = {}, changedFilters = {}, savedSnapshot = snapshot();
+    var appearance = serializeAppearance(), filters = serializeFilters(), mapSettings = serializeMapSettings(), changedAppearance = {}, changedFilters = {}, changedMapSettings = {}, savedSnapshot = snapshot();
     $.each(appearance, function (key, value) {if (appearanceBaseline[key] !== value) changedAppearance[key] = value;});
     $.each(filters, function (key, value) {if (filterBaseline[key] !== value) changedFilters[key] = value;});
+    $.each(mapSettings, function (key, value) {if (mapBaseline[key] !== value) changedMapSettings[key] = value;});
     busy($save, true, ASL_CUSTOMIZER.strings.saving);
     $load.add($reset).add('#asl-ui-template').prop('disabled', true);
-    request('sl_theme_ui_save', {sl_template: template, sl_formData: data, sl_appearance: changedAppearance, sl_filters: changedFilters}).done(function (response) {
-      if (response.success) {appearanceBaseline = appearance; filterBaseline = filters; if (savedSnapshot === snapshot()) dirty = false;}
+    request('sl_theme_ui_save', {sl_template: template, sl_formData: data, sl_appearance: changedAppearance, sl_filters: changedFilters, sl_map: changedMapSettings}).done(function (response) {
+      if (response.success) {appearanceBaseline = appearance; filterBaseline = filters; mapBaseline = mapSettings; if (savedSnapshot === snapshot()) dirty = false;}
       message(response.success ? ASL_CUSTOMIZER.strings.saved : (response.error || ASL_CUSTOMIZER.strings.error), response.success ? 'success' : 'error');
     }).fail(function () {message(ASL_CUSTOMIZER.strings.error, 'error');}).always(function () {busy($save, false); $load.add($reset).add('#asl-ui-template').prop('disabled', false);});
   });
@@ -288,6 +314,7 @@
   $fields.on('input change', 'input[type="number"]', function () {dirty = true; if (this.checkValidity()) updatePreview();});
   $fields.on('change', '[data-asl-appearance]', function () {dirty = true; clearTimeout(previewTimer); previewTimer = setTimeout(reloadPreview, 300);});
   $fields.on('input change', '[data-asl-filter]', function () {dirty = true; syncFilterDependencies(); clearTimeout(previewTimer); previewTimer = setTimeout(reloadPreview, 300);});
+  $fields.on('input change', '[data-asl-map]', function () {dirty = true; syncMapDependencies(); clearTimeout(previewTimer); previewTimer = setTimeout(reloadPreview, 300);});
   $fields.on('input change', '[data-asl-dimension]', function (event) {
     if (event.type === 'change') this.value = this.value.trim().toLowerCase();
     dirty = true;

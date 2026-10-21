@@ -10,6 +10,12 @@
   width: auto;
 }
 
+.asl-cont .asl-maplibre-marker:hover,
+.asl-cont .asl-maplibre-marker:focus,
+.asl-cont .asl-maplibre-marker:active {
+  background-color: transparent !important;
+}
+
 .asl-common-map-marker {
   background: transparent;
   border: 0;

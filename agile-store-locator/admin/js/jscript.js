@@ -4737,11 +4737,12 @@ var asl_engine = window['asl_engine'] || {};
         $form.find('#asl-distance_control-1').prop('checked', true);
         $form.find('#asl-tabs_layout-1, #asl-tabs_layout-2').prop('checked', false).prop('disabled', true);
         $form.find('#asl-tabs_layout-0').prop('checked', true);
+        $form.find('#asl-category_marker').prop('checked', false).prop('disabled', true);
       }
 
       enforceFreeLayoutControls();
 
-      $form.on('change', 'input[name="data[distance_control]"], input[name="data[tabs_layout]"]', enforceFreeLayoutControls);
+      $form.on('change', 'input[name="data[distance_control]"], input[name="data[tabs_layout]"], input[name="data[category_marker]"]', enforceFreeLayoutControls);
 
       // Present the two legacy search settings as one simple admin control.
       // The hidden fields keep saved data and frontend/shortcode behavior compatible.
@@ -4793,6 +4794,7 @@ var asl_engine = window['asl_engine'] || {};
       // that apply to the selected map/search combination.
       var savedTileProviderStyle = String(_configs.tile_provider_style || 'default');
       var tileProviderStyles = {
+        openfreemap: [['default', 'Liberty'], ['bright', 'Bright'], ['positron', 'Positron'], ['dark', 'Dark'], ['fiord', 'Fiord']],
         geoapify: [['default', 'Default Provider Style'], ['osm-bright-smooth', 'Bright Smooth'], ['osm-carto', 'OSM Carto'], ['positron', 'Positron'], ['dark-matter', 'Dark Matter']],
         mapbox: [['default', 'Default Provider Style'], ['streets-v12', 'Streets'], ['outdoors-v12', 'Outdoors'], ['light-v11', 'Light'], ['dark-v11', 'Dark'], ['satellite-v9', 'Satellite'], ['satellite-streets-v12', 'Satellite Streets']],
         maptiler: [['default', 'Default Provider Style'], ['streets-v4', 'Streets'], ['basic-v2', 'Basic'], ['bright-v2', 'Bright'], ['outdoor-v2', 'Outdoor'], ['topo-v2', 'Topographic'], ['satellite', 'Satellite']]
@@ -4860,6 +4862,12 @@ var asl_engine = window['asl_engine'] || {};
         $('#asl-map_vendor').val(this.getAttribute('data-map-vendor')).trigger('change');
       });
 
+      $('#asl-tile_provider').on('change', function() {
+        if (String(this.value || '') !== 'custom') $('#asl-maplibre_style_url').val('');
+      });
+      $('#asl-tile_provider_style').on('change', function() {
+        $('#asl-maplibre_style_url').val('');
+      });
       $('#asl-map_vendor, #asl-tile_provider, input[name="data[map_layout]"]').on('change', refreshMapProviderSettings);
       refreshMapProviderSettings();
 
@@ -5078,6 +5086,7 @@ var asl_engine = window['asl_engine'] || {};
         // supported Free values explicitly with every settings request.
         all_data.data.distance_control = '1';
         all_data.data.tabs_layout = '0';
+        all_data.data.category_marker = '0';
 
 
         //  Save the custom Map
@@ -5362,21 +5371,84 @@ var asl_engine = window['asl_engine'] || {};
                                 <div class="form-group mb-2"><label class="small font-weight-bold">CSS Class</label><input maxlength="50" type="text" class="asl-attr-class form-control"></div>\
                               </details>\
                             </td>\
-                            <td><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="textarea">Textarea</option><option value="richtext">Rich Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option><option value="page_link">Internal Page Link</option></select></div></td>\
+                            <td><div class="form-group"><select class="form-control asl-attr-type"><option value="text">Text</option><option value="social">Social Link</option><option value="textarea">Textarea</option><option value="richtext">Rich Textarea</option><option value="dropdown">Dropdown</option><option value="radio">Radio List</option><option value="checkbox">Checkbox</option><option value="gallery">Gallery</option><option value="page_link">Internal Page Link</option></select></div></td>\
                             <td><div class="form-group"><select class="form-control asl-attr-section"><option value="other">Other Details tab</option><option value="address">Store Address tab</option></select><small class="form-text text-muted">Choose where this field appears when editing a store.</small></div></td>\
                             <td><div class="form-group-inner mt-2 d-flex align-items-center"><label class="switch" for="asl-cf-req-'+field_uniq_id+'"><input type="checkbox" value="1" class="asl-attr-require custom-control-input" id="asl-cf-req-'+field_uniq_id+'"><span class="slider round"></span></label><span class="asl-required-status ml-2">No</span></div></td>\
                             <td><button type="button" class="btn btn-link text-danger add-k-delete glyp-trash" title="Remove field"><svg width="16" height="16"><use xlink:href="#i-trash"></use></svg><span>Remove</span></button></td>\
                           </tr>');
         
+        addSocialPlatformControl($new_slot);
         var $cur_slot = $('.asl-attr-manage tbody').append($new_slot);
+        syncSocialPlatforms();
       });
 
+
+      var socialPlatforms = window.asl_social_platforms || {};
+
+      function syncSocialPlatforms() {
+        var used = Object.create(null), $firstDuplicate = null;
+        var $rows = $('.asl-custom-field-row');
+        $rows.find('.asl-platform-error').remove();
+        $rows.each(function () {
+          var $row = $(this), platform = $row.find('.asl-social-platform').val();
+          if ($row.find('.asl-attr-type').val() !== 'social' || !platform || platform === 'custom') return;
+          if (used[platform]) {
+            $('<div class="asl-platform-error text-danger" role="alert"></div>')
+              .text('This platform is already selected. Choose another platform or remove this field.')
+              .appendTo($row.find('.asl-social-platform-group'));
+            if (!$firstDuplicate) $firstDuplicate = $row.find('.asl-social-platform');
+          }
+          used[platform] = true;
+        });
+        $rows.each(function () {
+          var $select = $(this).find('.asl-social-platform'), selected = $select.val();
+          var isSocial = $(this).find('.asl-attr-type').val() === 'social';
+          $select.find('option').each(function () {
+            this.disabled = this.value !== 'custom' && (!isSocial || this.value !== selected) && !!used[this.value];
+          });
+        });
+        return $firstDuplicate;
+      }
+
+      function addSocialPlatformControl($row) {
+        var $group = $('<div class="asl-social-platform-group d-none mb-2"></div>');
+        $('<label class="small font-weight-bold"></label>').text('Platform').appendTo($group);
+        var $select = $('<select class="form-control asl-social-platform"></select>').appendTo($group);
+        $.each(socialPlatforms, function (key, platform) {
+          $('<option></option>').val(key).text(platform.label).appendTo($select);
+        });
+        $('<small class="form-text text-muted"></small>').text('Choose Custom to use your own label and icon class in Advanced settings.').appendTo($group);
+        $row.find('.asl-field-advanced').before($group);
+        syncSocialPlatforms();
+      }
+
+      function applySocialPlatform($row) {
+        var platform = socialPlatforms[$row.find('.asl-social-platform').val()];
+        if (!platform) return;
+        // Existing internal names stay fixed so saved store URLs remain connected.
+        if ($row.attr('data-existing-field') !== '1' && platform.name) {
+          var name = platform.name, suffix = 2;
+          var usedNames = $('.asl-attr-name').not($row.find('.asl-attr-name')).map(function () {return this.value;}).get();
+          while (usedNames.indexOf(name) !== -1) name = platform.name + '_' + suffix++;
+          $row.find('.asl-attr-name').val(name).attr('data-auto-name', '0');
+        }
+        if (platform.name) $row.find('.asl-attr-label').val(platform.label);
+        $row.find('.asl-attr-class').val(platform.css_class);
+      }
+
+      $('.asl-custom-field-row').attr('data-existing-field', '1');
+      syncSocialPlatforms();
+      $('.asl-attr-manage tbody').on('change', '.asl-social-platform', function () {
+        if (syncSocialPlatforms()) return;
+        applySocialPlatform($(this).closest('tr'));
+      });
 
       //  Delete current field
       $('.asl-attr-manage tbody').on('click', '.add-k-delete', function(e) {
         var field_label = $(this).closest('tr').find('.asl-attr-label').val() || 'this field';
         if (window.confirm('Remove "' + field_label + '"? Existing store values for this field will no longer be available in the form.')) {
           $(this).closest('tr').remove();
+          syncSocialPlatforms();
         }
       });
 
@@ -5387,6 +5459,16 @@ var asl_engine = window['asl_engine'] || {};
         var $this_tr       = $(this).closest('tr'),
             $option_field  = $this_tr.find('.asl-attr-options'),
             $choices_group = $this_tr.find('.asl-field-choices');
+
+        $this_tr.find('.asl-social-platform-group').toggleClass('d-none', this.value !== 'social');
+        if (this.value === 'social') {
+          var $platform = $this_tr.find('.asl-social-platform');
+          if ($platform.find('option:selected').prop('disabled')) {
+            $platform.val($platform.find('option:not(:disabled)').first().val());
+          }
+          applySocialPlatform($this_tr);
+        }
+        syncSocialPlatforms();
 
 
         if (['dropdown', 'radio'].includes(this.value)) {
@@ -5433,6 +5515,13 @@ var asl_engine = window['asl_engine'] || {};
       //  Save Event for the Fields
       $('#btn-asl-save-schema').on('click', function(e) {
 
+        var $duplicatePlatform = syncSocialPlatforms();
+        if ($duplicatePlatform) {
+          $duplicatePlatform[0].scrollIntoView({block: 'center'});
+          $duplicatePlatform.trigger('focus');
+          return;
+        }
+
         $('.asl-custom-field-row').each(function() {
           var $row = $(this),
               $name = $row.find('.asl-attr-name');
@@ -5442,6 +5531,27 @@ var asl_engine = window['asl_engine'] || {};
             $name.attr('data-auto-name', '0');
           }
         });
+
+        $field_form.find('.asl-field-name-error').remove();
+        var fieldNames = Object.create(null), duplicateName = false, $firstDuplicate;
+        $('.asl-attr-name').each(function () {
+          var name = $(this).val();
+          if (fieldNames[name]) {
+            var $row = $(this).closest('tr');
+            $row.find('.asl-field-advanced').prop('open', true);
+            $('<div class="asl-field-name-error text-danger" role="alert"></div>')
+              .text('Duplicate field name: ' + name + '. Remove this field or enter a different Internal Field Name in Advanced settings.')
+              .prependTo($row.children('td').first());
+            if (!$firstDuplicate) $firstDuplicate = $(this);
+            duplicateName = true;
+          }
+          fieldNames[name] = true;
+        });
+        if (duplicateName) {
+          $firstDuplicate[0].scrollIntoView({block: 'center'});
+          $firstDuplicate.trigger('focus');
+          return;
+        }
 
         if (!$field_form.validationEngine('validate')) return;
 
@@ -5462,7 +5572,7 @@ var asl_engine = window['asl_engine'] || {};
                 css_class     = $tr.find('.asl-attr-class').val(),
                 field_require = ($tr.find('.asl-attr-require')[0].checked)? 1: 0;
 
-            custom_fields[field_name] = {name: field_name, label: field_label, type: field_type, options: field_options, require: field_require, section: field_section, css_class: css_class };
+            custom_fields[field_name] = {name: field_name, label: field_label, type: field_type, options: field_options, require: field_require, section: field_section, css_class: css_class, platform: field_type === 'social' ? $tr.find('.asl-social-platform').val() : '' };
         });
 
         //  Send an AJAX Request
@@ -5475,6 +5585,7 @@ var asl_engine = window['asl_engine'] || {};
 
           if (_response && _response.success) {
             $('.asl-attr-name').attr('data-auto-name', '0');
+            $('.asl-custom-field-row').attr('data-existing-field', '1');
           }
 
           toastIt(_response);

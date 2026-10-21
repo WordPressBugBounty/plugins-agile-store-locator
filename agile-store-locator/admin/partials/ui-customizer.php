@@ -46,7 +46,7 @@
   <main class="asl-customizer__workspace is-panel-open">
     <nav class="asl-customizer-rail" role="tablist" aria-orientation="vertical"
       aria-label="<?php esc_attr_e('Customizer settings', 'asl_locator'); ?>">
-      <?php foreach (['design' => ['Design', 'art'], 'layout' => ['Layout', 'screenoptions'], 'filters' => ['Filters', 'filter']] as $tab => $item): ?>
+      <?php foreach (['design' => ['Design', 'art'], 'layout' => ['Layout', 'screenoptions'], 'filters' => ['Filters', 'filter'], 'map' => ['Map', 'location-alt']] as $tab => $item): ?>
         <button type="button" id="asl-tab-<?php echo esc_attr($tab); ?>" role="tab"
           aria-controls="asl-pane-<?php echo esc_attr($tab); ?>"
           aria-selected="<?php echo $tab === 'design' ? 'true' : 'false'; ?>" data-asl-tab="<?php echo esc_attr($tab); ?>"

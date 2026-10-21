@@ -131,6 +131,24 @@ class App
             elseif ($key === 'fixed_radius' && ($value === '' || (ctype_digit($value) && (int) $value > 0))) $attributes[$key] = $value;
             elseif ($key === 'select_category' && ($value === '' || preg_match('/^\d+(?:,\d+)*$/', $value))) $attributes[$key] = $value;
         }
+        $map_settings = isset($_GET['map']) && is_array($_GET['map']) ? wp_unslash($_GET['map']) : [];
+        $boolean_map_settings = ['category_marker', 'marker_title', 'marker_label', 'geo_marker', 'radius_circle', 'cluster', 'fit_bound'];
+        $zoom_map_settings = ['cluster_max_zoom', 'zoom', 'zoom_li', 'search_zoom'];
+        $allowed_map_styles = ['default', 'bright', 'positron', 'dark', 'fiord', 'osm-bright-smooth', 'osm-carto', 'dark-matter', 'streets-v12', 'outdoors-v12', 'light-v11', 'dark-v11', 'satellite-v9', 'satellite-streets-v12', 'streets-v4', 'basic-v2', 'bright-v2', 'outdoor-v2', 'topo-v2', 'satellite'];
+        $allowed_marker_icons = array_map('strval', $GLOBALS['wpdb']->get_col('SELECT icon FROM ' . ASL_PREFIX . 'markers'));
+        $allowed_marker_ids = array_map('strval', $GLOBALS['wpdb']->get_col('SELECT id FROM ' . ASL_PREFIX . 'markers'));
+        foreach ($map_settings as $key => $value) {
+            if (!is_string($value)) continue;
+            if ($key === 'category_marker' && $value === '0') $attributes[$key] = $value;
+            elseif (in_array($key, $boolean_map_settings, true) && in_array($value, ['0', '1'], true)) $attributes[$key] = $value;
+            elseif (in_array($key, $zoom_map_settings, true) && ctype_digit($value) && (int) $value <= 22) $attributes[$key] = $value;
+            elseif ($key === 'cluster_grid_size' && ctype_digit($value) && (int) $value >= 20 && (int) $value <= 200) $attributes[$key] = $value;
+            elseif ($key === 'active_marker' && ($value === '' || in_array($value, $allowed_marker_icons, true))) $attributes[$key] = $value;
+            elseif ($key === 'geo_marker_id' && ($value === '' || in_array($value, $allowed_marker_ids, true))) $attributes[$key] = $value;
+            elseif ($key === 'tile_provider_style' && in_array($value, $allowed_map_styles, true)) $attributes[$key] = $value;
+            elseif ($key === 'scroll_wheel' && in_array($value, ['default', '0', '1'], true)) $attributes[$key] = $value;
+        }
+        if (isset($attributes['tile_provider_style'])) $attributes['maplibre_style_url'] = '';
         $layout = isset($_GET['locator_layout']) && is_array($_GET['locator_layout']) ? wp_unslash($_GET['locator_layout']) : [];
         if (in_array($template, \AgileStoreLocator\Helper::customizer_layout_templates(), true)) {
             foreach ($layout as $key => $value) {
@@ -1779,6 +1797,7 @@ class App
         }
         $all_configs['distance_control'] = '1';
         $all_configs['tabs_layout'] = '0';
+        $all_configs['category_marker'] = '0';
 
         //  Keep the local language vars synced with programmatic changes.
         if (isset($all_configs['lang']) && strlen($all_configs['lang']) <= 13) {
@@ -2193,7 +2212,7 @@ class App
         //  Get the active Marker
         $active_marker = $wpdb->get_results('SELECT icon FROM '.ASL_PREFIX."markers WHERE marker_name = 'Active' ORDER BY id DESC LIMIT 1");
 
-        if ($active_marker && $active_marker[0]) {
+        if (!array_key_exists('active_marker', $all_configs) && $active_marker && $active_marker[0]) {
             $all_configs['active_marker'] = $active_marker[0]->icon;
         }
 

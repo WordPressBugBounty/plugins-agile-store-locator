@@ -146,6 +146,7 @@ class Setting extends Base
         // The free version supports the distance dropdown only.
         $data_['distance_control'] = '1';
         $data_['tabs_layout'] = '0';
+        $data_['category_marker'] = '0';
 
         //  Config keys
         $keys = array_keys($data_);
@@ -1697,6 +1698,10 @@ class Setting extends Base
         $filter_controls = \AgileStoreLocator\Model\Attribute::get_controls();
         $filter_categories = \AgileStoreLocator\Model\Category::get_categories('', 'category_name');
 
+        $map_keys = ['map_vendor', 'tile_provider', 'tile_provider_style', 'advanced_marker', 'active_marker', 'category_marker', 'marker_title', 'marker_label', 'geo_marker', 'geo_marker_id', 'radius_circle', 'cluster', 'cluster_max_zoom', 'cluster_grid_size', 'zoom', 'zoom_li', 'search_zoom', 'fit_bound', 'scroll_wheel'];
+        $map_settings = \AgileStoreLocator\Helper::get_configs($map_keys);
+        $map_markers = $wpdb->get_results('SELECT id, marker_name, icon FROM ' . ASL_PREFIX . 'markers ORDER BY marker_name');
+
         // include ui customizer fields products HTML
         include ASL_PLUGIN_PATH . 'admin/partials/ui-customizer-fields.php';
 
@@ -1800,6 +1805,39 @@ class Setting extends Base
             }
         }
 
+        $map_settings = isset($_POST['sl_map']) ? wp_unslash($_POST['sl_map']) : [];
+        if (!is_array($map_settings)) {
+            $response->error = esc_html__('Invalid map settings.', 'asl_locator');
+            return $this->send_response($response);
+        }
+        $boolean_map_settings = ['category_marker', 'marker_title', 'marker_label', 'geo_marker', 'radius_circle', 'cluster', 'fit_bound'];
+        $zoom_map_settings = ['cluster_max_zoom', 'zoom', 'zoom_li', 'search_zoom'];
+        $allowed_map_styles = ['default', 'bright', 'positron', 'dark', 'fiord', 'osm-bright-smooth', 'osm-carto', 'dark-matter', 'streets-v12', 'outdoors-v12', 'light-v11', 'dark-v11', 'satellite-v9', 'satellite-streets-v12', 'streets-v4', 'basic-v2', 'bright-v2', 'outdoor-v2', 'topo-v2', 'satellite'];
+        $allowed_marker_icons = array_map('strval', $wpdb->get_col('SELECT icon FROM ' . ASL_PREFIX . 'markers'));
+        $allowed_marker_ids = array_map('strval', $wpdb->get_col('SELECT id FROM ' . ASL_PREFIX . 'markers'));
+        foreach ($map_settings as $key => $value) {
+            if (!is_string($value)) {
+                $response->error = esc_html__('Invalid map setting.', 'asl_locator');
+                return $this->send_response($response);
+            }
+            $valid = false;
+            if ($key === 'category_marker') $valid = $value === '0';
+            elseif (in_array($key, $boolean_map_settings, true)) $valid = in_array($value, ['0', '1'], true);
+            elseif (in_array($key, $zoom_map_settings, true)) $valid = ctype_digit($value) && (int) $value <= 22;
+            elseif ($key === 'cluster_grid_size') $valid = ctype_digit($value) && (int) $value >= 20 && (int) $value <= 200;
+            elseif ($key === 'active_marker') $valid = $value === '' || in_array($value, $allowed_marker_icons, true);
+            elseif ($key === 'geo_marker_id') $valid = $value === '' || in_array($value, $allowed_marker_ids, true);
+            elseif ($key === 'tile_provider_style') $valid = in_array($value, $allowed_map_styles, true);
+            elseif ($key === 'scroll_wheel') $valid = in_array($value, ['default', '0', '1'], true);
+            if (!$valid) {
+                $response->error = esc_html__('Invalid map setting.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+        if (array_key_exists('tile_provider_style', $map_settings)) {
+            $map_settings['maplibre_style_url'] = '';
+        }
+
         $data = json_encode($data_);
 
         $saved = \AgileStoreLocator\Helper::set_setting($data, 'ui-template', $template);
@@ -1823,6 +1861,15 @@ class Setting extends Base
             $updated = $exists ? $wpdb->update(ASL_PREFIX . 'configs', ['value' => $value], ['key' => $key]) : $wpdb->insert(ASL_PREFIX . 'configs', ['key' => $key, 'value' => $value]);
             if (false === $updated) {
                 $response->error = esc_html__('Unable to save filter settings. Please try again.', 'asl_locator');
+                return $this->send_response($response);
+            }
+        }
+
+        foreach ($map_settings as $key => $value) {
+            $exists = $wpdb->get_var($wpdb->prepare('SELECT COUNT(*) FROM ' . ASL_PREFIX . 'configs WHERE `key` = %s', $key));
+            $updated = $exists ? $wpdb->update(ASL_PREFIX . 'configs', ['value' => $value], ['key' => $key]) : $wpdb->insert(ASL_PREFIX . 'configs', ['key' => $key, 'value' => $value]);
+            if (false === $updated) {
+                $response->error = esc_html__('Unable to save map settings. Please try again.', 'asl_locator');
                 return $this->send_response($response);
             }
         }
@@ -1900,6 +1947,7 @@ class Setting extends Base
 
         //  Filter the JSON for XSS
         $filter_fields = [];
+        $social_platforms_used = [];
 
         foreach ($fields as $field_key => $field) {
             $field_key = strip_tags($field_key);
@@ -1907,6 +1955,19 @@ class Setting extends Base
             $field['type'] = strip_tags(sanitize_text_field($field['type']));
             $field['name'] = strip_tags(sanitize_text_field($field['name']));
             $field['label'] = strip_tags(sanitize_text_field($field['label']));
+            if ($field['type'] === 'social') {
+                $platforms = \AgileStoreLocator\Helper::social_platforms();
+                $field['platform'] = isset($platforms[$field['platform'] ?? '']) ? $field['platform'] : 'custom';
+                if ($field['platform'] !== 'custom') {
+                    if (isset($social_platforms_used[$field['platform']])) {
+                        $response->error = esc_attr__('Each social platform can only be selected once. Remove the duplicate field or choose another platform.', 'asl_locator');
+                        return $this->send_response($response);
+                    }
+                    $social_platforms_used[$field['platform']] = true;
+                }
+                $field['css_class'] = sanitize_text_field($field['css_class'] ?? '');
+            }
+
             $field['section'] = isset($field['section']) && in_array($field['section'], ['address', 'other'], true)
                 ? $field['section']
                 : 'other';
